@@ -2,6 +2,7 @@ package br.itb.projeto.vitalususPlus.service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +41,7 @@ public class UsuarioService {
 	}
 	public Usuario save(Usuario usuario){
 		usuario.setId(null);
+		Base64.getEncoder().encode(usuario.getSenha().getBytes());
 		usuario.setDataCadastro(LocalDateTime.now());
 		usuario.getDataCadastro().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		return usuarioRepository.save(usuario);
