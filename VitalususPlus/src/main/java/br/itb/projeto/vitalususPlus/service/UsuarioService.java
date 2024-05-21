@@ -23,34 +23,52 @@ public class UsuarioService {
 		this.usuarioRepository = usuarioRepository;
 	}
 
-	public List<Usuario> findAll(){
+	public List<Usuario> findAll() {
 		List<Usuario> listaUsuarios = usuarioRepository.findAll();
 		return listaUsuarios;
 	}
+
 	public Usuario findById(long id) {
 		Optional<Usuario> usuario = this.usuarioRepository.findById(id);
-		return usuario.orElseThrow(() -> new RuntimeException(
-				"Usuário não encontrado"
-		));
+		return usuario.orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 	}
+
 	public Usuario findByLogin(String email, String senha) {
-		Optional<Usuario> usuario = this.usuarioRepository.findByEmailAndSenha(email,senha);
-		return usuario.orElseThrow(() -> new RuntimeException(
-				"Usuário não encontrado"
-		));
+		Optional<Usuario> usuario = this.usuarioRepository.findByEmailAndSenha(email, senha);
+		return usuario.orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 	}
-	public Usuario save(Usuario usuario){
+
+	public Usuario findByEmail(String email) {
+		Usuario usuario = this.usuarioRepository.findByEmail(email);
+		return usuario;
+	}
+
+	public Usuario save(Usuario usuario) {
 		usuario.setId(null);
-		Base64.getEncoder().encode(usuario.getSenha().getBytes());
+		String senha = Base64.getEncoder().encodeToString(usuario.getSenha().getBytes());
+		usuario.setSenha(senha);
 		usuario.setDataCadastro(LocalDateTime.now());
 		usuario.getDataCadastro().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		return usuarioRepository.save(usuario);
 	}
+
 	public void delete(Usuario usuario) {
 		this.usuarioRepository.delete(usuario);
 	}
-	public Usuario update(Usuario usuario){
+
+	public Usuario update(Usuario usuario) {
 		usuario.getDataCadastro().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		return usuarioRepository.save(usuario);
+	}
+
+	public Usuario sigin(String email, String senha) {
+		Usuario usuario = usuarioRepository.findByEmail(email);
+		if (usuario.getStatusUsuario().equals("ATIVO")) {
+			byte[] decodedPass = Base64.getDecoder().decode(usuario.getSenha());
+			if (new String(decodedPass).equals(senha)) {
+				return usuario;
+			}
+		}
+		return null;
 	}
 }
