@@ -63,7 +63,7 @@ public class UsuarioController {
 	@PostMapping("login")
 	public ResponseEntity<?> sigin(@RequestParam String email, @RequestParam String senha) {
 		Usuario usuario = usuarioService.sigin(email, senha);
-		if (usuario == null) {
+		if (usuario != null) {
 			return ResponseEntity.ok().body(usuario);
 		}
 		return ResponseEntity.badRequest().body("Dados incorretos!");
