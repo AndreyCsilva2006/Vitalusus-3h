@@ -62,7 +62,7 @@ public class UsuarioController {
 
 	@PostMapping("login")
 	public ResponseEntity<?> sigin(@RequestParam String email, @RequestParam String senha) {
-		Usuario usuario = usuarioService.findByEmail(email);
+		Usuario usuario = usuarioService.sigin(email, senha);
 		if (usuario == null) {
 			return ResponseEntity.ok().body(usuario);
 		}
