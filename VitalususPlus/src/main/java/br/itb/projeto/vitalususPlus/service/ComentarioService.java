@@ -3,6 +3,7 @@ package br.itb.projeto.vitalususPlus.service;
 import br.itb.projeto.vitalususPlus.model.entity.Comentario;
 import br.itb.projeto.vitalususPlus.model.repository.ComentarioRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +26,7 @@ public class ComentarioService {
                 "Admin não encontrado"
         ));
     }
+    @Transactional
     public Comentario save(Comentario comentario){
         comentario.setId(null);
         return comentarioRepository.save(comentario);

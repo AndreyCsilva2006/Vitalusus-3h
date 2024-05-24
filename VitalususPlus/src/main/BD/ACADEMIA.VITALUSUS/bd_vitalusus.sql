@@ -115,7 +115,7 @@ VALUES(
 CREATE TABLE Treinador
 (
 	id	            INT			  IDENTITY,
-	cref			VARCHAR(12)	  UNIQUE NOT NULL,
+	cref			VARCHAR(21)	  UNIQUE NOT NULL,
 	dataNasc		DATE		  NOT NULL,
 	usuario_id		INT			  NOT NULL,
 	canal_id		INT			  NOT NULL,
