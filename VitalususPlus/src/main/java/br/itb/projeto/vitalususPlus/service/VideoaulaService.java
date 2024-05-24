@@ -5,6 +5,8 @@ import br.itb.projeto.vitalususPlus.model.entity.Canal;
 import br.itb.projeto.vitalususPlus.model.entity.Videoaula;
 import br.itb.projeto.vitalususPlus.model.repository.AlunoRepository;
 import br.itb.projeto.vitalususPlus.model.repository.VideoaulaRepository;
+import jakarta.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -32,6 +34,7 @@ public class VideoaulaService {
                 "Aluno não encontrado"
         ));
     }
+    @Transactional
     public Videoaula save(Videoaula videoaula){
         videoaula.setId(null);
         if (videoaula.getAlunos()==null){
