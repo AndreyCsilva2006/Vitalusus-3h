@@ -284,3 +284,16 @@ SELECT * FROM Comentario
 SELECT * FROM Aluno_segue_canal
 SELECT * FROM Aluno_videoaula
 SELECT * FROM Admin_usuario
+
+/*
+UPDATE Usuario SET nome = 'Maria Joana' WHERE id = 1
+
+DELETE FROM Admin_usuario WHERE id = 1
+DELETE FROM Evolucao WHERE id = 1
+DELETE FROM Aluno_segue_canal WHERE id = 1
+DELETE FROM Aluno_videoaula WHERE id = 1
+DELETE FROM Aluno WHERE id = 1
+DELETE FROM Comentario WHERE usuario_id = 1
+DELETE FROM Usuario WHERE id = 1
+
+*/
