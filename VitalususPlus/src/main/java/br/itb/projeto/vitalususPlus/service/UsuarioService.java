@@ -51,7 +51,17 @@ public class UsuarioService {
 		usuario.getDataCadastro().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		return usuarioRepository.save(usuario);
 	}
-
+	
+	public Usuario inativar(long id) {
+		Optional<Usuario> _usuario = usuarioRepository.findById(id);
+		if (_usuario.isPresent()) {
+			Usuario usuarioUpdatado = _usuario.get();
+			usuarioUpdatado.setStatusUsuario("INATIVO");
+			return usuarioRepository.save(usuarioUpdatado);
+		}
+		return null;
+	}
+	
 	public void delete(Usuario usuario) {
 		this.usuarioRepository.delete(usuario);
 	}

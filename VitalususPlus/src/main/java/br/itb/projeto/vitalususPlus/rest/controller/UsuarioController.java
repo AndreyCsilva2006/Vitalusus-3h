@@ -68,6 +68,12 @@ public class UsuarioController {
 		}
 		return ResponseEntity.badRequest().body("Dados incorretos!");
 	}
+	
+	@PutMapping("inativar/{id}")
+	public ResponseEntity<Usuario> inativar(@PathVariable long id){
+		Usuario usuarioUpdatado = usuarioService.inativar(id);
+		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
+	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
