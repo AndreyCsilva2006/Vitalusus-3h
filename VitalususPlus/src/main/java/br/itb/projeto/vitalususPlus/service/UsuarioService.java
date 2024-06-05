@@ -70,6 +70,17 @@ public class UsuarioService {
 		usuario.getDataCadastro().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		return usuarioRepository.save(usuario);
 	}
+	
+	public Usuario alterarSenha(long id, Usuario usuario) {
+		Optional<Usuario> _usuario = usuarioRepository.findById(id);
+		if (_usuario.isPresent()) {
+			Usuario usuarioUpdatado = _usuario.get();
+			String senha = Base64.getEncoder().encodeToString(usuario.getSenha().getBytes());
+			usuarioUpdatado.setSenha(senha);
+			return usuarioRepository.save(usuarioUpdatado);
+		}
+		return null;
+	}
 
 	public Usuario sigin(String email, String senha) {
 		Usuario usuario = usuarioRepository.findByEmail(email);

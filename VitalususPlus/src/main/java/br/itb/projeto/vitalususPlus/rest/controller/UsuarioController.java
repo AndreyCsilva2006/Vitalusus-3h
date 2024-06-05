@@ -74,6 +74,12 @@ public class UsuarioController {
 		Usuario usuarioUpdatado = usuarioService.inativar(id);
 		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
 	}
+	
+	@PutMapping("alterarSenha/{id}")
+	public ResponseEntity<Usuario> update(@PathVariable long id, @RequestBody Usuario usuario){
+		Usuario usuarioUpdatado = usuarioService.alterarSenha(id, usuario);
+		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
+	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
