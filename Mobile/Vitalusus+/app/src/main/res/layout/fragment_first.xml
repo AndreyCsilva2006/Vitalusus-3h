@@ -13,16 +13,6 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <Button
-            android:id="@+id/tutorialSeguinte1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="630dp"
-            android:text="@string/next"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/tutorialDescricao"
             android:layout_width="wrap_content"
@@ -30,7 +20,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="15dp"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/lato_bold"
             android:lineSpacingExtra="8sp"
             android:text="Bem Vindo(a) ao Vitalusus+ um aplicativo que irá te deixar mais saudável"
             android:textAlignment="center"
@@ -48,7 +38,7 @@
             android:layout_marginStart="138dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="138dp"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/inter_semibold"
             android:text="Vitalusus+ "
             android:textAlignment="center"
             android:textSize="32sp"
@@ -58,17 +48,31 @@
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="500dp"
-            android:layout_height="500dp"
+            android:layout_width="wrap_content"
+            android:layout_height="400dp"
             android:layout_marginStart="2dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="1dp"
             android:layout_marginEnd="2dp"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tutorialDescricao"
             tools:src="@drawable/logo"
             tools:visibility="visible" />
+
+        <ImageButton
+            android:id="@+id/tutorialSeguinte1"
+            android:layout_width="64dp"
+            android:layout_height="61dp"
+            android:layout_marginEnd="72dp"
+            android:background="@null"
+            android:backgroundTint="@null"
+            android:rotation="180"
+            android:scaleType="centerCrop"
+            android:src="@drawable/seta"
+            android:tint="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
