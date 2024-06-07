@@ -7,7 +7,7 @@ GO
 -- ACESSAR O BANCO DE DADOS
 USE bd_vitalusus2h
 GO
-
+ 
 -- Tabela Usuario
 CREATE TABLE Usuario
 ( 
@@ -59,14 +59,14 @@ VALUES(
 	'ADMINISTRADOR'
 )
 GO
-
+ 
 -- Tabela admin
 CREATE TABLE Administrador
 (
 	id			 INT		    IDENTITY,
 	usuario_id	 INT			NOT NULL,
 	numeroUsuarios INT			NOT NULL,
-
+ 
 	FOREIGN KEY(usuario_id) REFERENCES Usuario(id),
 	PRIMARY KEY (id),
 )
@@ -81,7 +81,7 @@ CREATE TABLE Aluno
 	altura		DECIMAL(10,2)		NOT NULL,
 	peso		DECIMAL(10,2)		NOT NULL,
 	usuario_id	INT					NOT NULL,
-
+ 
 	FOREIGN KEY(usuario_id) REFERENCES Usuario (id),
 	PRIMARY KEY(id)
 )
@@ -94,14 +94,14 @@ VALUES(
 	1
 )
 GO
-
+ 
 -- Tabela Canal
 CREATE TABLE Canal(
 	id				INT				IDENTITY,
 	visualizacoes	INT				NULL,
 	nome			VARCHAR(100)	NOT NULL,
 	seguidores		BIGINT			NOT NULL,
-
+ 
 	PRIMARY KEY (id)
 )
 GO
@@ -110,16 +110,16 @@ VALUES(
 	3243254,
 	'Paradas Musculat�rias', 1
 )
-
+ 
 -- Tabela Treinador
 CREATE TABLE Treinador
 (
 	id	            INT			  IDENTITY,
-	cref			VARCHAR(12)	  UNIQUE NOT NULL,
+	cref			VARCHAR(21)	  UNIQUE NOT NULL,
 	dataNasc		DATE		  NOT NULL,
 	usuario_id		INT			  NOT NULL,
 	canal_id		INT			  NOT NULL,
-
+ 
 	FOREIGN KEY (usuario_id) REFERENCES Usuario(id),
 	FOREIGN KEY (canal_id) REFERENCES Canal(id),
 	PRIMARY KEY (id)
@@ -133,13 +133,13 @@ VALUES(
 	1
 )
 GO
-
+ 
 -- Tabela Banco 
 CREATE TABLE Banco(
 	id				INT				IDENTITY,
 	numeroCartao	VARCHAR(16)		NOT NULL,
 	treinador_id	INT				NOT NULL,
-
+ 
 	FOREIGN KEY (treinador_id) REFERENCES Treinador(id),
 	PRIMARY KEY(id)
 )
@@ -147,7 +147,7 @@ GO
 INSERT Banco(numeroCartao, treinador_id)
 VALUES('1232334523123', 1)
 GO
-
+ 
 -- Tabela Videoaula
 CREATE TABLE Videoaula(
 	id				INT				IDENTITY,
@@ -158,7 +158,7 @@ CREATE TABLE Videoaula(
 	deslikes		INT				NULL,
 	canal_id		INT				NULL,
 	visualizacoes	BIGINT			NOT NULL,
-
+ 
 	FOREIGN KEY (canal_id) REFERENCES Canal(id),
 	PRIMARY KEY(id)
 )
@@ -174,7 +174,7 @@ VALUES(
 	123
 )
 GO
-
+ 
 GO
 -- Tabela Evolucao
 CREATE TABLE Evolucao(
@@ -184,11 +184,11 @@ CREATE TABLE Evolucao(
 	peso_atual		DECIMAL(10,2)	NULL,
 	altura_atual	DECIMAL(10,2)	NULL,
 	aluno_id		INT				NOT NULL,
-
+ 
 	PRIMARY KEY(id),
 	FOREIGN KEY(aluno_id) REFERENCES Aluno(id)
 )
-
+ 
 GO
 INSERT Evolucao(imc, met_basal, peso_atual, altura_atual, aluno_id)
 VALUES(
@@ -205,7 +205,7 @@ CREATE TABLE Comentario(
 	texto			VARCHAR(255)	NOT NULL,
 	usuario_id		INT				NOT NULL,
 	videoaula_id	INT				NOT NULL,
-
+ 
 	PRIMARY KEY (id),
 	FOREIGN KEY(usuario_id) REFERENCES Usuario(id),
 	FOREIGN KEY(videoaula_id) REFERENCES Videoaula(id)
@@ -223,7 +223,7 @@ CREATE TABLE Aluno_segue_canal(
 	id				INT				IDENTITY,
 	seguidor_id		INT				NOT NULL,
 	canal_id		INT				NOT NULL,
-
+ 
 	PRIMARY KEY(id),
 	FOREIGN KEY(seguidor_id) REFERENCES Aluno(id),
 	FOREIGN KEY(canal_id) REFERENCES Canal(id)
@@ -240,13 +240,13 @@ CREATE TABLE Aluno_videoaula(
 	id					INT				IDENTITY,
 	aluno_id			INT				NOT NULL,
 	videoaula_id		INT				NOT NULL,
-
+ 
 	PRIMARY KEY (id),
 	FOREIGN KEY(aluno_id) REFERENCES Aluno(id),
 	FOREIGN KEY(videoaula_id) REFERENCES Videoaula(id)
 )
 GO
-
+ 
 INSERT Aluno_videoaula(aluno_id, videoaula_id)
 VALUES(
 	1,
@@ -258,20 +258,20 @@ CREATE TABLE Admin_usuario(
 	id					INT				IDENTITY,
 	admin_id			INT				NOT NULL,
 	usuario_id			INT				NOT NULL,
-
+ 
 	PRIMARY KEY (id),
 	FOREIGN KEY(admin_id) REFERENCES Administrador(id),
 	FOREIGN KEY(usuario_id) REFERENCES Usuario(id)
 )
 GO
-
+ 
 INSERT Admin_usuario(admin_id, usuario_id)
 VALUES(
 	1,
 	1
 )
 GO
-
+ 
 SELECT * FROM Usuario
 SELECT * FROM Canal
 SELECT * FROM Videoaula
@@ -284,3 +284,4 @@ SELECT * FROM Comentario
 SELECT * FROM Aluno_segue_canal
 SELECT * FROM Aluno_videoaula
 SELECT * FROM Admin_usuario
+ 
