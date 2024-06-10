@@ -16,8 +16,41 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <View style="@style/containerComponents"
+    <View
+        android:id="@+id/containerComponents"
+        style="@style/ContainerComponents"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logoL" />
+
+    <EditText
+        android:id="@+id/edit_email"
+        style="@style/Edit_text"
+        android:drawableRight="@drawable/ic_email"
+        android:hint="E-Mail"
+        app:layout_constraintEnd_toEndOf="@id/containerComponents"
+        app:layout_constraintStart_toStartOf="@id/containerComponents"
+        app:layout_constraintTop_toTopOf="@id/containerComponents" />
+
+    <EditText
+        android:id="@+id/edit_senha"
+        style="@style/Edit_text"
+        android:hint="Senha"
+        android:drawableRight="@drawable/ic_eye"
+        app:layout_constraintStart_toStartOf="@id/containerComponents"
+        app:layout_constraintEnd_toEndOf="@id/containerComponents"
+        app:layout_constraintTop_toBottomOf="@id/edit_email"/>
+    
+    <androidx.appcompat.widget.AppCompatButton
+        style="@style/Button"
+        android:text="@string/entrar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logoL"/>
+        app:layout_constraintTop_toBottomOf="@id/edit_senha"
+        />
+
+
+    
 </androidx.constraintlayout.widget.ConstraintLayout>

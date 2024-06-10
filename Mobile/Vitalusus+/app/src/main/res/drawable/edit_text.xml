@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--Cor branca sólida-->
+    <solid android:color="@color/white" />
+    <!--borda e seu raio-->
+    <corners android:radius="2dp" />
+    <!--cor da borda e a sua largura da borda.-->
+    <stroke
+        android:width="20dp"
+        android:color="@color/black" />
+
+</shape>
