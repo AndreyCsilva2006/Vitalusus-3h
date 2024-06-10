@@ -24,5 +24,13 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_formLogin"
+            app:destination="@id/formLogin" />
     </fragment>
+    <activity
+        android:id="@+id/formLogin"
+        android:name="com.br.projeto.vitalusus.FormLogin"
+        android:label="activity_form_login"
+        tools:layout="@layout/activity_form_login" />
 </navigation>

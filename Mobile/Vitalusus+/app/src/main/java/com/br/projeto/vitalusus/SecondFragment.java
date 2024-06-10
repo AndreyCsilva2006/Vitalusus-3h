@@ -36,6 +36,12 @@ public class SecondFragment extends Fragment {
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
             }
         });
+        binding.buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(SecondFragment.this).navigate(R.id.action_SecondFragment_to_formLogin);
+            }
+        });
     }
 
     @Override

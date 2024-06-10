@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 public class FormLogin extends AppCompatActivity {
 
-    // Aviso: caso ao inciar o app e ir para esta tela, na pasta manifests foi alterado qual tela irá ser ligada
+    // Aviso: é possivel acessar o login através do second fragment
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
