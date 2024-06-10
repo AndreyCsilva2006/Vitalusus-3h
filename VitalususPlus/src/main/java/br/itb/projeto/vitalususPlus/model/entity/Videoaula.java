@@ -24,6 +24,10 @@ public class Videoaula {
 	private String titulo;
 	private long likes;
 	private long deslikes;
+	
+	@Lob
+	private byte[] video;
+	
 	@ManyToMany
 	@JoinTable(name="aluno_videoaula",
 			joinColumns = {@JoinColumn(name="videoaula_id")},
