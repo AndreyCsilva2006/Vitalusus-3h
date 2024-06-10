@@ -13,39 +13,59 @@ import br.itb.projeto.vitalususPlus.model.repository.TreinadorRepository;
 
 @Service
 public class CanalService {
-	 private CanalRepository canalRepository;
+	private CanalRepository canalRepository;
 
-	    public CanalService(CanalRepository canalRepository) {
-	        super();
-	        this.canalRepository = canalRepository;
-	    }
-	    public List<Canal> findAll(){
-	        List<Canal> canais = canalRepository.findAll();
-	        return canais;
-	    }
-	    public Canal findById(long id) {
-	        Optional<Canal> canal = this.canalRepository.findById(id);
-	        return canal.orElseThrow(() -> new RuntimeException(
-	                "treinador não encontrado"
-	        ));
-	    }
-	    public Canal save(Canal canal){
-	        canal.setId(null);
-			if (canal.getAlunos()==null){
-				canal.setAlunos(new ArrayList<>());
+	public CanalService(CanalRepository canalRepository) {
+		super();
+		this.canalRepository = canalRepository;
+	}
+
+	public List<Canal> findAll() {
+		List<Canal> canais = canalRepository.findAll();
+		return canais;
+	}
+
+	public Canal findById(long id) {
+		Optional<Canal> canal = this.canalRepository.findById(id);
+		return canal.orElseThrow(() -> new RuntimeException("treinador não encontrado"));
+	}
+
+	public Canal save(Canal canal) {
+		canal.setId(null);
+		if (canal.getAlunos() == null) {
+			canal.setAlunos(new ArrayList<>());
+		}
+		canal.setSeguidores(canal.getAlunos().size());
+		canal.setVisualizacoes(0);
+		return canalRepository.save(canal);
+	}
+
+	public void delete(Canal canal) {
+		this.canalRepository.delete(canal);
+	}
+
+	public Canal updateAlunos(Long id, Canal canal) {
+		Optional<Canal> _canal = canalRepository.findById(id);
+		if (_canal.isPresent()) {
+			Canal canalUpdatado = _canal.get();;
+			canalUpdatado.setAlunos(canal.getAlunos());
+			if (canalUpdatado.getAlunos() == null) {
+				canalUpdatado.setAlunos(new ArrayList<>());
 			}
-			canal.setSeguidores(canal.getAlunos().size());
-			canal.setVisualizacoes(0);
-			return canalRepository.save(canal);
-	    }
-	    public void delete(Canal canal) {
-	        this.canalRepository.delete(canal);
-	    }
-	    public Canal update(Canal canal){
-			if (canal.getAlunos()==null){
-				canal.setAlunos(new ArrayList<>());
+			return canalRepository.save(canalUpdatado);
+		}
+		return null;
+	}
+	public Canal updateNome(Long id, Canal canal) {
+		Optional<Canal> _canal = canalRepository.findById(id);
+		if (_canal.isPresent()) {
+			Canal canalUpdatado = _canal.get();;
+			canalUpdatado.setNome(canal.getNome());
+			if (canalUpdatado.getAlunos() == null) {
+				canalUpdatado.setAlunos(new ArrayList<>());
 			}
-			canal.setSeguidores(canal.getAlunos().size());
-			return canalRepository.save(canal);
-	    }
+			return canalRepository.save(canalUpdatado);
+		}
+		return null;
+	}
 }

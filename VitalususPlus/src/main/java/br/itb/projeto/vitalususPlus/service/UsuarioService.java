@@ -56,8 +56,24 @@ public class UsuarioService {
 		this.usuarioRepository.delete(usuario);
 	}
 
-	public Usuario update(Usuario usuario) {
-		usuario.getDataCadastro().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+	public Usuario updateSenha(Long id, Usuario usuario) {
+		Optional<Usuario> _usuario = usuarioRepository.findById(id);
+		if (_usuario.isPresent()) {
+			Usuario usuarioUpdatado = _usuario.get();
+			String senha = Base64.getEncoder().encodeToString(usuario.getSenha().getBytes());
+			usuarioUpdatado.setSenha(senha);
+			return usuarioRepository.save(usuarioUpdatado);
+		};
+		return usuarioRepository.save(usuario);
+	}
+	
+	public Usuario inativate(Long id, Usuario usuario) {
+		Optional<Usuario> _usuario = usuarioRepository.findById(id);
+		if (_usuario.isPresent()) {
+			Usuario usuarioUpdatado = _usuario.get();
+			usuarioUpdatado.setStatusUsuario("INATIVO");;
+			return usuarioRepository.save(usuarioUpdatado);
+		};
 		return usuarioRepository.save(usuario);
 	}
 

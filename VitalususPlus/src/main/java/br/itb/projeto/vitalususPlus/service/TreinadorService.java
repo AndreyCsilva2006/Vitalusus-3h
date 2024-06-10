@@ -39,10 +39,4 @@ public class TreinadorService {
         treinador.setId(null);
         return treinadorRepository.save(treinador);
     }
-    public void delete(Treinador treinador) {
-        treinadorRepository.delete(treinador);
-    }
-    public Treinador update(Treinador treinador){
-        return treinadorRepository.save(treinador);
-    }
 }

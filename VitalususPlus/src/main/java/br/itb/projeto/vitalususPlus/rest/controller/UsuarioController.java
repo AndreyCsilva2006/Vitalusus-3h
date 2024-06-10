@@ -49,14 +49,15 @@ public class UsuarioController {
 		return new ResponseEntity<Usuario>(usuarioSalvo, HttpStatus.OK);
 	}
 
-	@DeleteMapping("delete")
-	public void deletarUsuario(@RequestBody Usuario usuario) {
-		this.usuarioService.delete(usuario);
+	@PutMapping("inativar/{id}")
+	public ResponseEntity<Usuario> inativarUsuario(@PathVariable long id, @RequestBody Usuario usuario) {
+		Usuario usuarioUpdatado = this.usuarioService.inativate(id, usuario);
+		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
 	}
 
-	@PutMapping("update")
-	public ResponseEntity<Usuario> updateUsuario(@RequestBody @Valid Usuario usuario) {
-		Usuario usuarioUpdatado = this.usuarioService.update(usuario);
+	@PutMapping("updateSenha/{id}")
+	public ResponseEntity<Usuario> updateUsuario(@PathVariable long id, @RequestBody Usuario usuario) {
+		Usuario usuarioUpdatado = this.usuarioService.updateSenha(id, usuario);
 		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
 	}
 
