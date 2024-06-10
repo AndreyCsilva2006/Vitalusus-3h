@@ -34,7 +34,13 @@ public class EvolucaoService {
     public void delete(Evolucao evolucao) {
         this.evolucaoRepository.delete(evolucao);
     }
-    public Evolucao update(Evolucao evolucao){
-        return evolucaoRepository.save(evolucao);
+    public Evolucao updateAlturaAtual(Long id, Evolucao evolucao){
+        Optional<Evolucao> _evolucao = evolucaoRepository.findById(id);
+        if (_evolucao.isPresent()) {
+        	Evolucao evolucaoUpdatado = _evolucao.get();
+        	evolucaoUpdatado.setAlturaAtual(evolucao.getAlturaAtual());
+        	return evolucaoRepository.save(evolucaoUpdatado);
+        }
+        return null;
     }
 }

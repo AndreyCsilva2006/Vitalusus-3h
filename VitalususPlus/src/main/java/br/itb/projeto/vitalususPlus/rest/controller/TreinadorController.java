@@ -49,15 +49,7 @@ public class TreinadorController {
         Treinador treinadorSalvo = this.treinadorService.save(treinador);
         return new ResponseEntity<Treinador>(treinadorSalvo, HttpStatus.OK);
     }
-    @DeleteMapping("delete")
-    public void deletarTreinador(@RequestBody @Valid Treinador treinador) {
-        treinadorService.delete(treinador);
-    }
-    @PutMapping("update")
-    public ResponseEntity<Treinador> updateAdmin(@RequestBody @Valid Treinador treinador){
-        Treinador treinadorUpdatado = this.treinadorService.update(treinador);
-        return new ResponseEntity<Treinador>(treinadorUpdatado, HttpStatus.OK);
-    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationException(MethodArgumentNotValidException ex){

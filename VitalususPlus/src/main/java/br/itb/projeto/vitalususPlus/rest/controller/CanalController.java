@@ -41,13 +41,14 @@ public class CanalController {
 	        Canal canalSalvo = this.canalService.save(canal);
 	        return new ResponseEntity<Canal>(canalSalvo, HttpStatus.OK);
 	    }
-	    @DeleteMapping("delete")
-	    public void deletarCanal(@RequestBody Canal canal){
-	        this.canalService.delete(canal);
+	    @PutMapping("updateAlunos/{id}")
+	    public ResponseEntity<Canal> updateCanal(@PathVariable long id, @RequestBody Canal canal){
+	        Canal canalUpdatado = this.canalService.updateAlunos(id, canal);
+	        return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
 	    }
-	    @PutMapping("update")
-	    public ResponseEntity<Canal> updateCanal(@RequestBody @Valid Canal canal){
-	        Canal canalUpdatado = this.canalService.update(canal);
+	    @PutMapping("updateNome/{id}")
+	    public ResponseEntity<Canal> updateNome(@PathVariable long id, @RequestBody Canal canal){
+	        Canal canalUpdatado = this.canalService.updateNome(id, canal);
 	        return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
 	    }
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
