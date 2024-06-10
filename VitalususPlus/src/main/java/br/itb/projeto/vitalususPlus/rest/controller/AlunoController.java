@@ -44,13 +44,14 @@ public class AlunoController {
         Aluno alunoSalvo = this.alunoService.save(aluno);
         return new ResponseEntity<Aluno>(alunoSalvo, HttpStatus.OK);
     }
-    @DeleteMapping("delete")
-    public void deletarAluno(@RequestBody @Valid Aluno aluno){
-        alunoService.delete(aluno);
+    @PutMapping("updateAltura/{id}")
+    public ResponseEntity<Aluno> updateAltura(@PathVariable long id, @RequestBody @Valid Aluno aluno){
+        Aluno alunoUpdatado = this.alunoService.updateAltura(id, aluno);
+        return new ResponseEntity<Aluno>(alunoUpdatado, HttpStatus.OK);
     }
-    @PutMapping("update")
-    public ResponseEntity<Aluno> updateAdmin(@RequestBody @Valid Aluno aluno){
-        Aluno alunoUpdatado = this.alunoService.update(aluno);
+    @PutMapping("updatePeso/{id}")
+    public ResponseEntity<Aluno> updatePeso(@PathVariable long id, @RequestBody @Valid Aluno aluno){
+        Aluno alunoUpdatado = this.alunoService.updatePeso(id, aluno);
         return new ResponseEntity<Aluno>(alunoUpdatado, HttpStatus.OK);
     }
     @ResponseStatus(HttpStatus.BAD_REQUEST)

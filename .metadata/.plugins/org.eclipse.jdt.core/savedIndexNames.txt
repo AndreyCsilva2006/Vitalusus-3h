@@ -1,5 +1,4 @@
 INDEX VERSION 1.131+Z:\VitalususNovo\Vitalusus-2h\.metadata\.plugins\org.eclipse.jdt.core
-<<<<<<< HEAD
 267415448.index
 1734645186.index
 2575269510.index
@@ -67,6 +66,7 @@ INDEX VERSION 1.131+Z:\VitalususNovo\Vitalusus-2h\.metadata\.plugins\org.eclipse
 2538590581.index
 3582188541.index
 3582430652.index
+2460071105.index
 3346096689.index
 1453058557.index
 1270150901.index
@@ -97,12 +97,3 @@ INDEX VERSION 1.131+Z:\VitalususNovo\Vitalusus-2h\.metadata\.plugins\org.eclipse
 2332888032.index
 2761785494.index
 370397488.index
-=======
-2688958009.index
-2419369737.index
-3105512755.index
-2460071105.index
-3346096689.index
-1588496399.index
-1865797976.index
->>>>>>> database

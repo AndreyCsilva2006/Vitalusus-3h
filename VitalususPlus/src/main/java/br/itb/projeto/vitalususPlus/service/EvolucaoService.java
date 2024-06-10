@@ -43,4 +43,31 @@ public class EvolucaoService {
         }
         return null;
     }
+    public Evolucao updateImc(Long id, Evolucao evolucao){
+        Optional<Evolucao> _evolucao = evolucaoRepository.findById(id);
+        if (_evolucao.isPresent()) {
+        	Evolucao evolucaoUpdatado = _evolucao.get();
+        	evolucaoUpdatado.setImc(evolucao.getImc());
+        	return evolucaoRepository.save(evolucaoUpdatado);
+        }
+        return null;
+    }
+    public Evolucao updateMetBasal(Long id, Evolucao evolucao){
+        Optional<Evolucao> _evolucao = evolucaoRepository.findById(id);
+        if (_evolucao.isPresent()) {
+        	Evolucao evolucaoUpdatado = _evolucao.get();
+        	evolucaoUpdatado.setMetBasal(evolucao.getMetBasal());
+        	return evolucaoRepository.save(evolucaoUpdatado);
+        }
+        return null;
+    }
+    public Evolucao updatePesoAtual(Long id, Evolucao evolucao){
+        Optional<Evolucao> _evolucao = evolucaoRepository.findById(id);
+        if (_evolucao.isPresent()) {
+        	Evolucao evolucaoUpdatado = _evolucao.get();
+        	evolucaoUpdatado.setPesoAtual(evolucao.getPesoAtual());
+        	return evolucaoRepository.save(evolucaoUpdatado);
+        }
+        return null;
+    }
 }
