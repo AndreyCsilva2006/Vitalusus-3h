@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:visibility="visible"
     tools:context=".FirstFragment"
     tools:visibility="visible">
@@ -25,6 +26,7 @@
             android:text="Bem Vindo(a) ao Vitalusus+ um aplicativo que irá te deixar mais saudável"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@color/white"
             android:textSize="30sp"
             android:typeface="normal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,6 +43,7 @@
             android:fontFamily="@font/inter_semibold"
             android:text="Vitalusus+ "
             android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="32sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,18 +64,23 @@
             tools:src="@drawable/logo"
             tools:visibility="visible" />
 
-        <ImageButton
-            android:id="@+id/tutorialSeguinte1"
-            android:layout_width="64dp"
-            android:layout_height="61dp"
-            android:layout_marginEnd="72dp"
-            android:background="@null"
-            android:backgroundTint="@null"
-            android:rotation="180"
-            android:scaleType="centerCrop"
-            android:src="@drawable/seta"
-            android:tint="@null"
+        <Button
+            android:id="@+id/cadastro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:text="Cadastro"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            app:layout_constraintEnd_toStartOf="@+id/cadastro"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
