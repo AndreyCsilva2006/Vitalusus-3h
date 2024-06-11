@@ -49,12 +49,6 @@ public class UsuarioController {
 		return new ResponseEntity<Usuario>(usuarioSalvo, HttpStatus.OK);
 	}
 
-	@PutMapping("inativar/{id}")
-	public ResponseEntity<Usuario> inativarUsuario(@PathVariable long id, @RequestBody Usuario usuario) {
-		Usuario usuarioUpdatado = this.usuarioService.inativate(id, usuario);
-		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
-	}
-
 	@PutMapping("updateSenha/{id}")
 	public ResponseEntity<Usuario> updateUsuario(@PathVariable long id, @RequestBody Usuario usuario) {
 		Usuario usuarioUpdatado = this.usuarioService.updateSenha(id, usuario);
@@ -73,6 +67,12 @@ public class UsuarioController {
 	@PutMapping("inativar/{id}")
 	public ResponseEntity<Usuario> inativar(@PathVariable long id){
 		Usuario usuarioUpdatado = usuarioService.inativar(id);
+		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
+	}
+	
+	@PutMapping("reativar/{id}")
+	public ResponseEntity<Usuario> reativar(@PathVariable long id){
+		Usuario usuarioUpdatado = usuarioService.reativar(id);
 		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
 	}
 	
