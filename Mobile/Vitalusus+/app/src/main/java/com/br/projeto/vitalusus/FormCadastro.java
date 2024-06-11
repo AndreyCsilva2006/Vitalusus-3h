@@ -7,28 +7,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import java.time.Instant;
+public class FormCadastro extends AppCompatActivity {
 
-public class FormLogin extends AppCompatActivity {
-
-    private TextView text_tela_cadastro;
+    private TextView text_tela_principal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_form_login);
+        setContentView(R.layout.activity_form_cadastro);
 
         IniciarComponentes();
-        text_tela_cadastro.setOnClickListener(new View.OnClickListener() {
+        text_tela_principal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FormLogin.this,FormCadastro.class);
+                Intent intent = new Intent(FormCadastro.this,TelaPrincipal.class);
                 startActivity(intent);
             }
         });
-    }
 
+    }
     private void IniciarComponentes(){
-        text_tela_cadastro = findViewById(R.id.text_tela_cadastro);
+        text_tela_principal = findViewById(R.id.text_tela_principal);
     }
 }

@@ -4,10 +4,10 @@
     <!--Cor branca sólida-->
     <solid android:color="@color/white" />
     <!--borda e seu raio-->
-    <corners android:radius="2dp" />
+    <corners android:radius="20dp" />
     <!--cor da borda e a sua largura da borda.-->
     <stroke
-        android:width="20dp"
+        android:width="2dp"
         android:color="@color/black" />
 
 </shape>
