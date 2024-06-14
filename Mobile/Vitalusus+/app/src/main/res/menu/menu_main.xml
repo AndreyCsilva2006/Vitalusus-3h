@@ -7,4 +7,10 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <item
+        android:icon="@android:drawable/ic_input_add"
+        android:orderInCategory="101"
+        android:title="Cadastrar"
+        android:onClick="cad"
+        app:showAsAction="ifRoom" />
 </menu>
