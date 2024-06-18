@@ -81,4 +81,11 @@ public class MainActivity extends AppCompatActivity {
         Intent irCad = new Intent(this, FormCadastro.class);
         startActivity(irCad);
     }
+
+    public void lista(MenuItem item) {
+        // Intent = intenção
+        // this = tela atual
+        Intent li = new Intent(this, ListarAlunosActivity.class);
+        startActivity(li);
+    }
 }

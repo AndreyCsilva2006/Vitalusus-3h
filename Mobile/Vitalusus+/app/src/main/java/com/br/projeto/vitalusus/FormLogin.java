@@ -1,6 +1,7 @@
 package com.br.projeto.vitalusus;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import java.time.Instant;
 public class FormLogin extends AppCompatActivity {
 
     private TextView text_tela_cadastro;
+    private AppCompatButton btnEsqueciSenha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,14 @@ public class FormLogin extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+//        Não funcionando por algum motivo estranho :/
+//        btnEsqueciSenha.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(FormLogin.this,EsqueciSenhaActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     private void IniciarComponentes(){
