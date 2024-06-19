@@ -4,17 +4,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SearchView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.br.projeto.vitalusus.dao.AlunoDAO;
+import com.br.projeto.vitalusus.model.Aluno;
 
 import java.util.List;
 
@@ -33,8 +34,8 @@ public class ListarAlunosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_listar_alunos);
 
         listView = findViewById(R.id.lista_alunos);
-        dao = new AlunoDAO(this);
-        alunos = dao.obterTodos();
+        //dao = new AlunoDAO(this);
+        //alunos = dao.obterTodos();
 //        alunosFiltrados.addAll(alunos);
         // É necessario criar um adapatador para ter uma lista especifica, nesse caso usaremos o do Android que tem como padrão.
         // Array adapter q pega os dados e joga pra ser mostrado na tela.
@@ -80,7 +81,7 @@ public class ListarAlunosActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 alunos.remove(alunoExcluir);
-                dao.excluir(alunoExcluir);
+                //dao.excluir(alunoExcluir);
                 listView.invalidateViews();
             }
         }).create();
@@ -101,7 +102,7 @@ public class ListarAlunosActivity extends AppCompatActivity {
 
         final Aluno alunoAtualizar = alunos.get(menuInfo.position);
         Intent it = new Intent (this, FormCadastro.class);
-        it.putExtra("aluno", alunoAtualizar);
+        //it.putExtra("aluno", alunoAtualizar);
         startActivity(it);
     }
 
@@ -110,7 +111,7 @@ public class ListarAlunosActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        alunos = dao.obterTodos();
+        //alunos = dao.obterTodos();
 //        alunosFiltrados.clear();
 //        alunosFiltrados.addAll(alunos);
         listView.invalidateViews();

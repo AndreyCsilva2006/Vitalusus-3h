@@ -60,6 +60,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogin"
         style="@style/Button"
+        android:onClick="login"
         android:text="@string/entrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

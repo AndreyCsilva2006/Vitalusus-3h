@@ -1,7 +1,5 @@
 package com.br.projeto.vitalusus;
 
-import static com.br.projeto.vitalusus.Conexao.*;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -11,6 +9,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.br.projeto.vitalusus.dao.AlunoDAO;
+import com.br.projeto.vitalusus.model.Aluno;
 
 public class FormCadastro extends AppCompatActivity {
 
@@ -36,7 +37,7 @@ public class FormCadastro extends AppCompatActivity {
         pSeguranca = findViewById(R.id.edit_pSeguranca);
         rSeguranca = findViewById(R.id.edit_rSeguranca);
         // instanciando a variavél dao
-        dao = new AlunoDAO(this);
+        // dao = new AlunoDAO(this);
 
         Intent it = getIntent();
         if (it.hasExtra("aluno")) {
@@ -80,8 +81,8 @@ public class FormCadastro extends AppCompatActivity {
                 aluno.setSenha(senha.getText().toString());
                 aluno.setpSeguranca(pSeguranca.getText().toString());
                 aluno.setrSeguranca(rSeguranca.getText().toString());
-                long id = dao.inserir(aluno);
-                Toast.makeText(this, "Aluno inserido com id: " + id, Toast.LENGTH_SHORT).show();
+                //long id = dao.inserir(aluno);
+                //Toast.makeText(this, "Aluno inserido com id: " + id, Toast.LENGTH_SHORT).show();
                 // tudo ok
 //                    long res = db.CriarUsuario(nome, email, senha);
 //                    if ( res > 0 ) {
@@ -101,7 +102,7 @@ public class FormCadastro extends AppCompatActivity {
             aluno.setSenha(senha.getText().toString());
             aluno.setpSeguranca(pSeguranca.getText().toString());
             aluno.setrSeguranca(rSeguranca.getText().toString());
-            dao.atualizar(aluno);
+            //dao.atualizar(aluno);
             Toast.makeText(this, "Aluno foi atualizado!", Toast.LENGTH_SHORT).show();
         }
     }
