@@ -3,6 +3,7 @@ package com.br.projeto.vitalusus;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.br.projeto.vitalusus.view.ListarAlunos;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.Nullable;
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     public void lista(MenuItem item) {
         // Intent = intenção
         // this = tela atual
-        Intent li = new Intent(this, ListarAlunosActivity.class);
+        Intent li = new Intent(this, ListarAlunos.class);
         startActivity(li);
     }
 }
