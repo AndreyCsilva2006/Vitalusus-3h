@@ -1,10 +1,7 @@
 package br.itb.projeto.vitalususPlus.rest.controller;
 
-import br.itb.projeto.vitalususPlus.model.entity.Canal;
-import br.itb.projeto.vitalususPlus.model.entity.Comentario;
 import br.itb.projeto.vitalususPlus.model.entity.Videoaula;
 import br.itb.projeto.vitalususPlus.service.CanalService;
-import br.itb.projeto.vitalususPlus.service.ComentarioService;
 import br.itb.projeto.vitalususPlus.service.VideoaulaService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -48,9 +45,39 @@ public class VideoaulaController {
     public void deletarVideoaula(@RequestBody Videoaula videoaula){
         this.videoaulaService.delete(videoaula);
     }
-    @PutMapping("update")
-    public ResponseEntity<Videoaula> updateVideoaula(@RequestBody @Valid Videoaula videoaula){
-        Videoaula videoaulaUpdatado = this.videoaulaService.update(videoaula);
+    @PutMapping("updateFixVisualizacoes/{id}")
+    public ResponseEntity<Videoaula> updateFixVisualizacoes(@PathVariable long id){
+        Videoaula videoaulaUpdatado = this.videoaulaService.updateFixVisualicoes(id);
+        return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
+    }
+    @PutMapping("updateTitulo/{id}")
+    public ResponseEntity<Videoaula> updateTitulo(@PathVariable long id, @RequestBody Videoaula videoaula){
+        Videoaula videoaulaUpdatado = this.videoaulaService.updateTitulo(id, videoaula);
+        return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
+    }
+    @PutMapping("updateDescricao/{id}")
+    public ResponseEntity<Videoaula> updateDescricao(@PathVariable long id, @RequestBody Videoaula videoaula){
+        Videoaula videoaulaUpdatado = this.videoaulaService.updateDescricao(id, videoaula);
+        return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
+    }
+    @PutMapping("updateLikes/{id}")
+    public ResponseEntity<Videoaula> updateLikes(@PathVariable long id, @RequestBody Videoaula videoaula){
+        Videoaula videoaulaUpdatado = this.videoaulaService.updateLikes(id, videoaula);
+        return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
+    }
+    @PutMapping("updateDesLikes/{id}")
+    public ResponseEntity<Videoaula> updateDeslikes(@PathVariable long id, @RequestBody Videoaula videoaula){
+        Videoaula videoaulaUpdatado = this.videoaulaService.updateDeslikes(id, videoaula);
+        return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
+    }
+    @PutMapping("updateThumbnail/{id}")
+    public ResponseEntity<Videoaula> updateThumbnail(@PathVariable long id, @RequestBody Videoaula videoaula){
+        Videoaula videoaulaUpdatado = this.videoaulaService.updateThumbnail(id, videoaula);
+        return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
+    }
+    @PutMapping("updateAlunos/{id}")
+    public ResponseEntity<Videoaula> updateAlunos(@PathVariable long id, @RequestBody Videoaula videoaula){
+        Videoaula videoaulaUpdatado = this.videoaulaService.updateAlunos(id, videoaula);
         return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
     }
     @ResponseStatus(HttpStatus.BAD_REQUEST)

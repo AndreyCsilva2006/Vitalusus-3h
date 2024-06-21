@@ -27,6 +27,9 @@ public class Videoaula {
 	
 	@Lob
 	private byte[] video;
+
+	@Lob
+	private byte[] thumbnail;
 	
 	@ManyToMany
 	@JoinTable(name="aluno_videoaula",
@@ -110,5 +113,20 @@ public class Videoaula {
 	public void setCanal(Canal canal) {
 		this.canal = canal;
 	}
-	
+
+	public byte[] getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(byte[] thumbail) {
+		this.thumbnail = thumbail;
+	}
+
+	public byte[] getVideo() {
+		return video;
+	}
+
+	public void setVideo(byte[] video) {
+		this.video = video;
+	}
 }

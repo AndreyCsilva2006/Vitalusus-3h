@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import br.itb.projeto.vitalususPlus.model.entity.Aluno;
 import org.springframework.stereotype.Service;
 
 import br.itb.projeto.vitalususPlus.model.entity.Canal;
@@ -44,14 +45,40 @@ public class CanalService {
 		this.canalRepository.delete(canal);
 	}
 
-	public Canal updateAlunos(Long id, Canal canal) {
+	public Canal updateFixSeguidores(Long id) {
 		Optional<Canal> _canal = canalRepository.findById(id);
 		if (_canal.isPresent()) {
-			Canal canalUpdatado = _canal.get();;
-			canalUpdatado.setAlunos(canal.getAlunos());
+			Canal canalUpdatado = _canal.get();
 			if (canalUpdatado.getAlunos() == null) {
 				canalUpdatado.setAlunos(new ArrayList<>());
 			}
+			canalUpdatado.setSeguidores(canalUpdatado.getAlunos().size());
+			return canalRepository.save(canalUpdatado);
+		}
+		return null;
+	}
+	public Canal updateAlunos(Long id, Canal canal) {
+		Optional<Canal> _canal = canalRepository.findById(id);
+		if (_canal.isPresent()) {
+			Canal canalUpdatado = _canal.get();
+			canalUpdatado.getAlunos().addAll(canal.getAlunos());
+			if (canalUpdatado.getAlunos() == null) {
+				canalUpdatado.setAlunos(new ArrayList<>());
+			}
+			canalUpdatado.setSeguidores(canalUpdatado.getAlunos().size());
+			return canalRepository.save(canalUpdatado);
+		}
+		return null;
+	}
+	public Canal removeAlunos(Long id, Aluno aluno) {
+		Optional<Canal> _canal = canalRepository.findById(id);
+		if (_canal.isPresent()) {
+			Canal canalUpdatado = _canal.get();
+			canalUpdatado.getAlunos().remove(aluno);
+			if (canalUpdatado.getAlunos() == null) {
+				canalUpdatado.setAlunos(new ArrayList<>());
+			}
+			canalUpdatado.setSeguidores(canalUpdatado.getAlunos().size());
 			return canalRepository.save(canalUpdatado);
 		}
 		return null;

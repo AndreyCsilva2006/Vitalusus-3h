@@ -159,6 +159,7 @@ CREATE TABLE Videoaula(
 	canal_id		INT				NULL,
 	visualizacoes	BIGINT			NOT NULL,
 	video			VARBINARY(MAX)	NULL, 
+	thumbnail		VARBINARY(MAX)	NULL,
 
 	FOREIGN KEY (canal_id) REFERENCES Canal(id),
 	PRIMARY KEY(id)
