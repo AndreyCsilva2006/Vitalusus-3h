@@ -1,6 +1,5 @@
 .video-container{
- 
-    gap:20px;
+    margin:10px;
 }
 #videos-container{
     width:100%;
