@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class Conexao {
 
-    public static Connection conectar() throws  ClassNotFoundException, SQLException {
+    public static Connection conectar() throws ClassNotFoundException, SQLException {
         Connection conn = null;
 
         StrictMode.ThreadPolicy politica;
@@ -22,14 +22,11 @@ public class Conexao {
         String user = "sa";
         String senha = "admin123";
 
-        String connString = "jdbc:jtds:sqlserver://"+ip+";databaseName="+db+";user="+user+";password="+senha+";";
+        String connString = "jdbc:jtds:sqlserver://" + ip + ";databaseName=" + db + ";user=" + user + ";password=" + senha + ";";
         conn = DriverManager.getConnection(connString);
 
         return conn;
     }
-
-
-
 
 
     // precisa do extends SQLiteHelper para funcionar o código abaixo

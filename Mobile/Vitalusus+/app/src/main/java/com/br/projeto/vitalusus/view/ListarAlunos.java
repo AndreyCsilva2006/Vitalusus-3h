@@ -70,10 +70,9 @@ public class ListarAlunos extends AppCompatActivity {
     private void preenche(String busca) {
         AlunoDAO dao = new AlunoDAO();
         // busca pesquisar
-        if (busca.isEmpty()){
+        if (busca.isEmpty()) {
             lista = dao.getAll();
-        }
-        else{
+        } else {
             lista = dao.getAll(busca);
         }
 

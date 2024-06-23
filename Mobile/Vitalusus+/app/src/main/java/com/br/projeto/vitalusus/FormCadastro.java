@@ -1,113 +1,156 @@
 package com.br.projeto.vitalusus;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.br.projeto.vitalusus.dao.AlunoDAO;
 import com.br.projeto.vitalusus.model.Aluno;
+import com.br.projeto.vitalusus.util.MensagemUtil;
 
+// código copiado e adaptador da ActivityAluno (com.br.projeto.vitalusus.view.ActivityAluno).
 public class FormCadastro extends AppCompatActivity {
 
-    private TextView text_tela_principal;
-    private EditText nome, email, senha, pSeguranca, rSeguranca;
-    private AlunoDAO dao;
-    private AppCompatButton btnPrincipal;
-    // Aluno do update
-    private Aluno aluno;
+    EditText editNome, editEmail, editSenha;
+    // TextView txtStatus;
+    Button btnSalvar, btnExcluir;
+
+    Aluno alunoEditando = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_cadastro);
 
-//        db = new DBHelper(this);
+        carregaFormulario();
+        carregaBundle();
+    }
 
-        btnPrincipal = (AppCompatButton)findViewById(R.id.btnPrincipal);
+    private void carregaFormulario() {
+        editNome = findViewById(R.id.editFormCadastroLoginNome);
+        editEmail = findViewById(R.id.editFormCadastroLoginEmail);
+        editSenha = findViewById(R.id.editFormCadastroLoginSenha);
 
-        nome = findViewById(R.id.edit_nome);
-        email = findViewById(R.id.edit_email);
-        senha = findViewById(R.id.edit_senha);
-        pSeguranca = findViewById(R.id.edit_pSeguranca);
-        rSeguranca = findViewById(R.id.edit_rSeguranca);
-        // instanciando a variavél dao
-        // dao = new AlunoDAO(this);
+        btnSalvar = findViewById(R.id.btnCadastroAlunoSalvar);
+        // btnExcluir = findViewById(R.id.btnActivityAlunoExcluir);
 
-        Intent it = getIntent();
-        if (it.hasExtra("aluno")) {
-            aluno = (Aluno) it.getSerializableExtra("aluno");
-            nome.setText(aluno.getNome());
-            email.setText(aluno.getEmail());
-            senha.setText(aluno.getSenha());
-            pSeguranca.setText(aluno.getpSeguranca());
-            rSeguranca.setText(aluno.getrSeguranca());
-        }
+        // txtStatus = findViewById(R.id.txtActivityAlunoStatus);
 
-        IniciarComponentes();
-        text_tela_principal.setOnClickListener(new View.OnClickListener() {
+        btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FormCadastro.this,TelaPrincipal.class);
-                startActivity(intent);
+                salvar();
             }
         });
 
+
     }
 
-    public void salvar (View view){
-        // Aluno novo
-        if (aluno == null) {
-            if (nome.equals("")) {
-                Toast.makeText(FormCadastro.this, "Nome não foi inserido! Tente novamente.", Toast.LENGTH_SHORT).show();
+    // carrega informações do Aluno
+    private void carregaBundle() {
+        AlunoDAO dao = new AlunoDAO();
+        Bundle b = getIntent().getExtras();
+        // verificação para editar Aluno
+        if (b != null) {
+            if (b.get("aluno") != null) {
+                Integer idA = (Integer) b.get("aluno");
+                alunoEditando = dao.findById(idA);
+                if (alunoEditando != null) {
+                    // mostra as informações do aluno que deseja editar
+                    mostra(alunoEditando);
+                }
             }
-            else if (email.equals("")) {
-                Toast.makeText(FormCadastro.this, "E_mail não foi inserido! Tente novamente.", Toast.LENGTH_SHORT).show();
+        }
+    }
 
-            }
-            else if (senha.equals("")) {
-                Toast.makeText(FormCadastro.this, "Senha não foi inserida! Tente novamente.", Toast.LENGTH_SHORT).show();
+    private void mostra(Aluno a) {
+        editNome.setText(a.getNome());
+        editEmail.setText(a.getEmail());
+        editSenha.setText(a.getSenha());
+    }
 
-            }
-            else {
-                aluno = new Aluno();
-                aluno.setNome(nome.getText().toString());
-                aluno.setEmail(email.getText().toString());
-                aluno.setSenha(senha.getText().toString());
-                aluno.setpSeguranca(pSeguranca.getText().toString());
-                aluno.setrSeguranca(rSeguranca.getText().toString());
-                //long id = dao.inserir(aluno);
-                //Toast.makeText(this, "Aluno inserido com id: " + id, Toast.LENGTH_SHORT).show();
-                // tudo ok
-//                    long res = db.CriarUsuario(nome, email, senha);
-//                    if ( res > 0 ) {
-//                        Toast.makeText(FormCadastro.this, "Registro OK.", Toast.LENGTH_SHORT).show();
+    // validações cadastro
+    private Boolean validar() {
+
+        if (editNome.getText().toString().trim().isEmpty()) {
+            MensagemUtil.exibir(this, "Digite um Nome");
+            return false;
+        }
+        // caso o nome tiver menos que 3 caracteres, não será aceito.
+        else if (editNome.getText().toString().trim().length() < 3) {
+            MensagemUtil.exibir(this, "Digite um Nome Válido, com mais de 3 caracteres");
+            return false;
+        } else if (editEmail.getText().toString().trim().isEmpty()) {
+            MensagemUtil.exibir(this, "Digite um E-Mail");
+            return false;
+        } else if (editEmail.getText().toString().trim().length() < 9) {
+            MensagemUtil.exibir(this, "Digite um E-Mail válido");
+            return false;
+        } else if (editSenha.getText().toString().trim().isEmpty()) {
+            MensagemUtil.exibir(this, "Digite uma Senha");
+            return false;
+        } else if (editSenha.getText().toString().trim().length() <= 6) {
+            MensagemUtil.exibir(this, "Digite uma senha que tenha mais de 6 caracteres");
+            return false;
+        }
+        return true;
+    }
+
+    private void salvar() {
+        // se ele o método validar() não for verdadeiro...
+        if (!validar()) {
+            // retorne tudo novamente.
+            return;
+        }
+        Aluno a = new Aluno();
+
+        if (alunoEditando != null) {
+            a = alunoEditando;
+        }
+        a.setNome(editNome.getText().toString());
+        a.setEmail(editEmail.getText().toString());
+        a.setSenha(editSenha.getText().toString());
+
+        AlunoDAO dao = new AlunoDAO();
+        if (alunoEditando != null) {
+            dao.alterar(a);
+        } else {
+            dao.cadastrar(a);
+        }
+
+        Intent intent = new Intent(FormCadastro.this, FormLogin.class);
+        startActivity(intent);
+    }
+
+//    private void excluir() {
+//        if(alunoEditando != null){
+//            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+//            alert.setTitle("Remover");
+//            alert.setMessage("Deseja Realmente remover esse Aluno?");
+//            alert.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialogInterface, int i) {
+//                    AlunoDAO dao = new AlunoDAO();
+//                    // como o aluno editando é o selecionado, devemos excluir o que está sendo editado, pois ele foi selecionado na lista
+//                    dao.excluir(alunoEditando);
+//                    dialogInterface.dismiss();
 //
-//                    }
-//                    else {
-//                        Toast.makeText(FormCadastro.this, "Registro inválido.", Toast.LENGTH_SHORT).show();
-//                    }
-            }
-
-        }
-        // Aluno já existente (Update/Atualizar)
-        else{
-            aluno.setNome(nome.getText().toString());
-            aluno.setEmail(email.getText().toString());
-            aluno.setSenha(senha.getText().toString());
-            aluno.setpSeguranca(pSeguranca.getText().toString());
-            aluno.setrSeguranca(rSeguranca.getText().toString());
-            //dao.atualizar(aluno);
-            Toast.makeText(this, "Aluno foi atualizado!", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void IniciarComponentes(){
-        text_tela_principal = findViewById(R.id.text_tela_principal);
-    }
+//                    Intent intent = new Intent(ActivityAluno.this, ListarAlunos.class);
+//                    startActivity(intent);
+//                }
+//            });
+//            alert.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialogInterface, int i) {
+//                    dialogInterface.dismiss();
+//                }
+//            });
+//
+//            alert.show();
+//        }
+//    }
 }

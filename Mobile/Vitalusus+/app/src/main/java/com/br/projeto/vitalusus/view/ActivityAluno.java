@@ -90,35 +90,29 @@ public class ActivityAluno extends AppCompatActivity {
     }
 
     // validações cadastro
-    private Boolean validar(){
+    private Boolean validar() {
 
-        if (editNome.getText().toString().trim().isEmpty()){
+        if (editNome.getText().toString().trim().isEmpty()) {
             MensagemUtil.exibir(this, "Digite um Nome");
             return false;
-        }
-        else if (editEmail.getText().toString().trim().isEmpty()){
+        } else if (editEmail.getText().toString().trim().isEmpty()) {
             MensagemUtil.exibir(this, "Digite um E-Mail");
             return false;
-        }
-        else if (editSenha.getText().toString().trim().isEmpty()){
+        } else if (editSenha.getText().toString().trim().isEmpty()) {
             MensagemUtil.exibir(this, "Digite uma Senha");
             return false;
         }
         // caso o nome tiver menos que 3 caracteres, não será aceito.
-        else if (editNome.getText().toString().trim().length() < 3){
+        else if (editNome.getText().toString().trim().length() < 3) {
             MensagemUtil.exibir(this, "Digite um Nome Válido, com mais de 3 caracteres");
             return false;
-        }
-        else if (editEmail.getText().toString().trim().length() < 9){
+        } else if (editEmail.getText().toString().trim().length() < 9) {
             MensagemUtil.exibir(this, "Digite um E-Mail válido");
             return false;
-        }
-        else if (editSenha.getText().toString().trim().length() <= 6){
+        } else if (editSenha.getText().toString().trim().length() <= 6) {
             MensagemUtil.exibir(this, "Digite uma senha que tenha mais de 6 caracteres");
             return false;
         }
-
-
 
 
         return true;
@@ -126,7 +120,7 @@ public class ActivityAluno extends AppCompatActivity {
 
     private void salvar() {
         // se ele o método validar() não for verdadeiro...
-        if (!validar()){
+        if (!validar()) {
             // retorne tudo novamente.
             return;
         }
@@ -151,7 +145,7 @@ public class ActivityAluno extends AppCompatActivity {
     }
 
     private void excluir() {
-        if(alunoEditando != null){
+        if (alunoEditando != null) {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle("Remover");
             alert.setMessage("Deseja Realmente remover esse Aluno?");

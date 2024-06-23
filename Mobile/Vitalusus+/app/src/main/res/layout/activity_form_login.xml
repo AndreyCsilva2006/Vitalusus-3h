@@ -36,7 +36,7 @@
 
     <!--Edit Text E-Mail-->
     <EditText
-        android:id="@+id/edit_email"
+        android:id="@+id/editFormCadastroLoginEmail"
         style="@style/Edit_text"
         android:drawableRight="@drawable/ic_email"
         android:hint="E-Mail"
@@ -47,32 +47,32 @@
 
     <!--Edit Text Senha-->
     <EditText
-        android:id="@+id/edit_senha"
+        android:id="@+id/editFormCadastroLoginSenha"
         style="@style/Edit_text"
         android:drawableRight="@drawable/ic_eye"
         android:hint="Senha"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@id/containerComponents"
         app:layout_constraintStart_toStartOf="@id/containerComponents"
-        app:layout_constraintTop_toBottomOf="@id/edit_email" />
+        app:layout_constraintTop_toBottomOf="@id/editFormCadastroLoginEmail" />
 
     <!--Botão Entrar-->
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnFormLoginEntrar"
         style="@style/Button"
         android:onClick="login"
         android:text="@string/entrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_senha" />
+        app:layout_constraintTop_toBottomOf="@id/editFormCadastroLoginSenha" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnEsqueciSenha"
+        android:id="@+id/btnFormLoginEsqueciSenha"
         style="@style/Button"
         android:text="Esqueci a Senha"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnLogin" />
+        app:layout_constraintTop_toBottomOf="@id/btnFormLoginEntrar" />
 
     <!--Barra de progresso-->
     <!--android:visibility="invisible" pra tornar a barra invisivel-->
