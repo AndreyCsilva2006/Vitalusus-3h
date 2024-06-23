@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Vitalusus"
         tools:targetApi="31">
         <activity
+            android:name=".view.ActivityAluno"
+            android:exported="false" />
+        <activity
             android:name=".view.ListarAlunos"
             android:exported="false" />
         <activity
