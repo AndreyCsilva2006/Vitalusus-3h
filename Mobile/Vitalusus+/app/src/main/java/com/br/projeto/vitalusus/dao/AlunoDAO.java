@@ -1,11 +1,5 @@
 package com.br.projeto.vitalusus.dao;
 
-import static android.provider.Settings.System.getString;
-
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.br.projeto.vitalusus.conexao.Conexao;

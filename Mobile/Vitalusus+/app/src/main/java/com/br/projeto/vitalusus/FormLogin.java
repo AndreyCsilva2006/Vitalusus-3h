@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.br.projeto.vitalusus.dao.AlunoDAO;
 import com.br.projeto.vitalusus.model.Aluno;
 
+import org.parceler.Parcels;
+
 public class FormLogin extends AppCompatActivity {
 
     private TextView text_tela_cadastro;
@@ -28,8 +30,8 @@ public class FormLogin extends AppCompatActivity {
         edit_senha = findViewById(R.id.editFormCadastroLoginSenha);
         btnLogin = findViewById(R.id.btnFormLoginEntrar);
         btnEsqueciSenha = findViewById(R.id.btnFormLoginEsqueciSenha);
+        text_tela_cadastro = findViewById(R.id.text_tela_cadastro);
 
-        IniciarComponentes();
         text_tela_cadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,10 +49,6 @@ public class FormLogin extends AppCompatActivity {
         });
     }
 
-    private void IniciarComponentes() {
-        text_tela_cadastro = findViewById(R.id.text_tela_cadastro);
-    }
-
     public void login(View v) {
         String email = edit_email.getText().toString();
         String senha = edit_senha.getText().toString();
@@ -60,6 +58,8 @@ public class FormLogin extends AppCompatActivity {
         if (alu != null) {
             Toast.makeText(this, "Login com sucesoo!.", Toast.LENGTH_LONG);
             Intent intent = new Intent(FormLogin.this, TelaPrincipal.class);
+            intent.putExtra("nome", alu.getNome().toString());
+            intent.putExtra("email", alu.getEmail().toString());
             startActivity(intent);
         } else {
             Toast.makeText(this, "Aluno não identificado, tente novamente.", Toast.LENGTH_LONG);

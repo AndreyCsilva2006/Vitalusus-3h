@@ -113,8 +113,6 @@ public class ActivityAluno extends AppCompatActivity {
             MensagemUtil.exibir(this, "Digite uma senha que tenha mais de 6 caracteres");
             return false;
         }
-
-
         return true;
     }
 
