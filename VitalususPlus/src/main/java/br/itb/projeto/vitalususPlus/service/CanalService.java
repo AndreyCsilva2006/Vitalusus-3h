@@ -57,7 +57,7 @@ public class CanalService {
 		}
 		return null;
 	}
-	public Canal updateAlunos(Long id, Canal canal) {
+	public Canal addAlunos(Long id, Canal canal) {
 		Optional<Canal> _canal = canalRepository.findById(id);
 		if (_canal.isPresent()) {
 			Canal canalUpdatado = _canal.get();

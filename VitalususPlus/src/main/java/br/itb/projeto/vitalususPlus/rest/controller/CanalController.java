@@ -47,9 +47,9 @@ public class CanalController {
 	        Canal canalUpdatado = this.canalService.updateFixSeguidores(id);
 	        return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
 	    }
-		@PutMapping("updateAlunos/{id}")
+		@PutMapping("addAlunos/{id}")
 		public ResponseEntity<Canal> updateAlunos(@PathVariable long id, @RequestBody Canal canal){
-		Canal canalUpdatado = this.canalService.updateAlunos(id, canal);
+		Canal canalUpdatado = this.canalService.addAlunos(id, canal);
 		return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
 	}
 		@PutMapping("removeAlunos/{id}")

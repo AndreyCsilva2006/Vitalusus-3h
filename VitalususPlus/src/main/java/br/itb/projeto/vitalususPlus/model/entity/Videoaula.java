@@ -42,6 +42,20 @@ public class Videoaula {
 	@JoinColumn(name = "canal_id")
 	private Canal canal;
 
+	@ManyToMany
+	@JoinTable(name="Likes",
+			joinColumns = {@JoinColumn(name="videoaula_id")},
+			inverseJoinColumns = {@JoinColumn(name="aluno_id")}
+	)
+	private List<Aluno> alunosLikes;
+
+	@ManyToMany
+	@JoinTable(name="Deslikes",
+			joinColumns = {@JoinColumn(name="videoaula_id")},
+			inverseJoinColumns = {@JoinColumn(name="aluno_id")}
+	)
+	private List<Aluno> alunosDeslikes;
+
 	public Long getId() {
 		return id;
 	}
@@ -128,5 +142,21 @@ public class Videoaula {
 
 	public void setVideo(byte[] video) {
 		this.video = video;
+	}
+
+	public List<Aluno> getAlunosLikes() {
+		return alunosLikes;
+	}
+
+	public void setAlunosLikes(List<Aluno> alunosLikes) {
+		this.alunosLikes = alunosLikes;
+	}
+
+	public List<Aluno> getAlunosDeslikes() {
+		return alunosDeslikes;
+	}
+
+	public void setAlunosDeslikes(List<Aluno> alunosDeslikes) {
+		this.alunosDeslikes = alunosDeslikes;
 	}
 }

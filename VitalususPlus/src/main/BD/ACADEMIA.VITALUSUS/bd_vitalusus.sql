@@ -274,6 +274,44 @@ VALUES(
 )
 GO
 
+-- Tabela Likes
+CREATE TABLE Likes(
+	id					INT					IDENTITY,
+	videoaula_id		INT					NOT NULL,
+	aluno_id			INT					NOT NULL,
+
+	PRIMARY KEY (id),
+	FOREIGN KEY(videoaula_id) REFERENCES Videoaula(id),
+	FOREIGN KEY(aluno_id) REFERENCES Aluno(id)
+)
+GO
+
+INSERT Likes(videoaula_id, usuario_id)
+VALUES(
+	1,
+	1
+)
+GO
+
+-- Tabela Deslikes
+CREATE TABLE Deslikes(
+	id					INT				IDENTITY,
+	videoaula_id		INT				NOT NULL,
+	aluno_id			INT				NOT NULL,
+
+	PRIMARY KEY (id),
+	FOREIGN KEY(videoaula_id) REFERENCES Videoaula(id),
+	FOREIGN KEY(aluno_id) REFERENCES Aluno(id)
+)
+GO
+
+INSERT Deslikes(videoaula_id, usuario_id)
+VALUES(
+	1,
+	1
+)
+GO
+
 SELECT * FROM Usuario
 SELECT * FROM Canal
 SELECT * FROM Videoaula

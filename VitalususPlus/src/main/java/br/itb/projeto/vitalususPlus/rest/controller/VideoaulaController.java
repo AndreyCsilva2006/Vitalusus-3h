@@ -1,5 +1,6 @@
 package br.itb.projeto.vitalususPlus.rest.controller;
 
+import br.itb.projeto.vitalususPlus.model.entity.Aluno;
 import br.itb.projeto.vitalususPlus.model.entity.Videoaula;
 import br.itb.projeto.vitalususPlus.service.CanalService;
 import br.itb.projeto.vitalususPlus.service.VideoaulaService;
@@ -60,14 +61,24 @@ public class VideoaulaController {
         Videoaula videoaulaUpdatado = this.videoaulaService.updateDescricao(id, videoaula);
         return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
     }
-    @PutMapping("updateLikes/{id}")
-    public ResponseEntity<Videoaula> updateLikes(@PathVariable long id, @RequestBody Videoaula videoaula){
-        Videoaula videoaulaUpdatado = this.videoaulaService.updateLikes(id, videoaula);
+    @PutMapping("addLikes/{id}")
+    public ResponseEntity<Videoaula> addLikes(@PathVariable long id, @RequestBody Videoaula videoaula){
+        Videoaula videoaulaUpdatado = this.videoaulaService.addLikes(id, videoaula);
         return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
     }
-    @PutMapping("updateDesLikes/{id}")
-    public ResponseEntity<Videoaula> updateDeslikes(@PathVariable long id, @RequestBody Videoaula videoaula){
-        Videoaula videoaulaUpdatado = this.videoaulaService.updateDeslikes(id, videoaula);
+    @PutMapping("removeLikes/{id}")
+    public ResponseEntity<Videoaula> removeLikes(@PathVariable long id, @RequestBody Aluno aluno){
+        Videoaula videoaulaUpdatado = this.videoaulaService.removeLikes(id, aluno);
+        return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
+    }
+    @PutMapping("addDesLikes/{id}")
+    public ResponseEntity<Videoaula> addDeslikes(@PathVariable long id, @RequestBody Videoaula videoaula){
+        Videoaula videoaulaUpdatado = this.videoaulaService.addDeslikes(id, videoaula);
+        return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
+    }
+    @PutMapping("removeDeslikes/{id}")
+    public ResponseEntity<Videoaula> removeDeslikes(@PathVariable long id, @RequestBody Aluno aluno){
+        Videoaula videoaulaUpdatado = this.videoaulaService.removeDeslikes(id, aluno);
         return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
     }
     @PutMapping("updateThumbnail/{id}")
