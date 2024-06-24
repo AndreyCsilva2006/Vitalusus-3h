@@ -65,7 +65,7 @@
         app:layout_constraintEnd_toEndOf="@id/containerComponents" />
 
     <EditText
-        android:id="@+id/edit_pSeguranca"
+        android:id="@+id/editFormCadastroPergSeguranca"
         style="@style/Edit_text"
         android:layout_marginTop="16dp"
         android:hint="Pergunta de Segurança"
@@ -75,12 +75,12 @@
         app:layout_constraintEnd_toEndOf="@id/containerComponents" />
 
     <EditText
-        android:id="@+id/edit_rSeguranca"
+        android:id="@+id/editFormCadastroRespSeguranca"
         style="@style/Edit_text"
         android:layout_marginTop="16dp"
         android:hint="Resposta da Pergunta de Segurança"
         android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@id/edit_pSeguranca"
+        app:layout_constraintTop_toBottomOf="@id/editFormCadastroPergSeguranca"
         app:layout_constraintStart_toStartOf="@id/containerComponents"
         app:layout_constraintEnd_toEndOf="@id/containerComponents" />
 
@@ -106,6 +106,18 @@
         app:layout_constraintTop_toBottomOf="@id/btnCadastroAlunoSalvar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Button
+        android:id="@+id/btnFormCadastroOlharSenha"
+        android:layout_width="35dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="320dp"
+        android:backgroundTint="#00FFFFFF"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.856"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

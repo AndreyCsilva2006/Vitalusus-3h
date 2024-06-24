@@ -5,7 +5,9 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,24 +15,42 @@ import android.widget.Toast;
 import com.br.projeto.vitalusus.dao.AlunoDAO;
 import com.br.projeto.vitalusus.model.Aluno;
 
-import org.parceler.Parcels;
-
 public class FormLogin extends AppCompatActivity {
 
     private TextView text_tela_cadastro;
-    private EditText edit_email, edit_senha;
+    private EditText editEmail, editSenha;
     private AppCompatButton btnLogin, btnEsqueciSenha;
+    private Button btnFormLoginOlharSenha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_login);
 
-        edit_email = findViewById(R.id.editFormCadastroLoginEmail);
-        edit_senha = findViewById(R.id.editFormCadastroLoginSenha);
+        editEmail = findViewById(R.id.editFormCadastroLoginEmail);
+        editSenha = findViewById(R.id.editFormCadastroLoginSenha);
         btnLogin = findViewById(R.id.btnFormLoginEntrar);
         btnEsqueciSenha = findViewById(R.id.btnFormLoginEsqueciSenha);
+        btnFormLoginOlharSenha = findViewById(R.id.btnFormLoginOlharSenha);
         text_tela_cadastro = findViewById(R.id.text_tela_cadastro);
+
+        btnFormLoginOlharSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int tipoAtual = editSenha.getInputType();
+
+                // Verifique se é um campo de senha (& ou | significa AND)
+                boolean ehSenha = (tipoAtual & InputType.TYPE_TEXT_VARIATION_PASSWORD) == InputType.TYPE_TEXT_VARIATION_PASSWORD;
+
+                // Alterne para o próximo tipo de entrada
+                if (ehSenha) {
+                    editSenha.setInputType(InputType.TYPE_CLASS_TEXT);
+                } else {
+                    editSenha.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }
+            }
+        });
 
         text_tela_cadastro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,7 +59,7 @@ public class FormLogin extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-//        Não funcionando por algum motivo estranho :/
+
         btnEsqueciSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,8 +70,8 @@ public class FormLogin extends AppCompatActivity {
     }
 
     public void login(View v) {
-        String email = edit_email.getText().toString();
-        String senha = edit_senha.getText().toString();
+        String email = editEmail.getText().toString();
+        String senha = editSenha.getText().toString();
 
         // DAO - Data Access Object (Objeto de Acesso de Dados)
         Aluno alu = new AlunoDAO().selecionarAluno(email, senha);
@@ -68,8 +88,8 @@ public class FormLogin extends AppCompatActivity {
     }
 
     private void limpar() {
-        edit_email.setText("");
-        edit_senha.setText("");
-        edit_email.requestFocus();
+        editEmail.setText("");
+        editSenha.setText("");
+        editEmail.requestFocus();
     }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,9 +16,8 @@ import com.br.projeto.vitalusus.util.MensagemUtil;
 // código copiado e adaptador da ActivityAluno (com.br.projeto.vitalusus.view.ActivityAluno).
 public class FormCadastro extends AppCompatActivity {
 
-    EditText editNome, editEmail, editSenha;
-    // TextView txtStatus;
-    Button btnSalvar, btnExcluir;
+    EditText editNome, editEmail, editSenha, editPSeguranca, editRSeguranca;
+    Button btnSalvar, btnFormCadastroOlharSenha;
 
     Aluno alunoEditando = null;
 
@@ -25,15 +25,38 @@ public class FormCadastro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_cadastro);
+        btnFormCadastroOlharSenha = findViewById(R.id.btnFormCadastroOlharSenha);
+        editEmail = findViewById(R.id.editFormCadastroLoginEmail);
+        editSenha = findViewById(R.id.editFormCadastroLoginSenha);
 
         carregaFormulario();
         carregaBundle();
+
+        btnFormCadastroOlharSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int tipoAtual = editSenha.getInputType();
+
+                // Verifique se é um campo de senha (& ou | significa AND)
+                boolean ehSenha = (tipoAtual & InputType.TYPE_TEXT_VARIATION_PASSWORD) == InputType.TYPE_TEXT_VARIATION_PASSWORD;
+
+                // Alterne para o próximo tipo de entrada
+                if (ehSenha) {
+                    editSenha.setInputType(InputType.TYPE_CLASS_TEXT);
+                } else {
+                    editSenha.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }
+            }
+        });
     }
 
     private void carregaFormulario() {
         editNome = findViewById(R.id.editFormCadastroLoginNome);
         editEmail = findViewById(R.id.editFormCadastroLoginEmail);
         editSenha = findViewById(R.id.editFormCadastroLoginSenha);
+        editPSeguranca = findViewById(R.id.editFormCadastroPergSeguranca);
+        editRSeguranca = findViewById(R.id.editFormCadastroRespSeguranca);
 
         btnSalvar = findViewById(R.id.btnCadastroAlunoSalvar);
         // btnExcluir = findViewById(R.id.btnActivityAlunoExcluir);
@@ -46,8 +69,6 @@ public class FormCadastro extends AppCompatActivity {
                 salvar();
             }
         });
-
-
     }
 
     // carrega informações do Aluno
@@ -114,6 +135,8 @@ public class FormCadastro extends AppCompatActivity {
         a.setNome(editNome.getText().toString());
         a.setEmail(editEmail.getText().toString());
         a.setSenha(editSenha.getText().toString());
+        a.setpSeguranca(editPSeguranca.getText().toString());
+        a.setrSeguranca(editRSeguranca.getText().toString());
 
         AlunoDAO dao = new AlunoDAO();
         if (alunoEditando != null) {
