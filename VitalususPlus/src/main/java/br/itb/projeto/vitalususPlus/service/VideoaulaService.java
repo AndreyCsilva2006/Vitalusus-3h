@@ -56,6 +56,7 @@ public class VideoaulaService {
         Optional<Videoaula> videoaula = videoaulaRepository.findById(id);
         if(videoaula.isPresent()) {
             Videoaula _videoaula = videoaula.get();
+            _videoaula.setVisualizacoes(_videoaula.getAlunos().size());
             if (_videoaula.getAlunos() == null) {
                 _videoaula.setAlunos(new ArrayList<>());
             }
@@ -65,7 +66,6 @@ public class VideoaulaService {
             if (_videoaula.getAlunosDeslikes() == null) {
                 _videoaula.setAlunosDeslikes(new ArrayList<>());
             }
-            _videoaula.setVisualizacoes(_videoaula.getAlunos().size());
             return videoaulaRepository.save(_videoaula);
         }
         return null;
@@ -74,6 +74,7 @@ public class VideoaulaService {
         Optional<Videoaula> videoaulaOptional = videoaulaRepository.findById(id);
         if(videoaulaOptional.isPresent()) {
             Videoaula _videoaula = videoaulaOptional.get();
+            _videoaula.setTitulo(videoaula.getTitulo());
             if (_videoaula.getAlunos() == null) {
                 _videoaula.setAlunos(new ArrayList<>());
             }
@@ -84,7 +85,6 @@ public class VideoaulaService {
                 _videoaula.setAlunosDeslikes(new ArrayList<>());
             }
             _videoaula.setVisualizacoes(_videoaula.getAlunos().size());
-            _videoaula.setTitulo(videoaula.getTitulo());
             return videoaulaRepository.save(_videoaula);
         }
         return null;
@@ -93,6 +93,7 @@ public class VideoaulaService {
         Optional<Videoaula> videoaulaOptional = videoaulaRepository.findById(id);
         if(videoaulaOptional.isPresent()) {
             Videoaula _videoaula = videoaulaOptional.get();
+            _videoaula.setDescricao(videoaula.getDescricao());
             if (_videoaula.getAlunos() == null) {
                 _videoaula.setAlunos(new ArrayList<>());
             }
@@ -103,7 +104,6 @@ public class VideoaulaService {
                 _videoaula.setAlunosDeslikes(new ArrayList<>());
             }
             _videoaula.setVisualizacoes(_videoaula.getAlunos().size());
-            _videoaula.setDescricao(videoaula.getDescricao());
             return videoaulaRepository.save(_videoaula);
         }
         return null;
@@ -112,6 +112,7 @@ public class VideoaulaService {
         Optional<Videoaula> videoaulaOptional = videoaulaRepository.findById(id);
         if(videoaulaOptional.isPresent()) {
             Videoaula _videoaula = videoaulaOptional.get();
+            _videoaula.setThumbnail(videoaula.getThumbnail());
             if (_videoaula.getAlunos() == null) {
                 _videoaula.setAlunos(new ArrayList<>());
             }
@@ -121,7 +122,6 @@ public class VideoaulaService {
             if (_videoaula.getAlunosDeslikes() == null) {
                 _videoaula.setAlunosDeslikes(new ArrayList<>());
             }
-            _videoaula.setThumbnail(videoaula.getThumbnail());
             _videoaula.setVisualizacoes(_videoaula.getAlunos().size());
             return videoaulaRepository.save(_videoaula);
         }
@@ -131,6 +131,7 @@ public class VideoaulaService {
         Optional<Videoaula> videoaulaOptional = videoaulaRepository.findById(id);
         if(videoaulaOptional.isPresent()) {
             Videoaula _videoaula = videoaulaOptional.get();
+            _videoaula.getAlunos().addAll(videoaula.getAlunos());
             if (_videoaula.getAlunos() == null) {
                 _videoaula.setAlunos(new ArrayList<>());
             }
@@ -140,7 +141,6 @@ public class VideoaulaService {
             if (_videoaula.getAlunosDeslikes() == null) {
                 _videoaula.setAlunosDeslikes(new ArrayList<>());
             }
-            _videoaula.getAlunos().addAll(videoaula.getAlunos());
             _videoaula.setVisualizacoes(_videoaula.getAlunos().size());
             return videoaulaRepository.save(_videoaula);
         }
@@ -148,7 +148,7 @@ public class VideoaulaService {
     }
     public Videoaula addLikes(long id, Videoaula videoaula){
         Optional<Videoaula> videoaulaOptional = videoaulaRepository.findById(id);
-        if (videoaulaOptional.isPresent()) {
+        if (videoaulaOptional.isPresent()){
             Videoaula _videoaula = videoaulaOptional.get();
             _videoaula.getAlunosLikes().addAll(videoaula.getAlunosLikes());
             if (_videoaula.getAlunos() == null) {
@@ -162,7 +162,7 @@ public class VideoaulaService {
             }
             _videoaula.setVisualizacoes(_videoaula.getAlunos().size());
             _videoaula.setLikes(_videoaula.getAlunosLikes().size());
-            _videoaula.setDeslikes(_videoaula.getAlunosLikes().size());
+            _videoaula.setDeslikes(_videoaula.getAlunosDeslikes().size());
             return videoaulaRepository.save(_videoaula);
         }
         return null;
@@ -183,7 +183,7 @@ public class VideoaulaService {
             }
             _videoaula.setVisualizacoes(_videoaula.getAlunos().size());
             _videoaula.setLikes(_videoaula.getAlunosLikes().size());
-            _videoaula.setDeslikes(_videoaula.getAlunosLikes().size());
+            _videoaula.setDeslikes(_videoaula.getAlunosDeslikes().size());
             return videoaulaRepository.save(_videoaula);
         }
         return null;
@@ -204,7 +204,7 @@ public class VideoaulaService {
             }
             _videoaula.setVisualizacoes(_videoaula.getAlunos().size());
             _videoaula.setLikes(_videoaula.getAlunosLikes().size());
-            _videoaula.setDeslikes(_videoaula.getAlunosLikes().size());
+            _videoaula.setDeslikes(_videoaula.getAlunosDeslikes().size());
             return videoaulaRepository.save(_videoaula);
         }
         return null;
@@ -225,6 +225,7 @@ public class VideoaulaService {
             }
             _videoaula.setVisualizacoes(_videoaula.getAlunos().size());
             _videoaula.setLikes(_videoaula.getAlunosLikes().size());
+            _videoaula.setDeslikes(_videoaula.getAlunosDeslikes().size());
             return videoaulaRepository.save(_videoaula);
         }
         return null;
