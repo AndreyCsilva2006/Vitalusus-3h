@@ -71,7 +71,7 @@ public class VideoaulaController {
         Videoaula videoaulaUpdatado = this.videoaulaService.removeLikes(id, aluno);
         return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
     }
-    @PutMapping("addDesLikes/{id}")
+    @PutMapping("addDeslikes/{id}")
     public ResponseEntity<Videoaula> addDeslikes(@PathVariable long id, @RequestBody Videoaula videoaula){
         Videoaula videoaulaUpdatado = this.videoaulaService.addDeslikes(id, videoaula);
         return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);

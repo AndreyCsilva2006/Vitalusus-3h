@@ -286,7 +286,7 @@ CREATE TABLE Likes(
 )
 GO
 
-INSERT Likes(videoaula_id, usuario_id)
+INSERT Likes(videoaula_id, aluno_id)
 VALUES(
 	1,
 	1
@@ -305,7 +305,7 @@ CREATE TABLE Deslikes(
 )
 GO
 
-INSERT Deslikes(videoaula_id, usuario_id)
+INSERT Deslikes(videoaula_id, aluno_id)
 VALUES(
 	1,
 	1
@@ -324,6 +324,8 @@ SELECT * FROM Comentario
 SELECT * FROM Aluno_segue_canal
 SELECT * FROM Aluno_videoaula
 SELECT * FROM Admin_usuario
+SELECT * FROM Deslikes
+SELECT * FROM Likes
 
 /*
 UPDATE Usuario SET nome = 'Maria Joana' WHERE id = 1
