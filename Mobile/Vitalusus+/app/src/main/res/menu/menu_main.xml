@@ -10,12 +10,6 @@
         app:showAsAction="never" />
 
     <item
-        android:icon="@android:drawable/ic_input_add"
-        android:orderInCategory="101"
-        android:title="Cadastrar"
-        android:onClick="cad"
-        app:showAsAction="ifRoom" />
-    <item
         android:orderInCategory="101"
         android:title="ListaAluno"
         android:onClick="lista"/>

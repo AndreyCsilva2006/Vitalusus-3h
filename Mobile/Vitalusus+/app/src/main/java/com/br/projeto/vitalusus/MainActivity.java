@@ -77,12 +77,6 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    // Botão + no menu ir para a tela de cadastro.
-    public void cad(MenuItem item) {
-        Intent irCad = new Intent(this, FormCadastro.class);
-        startActivity(irCad);
-    }
-
     public void lista(MenuItem item) {
         // Intent = intenção
         // this = tela atual

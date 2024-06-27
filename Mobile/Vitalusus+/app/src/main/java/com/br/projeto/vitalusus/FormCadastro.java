@@ -3,6 +3,8 @@ package com.br.projeto.vitalusus;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -97,25 +99,83 @@ public class FormCadastro extends AppCompatActivity {
     // validações cadastro
     private Boolean validar() {
 
+// Fazendo com que o campo fique com a borda vermelha caso o campo esteja inválido.
+        GradientDrawable redBorder = new GradientDrawable();
+        redBorder.setColor(Color.WHITE); // Cor do fundo.
+        redBorder.setCornerRadius(50); // Raio do arredondamento das bordas (em pixels fica 60px que é equivalente a 20dp).
+        redBorder.setStroke(5, Color.RED); // Cor e espessura da borda (em pixels fica 6px que é equivalente a 2dp).
+
+        // Fazendo com que o campo fique com a borda normal caso campo esteja válido.
+        GradientDrawable blackBorder = new GradientDrawable();
+        blackBorder.setColor(Color.WHITE); // Cor do fundo.
+        blackBorder.setCornerRadius(50); // Raio do arredondamento das bordas (em pixels fica 60px que é equivalente a 20dp).
+        blackBorder.setStroke(5, Color.BLACK); // Cor e espessura da borda (em pixels fica 6px que é equivalente a 2dp).
+
         if (editNome.getText().toString().trim().isEmpty()) {
             MensagemUtil.exibir(this, "Digite um Nome");
+
+            // Aplicando o GradientDrawable ao EditText
+            editNome.setBackground(redBorder);
+            editEmail.setBackground(redBorder);
+            editSenha.setBackground(redBorder);
+            editPSeguranca.setBackground(redBorder);
+            editRSeguranca.setBackground(redBorder);
+
+            editNome.requestFocus();
             return false;
         }
-        // caso o nome tiver menos que 3 caracteres, não será aceito.
-        else if (editNome.getText().toString().trim().length() < 3) {
-            MensagemUtil.exibir(this, "Digite um Nome Válido, com mais de 3 caracteres");
+        if (editNome.getText().toString().trim().length() < 3) {
+            MensagemUtil.exibir(this, "Digite um Nome que tenha pelo menos 3 caracteres");
+            editNome.requestFocus();
             return false;
-        } else if (editEmail.getText().toString().trim().isEmpty()) {
+        }
+
+        editNome.setBackground(blackBorder);
+
+        if (editEmail.getText().toString().trim().isEmpty()) {
             MensagemUtil.exibir(this, "Digite um E-Mail");
+            editEmail.requestFocus();
             return false;
-        } else if (editEmail.getText().toString().trim().length() < 9) {
+        }
+        // ! no início de uma expressão lógica é usado para negar o resultado dessa expressão. Ou seja, ele inverte o valor booleano.
+        if (!editEmail.getText().toString().trim().contains("@")){
+            MensagemUtil.exibir(this, "O Email precisa ter um @");
+            editEmail.requestFocus();
+            return false;
+        }
+        if (editEmail.getText().toString().trim().length() < 9) {
             MensagemUtil.exibir(this, "Digite um E-Mail válido");
+            editEmail.requestFocus();
             return false;
-        } else if (editSenha.getText().toString().trim().isEmpty()) {
+        }
+        if (editSenha.getText().toString().trim().isEmpty()) {
             MensagemUtil.exibir(this, "Digite uma Senha");
+            editSenha.requestFocus();
             return false;
-        } else if (editSenha.getText().toString().trim().length() <= 6) {
-            MensagemUtil.exibir(this, "Digite uma senha que tenha mais de 6 caracteres");
+        }
+        if (editSenha.getText().toString().trim().length() < 6) {
+            MensagemUtil.exibir(this, "Digite uma Senha que tenha pelo menos 6 caracteres");
+            editSenha.requestFocus();
+            return false;
+        }
+        if (editPSeguranca.getText().toString().trim().isEmpty()) {
+            MensagemUtil.exibir(this, "Digite uma Pergunta de Segurança caso perca sua Senha para poder recuperar.");
+            editPSeguranca.requestFocus();
+            return false;
+        }
+        if (editPSeguranca.getText().toString().trim().length() < 4) {
+            MensagemUtil.exibir(this, "Digite uma Pergunta que pelo menos 4 caracteres");
+            editPSeguranca.requestFocus();
+            return false;
+        }
+        if (editRSeguranca.getText().toString().trim().isEmpty()) {
+            MensagemUtil.exibir(this, "Digite uma Resposta para a Pergunta de Segurança.");
+            editRSeguranca.requestFocus();
+            return false;
+        }
+        if (editRSeguranca.getText().toString().trim().length() < 4) {
+            MensagemUtil.exibir(this, "Digite uma Resposta para a Pergunta de Segurança que tenha pelo menos 4 caracteres");
+            editRSeguranca.requestFocus();
             return false;
         }
         return true;

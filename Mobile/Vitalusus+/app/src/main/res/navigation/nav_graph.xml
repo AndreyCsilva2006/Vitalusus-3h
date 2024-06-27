@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_formLogin2"
             app:destination="@id/formLogin" />
+        <action
+            android:id="@+id/action_FirstFragment_to_formCadastro"
+            app:destination="@id/formCadastro" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -36,4 +39,8 @@
         android:name="com.br.projeto.vitalusus.FormLogin"
         android:label="activity_form_login"
         tools:layout="@layout/activity_form_login" />
+    <activity
+        android:id="@+id/formCadastro"
+        android:name="com.br.projeto.vitalusus.FormCadastro"
+        android:label="FormCadastro" />
 </navigation>

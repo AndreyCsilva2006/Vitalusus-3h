@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import com.br.projeto.vitalusus.dao.AlunoDAO;
 import com.br.projeto.vitalusus.model.Aluno;
+import com.br.projeto.vitalusus.util.MensagemUtil;
 
 public class FormLogin extends AppCompatActivity {
 
@@ -76,20 +79,30 @@ public class FormLogin extends AppCompatActivity {
         // DAO - Data Access Object (Objeto de Acesso de Dados)
         Aluno alu = new AlunoDAO().selecionarAluno(email, senha);
         if (alu != null) {
-            Toast.makeText(this, "Login com sucesoo!.", Toast.LENGTH_LONG);
+            MensagemUtil.exibir(this, "Login com Sucesso!");
             Intent intent = new Intent(FormLogin.this, TelaPrincipal.class);
             intent.putExtra("nome", alu.getNome().toString());
             intent.putExtra("email", alu.getEmail().toString());
             startActivity(intent);
         } else {
-            Toast.makeText(this, "Aluno não identificado, tente novamente.", Toast.LENGTH_LONG);
+            MensagemUtil.exibir(this, "Aluno não identificado, tente novamente.");
+            // método limpar() seria uma parte do nossa validação.
             limpar();
         }
     }
 
     private void limpar() {
+        // Fazendo com que o campo fique com a borda vermelha caso o campo esteja inválido.
+        GradientDrawable redBorder = new GradientDrawable();
+        redBorder.setColor(Color.WHITE); // Cor do fundo.
+        redBorder.setCornerRadius(50); // Raio do arredondamento das bordas (em pixels fica 60px que é equivalente a 20dp).
+        redBorder.setStroke(5, Color.RED); // Cor e espessura da borda (em pixels fica 6px que é equivalente a 2dp).
+
+        editEmail.setBackground(redBorder);
+        editSenha.setBackground(redBorder);
         editEmail.setText("");
         editSenha.setText("");
+
         editEmail.requestFocus();
     }
 }

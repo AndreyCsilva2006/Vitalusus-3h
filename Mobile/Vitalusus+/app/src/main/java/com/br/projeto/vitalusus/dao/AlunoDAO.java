@@ -19,7 +19,7 @@ public class AlunoDAO {
 
     public void cadastrar(Aluno a) {
         try {
-            executeSql("insert into Aluno (nome, email, senha, pMisteriosa, rMisteriosa) values ('" + a.getNome() + "', '" + a.getEmail() + "', '" + a.getSenha() + "', '" + a.getpSeguranca() + "', '" + a.getrSeguranca() + "')");
+            executeSql("insert into Aluno (nome, email, senha, pSeguranca, rSeguranca) values ('" + a.getNome() + "', '" + a.getEmail() + "', '" + a.getSenha() + "', '" + a.getpSeguranca() + "', '" + a.getrSeguranca() + "')");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
