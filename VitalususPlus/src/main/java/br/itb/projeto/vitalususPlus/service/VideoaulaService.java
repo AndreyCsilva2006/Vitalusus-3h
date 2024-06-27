@@ -2,8 +2,11 @@ package br.itb.projeto.vitalususPlus.service;
 
 import br.itb.projeto.vitalususPlus.model.entity.Aluno;
 import br.itb.projeto.vitalususPlus.model.entity.Canal;
+import br.itb.projeto.vitalususPlus.model.entity.Likes;
 import br.itb.projeto.vitalususPlus.model.entity.Videoaula;
 import br.itb.projeto.vitalususPlus.model.repository.AlunoRepository;
+import br.itb.projeto.vitalususPlus.model.repository.DeslikesRepository;
+import br.itb.projeto.vitalususPlus.model.repository.LikesRepository;
 import br.itb.projeto.vitalususPlus.model.repository.VideoaulaRepository;
 import jakarta.transaction.Transactional;
 
@@ -18,11 +21,15 @@ import static java.lang.Double.isNaN;
 public class VideoaulaService {
     private VideoaulaRepository videoaulaRepository;
     private CanalService canalService;
+    private LikesRepository likesRepository;
+    private DeslikesRepository deslikesRepository;
 
-    public VideoaulaService(VideoaulaRepository videoaulaRepository, CanalService canalService) {
+    public VideoaulaService(VideoaulaRepository videoaulaRepository, CanalService canalService, LikesRepository likesRepository, DeslikesRepository deslikesRepository) {
         super();
         this.videoaulaRepository = videoaulaRepository;
         this.canalService = canalService;
+        this.likesRepository = likesRepository;
+        this.deslikesRepository = deslikesRepository;
     }
     public List<Videoaula> findAll(){
         List<Videoaula> listaVideoaula = videoaulaRepository.findAll();
@@ -170,8 +177,9 @@ public class VideoaulaService {
     public Videoaula removeLikes(long id, Aluno aluno){
         Optional<Videoaula> videoaulaOptional = videoaulaRepository.findById(id);
         if (videoaulaOptional.isPresent()){
+        	Likes likes = likesRepository.findByAluno(aluno);
             Videoaula _videoaula = videoaulaOptional.get();
-            _videoaula.getAlunosLikes().remove(aluno);
+            likesRepository.delete(likes);
             if (_videoaula.getAlunos() == null) {
                 _videoaula.setAlunos(new ArrayList<>());
             }

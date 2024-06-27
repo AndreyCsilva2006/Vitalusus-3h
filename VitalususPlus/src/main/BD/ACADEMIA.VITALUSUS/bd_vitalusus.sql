@@ -286,13 +286,6 @@ CREATE TABLE Likes(
 )
 GO
 
-INSERT Likes(videoaula_id, aluno_id)
-VALUES(
-	1,
-	1
-)
-GO
-
 -- Tabela Deslikes
 CREATE TABLE Deslikes(
 	id					INT				IDENTITY,
@@ -302,13 +295,6 @@ CREATE TABLE Deslikes(
 	PRIMARY KEY (id),
 	FOREIGN KEY(videoaula_id) REFERENCES Videoaula(id),
 	FOREIGN KEY(aluno_id) REFERENCES Aluno(id)
-)
-GO
-
-INSERT Deslikes(videoaula_id, aluno_id)
-VALUES(
-	1,
-	1
 )
 GO
 
