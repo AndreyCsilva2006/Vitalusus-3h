@@ -10,6 +10,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.br.projeto.vitalusus.dao.AlunoDAO;
 import com.br.projeto.vitalusus.model.Aluno;
@@ -20,6 +21,7 @@ public class FormCadastro extends AppCompatActivity {
 
     EditText editNome, editEmail, editSenha, editPSeguranca, editRSeguranca;
     Button btnSalvar, btnFormCadastroOlharSenha;
+    TextView text_tela_principal;
 
     Aluno alunoEditando = null;
 
@@ -30,9 +32,18 @@ public class FormCadastro extends AppCompatActivity {
         btnFormCadastroOlharSenha = findViewById(R.id.btnFormCadastroOlharSenha);
         editEmail = findViewById(R.id.editFormCadastroLoginEmail);
         editSenha = findViewById(R.id.editFormCadastroLoginSenha);
+        text_tela_principal = findViewById(R.id.text_tela_principal);
 
         carregaFormulario();
         carregaBundle();
+
+        text_tela_principal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FormCadastro.this, Home.class);
+                startActivity(intent);
+            }
+        });
 
         btnFormCadastroOlharSenha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,32 +219,4 @@ public class FormCadastro extends AppCompatActivity {
         Intent intent = new Intent(FormCadastro.this, FormLogin.class);
         startActivity(intent);
     }
-
-//    private void excluir() {
-//        if(alunoEditando != null){
-//            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-//            alert.setTitle("Remover");
-//            alert.setMessage("Deseja Realmente remover esse Aluno?");
-//            alert.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialogInterface, int i) {
-//                    AlunoDAO dao = new AlunoDAO();
-//                    // como o aluno editando é o selecionado, devemos excluir o que está sendo editado, pois ele foi selecionado na lista
-//                    dao.excluir(alunoEditando);
-//                    dialogInterface.dismiss();
-//
-//                    Intent intent = new Intent(ActivityAluno.this, ListarAlunos.class);
-//                    startActivity(intent);
-//                }
-//            });
-//            alert.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialogInterface, int i) {
-//                    dialogInterface.dismiss();
-//                }
-//            });
-//
-//            alert.show();
-//        }
-//    }
 }
