@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import br.itb.projeto.vitalususPlus.model.entity.Aluno;
+import br.itb.projeto.vitalususPlus.model.entity.Seguidor;
+import br.itb.projeto.vitalususPlus.model.repository.SeguidorRepository;
 import org.springframework.stereotype.Service;
 
 import br.itb.projeto.vitalususPlus.model.entity.Canal;
@@ -15,10 +17,12 @@ import br.itb.projeto.vitalususPlus.model.repository.TreinadorRepository;
 @Service
 public class CanalService {
 	private CanalRepository canalRepository;
+	private SeguidorRepository seguidorRepository;
 
-	public CanalService(CanalRepository canalRepository) {
+	public CanalService(CanalRepository canalRepository, SeguidorRepository seguidorRepository) {
 		super();
 		this.canalRepository = canalRepository;
+		this.seguidorRepository = seguidorRepository;
 	}
 
 	public List<Canal> findAll() {
@@ -74,7 +78,8 @@ public class CanalService {
 		Optional<Canal> _canal = canalRepository.findById(id);
 		if (_canal.isPresent()) {
 			Canal canalUpdatado = _canal.get();
-			canalUpdatado.getAlunos().remove(aluno);
+			Seguidor seguidor = seguidorRepository.findByAlunoAndCanal(aluno, canalUpdatado);
+			seguidorRepository.delete(seguidor);
 			if (canalUpdatado.getAlunos() == null) {
 				canalUpdatado.setAlunos(new ArrayList<>());
 			}
