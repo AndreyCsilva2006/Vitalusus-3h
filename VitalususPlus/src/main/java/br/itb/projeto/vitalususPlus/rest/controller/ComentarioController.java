@@ -44,9 +44,10 @@ public class ComentarioController {
     public void deletarComentario(@RequestBody Comentario comentario){
         this.comentarioService.delete(comentario);
     }
-    @PutMapping("update")
-    public ResponseEntity<Comentario> updateComentario(@RequestBody @Valid Comentario comentario){
-        Comentario comentarioUpdatado = this.comentarioService.update(comentario);
+
+    @PutMapping("updateTexto/{id}")
+    public ResponseEntity<Comentario> updateComentario(@PathVariable long id, @RequestBody Comentario comentario){
+        Comentario comentarioUpdatado = this.comentarioService.update(id, comentario);
         return new ResponseEntity<Comentario>(comentarioUpdatado, HttpStatus.OK);
     }
     @ResponseStatus(HttpStatus.BAD_REQUEST)

@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import br.itb.projeto.vitalususPlus.model.entity.Aluno;
-import br.itb.projeto.vitalususPlus.model.entity.Seguidor;
+import br.itb.projeto.vitalususPlus.model.entity.*;
 import br.itb.projeto.vitalususPlus.model.repository.SeguidorRepository;
+import br.itb.projeto.vitalususPlus.model.repository.VideoaulaRepository;
 import org.springframework.stereotype.Service;
 
-import br.itb.projeto.vitalususPlus.model.entity.Canal;
-import br.itb.projeto.vitalususPlus.model.entity.Treinador;
 import br.itb.projeto.vitalususPlus.model.repository.CanalRepository;
 import br.itb.projeto.vitalususPlus.model.repository.TreinadorRepository;
 
@@ -18,11 +16,13 @@ import br.itb.projeto.vitalususPlus.model.repository.TreinadorRepository;
 public class CanalService {
 	private CanalRepository canalRepository;
 	private SeguidorRepository seguidorRepository;
+	private VideoaulaRepository videoaulaRepository;
 
-	public CanalService(CanalRepository canalRepository, SeguidorRepository seguidorRepository) {
+	public CanalService(CanalRepository canalRepository, SeguidorRepository seguidorRepository, VideoaulaRepository videoaulaRepository) {
 		super();
 		this.canalRepository = canalRepository;
 		this.seguidorRepository = seguidorRepository;
+		this.videoaulaRepository = videoaulaRepository;
 	}
 
 	public List<Canal> findAll() {
@@ -37,11 +37,19 @@ public class CanalService {
 
 	public Canal save(Canal canal) {
 		canal.setId(null);
+		List<Videoaula> videoaula = videoaulaRepository.findAllByCanal(canal);
 		if (canal.getAlunos() == null) {
 			canal.setAlunos(new ArrayList<>());
 		}
-		canal.setSeguidores(canal.getAlunos().size());
+		if (videoaula == null){
+			videoaula = new ArrayList<>();
+		}
 		canal.setVisualizacoes(0);
+		for (int i = 0; i < videoaula.size(); i++) {
+			canal.setVisualizacoes(canal.getVisualizacoes() + videoaula.get(i).getVisualizacoes());
+		}
+		canal.setSeguidores(canal.getAlunos().size());
+		canal.setVisualizacoes(videoaula.size());
 		return canalRepository.save(canal);
 	}
 
@@ -49,12 +57,23 @@ public class CanalService {
 		this.canalRepository.delete(canal);
 	}
 
-	public Canal updateFixSeguidores(Long id) {
+	public Canal updateFix(Long id) {
 		Optional<Canal> _canal = canalRepository.findById(id);
 		if (_canal.isPresent()) {
 			Canal canalUpdatado = _canal.get();
+			List<Videoaula> videoaula = videoaulaRepository.findAllByCanal(canalUpdatado);
+			if (videoaula == null){
+				videoaula = new ArrayList<>();
+			}
 			if (canalUpdatado.getAlunos() == null) {
 				canalUpdatado.setAlunos(new ArrayList<>());
+			}
+			if (canalUpdatado.getAlunos() == null) {
+				canalUpdatado.setAlunos(new ArrayList<>());
+			}
+			canalUpdatado.setVisualizacoes(0);
+			for (int i = 0; i < videoaula.size(); i++) {
+				canalUpdatado.setVisualizacoes(canalUpdatado.getVisualizacoes() + videoaula.get(i).getVisualizacoes());
 			}
 			canalUpdatado.setSeguidores(canalUpdatado.getAlunos().size());
 			return canalRepository.save(canalUpdatado);
@@ -65,9 +84,14 @@ public class CanalService {
 		Optional<Canal> _canal = canalRepository.findById(id);
 		if (_canal.isPresent()) {
 			Canal canalUpdatado = _canal.get();
+			List<Videoaula> videoaula = videoaulaRepository.findAllByCanal(canalUpdatado);
 			canalUpdatado.getAlunos().addAll(canal.getAlunos());
 			if (canalUpdatado.getAlunos() == null) {
 				canalUpdatado.setAlunos(new ArrayList<>());
+			}
+			canalUpdatado.setVisualizacoes(0);
+			for (int i = 0; i < videoaula.size(); i++) {
+				canalUpdatado.setVisualizacoes(canalUpdatado.getVisualizacoes() + videoaula.get(i).getVisualizacoes());
 			}
 			canalUpdatado.setSeguidores(canalUpdatado.getAlunos().size());
 			return canalRepository.save(canalUpdatado);
@@ -78,10 +102,15 @@ public class CanalService {
 		Optional<Canal> _canal = canalRepository.findById(id);
 		if (_canal.isPresent()) {
 			Canal canalUpdatado = _canal.get();
-			Seguidor seguidor = seguidorRepository.findByAlunoAndCanal(aluno, canalUpdatado);
-			seguidorRepository.delete(seguidor);
+			List<Videoaula> videoaula = videoaulaRepository.findAllByCanal(canalUpdatado);
+			List<Seguidor> seguidor = seguidorRepository.findAllByAlunoAndCanal(aluno, canalUpdatado);
+			seguidorRepository.deleteAll(seguidor);
 			if (canalUpdatado.getAlunos() == null) {
 				canalUpdatado.setAlunos(new ArrayList<>());
+			}
+			canalUpdatado.setVisualizacoes(0);
+			for (int i = 0; i < videoaula.size(); i++) {
+				canalUpdatado.setVisualizacoes(canalUpdatado.getVisualizacoes() + videoaula.get(i).getVisualizacoes());
 			}
 			canalUpdatado.setSeguidores(canalUpdatado.getAlunos().size());
 			return canalRepository.save(canalUpdatado);
@@ -91,10 +120,15 @@ public class CanalService {
 	public Canal updateNome(Long id, Canal canal) {
 		Optional<Canal> _canal = canalRepository.findById(id);
 		if (_canal.isPresent()) {
-			Canal canalUpdatado = _canal.get();;
+			Canal canalUpdatado = _canal.get();
+			List<Videoaula> videoaula = videoaulaRepository.findAllByCanal(canalUpdatado);
 			canalUpdatado.setNome(canal.getNome());
 			if (canalUpdatado.getAlunos() == null) {
 				canalUpdatado.setAlunos(new ArrayList<>());
+			}
+			canalUpdatado.setVisualizacoes(0);
+			for (int i = 0; i < videoaula.size(); i++) {
+				canalUpdatado.setVisualizacoes(canalUpdatado.getVisualizacoes() + videoaula.get(i).getVisualizacoes());
 			}
 			return canalRepository.save(canalUpdatado);
 		}

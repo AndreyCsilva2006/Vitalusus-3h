@@ -34,7 +34,13 @@ public class ComentarioService {
     public void delete(Comentario comentario) {
         this.comentarioRepository.delete(comentario);
     }
-    public Comentario update(Comentario comentario){
-        return comentarioRepository.save(comentario);
+    public Comentario update(long id, Comentario comentario){
+        Optional<Comentario> _comentario = comentarioRepository.findById(id);
+        if (_comentario.isPresent()){
+            Comentario comentarioUpdatado = _comentario.get();
+            comentarioUpdatado.setTexto(comentario.getTexto());
+            return comentarioRepository.save(comentario);
+        }
+        return null;
     }
 }

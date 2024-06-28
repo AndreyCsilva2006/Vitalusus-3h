@@ -46,9 +46,9 @@ public class VideoaulaController {
     public void deletarVideoaula(@RequestBody Videoaula videoaula){
         this.videoaulaService.delete(videoaula);
     }
-    @PutMapping("updateFixVisualizacoes/{id}")
-    public ResponseEntity<Videoaula> updateFixVisualizacoes(@PathVariable long id){
-        Videoaula videoaulaUpdatado = this.videoaulaService.updateFixVisualicoes(id);
+    @PutMapping("updateFix/{id}")
+    public ResponseEntity<Videoaula> update(@PathVariable long id){
+        Videoaula videoaulaUpdatado = this.videoaulaService.updateFix(id);
         return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
     }
     @PutMapping("updateTitulo/{id}")
@@ -86,9 +86,9 @@ public class VideoaulaController {
         Videoaula videoaulaUpdatado = this.videoaulaService.updateThumbnail(id, videoaula);
         return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
     }
-    @PutMapping("updateAlunos/{id}")
-    public ResponseEntity<Videoaula> updateAlunos(@PathVariable long id, @RequestBody Videoaula videoaula){
-        Videoaula videoaulaUpdatado = this.videoaulaService.updateAlunos(id, videoaula);
+    @PutMapping("addAlunos/{id}")
+    public ResponseEntity<Videoaula> addAlunos(@PathVariable long id, @RequestBody Videoaula videoaula){
+        Videoaula videoaulaUpdatado = this.videoaulaService.addAlunos(id, videoaula);
         return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
     }
     @ResponseStatus(HttpStatus.BAD_REQUEST)

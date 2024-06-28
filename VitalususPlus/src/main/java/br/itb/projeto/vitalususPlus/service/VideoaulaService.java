@@ -51,16 +51,17 @@ public class VideoaulaService {
             videoaula.setAlunosDeslikes(new ArrayList<>());
         }
         videoaula.setVisualizacoes(videoaula.getAlunos().size());
+        videoaula.setLikes(videoaula.getAlunosLikes().size());
+        videoaula.setDeslikes(videoaula.getAlunosDeslikes().size());
         return videoaulaRepository.save(videoaula);
     }
     public void delete(Videoaula videoaula) {
         this.videoaulaRepository.delete(videoaula);
     }
-    public Videoaula updateFixVisualicoes(long id){
+    public Videoaula updateFix(long id){
         Optional<Videoaula> videoaula = videoaulaRepository.findById(id);
         if(videoaula.isPresent()) {
             Videoaula _videoaula = videoaula.get();
-            _videoaula.setVisualizacoes(_videoaula.getAlunos().size());
             if (_videoaula.getAlunos() == null) {
                 _videoaula.setAlunos(new ArrayList<>());
             }
@@ -70,6 +71,9 @@ public class VideoaulaService {
             if (_videoaula.getAlunosDeslikes() == null) {
                 _videoaula.setAlunosDeslikes(new ArrayList<>());
             }
+            _videoaula.setVisualizacoes(_videoaula.getAlunos().size());
+            _videoaula.setLikes(_videoaula.getAlunosLikes().size());
+            _videoaula.setDeslikes(_videoaula.getAlunosDeslikes().size());
             return videoaulaRepository.save(_videoaula);
         }
         return null;
@@ -89,6 +93,8 @@ public class VideoaulaService {
                 _videoaula.setAlunosDeslikes(new ArrayList<>());
             }
             _videoaula.setVisualizacoes(_videoaula.getAlunos().size());
+            _videoaula.setLikes(_videoaula.getAlunosLikes().size());
+            _videoaula.setDeslikes(_videoaula.getAlunosDeslikes().size());
             return videoaulaRepository.save(_videoaula);
         }
         return null;
@@ -108,6 +114,8 @@ public class VideoaulaService {
                 _videoaula.setAlunosDeslikes(new ArrayList<>());
             }
             _videoaula.setVisualizacoes(_videoaula.getAlunos().size());
+            _videoaula.setLikes(_videoaula.getAlunosLikes().size());
+            _videoaula.setDeslikes(_videoaula.getAlunosDeslikes().size());
             return videoaulaRepository.save(_videoaula);
         }
         return null;
@@ -127,11 +135,13 @@ public class VideoaulaService {
                 _videoaula.setAlunosDeslikes(new ArrayList<>());
             }
             _videoaula.setVisualizacoes(_videoaula.getAlunos().size());
+            _videoaula.setLikes(_videoaula.getAlunosLikes().size());
+            _videoaula.setDeslikes(_videoaula.getAlunosDeslikes().size());
             return videoaulaRepository.save(_videoaula);
         }
         return null;
     }
-    public Videoaula updateAlunos(long id, Videoaula videoaula){
+    public Videoaula addAlunos(long id, Videoaula videoaula){
         Optional<Videoaula> videoaulaOptional = videoaulaRepository.findById(id);
         if(videoaulaOptional.isPresent()) {
             Videoaula _videoaula = videoaulaOptional.get();
@@ -146,6 +156,8 @@ public class VideoaulaService {
                 _videoaula.setAlunosDeslikes(new ArrayList<>());
             }
             _videoaula.setVisualizacoes(_videoaula.getAlunos().size());
+            _videoaula.setLikes(_videoaula.getAlunosLikes().size());
+            _videoaula.setDeslikes(_videoaula.getAlunosDeslikes().size());
             return videoaulaRepository.save(_videoaula);
         }
         return null;
@@ -175,8 +187,8 @@ public class VideoaulaService {
         Optional<Videoaula> videoaulaOptional = videoaulaRepository.findById(id);
         if (videoaulaOptional.isPresent()){
             Videoaula _videoaula = videoaulaOptional.get();
-            Likes like = likesRepository.findByAlunoAndVideoaula(aluno, _videoaula);
-            likesRepository.delete(like);
+            List<Likes> like = likesRepository.findAllByAlunoAndVideoaula(aluno, _videoaula);
+            likesRepository.deleteAll(like);
             if (_videoaula.getAlunos() == null) {
                 _videoaula.setAlunos(new ArrayList<>());
             }
@@ -218,8 +230,8 @@ public class VideoaulaService {
         Optional<Videoaula> videoaulaOptional = videoaulaRepository.findById(id);
         if (videoaulaOptional.isPresent()){
             Videoaula _videoaula = videoaulaOptional.get();
-            Deslikes deslike = deslikesRepository.findByAlunoAndVideoaula(aluno, _videoaula);
-            deslikesRepository.delete(deslike);
+            List<Deslikes> deslike = deslikesRepository.findAllByAlunoAndVideoaula(aluno, _videoaula);
+            deslikesRepository.deleteAll(deslike);
             if (_videoaula.getAlunos() == null) {
                 _videoaula.setAlunos(new ArrayList<>());
             }

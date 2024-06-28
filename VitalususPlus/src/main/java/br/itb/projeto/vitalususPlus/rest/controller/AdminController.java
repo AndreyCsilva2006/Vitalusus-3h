@@ -46,15 +46,19 @@ public class AdminController {
         Admin adminSalvo = this.adminService.save(admin);
         return new ResponseEntity<Admin>(adminSalvo, HttpStatus.OK);
     }
-
-    @DeleteMapping("delete")
-    public void deletarAdmin(@RequestBody @Valid Admin admin) {
-        adminService.delete(admin);
+    @PutMapping("updateFix/{id}")
+    public ResponseEntity<Admin> updateFix(@PathVariable long id) {
+        Admin adminUpdatado = this.adminService.updateFix(id);
+        return new ResponseEntity<Admin>(adminUpdatado, HttpStatus.OK);
     }
-
-    @PutMapping("update")
-    public ResponseEntity<Admin> updateAdmin(@RequestBody @Valid Admin admin) {
-        Admin adminUpdatado = this.adminService.update(admin);
+    @PutMapping("addUsuariosAdministrados/{id}")
+    public ResponseEntity<Admin> addUsuariosAdministrados(@PathVariable long id, @RequestBody Admin admin) {
+        Admin adminUpdatado = this.adminService.addUsuariosAdministrados(id, admin);
+        return new ResponseEntity<Admin>(adminUpdatado, HttpStatus.OK);
+    }
+    @PutMapping("removeUsuariosAdministrados/{id}")
+    public ResponseEntity<Admin> removeUsuariosAdministrados(@PathVariable long id, @RequestBody Usuario usuario) {
+        Admin adminUpdatado = this.adminService.removeUsuariosAdministrados(id, usuario);
         return new ResponseEntity<Admin>(adminUpdatado, HttpStatus.OK);
     }
 

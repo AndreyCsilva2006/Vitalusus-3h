@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository;
 import br.itb.projeto.vitalususPlus.model.entity.Aluno;
 import br.itb.projeto.vitalususPlus.model.entity.Deslikes;
 
+import java.util.List;
+
 @Repository
 public interface DeslikesRepository extends JpaRepository<Deslikes, Long> {
-		Deslikes findByAlunoAndVideoaula(Aluno aluno, Videoaula videoaula);
+		List<Deslikes> findAllByAlunoAndVideoaula(Aluno aluno, Videoaula videoaula);
 }

@@ -7,9 +7,11 @@ import org.springframework.stereotype.Repository;
 import br.itb.projeto.vitalususPlus.model.entity.Aluno;
 import br.itb.projeto.vitalususPlus.model.entity.Likes;
 
-	@Repository
+import java.util.List;
+
+@Repository
 	public interface LikesRepository extends JpaRepository<Likes, Long> {
-		Likes findByAlunoAndVideoaula(Aluno aluno, Videoaula videoaula);
+		List<Likes> findAllByAlunoAndVideoaula(Aluno aluno, Videoaula videoaula);
 	}
 
 
