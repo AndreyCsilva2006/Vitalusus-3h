@@ -28,7 +28,7 @@ public class FormCadastro extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_form_cadastro);
+        setContentView(R.layout.activity_form_cadastro2);
         btnFormCadastroOlharSenha = findViewById(R.id.btnFormCadastroOlharSenha);
         editEmail = findViewById(R.id.editFormCadastroLoginEmail);
         editSenha = findViewById(R.id.editFormCadastroLoginSenha);
