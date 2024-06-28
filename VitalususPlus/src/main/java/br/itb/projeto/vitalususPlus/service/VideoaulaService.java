@@ -1,9 +1,6 @@
 package br.itb.projeto.vitalususPlus.service;
 
-import br.itb.projeto.vitalususPlus.model.entity.Aluno;
-import br.itb.projeto.vitalususPlus.model.entity.Canal;
-import br.itb.projeto.vitalususPlus.model.entity.Likes;
-import br.itb.projeto.vitalususPlus.model.entity.Videoaula;
+import br.itb.projeto.vitalususPlus.model.entity.*;
 import br.itb.projeto.vitalususPlus.model.repository.AlunoRepository;
 import br.itb.projeto.vitalususPlus.model.repository.DeslikesRepository;
 import br.itb.projeto.vitalususPlus.model.repository.LikesRepository;
@@ -177,9 +174,9 @@ public class VideoaulaService {
     public Videoaula removeLikes(long id, Aluno aluno){
         Optional<Videoaula> videoaulaOptional = videoaulaRepository.findById(id);
         if (videoaulaOptional.isPresent()){
-        	Likes likes = likesRepository.findByAluno(aluno);
             Videoaula _videoaula = videoaulaOptional.get();
-            likesRepository.delete(likes);
+            Likes like = likesRepository.findByAlunoAndVideoaula(aluno, _videoaula);
+            likesRepository.delete(like);
             if (_videoaula.getAlunos() == null) {
                 _videoaula.setAlunos(new ArrayList<>());
             }
@@ -221,7 +218,8 @@ public class VideoaulaService {
         Optional<Videoaula> videoaulaOptional = videoaulaRepository.findById(id);
         if (videoaulaOptional.isPresent()){
             Videoaula _videoaula = videoaulaOptional.get();
-            _videoaula.getAlunosDeslikes().remove(aluno);
+            Deslikes deslike = deslikesRepository.findByAlunoAndVideoaula(aluno, _videoaula);
+            deslikesRepository.delete(deslike);
             if (_videoaula.getAlunos() == null) {
                 _videoaula.setAlunos(new ArrayList<>());
             }
