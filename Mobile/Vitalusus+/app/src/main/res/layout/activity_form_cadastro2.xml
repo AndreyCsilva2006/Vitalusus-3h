@@ -106,7 +106,7 @@
         android:id="@+id/text_tela_principal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="texto temporario: pular para home"
+        android:text="Já tem uma conta? Faça Login!"
         android:textSize="20sp"
         android:textColor="@color/white"
         android:textStyle="bold"

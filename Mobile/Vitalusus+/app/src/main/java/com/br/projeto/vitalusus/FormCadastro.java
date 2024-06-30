@@ -127,10 +127,6 @@ public class FormCadastro extends AppCompatActivity {
 
             // Aplicando o GradientDrawable ao EditText
             editNome.setBackground(redBorder);
-            editEmail.setBackground(redBorder);
-            editSenha.setBackground(redBorder);
-            editPSeguranca.setBackground(redBorder);
-            editRSeguranca.setBackground(redBorder);
 
             editNome.requestFocus();
             return false;
@@ -144,51 +140,80 @@ public class FormCadastro extends AppCompatActivity {
         editNome.setBackground(blackBorder);
 
         if (editEmail.getText().toString().trim().isEmpty()) {
+            editEmail.setBackground(redBorder);
+
             MensagemUtil.exibir(this, "Digite um E-Mail");
             editEmail.requestFocus();
             return false;
         }
         // ! no início de uma expressão lógica é usado para negar o resultado dessa expressão. Ou seja, ele inverte o valor booleano.
         if (!editEmail.getText().toString().trim().contains("@")){
+            editEmail.setBackground(redBorder);
+
             MensagemUtil.exibir(this, "O Email precisa ter um @");
             editEmail.requestFocus();
             return false;
         }
         if (editEmail.getText().toString().trim().length() < 9) {
+            editEmail.setBackground(redBorder);
+
             MensagemUtil.exibir(this, "Digite um E-Mail válido");
             editEmail.requestFocus();
             return false;
         }
+        editEmail.setBackground(blackBorder);
+
+
         if (editSenha.getText().toString().trim().isEmpty()) {
+            editSenha.setBackground(redBorder);
+
             MensagemUtil.exibir(this, "Digite uma Senha");
             editSenha.requestFocus();
             return false;
         }
-        if (editSenha.getText().toString().trim().length() < 6) {
-            MensagemUtil.exibir(this, "Digite uma Senha que tenha pelo menos 6 caracteres");
+        if (editSenha.getText().toString().trim().length() < 8) {
+            editSenha.setBackground(redBorder);
+
+            MensagemUtil.exibir(this, "Digite uma Senha que tenha pelo menos 8 caracteres");
             editSenha.requestFocus();
             return false;
         }
+        editSenha.setBackground(blackBorder);
+
+
         if (editPSeguranca.getText().toString().trim().isEmpty()) {
+            editPSeguranca.setBackground(redBorder);
+
             MensagemUtil.exibir(this, "Digite uma Pergunta de Segurança caso perca sua Senha para poder recuperar.");
             editPSeguranca.requestFocus();
             return false;
         }
         if (editPSeguranca.getText().toString().trim().length() < 4) {
+            editPSeguranca.setBackground(redBorder);
+
             MensagemUtil.exibir(this, "Digite uma Pergunta que pelo menos 4 caracteres");
             editPSeguranca.requestFocus();
             return false;
         }
+        editPSeguranca.setBackground(blackBorder);
+
+
         if (editRSeguranca.getText().toString().trim().isEmpty()) {
+            editRSeguranca.setBackground(redBorder);
+
             MensagemUtil.exibir(this, "Digite uma Resposta para a Pergunta de Segurança.");
             editRSeguranca.requestFocus();
             return false;
         }
         if (editRSeguranca.getText().toString().trim().length() < 4) {
+            editRSeguranca.setBackground(redBorder);
+
             MensagemUtil.exibir(this, "Digite uma Resposta para a Pergunta de Segurança que tenha pelo menos 4 caracteres");
             editRSeguranca.requestFocus();
             return false;
         }
+        editRSeguranca.setBackground(blackBorder);
+
         return true;
     }
 
