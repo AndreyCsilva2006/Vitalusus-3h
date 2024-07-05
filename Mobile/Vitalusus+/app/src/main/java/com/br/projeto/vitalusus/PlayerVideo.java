@@ -24,6 +24,7 @@ public class PlayerVideo extends AppCompatActivity  {
         mediaController.setMediaPlayer(videoPlayer);
         videoPlayer.setMediaController(mediaController);
         videoPlayer.setKeepScreenOn(true);
+        // Pega onde tá localizado o vídeo.
         videoPlayer.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.video));
         videoPlayer.start();
 
@@ -34,7 +35,6 @@ public class PlayerVideo extends AppCompatActivity  {
                 controller.setAnchorView(videoPlayer);
             });
         });
-
     }
 
     @Override
