@@ -83,4 +83,11 @@ public class MainActivity extends AppCompatActivity {
         Intent li = new Intent(this, ListarAlunos.class);
         startActivity(li);
     }
+
+    public void config(MenuItem item) {
+        // Intent = intenção
+        // this = tela atual
+        Intent con = new Intent(this, PlayerVideo.class);
+        startActivity(con);
+    }
 }
