@@ -1,7 +1,7 @@
 **PROTOCOLOS HTTP PARA USAR**
 
 
-*ADMINISTRADOR*
+*==ADMINISTRADOR==*
 
 FIND ALL
 http://localhost:8080/vitalusus/admin/findAll
@@ -22,7 +22,7 @@ REMOVER USUÁRIO ADMINISTRADO
 http://localhost:8080/vitalusus/admin/removeUsuariosAdministrados/{id}
 
 
-*ALUNO*
+*==ALUNO==*
 
 FIND ALL
 http://localhost:8080/vitalusus/aluno/findAll
@@ -40,7 +40,7 @@ ALTERAR PESO
 http://localhost:8080/vitalusus/aluno/updatePeso/{id}
 
 
-*BANCO*
+*==BANCO==*
 
 FIND ALL
 http://localhost:8080/vitalusus/banco/findAll
@@ -52,7 +52,7 @@ POST
 http://localhost:8080/vitalusus/banco/post
 
 
-*CANAL*
+*==CANAL==*
 
 FIND ALL
 http://localhost:8080/vitalusus/canal/findAll
@@ -76,7 +76,7 @@ ALTERAR NOME DO CANAL
 http://localhost:8080/vitalusus/canal/updateNome/{id}
 
 
-*COMENTÁRIO*
+*==COMENTÁRIO==*
 
 FIND ALL
 http://localhost:8080/vitalusus/comentario/findAll
@@ -91,7 +91,7 @@ ALTERAR TEXTO DO COMENTÁRIO
 http://localhost:8080/vitalusus/comentario/updateTexto/{id}
 
 
-*EVOLUÇÃO*
+*==EVOLUÇÃO==*
 
 FIND ALL
 http://localhost:8080/vitalusus/evolucao/findAll
@@ -115,7 +115,7 @@ ALTERAR PESO ATUAL
 http://localhost:8080/vitalusus/evolucao/updatePesoAtual/{id}
 
 
-*TREINADOR*
+*==TREINADOR==*
 
 FIND ALL
 http://localhost:8080/vitalusus/treinador/findAll
@@ -127,7 +127,7 @@ POST
 http://localhost:8080/vitalusus/treinador/post
 
 
-*USUÁRIO*
+*==USUÁRIO==*
 
 FIND ALL
 http://localhost:8080/vitalusus/usuario/findAll
