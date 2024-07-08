@@ -2,8 +2,10 @@ package com.br.projeto.vitalusus.dao;
 
 import android.util.Log;
 
+import com.br.projeto.vitalusus.EsqueciSenhaActivity;
 import com.br.projeto.vitalusus.conexao.Conexao;
 import com.br.projeto.vitalusus.model.Aluno;
+import com.br.projeto.vitalusus.util.MensagemUtil;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -109,6 +111,61 @@ public class AlunoDAO {
             lista.add(alu);
         }
         return lista;
+    }
+
+    public Aluno consultaEmailAluno(String email) {
+        try {
+            conn = Conexao.conectar();
+            if (conn != null) {
+                String sql = "select * from Aluno where email ='" + email + "'";
+                Statement st = null;
+                st = conn.createStatement();
+
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    Aluno alu = new Aluno();
+
+                    alu.setpSeguranca(rs.getString(5));
+
+                    conn.close();
+                    return alu;
+                }
+
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public Aluno validarRespostaPSeguranca(String email, String rSeguranca) {
+        try {
+            conn = Conexao.conectar();
+            if (conn != null) {
+                String sql = "select * from Aluno where rSeguranca ='" + rSeguranca + "' and email ='" + email + "'";
+                Statement st = null;
+                st = conn.createStatement();
+
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    Aluno alu = new Aluno();
+
+                    alu.setpSeguranca(rs.getString(5));
+                    alu.setrSeguranca(rs.getString(6));
+
+                    conn.close();
+                    return alu;
+                }
+
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
     }
 
     public Aluno selecionarAluno(String email, String senha) {

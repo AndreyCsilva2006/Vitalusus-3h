@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class ListaAlunoAdapter extends BaseAdapter implements Serializable {
+
     private static final long serialVersionUID = 546546546546L;
     private List<Aluno> listaAluno;
     private Context context;

@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@id/title_esqueceu_senha" />
 
     <EditText
-        android:id="@+id/edit_ESEmail"
+        android:id="@+id/editEsqueciSenhaEmail"
         style="@style/Edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
         android:text="Verificar E-Mail"
         app:layout_constraintEnd_toEndOf="@id/containerComponents"
         app:layout_constraintStart_toStartOf="@id/containerComponents"
-        app:layout_constraintTop_toBottomOf="@id/edit_ESEmail" />
+        app:layout_constraintTop_toBottomOf="@id/editEsqueciSenhaEmail" />
 
     <!--Edit Text resposta secreta ES = Esqueceu Senha-->
     <EditText
@@ -75,7 +75,7 @@
 
     <!--Botão Entrar-->
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnResgatarSenha"
+        android:id="@+id/btnRedefinirSenha"
         style="@style/Button"
         android:layout_marginTop="24dp"
         android:text="Resgatar Senha"

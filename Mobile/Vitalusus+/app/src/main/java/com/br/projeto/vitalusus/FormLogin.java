@@ -37,6 +37,7 @@ public class FormLogin extends AppCompatActivity {
         btnFormLoginOlharSenha = findViewById(R.id.btnFormLoginOlharSenha);
         text_tela_cadastro = findViewById(R.id.text_tela_cadastro);
 
+        // botão do olho de olhar a senha
         btnFormLoginOlharSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

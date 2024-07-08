@@ -117,7 +117,7 @@ public class ActivityAluno extends AppCompatActivity {
     }
 
     private void salvar() {
-        // se ele o método validar() não for verdadeiro...
+        // se o método validar() não for verdadeiro...
         if (!validar()) {
             // retorne tudo novamente.
             return;
