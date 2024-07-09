@@ -40,8 +40,10 @@ public class EsqueciSenhaActivity extends AppCompatActivity {
         editRespostaSeguranca.setVisibility(View.GONE);
         btnRedefinirSenha.setVisibility(View.GONE);
 
+        // Pegando os paramêtros do layout do containerComponents (div branca) pra poder manipular
         ViewGroup.LayoutParams layoutParams = containerComponents.getLayoutParams();
-        layoutParams.height = 460;
+        // trocando a containerComponents para o tamanho do passo 1 verificar email
+        layoutParams.height = 450;
 
         btnVerificarEmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,8 +62,13 @@ public class EsqueciSenhaActivity extends AppCompatActivity {
 
                     editEsqueciSenhaEmail.setBackground(blackBorder);
 
-                    layoutParams.height = 770;
+                    // mudando para o tamanho do passo 2 verificar pergunta secreta
+                    layoutParams.height = 570;
                     containerComponents.setLayoutParams(layoutParams);
+
+                    editEsqueciSenhaEmail.setVisibility(View.GONE);
+                    btnVerificarEmail.setVisibility(View.GONE);
+
                     txtPerguntaSeguranca.setVisibility(View.VISIBLE);
                     editRespostaSeguranca.setVisibility(View.VISIBLE);
                     btnRedefinirSenha.setVisibility(View.VISIBLE);
@@ -69,6 +76,8 @@ public class EsqueciSenhaActivity extends AppCompatActivity {
                     editRespostaSeguranca.setText("");
                     editRespostaSeguranca.requestFocus();
                 } else {
+                    MensagemUtil.exibir(EsqueciSenhaActivity.this, "Aluno não identificado. Coloque um E-Mail Cadastrado.");
+
                     GradientDrawable redBorder = new GradientDrawable();
                     redBorder.setColor(Color.WHITE);
                     redBorder.setCornerRadius(50);
@@ -76,13 +85,6 @@ public class EsqueciSenhaActivity extends AppCompatActivity {
 
                     editEsqueciSenhaEmail.setBackground(redBorder);
                     editEsqueciSenhaEmail.setText("");
-
-                    layoutParams.height = 460;
-                    txtPerguntaSeguranca.setVisibility(View.GONE);
-                    editRespostaSeguranca.setVisibility(View.GONE);
-                    btnRedefinirSenha.setVisibility(View.GONE);
-
-                    MensagemUtil.exibir(EsqueciSenhaActivity.this, "Aluno não identificado. Coloque um E-Mail Cadastrado.");
                     editEsqueciSenhaEmail.requestFocus();
                 }
             }

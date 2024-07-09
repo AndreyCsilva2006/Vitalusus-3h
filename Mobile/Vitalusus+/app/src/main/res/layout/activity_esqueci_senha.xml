@@ -48,6 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="txtperguntaSeg"
+        android:textAlignment="center"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@id/containerComponents"
         app:layout_constraintStart_toStartOf="@id/containerComponents"
