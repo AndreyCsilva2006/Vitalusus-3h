@@ -122,10 +122,10 @@
         android:layout_height="47dp"
         android:layout_marginTop="320dp"
         android:backgroundTint="#00FFFFFF"
-        android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.853"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

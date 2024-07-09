@@ -168,6 +168,33 @@ public class AlunoDAO {
         return null;
     }
 
+    public Aluno redefinirSenha(String email, String novaSenha) {
+        try {
+            conn = Conexao.conectar();
+            if (conn != null) {
+                String sql = "update Aluno set senha = '" + novaSenha + "' where email = '" + email + "'";
+                Statement st = null;
+                st = conn.createStatement();
+
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    Aluno alu = new Aluno();
+
+                    alu.setEmail(rs.getString(3));
+                    alu.setSenha(rs.getString(4));
+
+                    conn.close();
+                    return alu;
+                }
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
     public Aluno selecionarAluno(String email, String senha) {
         try {
             conn = Conexao.conectar();

@@ -72,9 +72,6 @@ public class FormCadastro extends AppCompatActivity {
         editRSeguranca = findViewById(R.id.editFormCadastroRespSeguranca);
 
         btnSalvar = findViewById(R.id.btnCadastroAlunoSalvar);
-        // btnExcluir = findViewById(R.id.btnActivityAlunoExcluir);
-
-        // txtStatus = findViewById(R.id.txtActivityAlunoStatus);
 
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +133,6 @@ public class FormCadastro extends AppCompatActivity {
             editNome.requestFocus();
             return false;
         }
-
         editNome.setBackground(blackBorder);
 
         if (editEmail.getText().toString().trim().isEmpty()) {
@@ -147,7 +143,7 @@ public class FormCadastro extends AppCompatActivity {
             return false;
         }
         // ! no início de uma expressão lógica é usado para negar o resultado dessa expressão. Ou seja, ele inverte o valor booleano.
-        if (!editEmail.getText().toString().trim().contains("@")){
+        if (!editEmail.getText().toString().trim().contains("@")) {
             editEmail.setBackground(redBorder);
 
             MensagemUtil.exibir(this, "O Email precisa ter um @");
@@ -162,7 +158,6 @@ public class FormCadastro extends AppCompatActivity {
             return false;
         }
         editEmail.setBackground(blackBorder);
-
 
         if (editSenha.getText().toString().trim().isEmpty()) {
             editSenha.setBackground(redBorder);
@@ -180,7 +175,6 @@ public class FormCadastro extends AppCompatActivity {
         }
         editSenha.setBackground(blackBorder);
 
-
         if (editPSeguranca.getText().toString().trim().isEmpty()) {
             editPSeguranca.setBackground(redBorder);
 
@@ -196,7 +190,6 @@ public class FormCadastro extends AppCompatActivity {
             return false;
         }
         editPSeguranca.setBackground(blackBorder);
-
 
         if (editRSeguranca.getText().toString().trim().isEmpty()) {
             editRSeguranca.setBackground(redBorder);
