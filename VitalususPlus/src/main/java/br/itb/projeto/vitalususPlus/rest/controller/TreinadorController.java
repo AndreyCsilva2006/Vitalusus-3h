@@ -46,39 +46,10 @@ public class TreinadorController {
     }
     @PostMapping("post")
     public ResponseEntity<Treinador> salvarTreinador(@RequestBody @Valid Treinador treinador){
-        Usuario usuario = treinador.getUsuario();
-        Canal canal = treinador.getCanal();
-        Treinador treinadorSalvo = this.treinadorService.save(treinador, usuario, canal);
-        if (treinadorSalvo != null) {
-            usuarioService.save(usuario);
-            canalService.save(canal);
-        }
+        Treinador treinadorSalvo = this.treinadorService.save(treinador);
         return new ResponseEntity<Treinador>(treinadorSalvo, HttpStatus.OK);
     }
-    @PutMapping("inativate")
-    public ResponseEntity<Treinador> deletarTreinador(@RequestBody @Valid Treinador treinador){
-        Usuario usuario = treinador.getUsuario();
-        Canal canal = treinador.getCanal();
 
-        Treinador treinadorInativate = treinadorService.inativate(treinador, usuario, canal);
-        if (treinadorInativate != null) {
-            usuario.setStatusUsuario("INATIVO");
-            usuarioService.update(usuario);
-            canalService.update(canal);
-        }
-        return new ResponseEntity<Treinador>(treinadorInativate, HttpStatus.OK);
-    }
-    @PutMapping("update")
-    public ResponseEntity<Treinador> updateAdmin(@RequestBody @Valid Treinador treinador){
-        Usuario usuario = treinador.getUsuario();
-        Canal canal = treinador.getCanal();
-        Treinador treinadorUpdatado = this.treinadorService.update(treinador, usuario, canal);
-        if (treinadorUpdatado != null) {
-            usuarioService.update(usuario);
-            canalService.update(canal);
-        }
-        return new ResponseEntity<Treinador>(treinadorUpdatado, HttpStatus.OK);
-    }
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationException(MethodArgumentNotValidException ex){

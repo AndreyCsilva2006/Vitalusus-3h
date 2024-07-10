@@ -41,23 +41,17 @@ public class AlunoController {
     }
     @PostMapping("post")
     public ResponseEntity<Aluno> salvarAluno(@RequestBody @Valid Aluno aluno){
-        Usuario usuario = aluno.getUsuario();
-        Aluno alunoSalvo = this.alunoService.save(aluno, usuario);
-        if (alunoSalvo != null) usuarioService.save(usuario);
+        Aluno alunoSalvo = this.alunoService.save(aluno);
         return new ResponseEntity<Aluno>(alunoSalvo, HttpStatus.OK);
     }
-    @PutMapping("inativate")
-    public ResponseEntity<Aluno> deletarAluno(@RequestBody @Valid Aluno aluno){
-        Usuario usuario = aluno.getUsuario();
-        Aluno alunoInativate = alunoService.inativate(aluno, usuario);
-        if (alunoInativate != null) usuarioService.save(usuario);
-        return new ResponseEntity<Aluno>(alunoInativate, HttpStatus.OK);
+    @PutMapping("updateAltura/{id}")
+    public ResponseEntity<Aluno> updateAltura(@PathVariable long id, @RequestBody @Valid Aluno aluno){
+        Aluno alunoUpdatado = this.alunoService.updateAltura(id, aluno);
+        return new ResponseEntity<Aluno>(alunoUpdatado, HttpStatus.OK);
     }
-    @PutMapping("update")
-    public ResponseEntity<Aluno> updateAdmin(@RequestBody @Valid Aluno aluno){
-        Usuario usuario = aluno.getUsuario();
-        Aluno alunoUpdatado = this.alunoService.update(aluno, usuario);
-        if (alunoUpdatado != null) usuarioService.save(usuario);
+    @PutMapping("updatePeso/{id}")
+    public ResponseEntity<Aluno> updatePeso(@PathVariable long id, @RequestBody @Valid Aluno aluno){
+        Aluno alunoUpdatado = this.alunoService.updatePeso(id, aluno);
         return new ResponseEntity<Aluno>(alunoUpdatado, HttpStatus.OK);
     }
     @ResponseStatus(HttpStatus.BAD_REQUEST)
