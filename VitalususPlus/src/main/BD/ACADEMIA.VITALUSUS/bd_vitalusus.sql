@@ -151,7 +151,7 @@ GO
 -- Tabela Videoaula
 CREATE TABLE Videoaula(
 	id				INT				IDENTITY,
-	link			VARCHAR(2048)	NOT NULL,
+	link			VARCHAR(2048)	NULL,
 	descricao		VARCHAR(255)	NULL,
 	titulo			VARCHAR(100)	NOT NULL,
 	likes			INT				NULL,
@@ -159,6 +159,7 @@ CREATE TABLE Videoaula(
 	canal_id		INT				NULL,
 	visualizacoes	BIGINT			NOT NULL,
 	video			VARBINARY(MAX)	NULL, 
+	thumbnail		VARBINARY(MAX)	NULL,
 
 	FOREIGN KEY (canal_id) REFERENCES Canal(id),
 	PRIMARY KEY(id)
@@ -273,6 +274,30 @@ VALUES(
 )
 GO
 
+-- Tabela Likes
+CREATE TABLE Likes(
+	id					INT					IDENTITY,
+	videoaula_id		INT					NOT NULL,
+	aluno_id			INT					NOT NULL,
+
+	PRIMARY KEY (id),
+	FOREIGN KEY(videoaula_id) REFERENCES Videoaula(id),
+	FOREIGN KEY(aluno_id) REFERENCES Aluno(id)
+)
+GO
+
+-- Tabela Deslikes
+CREATE TABLE Deslikes(
+	id					INT				IDENTITY,
+	videoaula_id		INT				NOT NULL,
+	aluno_id			INT				NOT NULL,
+
+	PRIMARY KEY (id),
+	FOREIGN KEY(videoaula_id) REFERENCES Videoaula(id),
+	FOREIGN KEY(aluno_id) REFERENCES Aluno(id)
+)
+GO
+
 SELECT * FROM Usuario
 SELECT * FROM Canal
 SELECT * FROM Videoaula
@@ -285,6 +310,8 @@ SELECT * FROM Comentario
 SELECT * FROM Aluno_segue_canal
 SELECT * FROM Aluno_videoaula
 SELECT * FROM Admin_usuario
+SELECT * FROM Deslikes
+SELECT * FROM Likes
 
 /*
 UPDATE Usuario SET nome = 'Maria Joana' WHERE id = 1

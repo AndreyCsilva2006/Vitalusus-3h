@@ -44,9 +44,24 @@ public class EvolucaoController {
     public void deletarEvolucao(@RequestBody Evolucao evolucao){
         this.evolucaoService.delete(evolucao);
     }
-    @PutMapping("update")
-    public ResponseEntity<Evolucao> updateEvolucao(@RequestBody @Valid Evolucao evolucao){
-        Evolucao evolucaoUpdatado = this.evolucaoService.update(evolucao);
+    @PutMapping("updateAlturaAtual/{id}")
+    public ResponseEntity<Evolucao> updateAlturaAtual(@PathVariable Long id, @RequestBody @Valid Evolucao evolucao){
+        Evolucao evolucaoUpdatado = this.evolucaoService.updateAlturaAtual(id, evolucao);
+        return new ResponseEntity<Evolucao>(evolucaoUpdatado, HttpStatus.OK);
+    }
+    @PutMapping("updateImc/{id}")
+    public ResponseEntity<Evolucao> updateImc(@PathVariable Long id, @RequestBody @Valid Evolucao evolucao){
+        Evolucao evolucaoUpdatado = this.evolucaoService.updateImc(id, evolucao);
+        return new ResponseEntity<Evolucao>(evolucaoUpdatado, HttpStatus.OK);
+    }
+    @PutMapping("updateMetBasal/{id}")
+    public ResponseEntity<Evolucao> updateMetBasal(@PathVariable Long id, @RequestBody @Valid Evolucao evolucao){
+        Evolucao evolucaoUpdatado = this.evolucaoService.updateMetBasal(id, evolucao);
+        return new ResponseEntity<Evolucao>(evolucaoUpdatado, HttpStatus.OK);
+    }
+    @PutMapping("updatePesoAtual/{id}")
+    public ResponseEntity<Evolucao> updatePesoAtual(@PathVariable Long id, @RequestBody @Valid Evolucao evolucao){
+        Evolucao evolucaoUpdatado = this.evolucaoService.updatePesoAtual(id, evolucao);
         return new ResponseEntity<Evolucao>(evolucaoUpdatado, HttpStatus.OK);
     }
     @ResponseStatus(HttpStatus.BAD_REQUEST)

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import br.itb.projeto.vitalususPlus.model.entity.Aluno;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,11 +42,21 @@ public class CanalController {
 	        Canal canalSalvo = this.canalService.save(canal);
 	        return new ResponseEntity<Canal>(canalSalvo, HttpStatus.OK);
 	    }
-	    @PutMapping("updateAlunos/{id}")
-	    public ResponseEntity<Canal> updateCanal(@PathVariable long id, @RequestBody Canal canal){
-	        Canal canalUpdatado = this.canalService.updateAlunos(id, canal);
+	    @PutMapping("updateFix/{id}")
+	    public ResponseEntity<Canal> updateFix(@PathVariable long id){
+	        Canal canalUpdatado = this.canalService.updateFix(id);
 	        return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
 	    }
+		@PutMapping("addAlunos/{id}")
+		public ResponseEntity<Canal> updateAlunos(@PathVariable long id, @RequestBody Canal canal){
+		Canal canalUpdatado = this.canalService.addAlunos(id, canal);
+		return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
+	}
+		@PutMapping("removeAlunos/{id}")
+		public ResponseEntity<Canal> removeAlunos(@PathVariable long id, @RequestBody Aluno aluno){
+		Canal canalUpdatado = this.canalService.removeAlunos(id, aluno);
+		return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
+	}
 	    @PutMapping("updateNome/{id}")
 	    public ResponseEntity<Canal> updateNome(@PathVariable long id, @RequestBody Canal canal){
 	        Canal canalUpdatado = this.canalService.updateNome(id, canal);
