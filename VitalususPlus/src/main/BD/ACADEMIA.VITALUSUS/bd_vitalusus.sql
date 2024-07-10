@@ -151,7 +151,7 @@ GO
 -- Tabela Videoaula
 CREATE TABLE Videoaula(
 	id				INT				IDENTITY,
-	link			VARCHAR(2048)	NOT NULL,
+	link			VARCHAR(2048)	NULL,
 	descricao		VARCHAR(255)	NULL,
 	titulo			VARCHAR(100)	NOT NULL,
 	likes			INT				NULL,
