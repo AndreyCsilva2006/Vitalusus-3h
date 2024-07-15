@@ -3,6 +3,7 @@ package com.br.projeto.vitalusus;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.res.Configuration;
+import android.media.browse.MediaBrowser;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.ViewGroup;
@@ -12,6 +13,9 @@ import android.widget.VideoView;
 public class PlayerVideo extends AppCompatActivity  {
 
     private VideoView videoPlayer;
+    // URL da plataforma blender
+ // String videoUrl = "https://video.blender.org/download/videos/3d95fb3d-c866-42c8-9db1-fe82f48ccb95-804.mp4";
+    String videoUrl = "https://www.youtube.com/embed/_ttcR7VDouE?si=75jU7L3DEy4Vytmm";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +29,7 @@ public class PlayerVideo extends AppCompatActivity  {
         videoPlayer.setMediaController(mediaController);
         videoPlayer.setKeepScreenOn(true);
         // Pega onde tá localizado o vídeo.
-        videoPlayer.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.video));
+        videoPlayer.setVideoURI(Uri.parse(videoUrl));
         videoPlayer.start();
 
         videoPlayer.setOnPreparedListener(mediaPlayer -> {
