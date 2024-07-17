@@ -13,6 +13,11 @@
     <item
         android:orderInCategory="101"
         android:title="ListaAluno"
-        android:onClick="lista"/>
+        android:onClick="listaAluno"/>
+
+    <item
+        android:orderInCategory="102"
+        android:title="ListaCanal"
+        android:onClick="listaCanal"/>
 
 </menu>

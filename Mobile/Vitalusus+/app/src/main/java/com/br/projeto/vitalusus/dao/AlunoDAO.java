@@ -225,6 +225,7 @@ public class AlunoDAO {
         return null;
     }
 
+    // getAll
     public List<Aluno> getAll() {
         List<Aluno> lista = new ArrayList<Aluno>();
         try {
@@ -245,6 +246,7 @@ public class AlunoDAO {
         return lista;
     }
 
+    // getAll com pesquisa
     public List<Aluno> getAll(String busca) {
         List<Aluno> lista = new ArrayList<Aluno>();
         try {

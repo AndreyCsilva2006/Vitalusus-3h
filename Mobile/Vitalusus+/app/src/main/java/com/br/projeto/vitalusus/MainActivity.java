@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.br.projeto.vitalusus.view.ListarAlunos;
+import com.br.projeto.vitalusus.view.ListarCanal;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.Nullable;
@@ -77,17 +78,20 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public void lista(MenuItem item) {
+    public void listaAluno(MenuItem item) {
         // Intent = intenção
         // this = tela atual
-        Intent li = new Intent(this, ListarAlunos.class);
-        startActivity(li);
+        Intent liA = new Intent(this, ListarAlunos.class);
+        startActivity(liA);
     }
 
     public void config(MenuItem item) {
-        // Intent = intenção
-        // this = tela atual
         Intent con = new Intent(this, PlayerVideo.class);
         startActivity(con);
+    }
+
+    public void listaCanal(MenuItem item) {
+        Intent liC = new Intent(this, ListarCanal.class);
+        startActivity(liC);
     }
 }
