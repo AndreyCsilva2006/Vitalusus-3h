@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+    <!--Menu do lado, ainda iremos adicionar mais coisas -->
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_videosalta"
+            android:icon="@drawable/videosalta"
+            android:title="Videos em Alta"/>
+
+    <item
+        android:id="@+id/nav_configuracoes"
+        android:icon="@drawable/configuracoes"
+        android:title="Configurações"/>
+
+
+    <item
+        android:id="@+id/nav_estatisticas"
+        android:icon="@drawable/estatisticas"
+        android:title="Estatisticas"/>
+
+
+</group>
+</menu>

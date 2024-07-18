@@ -16,16 +16,14 @@
         android:theme="@style/Theme.Vitalusus"
         tools:targetApi="31">
         <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.ListarCanal"
             android:exported="false" />
         <activity
             android:name=".PlayerVideo"
             android:exported="false" />
-        <activity
-            android:name=".Home"
-            android:exported="false"
-            android:label="@string/title_activity_home"
-            android:theme="@style/Theme.Vitalusus.NoActionBar" />
         <activity
             android:name=".view.ActivityAluno"
             android:exported="false" />

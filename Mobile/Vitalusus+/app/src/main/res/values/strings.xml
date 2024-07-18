@@ -65,4 +65,8 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="perfil">Perfil</string>
+    <string name="notificacoes">Notificações</string>
+    <string name="canais">Canais</string>
+    <string name="home">Home</string>
 </resources>
