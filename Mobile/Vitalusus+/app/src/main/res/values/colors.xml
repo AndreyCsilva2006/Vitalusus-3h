@@ -5,4 +5,5 @@
     <color name="redDark">#760000</color>
     <color name="red">#FF0000</color>
     <color name="hintGray">#96938a</color>
+    <color name="grey">d3d3d3</color>
 </resources>

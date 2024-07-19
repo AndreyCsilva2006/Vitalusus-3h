@@ -40,7 +40,7 @@ public class FormCadastro extends AppCompatActivity {
         text_tela_principal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FormCadastro.this, Home.class);
+                Intent intent = new Intent(FormCadastro.this, HomeActivity.class);
                 startActivity(intent);
             }
         });
