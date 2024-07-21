@@ -23,6 +23,11 @@
         android:icon="@drawable/estatisticas"
         android:title="Estatisticas"/>
 
+        <item
+            android:id="@+id/nav_suporte"
+            android:icon="@drawable/suporte"
+            android:title="Suporte"/>
+
 
 </group>
 </menu>
