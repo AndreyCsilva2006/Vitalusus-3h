@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
-public class PlayerVideo extends AppCompatActivity  {
+public class PlayerVideo extends AppCompatActivity {
 
     private VideoView videoPlayer;
     // URL da plataforma blender
- // String videoUrl = "https://video.blender.org/download/videos/3d95fb3d-c866-42c8-9db1-fe82f48ccb95-804.mp4";
+    // String videoUrl = "https://video.blender.org/download/videos/3d95fb3d-c866-42c8-9db1-fe82f48ccb95-804.mp4";
     String videoUrl = "https://www.youtube.com/embed/_ttcR7VDouE?si=75jU7L3DEy4Vytmm";
 
     @Override

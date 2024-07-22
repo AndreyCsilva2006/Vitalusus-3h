@@ -20,8 +20,6 @@ public class TelaPrincipal extends AppCompatActivity {
     TextView txtPerfilNome, txtPerfilEmail;
     Button btnPerfilDeslogar;
 
-    Aluno alunoInfos = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
