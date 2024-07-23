@@ -1,10 +1,13 @@
 package com.br.projeto.vitalusus.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.br.projeto.vitalusus.R;
@@ -49,10 +52,15 @@ public class ListaCanalAdapter extends BaseAdapter implements Serializable {
         TextView txtNome = v.findViewById(R.id.txtConsultaCanalNome);
         TextView txtVisualizacoes = v.findViewById(R.id.txtConsultaCanalVisualizacoes);
         TextView txtSeguidores = v.findViewById(R.id.txtConsultaCanalSeguidores);
+        ImageView imgFoto = v.findViewById(R.id.imgConsultaCanalFoto);
 
         txtNome.setText(canal.getNome().toString());
         txtVisualizacoes.setText(canal.getVisualizacoes().toString());
         txtSeguidores.setText(canal.getSeguidores().toString());
+
+        Resources resources = context.getResources();
+        Drawable drawable = resources.getDrawable(R.drawable.logo);
+        imgFoto.setImageDrawable(drawable);
 
         return v;
     }

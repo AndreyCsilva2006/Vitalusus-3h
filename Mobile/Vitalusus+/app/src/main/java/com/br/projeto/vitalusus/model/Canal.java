@@ -1,14 +1,16 @@
 package com.br.projeto.vitalusus.model;
 
+import android.graphics.drawable.BitmapDrawable;
+
 import java.math.BigInteger;
 
 public class Canal {
 
-    // te amo pq vc tem bastante força e coragem para enfrentar oq vier pela frente, e vc tbm me trata bem com carinho e eu gosto disso, me sinto acolhido por vc minha totosa, eu me importo com vc mesmo que vc negue isso, eu posso ter uma maneira diferente de me importar, por exemplo eu me importo com minha mãe mas eu não pergunto se ela está bem toda hora.
     private Integer id;
     private String nome;
     private Integer visualizacoes;
     private BigInteger seguidores;
+    private BitmapDrawable foto;
 
     public Integer getId() {
         return id;
@@ -30,7 +32,7 @@ public class Canal {
         return visualizacoes;
     }
 
-    public void setVisualizacoes(int visualizacoes) {
+    public void setVisualizacoes(Integer visualizacoes) {
         this.visualizacoes = visualizacoes;
     }
 
@@ -40,5 +42,13 @@ public class Canal {
 
     public void setSeguidores(BigInteger seguidores) {
         this.seguidores = seguidores;
+    }
+
+    public BitmapDrawable getFoto() {
+        return foto;
+    }
+
+    public void setFoto(BitmapDrawable foto) {
+        this.foto = foto;
     }
 }

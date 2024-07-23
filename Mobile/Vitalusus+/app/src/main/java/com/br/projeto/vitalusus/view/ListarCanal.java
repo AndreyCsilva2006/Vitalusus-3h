@@ -43,6 +43,7 @@ public class ListarCanal extends AppCompatActivity {
             }
         });
 
+        // Quando clicar em algum item da Lista de Canais.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View v, int i, long l) {
