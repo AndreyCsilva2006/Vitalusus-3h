@@ -2,7 +2,10 @@ package com.br.projeto.vitalusus.adapter;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import com.br.projeto.vitalusus.R;
 import com.br.projeto.vitalusus.model.Canal;
 
+import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.List;
 
@@ -58,9 +62,10 @@ public class ListaCanalAdapter extends BaseAdapter implements Serializable {
         txtVisualizacoes.setText(canal.getVisualizacoes().toString());
         txtSeguidores.setText(canal.getSeguidores().toString());
 
-        Resources resources = context.getResources();
-        Drawable drawable = resources.getDrawable(R.drawable.logo);
-        imgFoto.setImageDrawable(drawable);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(canal.getFoto(), 0, canal.getFoto().length);
+
+        // Exiba o bitmap em uma ImageView
+        imgFoto.setImageBitmap(bitmap);
 
         return v;
     }

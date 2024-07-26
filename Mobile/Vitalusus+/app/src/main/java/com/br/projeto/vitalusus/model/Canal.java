@@ -1,5 +1,6 @@
 package com.br.projeto.vitalusus.model;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 
 import java.math.BigInteger;
@@ -10,7 +11,7 @@ public class Canal {
     private String nome;
     private Integer visualizacoes;
     private BigInteger seguidores;
-    private BitmapDrawable foto;
+    private byte[] foto;
 
     public Integer getId() {
         return id;
@@ -44,11 +45,11 @@ public class Canal {
         this.seguidores = seguidores;
     }
 
-    public BitmapDrawable getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
-    public void setFoto(BitmapDrawable foto) {
+    public void setFoto(byte[] foto) {
         this.foto = foto;
     }
 }

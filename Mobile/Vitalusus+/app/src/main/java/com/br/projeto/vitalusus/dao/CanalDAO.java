@@ -5,8 +5,11 @@ import android.util.Log;
 import com.br.projeto.vitalusus.conexao.Conexao;
 import com.br.projeto.vitalusus.model.Canal;
 
+import java.io.ByteArrayInputStream;
 import java.math.BigInteger;
+import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,8 +30,9 @@ public class CanalDAO {
 
             canal.setId(rs.getInt(1));
             canal.setNome(rs.getString(2));
-            canal.setVisualizacoes(rs.getInt(3));
-            canal.setSeguidores(BigInteger.valueOf(rs.getInt(4)));
+            canal.setFoto(rs.getBytes(3));
+            canal.setVisualizacoes(rs.getInt(4));
+            canal.setSeguidores(BigInteger.valueOf(rs.getInt(5)));
 
             lista.add(canal);
         }
