@@ -49,6 +49,7 @@ public class UsuarioController {
 		return new ResponseEntity<Usuario>(usuarioSalvo, HttpStatus.OK);
 	}
 
+<<<<<<< HEAD
 	@DeleteMapping("delete")
 	public void deletarUsuario(@RequestBody Usuario usuario) {
 		this.usuarioService.delete(usuario);
@@ -57,6 +58,11 @@ public class UsuarioController {
 	@PutMapping("update")
 	public ResponseEntity<Usuario> updateUsuario(@RequestBody @Valid Usuario usuario) {
 		Usuario usuarioUpdatado = this.usuarioService.update(usuario);
+=======
+	@PutMapping("updateSenha/{id}")
+	public ResponseEntity<Usuario> updateUsuario(@PathVariable long id, @RequestBody Usuario usuario) {
+		Usuario usuarioUpdatado = this.usuarioService.updateSenha(id, usuario);
+>>>>>>> backend
 		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
 	}
 
@@ -68,6 +74,27 @@ public class UsuarioController {
 		}
 		return ResponseEntity.badRequest().body("Dados incorretos!");
 	}
+<<<<<<< HEAD
+=======
+	
+	@PutMapping("inativar/{id}")
+	public ResponseEntity<Usuario> inativar(@PathVariable long id){
+		Usuario usuarioUpdatado = usuarioService.inativar(id);
+		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
+	}
+	
+	@PutMapping("reativar/{id}")
+	public ResponseEntity<Usuario> reativar(@PathVariable long id){
+		Usuario usuarioUpdatado = usuarioService.reativar(id);
+		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
+	}
+	
+	@PutMapping("alterarSenha/{id}")
+	public ResponseEntity<Usuario> update(@PathVariable long id, @RequestBody Usuario usuario){
+		Usuario usuarioUpdatado = usuarioService.alterarSenha(id, usuario);
+		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
+	}
+>>>>>>> backend
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)

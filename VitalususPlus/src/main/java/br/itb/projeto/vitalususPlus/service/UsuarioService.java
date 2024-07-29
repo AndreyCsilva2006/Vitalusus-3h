@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import br.itb.projeto.vitalususPlus.model.entity.Usuario;
 import br.itb.projeto.vitalususPlus.model.repository.UsuarioRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class UsuarioService {
@@ -52,10 +53,24 @@ public class UsuarioService {
 		return usuarioRepository.save(usuario);
 	}
 
+<<<<<<< HEAD
+=======
+	public Usuario inativar(long id) {
+		Optional<Usuario> _usuario = usuarioRepository.findById(id);
+		if (_usuario.isPresent()) {
+			Usuario usuarioUpdatado = _usuario.get();
+			usuarioUpdatado.setStatusUsuario("INATIVO");
+			return usuarioRepository.save(usuarioUpdatado);
+		}
+		return null;
+	}
+
+>>>>>>> backend
 	public void delete(Usuario usuario) {
 		this.usuarioRepository.delete(usuario);
 	}
 
+<<<<<<< HEAD
 	public Usuario update(Usuario usuario) {
 		usuario.getDataCadastro().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		return usuarioRepository.save(usuario);
@@ -67,6 +82,67 @@ public class UsuarioService {
 			byte[] decodedPass = Base64.getDecoder().decode(usuario.getSenha());
 			if (new String(decodedPass).equals(senha)) {
 				return usuario;
+=======
+	public Usuario updateSenha(Long id, Usuario usuario) {
+		Optional<Usuario> _usuario = usuarioRepository.findById(id);
+		if (_usuario.isPresent()) {
+			Usuario usuarioUpdatado = _usuario.get();
+			String senha = Base64.getEncoder().encodeToString(usuario.getSenha().getBytes());
+			usuarioUpdatado.setSenha(senha);
+			return usuarioRepository.save(usuarioUpdatado);
+		}
+		;
+		return usuarioRepository.save(usuario);
+	}
+
+	@Transactional
+	public Usuario inativar(Long id, Usuario usuario) {
+		Optional<Usuario> _usuario = usuarioRepository.findById(id);
+		if (_usuario.isPresent()) {
+			Usuario usuarioUpdatado = _usuario.get();
+			usuarioUpdatado.setStatusUsuario("INATIVO");
+			return usuarioRepository.save(usuarioUpdatado);
+		}
+		;
+		return usuarioRepository.save(usuario);
+	}
+
+	@Transactional
+	public Usuario reativar(Long id) {
+        Optional<Usuario> _usuario = usuarioRepository.findById(id);
+        Usuario usuarioUpdatado = null;
+        if (_usuario.isPresent()) {
+            usuarioUpdatado = _usuario.get();
+            String senha = Base64.getEncoder().encodeToString("12345678".getBytes());
+            usuarioUpdatado.setSenha(senha);
+            usuarioUpdatado.setDataCadastro(LocalDateTime.now());
+            usuarioUpdatado.setStatusUsuario("ATIVO");
+            return usuarioRepository.save(usuarioUpdatado);
+        }
+        return null;
+    }
+	
+	public Usuario alterarSenha(long id, Usuario usuario) {
+		Optional<Usuario> _usuario = usuarioRepository.findById(id);
+		if (_usuario.isPresent()) {
+			Usuario usuarioUpdatado = _usuario.get();
+			String senha = Base64.getEncoder().encodeToString(usuario.getSenha().getBytes());
+			usuarioUpdatado.setSenha(senha);
+			return usuarioRepository.save(usuarioUpdatado);
+		}
+		return null;
+	}
+
+	@Transactional
+	public Usuario sigin(String email, String senha) {
+		Usuario usuario = usuarioRepository.findByEmail(email);
+		if (usuario != null) {
+			if (!usuario.getStatusUsuario().equals("INATIVO")) {
+				byte[] decodedPass = Base64.getDecoder().decode(usuario.getSenha());
+				if (new String(decodedPass).equals(senha)) {
+					return usuario;
+				}
+>>>>>>> backend
 			}
 		}
 		return null;
