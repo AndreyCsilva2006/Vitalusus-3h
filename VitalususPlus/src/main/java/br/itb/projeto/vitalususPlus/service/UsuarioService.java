@@ -53,8 +53,6 @@ public class UsuarioService {
 		return usuarioRepository.save(usuario);
 	}
 
-<<<<<<< HEAD
-=======
 	public Usuario inativar(long id) {
 		Optional<Usuario> _usuario = usuarioRepository.findById(id);
 		if (_usuario.isPresent()) {
@@ -65,24 +63,15 @@ public class UsuarioService {
 		return null;
 	}
 
->>>>>>> backend
 	public void delete(Usuario usuario) {
 		this.usuarioRepository.delete(usuario);
 	}
 
-<<<<<<< HEAD
 	public Usuario update(Usuario usuario) {
 		usuario.getDataCadastro().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		return usuarioRepository.save(usuario);
 	}
 
-	public Usuario sigin(String email, String senha) {
-		Usuario usuario = usuarioRepository.findByEmail(email);
-		if (usuario.getStatusUsuario().equals("ATIVO")) {
-			byte[] decodedPass = Base64.getDecoder().decode(usuario.getSenha());
-			if (new String(decodedPass).equals(senha)) {
-				return usuario;
-=======
 	public Usuario updateSenha(Long id, Usuario usuario) {
 		Optional<Usuario> _usuario = usuarioRepository.findById(id);
 		if (_usuario.isPresent()) {
@@ -142,7 +131,6 @@ public class UsuarioService {
 				if (new String(decodedPass).equals(senha)) {
 					return usuario;
 				}
->>>>>>> backend
 			}
 		}
 		return null;
