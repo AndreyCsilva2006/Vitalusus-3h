@@ -55,6 +55,15 @@ public class VideoaulaService {
         videoaula.setDeslikes(videoaula.getAlunosDeslikes().size());
         return videoaulaRepository.save(videoaula);
     }
+    public Videoaula postId(long id) {
+    	Optional<Videoaula> videoaula = videoaulaRepository.findById(id);
+    	if (videoaula !=null){
+    		Videoaula _videoaula = videoaula.get();
+    		return _videoaula;
+    	}
+    	return null;
+    }
+    
     public void delete(Videoaula videoaula) {
         this.videoaulaRepository.delete(videoaula);
     }
