@@ -51,6 +51,11 @@ public class VideoaulaController {
         Videoaula videoaulaUpdatado = this.videoaulaService.updateFix(id);
         return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
     }
+    @PutMapping("updateGeral/{id}")
+    public ResponseEntity<Videoaula> update(@PathVariable long id, @RequestBody Videoaula videoaula){
+        Videoaula videoaulaUpdatado = this.videoaulaService.updateGeral(id, videoaula);
+        return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
+    }
     @PutMapping("updateTitulo/{id}")
     public ResponseEntity<Videoaula> updateTitulo(@PathVariable long id, @RequestBody Videoaula videoaula){
         Videoaula videoaulaUpdatado = this.videoaulaService.updateTitulo(id, videoaula);

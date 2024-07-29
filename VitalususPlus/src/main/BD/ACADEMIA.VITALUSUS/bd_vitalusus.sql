@@ -151,7 +151,6 @@ GO
 -- Tabela Videoaula
 CREATE TABLE Videoaula(
 	id				INT				IDENTITY,
-	link			VARCHAR(2048)	NULL,
 	descricao		VARCHAR(255)	NULL,
 	titulo			VARCHAR(100)	NOT NULL,
 	likes			INT				NULL,
@@ -165,9 +164,8 @@ CREATE TABLE Videoaula(
 	PRIMARY KEY(id)
 )
 GO
-INSERT Videoaula(link, descricao, titulo, likes, deslikes, canal_id, visualizacoes)
+INSERT Videoaula(descricao, titulo, likes, deslikes, canal_id, visualizacoes)
 VALUES(
-	'vitalusus/video/comofazerflexoes',
 	'Um v�deo sobre como fazer belas flex�es',
 	'Como Fazer Flex�es',
 	1332,

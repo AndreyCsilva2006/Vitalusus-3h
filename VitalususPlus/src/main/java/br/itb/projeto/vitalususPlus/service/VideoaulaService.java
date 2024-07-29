@@ -78,6 +78,29 @@ public class VideoaulaService {
         }
         return null;
     }
+    public Videoaula updateGeral(long id, Videoaula videoaula){
+        Optional<Videoaula> videoaulaOptional = videoaulaRepository.findById(id);
+        if(videoaulaOptional.isPresent()) {
+            Videoaula _videoaula = videoaulaOptional.get();
+            _videoaula.setTitulo(videoaula.getTitulo());
+            _videoaula.setDescricao(videoaula.getDescricao());
+            _videoaula.setThumbnail(videoaula.getThumbnail());
+            if (_videoaula.getAlunos() == null) {
+                _videoaula.setAlunos(new ArrayList<>());
+            }
+            if (_videoaula.getAlunosLikes() == null) {
+                _videoaula.setAlunosLikes(new ArrayList<>());
+            }
+            if (_videoaula.getAlunosDeslikes() == null) {
+                _videoaula.setAlunosDeslikes(new ArrayList<>());
+            }
+            _videoaula.setVisualizacoes(_videoaula.getAlunos().size());
+            _videoaula.setLikes(_videoaula.getAlunosLikes().size());
+            _videoaula.setDeslikes(_videoaula.getAlunosDeslikes().size());
+            return videoaulaRepository.save(_videoaula);
+        }
+        return null;
+    }
     public Videoaula updateTitulo(long id, Videoaula videoaula){
         Optional<Videoaula> videoaulaOptional = videoaulaRepository.findById(id);
         if(videoaulaOptional.isPresent()) {
