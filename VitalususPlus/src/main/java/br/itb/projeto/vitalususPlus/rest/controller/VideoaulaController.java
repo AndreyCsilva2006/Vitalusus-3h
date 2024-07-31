@@ -42,11 +42,7 @@ public class VideoaulaController {
         Videoaula videoaulaSalvo = this.videoaulaService.save(videoaula);
         return new ResponseEntity<Videoaula>(videoaulaSalvo, HttpStatus.OK);
     }
-    @PostMapping("postId")
-    public ResponseEntity<Videoaula> postId(@RequestParam long id){
-    	Videoaula videoaula = this.videoaulaService.postId(id);
-    	return new ResponseEntity<Videoaula>(videoaula, HttpStatus.OK);
-    }
+
     @DeleteMapping("delete")
     public void deletarVideoaula(@RequestBody Videoaula videoaula){
         this.videoaulaService.delete(videoaula);
