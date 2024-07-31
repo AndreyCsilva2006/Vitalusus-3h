@@ -31,8 +31,8 @@ public class UsuarioController {
 		return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.OK);
 	}
 
-	@GetMapping("findById/{id}")
-	public ResponseEntity<Usuario> findById(@PathVariable long id) {
+	@PostMapping("findById")
+	public ResponseEntity<Usuario> findById(@RequestParam long id) {
 		Usuario usuario = this.usuarioService.findById(id);
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}

@@ -39,8 +39,8 @@ public class TreinadorController {
         List<Treinador> treinadores = this.treinadorService.findAll();
         return new ResponseEntity<List<Treinador>>(treinadores, HttpStatus.OK);
     }
-    @GetMapping("findById/{id}")
-    public ResponseEntity<Treinador> findById(@PathVariable long id){
+    @PostMapping("findById")
+    public ResponseEntity<Treinador> findById(@RequestParam long id){
         Treinador treinador = this.treinadorService.findById(id);
         return  new ResponseEntity<Treinador>(treinador, HttpStatus.OK);
     }

@@ -32,8 +32,8 @@ public class CanalController {
 	        List<Canal> canais = this.canalService.findAll();
 	        return new ResponseEntity<List<Canal>>(canais, HttpStatus.OK);
 	    }
-	    @GetMapping("findById/{id}")
-	    public ResponseEntity<Canal> findById(@PathVariable long id){
+	    @PostMapping("findById")
+	    public ResponseEntity<Canal> findById(@RequestParam long id){
 	        Canal canal = this.canalService.findById(id);
 	        return  new ResponseEntity<Canal>(canal, HttpStatus.OK);
 	    }

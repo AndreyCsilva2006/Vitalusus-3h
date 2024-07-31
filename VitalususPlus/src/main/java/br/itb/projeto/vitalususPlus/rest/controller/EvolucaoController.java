@@ -30,8 +30,8 @@ public class EvolucaoController {
         List<Evolucao> evolucoes = this.evolucaoService.findAll();
         return new ResponseEntity<List<Evolucao>>(evolucoes, HttpStatus.OK);
     }
-    @GetMapping("findById/{id}")
-    public ResponseEntity<Evolucao> findById(@PathVariable long id){
+    @PostMapping("findById")
+    public ResponseEntity<Evolucao> findById(@RequestParam long id){
         Evolucao evolucao = this.evolucaoService.findById(id);
         return new ResponseEntity<Evolucao>(evolucao, HttpStatus.OK);
     }
@@ -44,6 +44,13 @@ public class EvolucaoController {
     public void deletarEvolucao(@RequestBody Evolucao evolucao){
         this.evolucaoService.delete(evolucao);
     }
+
+    @PutMapping("updateGeral/{id}")
+    public ResponseEntity<Evolucao> updateGeral(@PathVariable Long id, @RequestBody @Valid Evolucao evolucao){
+        Evolucao evolucaoUpdatado = this.evolucaoService.updateGeral(id, evolucao);
+        return new ResponseEntity<Evolucao>(evolucaoUpdatado, HttpStatus.OK);
+    }
+
     @PutMapping("updateAlturaAtual/{id}")
     public ResponseEntity<Evolucao> updateAlturaAtual(@PathVariable Long id, @RequestBody @Valid Evolucao evolucao){
         Evolucao evolucaoUpdatado = this.evolucaoService.updateAlturaAtual(id, evolucao);

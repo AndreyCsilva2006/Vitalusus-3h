@@ -32,8 +32,8 @@ public class VideoaulaController {
         List<Videoaula> videoaulas = this.videoaulaService.findAll();
         return new ResponseEntity<List<Videoaula>>(videoaulas, HttpStatus.OK);
     }
-    @GetMapping("findById/{id}")
-    public ResponseEntity<Videoaula> findById(@PathVariable long id){
+    @PostMapping("findById")
+    public ResponseEntity<Videoaula> findById(@RequestParam long id){
         Videoaula videoaula = this.videoaulaService.findById(id);
         return new ResponseEntity<Videoaula>(videoaula, HttpStatus.OK);
     }

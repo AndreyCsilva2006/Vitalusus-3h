@@ -30,8 +30,8 @@ public class BancoController {
         List<Banco> bancos = this.bancoService.findAll();
         return new ResponseEntity<List<Banco>>(bancos, HttpStatus.OK);
     }
-    @GetMapping("findById/{id}")
-    public ResponseEntity<Banco> findById(@PathVariable long id){
+    @PostMapping("findById")
+    public ResponseEntity<Banco> findById(@RequestParam long id){
         Banco banco = this.bancoService.findById(id);
         return new ResponseEntity<Banco>(banco, HttpStatus.OK);
     }
