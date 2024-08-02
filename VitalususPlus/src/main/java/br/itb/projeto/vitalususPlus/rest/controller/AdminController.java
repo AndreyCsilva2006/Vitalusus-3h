@@ -40,6 +40,11 @@ public class AdminController {
         Admin admin = this.adminService.findById(id);
         return new ResponseEntity<Admin>(admin, HttpStatus.OK);
     }
+    @GetMapping("findById/{id}")
+    public ResponseEntity<Admin> findId(@PathVariable long id) {
+        Admin admin = this.adminService.findById(id);
+        return new ResponseEntity<Admin>(admin, HttpStatus.OK);
+    }
 
     @PostMapping("post")
     public ResponseEntity<Admin> salvarAdmin(@RequestBody @Valid Admin admin) {

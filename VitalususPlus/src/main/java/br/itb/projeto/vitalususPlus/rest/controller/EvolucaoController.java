@@ -1,5 +1,6 @@
 package br.itb.projeto.vitalususPlus.rest.controller;
 
+import br.itb.projeto.vitalususPlus.model.entity.Admin;
 import br.itb.projeto.vitalususPlus.model.entity.Comentario;
 import br.itb.projeto.vitalususPlus.model.entity.Evolucao;
 import br.itb.projeto.vitalususPlus.service.ComentarioService;
@@ -32,6 +33,11 @@ public class EvolucaoController {
     }
     @PostMapping("findById")
     public ResponseEntity<Evolucao> findById(@RequestParam long id){
+        Evolucao evolucao = this.evolucaoService.findById(id);
+        return new ResponseEntity<Evolucao>(evolucao, HttpStatus.OK);
+    }
+    @GetMapping("findById/{id}")
+    public ResponseEntity<Evolucao> findId(@PathVariable long id) {
         Evolucao evolucao = this.evolucaoService.findById(id);
         return new ResponseEntity<Evolucao>(evolucao, HttpStatus.OK);
     }

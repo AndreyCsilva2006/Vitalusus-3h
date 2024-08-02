@@ -1,5 +1,6 @@
 package br.itb.projeto.vitalususPlus.rest.controller;
 
+import br.itb.projeto.vitalususPlus.model.entity.Admin;
 import br.itb.projeto.vitalususPlus.model.entity.Aluno;
 import br.itb.projeto.vitalususPlus.model.entity.Videoaula;
 import br.itb.projeto.vitalususPlus.service.CanalService;
@@ -34,6 +35,11 @@ public class VideoaulaController {
     }
     @PostMapping("findById")
     public ResponseEntity<Videoaula> findById(@RequestParam long id){
+        Videoaula videoaula = this.videoaulaService.findById(id);
+        return new ResponseEntity<Videoaula>(videoaula, HttpStatus.OK);
+    }
+    @GetMapping("findById/{id}")
+    public ResponseEntity<Videoaula> findId(@PathVariable long id) {
         Videoaula videoaula = this.videoaulaService.findById(id);
         return new ResponseEntity<Videoaula>(videoaula, HttpStatus.OK);
     }

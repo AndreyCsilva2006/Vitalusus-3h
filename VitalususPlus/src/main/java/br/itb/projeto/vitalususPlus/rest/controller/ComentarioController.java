@@ -35,6 +35,11 @@ public class ComentarioController {
         Comentario comentario = this.comentarioService.findById(id);
         return new ResponseEntity<Comentario>(comentario, HttpStatus.OK);
     }
+    @GetMapping("findById/{id}")
+    public ResponseEntity<Comentario> findId(@PathVariable long id) {
+        Comentario comentario = this.comentarioService.findById(id);
+        return new ResponseEntity<Comentario>(comentario, HttpStatus.OK);
+    }
     @PostMapping("post")
     public ResponseEntity<Comentario> salvarComentario(@RequestBody @Valid Comentario comentario){
         Comentario comentarioSalvo = this.comentarioService.save(comentario);

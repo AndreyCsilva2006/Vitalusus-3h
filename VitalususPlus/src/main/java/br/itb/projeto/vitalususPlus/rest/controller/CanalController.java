@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import br.itb.projeto.vitalususPlus.model.entity.Admin;
 import br.itb.projeto.vitalususPlus.model.entity.Aluno;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,11 @@ public class CanalController {
 	        Canal canal = this.canalService.findById(id);
 	        return  new ResponseEntity<Canal>(canal, HttpStatus.OK);
 	    }
+		@GetMapping("findById/{id}")
+		public ResponseEntity<Canal> findId(@PathVariable long id) {
+		Canal canal = this.canalService.findById(id);
+		return new ResponseEntity<Canal>(canal, HttpStatus.OK);
+	}
 	    @PostMapping("post")
 	    public ResponseEntity<Canal> salvarCanal(@RequestBody @Valid Canal canal){
 	        Canal canalSalvo = this.canalService.save(canal);

@@ -1,5 +1,6 @@
 package br.itb.projeto.vitalususPlus.rest.controller;
 
+import br.itb.projeto.vitalususPlus.model.entity.Admin;
 import br.itb.projeto.vitalususPlus.model.entity.Banco;
 import br.itb.projeto.vitalususPlus.model.entity.Comentario;
 import br.itb.projeto.vitalususPlus.service.BancoService;
@@ -32,6 +33,11 @@ public class BancoController {
     }
     @PostMapping("findById")
     public ResponseEntity<Banco> findById(@RequestParam long id){
+        Banco banco = this.bancoService.findById(id);
+        return new ResponseEntity<Banco>(banco, HttpStatus.OK);
+    }
+    @GetMapping("findById/{id}")
+    public ResponseEntity<Banco> findId(@PathVariable long id) {
         Banco banco = this.bancoService.findById(id);
         return new ResponseEntity<Banco>(banco, HttpStatus.OK);
     }

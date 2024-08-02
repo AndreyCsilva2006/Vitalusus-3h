@@ -1,5 +1,6 @@
 package br.itb.projeto.vitalususPlus.rest.controller;
 
+import br.itb.projeto.vitalususPlus.model.entity.Admin;
 import br.itb.projeto.vitalususPlus.model.entity.Usuario;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -36,7 +37,11 @@ public class UsuarioController {
 		Usuario usuario = this.usuarioService.findById(id);
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
-
+	@GetMapping("findById/{id}")
+	public ResponseEntity<Usuario> findId(@PathVariable long id) {
+		Usuario usuario = this.usuarioService.findById(id);
+		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+	}
 	@GetMapping("findByLogin/{email}/{senha}")
 	public ResponseEntity<Usuario> findByLogin(@PathVariable String email, @PathVariable String senha) {
 		Usuario usuario = this.usuarioService.findByLogin(email, senha);
