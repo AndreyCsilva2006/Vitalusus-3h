@@ -52,6 +52,16 @@ public class UsuarioService {
 		usuario.getDataCadastro().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		return usuarioRepository.save(usuario);
 	}
+	public Usuario corrigirBugSenha(long id) {
+		Optional<Usuario> _usuario = usuarioRepository.findById(id);
+		if(_usuario.isPresent()) {
+		Usuario usuario = _usuario.get();
+		String senha = Base64.getEncoder().encodeToString(usuario.getSenha().getBytes());
+		usuario.setSenha(senha);
+		return usuarioRepository.save(usuario);
+		}
+		return null;
+	}
 
 	public Usuario inativar(long id) {
 		Optional<Usuario> _usuario = usuarioRepository.findById(id);

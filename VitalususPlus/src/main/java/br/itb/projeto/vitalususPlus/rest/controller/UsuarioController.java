@@ -53,6 +53,11 @@ public class UsuarioController {
 		Usuario usuarioSalvo = this.usuarioService.save(usuario);
 		return new ResponseEntity<Usuario>(usuarioSalvo, HttpStatus.OK);
 	}
+	@PutMapping("corrigirBugSenha/{id}")
+	public ResponseEntity<Usuario> corrigirBugSenha(@PathVariable long id) {
+		Usuario usuarioSalvo = this.usuarioService.corrigirBugSenha(id);
+		return new ResponseEntity<Usuario>(usuarioSalvo, HttpStatus.OK);
+	}
 
 	@DeleteMapping("delete")
 	public void deletarUsuario(@RequestBody Usuario usuario) {
