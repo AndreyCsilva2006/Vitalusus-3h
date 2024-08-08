@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -46,6 +47,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,name);
         listView.setAdapter(arrayAdapter);
+        listView.setVisibility(listView.GONE);
 
         drawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open,
@@ -133,7 +135,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         MenuItem menuItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) menuItem.getActionView();
+        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem item) {
+                listView.setVisibility(View.VISIBLE);
+                return true;
+            }
+        });
         searchView.setQueryHint("Pesquise Aqui!");
+
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
