@@ -25,7 +25,7 @@ public class Treinador{
 	@NotBlank(message = "campo não preenchido")
 	@CREF(message ="campo inválido")
 	private String cref;
-
+ 
 	@Column(name="dataNasc")
 	private Date dataNasc;
 	
