@@ -37,7 +37,7 @@ public class Videoaula {
 	private List<Aluno> alunos;
 	private Integer visualizacoes;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "canal_id")
 	private Canal canal;
 
