@@ -20,6 +20,8 @@ CREATE TABLE Usuario
    dataCadastro	 SMALLDATETIME	NOT NULL,
    statusUsuario VARCHAR(20)    NOT NULL, -- ATIVO ou INATIVO ou TROCAR_SENHA	
    tipoUsuario	 VARCHAR(15)	NOT NULL, -- ADMINISTRADOR OU ALUNO OU TREINADOR	
+   pSeguranca  	 VARCHAR(100)	NOT NULL, -- Pergunta de Segurança para recuperar senha
+   rSeguranca	 VARCHAR(100)	NOT NULL, -- Reposta da Pergunta de Segurança
    PRIMARY KEY (id)
 )
 GO
