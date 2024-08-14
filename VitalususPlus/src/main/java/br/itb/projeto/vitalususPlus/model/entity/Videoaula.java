@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -18,7 +19,6 @@ public class Videoaula {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String link;
 	private String descricao;
 	@NotBlank(message = "campo não preenchido")
 	private String titulo;
@@ -38,7 +38,7 @@ public class Videoaula {
 	private List<Aluno> alunos;
 	private Integer visualizacoes;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "canal_id")
 	private Canal canal;
 
@@ -55,6 +55,8 @@ public class Videoaula {
 			inverseJoinColumns = {@JoinColumn(name="aluno_id")}
 	)
 	private List<Aluno> alunosDeslikes;
+	
+	private LocalDateTime dataPubli;
 
 	public Long getId() {
 		return id;
@@ -63,15 +65,7 @@ public class Videoaula {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public String getLink() {
-		return link;
-	}
-
-	public void setLink(String link) {
-		this.link = link;
-	}
-
+	
 	public String getDescricao() {
 		return descricao;
 	}
@@ -159,4 +153,13 @@ public class Videoaula {
 	public void setAlunosDeslikes(List<Aluno> alunosDeslikes) {
 		this.alunosDeslikes = alunosDeslikes;
 	}
+
+	public LocalDateTime getDataPubli() {
+		return dataPubli;
+	}
+
+	public void setDataPubli(LocalDateTime dataPubli) {
+		this.dataPubli = dataPubli;
+	}
+	
 }

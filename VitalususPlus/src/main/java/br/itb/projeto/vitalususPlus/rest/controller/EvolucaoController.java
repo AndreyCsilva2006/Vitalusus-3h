@@ -1,5 +1,6 @@
 package br.itb.projeto.vitalususPlus.rest.controller;
 
+import br.itb.projeto.vitalususPlus.model.entity.Admin;
 import br.itb.projeto.vitalususPlus.model.entity.Comentario;
 import br.itb.projeto.vitalususPlus.model.entity.Evolucao;
 import br.itb.projeto.vitalususPlus.service.ComentarioService;
@@ -30,8 +31,13 @@ public class EvolucaoController {
         List<Evolucao> evolucoes = this.evolucaoService.findAll();
         return new ResponseEntity<List<Evolucao>>(evolucoes, HttpStatus.OK);
     }
+    @PostMapping("findById")
+    public ResponseEntity<Evolucao> findById(@RequestParam long id){
+        Evolucao evolucao = this.evolucaoService.findById(id);
+        return new ResponseEntity<Evolucao>(evolucao, HttpStatus.OK);
+    }
     @GetMapping("findById/{id}")
-    public ResponseEntity<Evolucao> findById(@PathVariable long id){
+    public ResponseEntity<Evolucao> findId(@PathVariable long id) {
         Evolucao evolucao = this.evolucaoService.findById(id);
         return new ResponseEntity<Evolucao>(evolucao, HttpStatus.OK);
     }
@@ -44,6 +50,13 @@ public class EvolucaoController {
     public void deletarEvolucao(@RequestBody Evolucao evolucao){
         this.evolucaoService.delete(evolucao);
     }
+
+    @PutMapping("updateGeral/{id}")
+    public ResponseEntity<Evolucao> updateGeral(@PathVariable Long id, @RequestBody @Valid Evolucao evolucao){
+        Evolucao evolucaoUpdatado = this.evolucaoService.updateGeral(id, evolucao);
+        return new ResponseEntity<Evolucao>(evolucaoUpdatado, HttpStatus.OK);
+    }
+
     @PutMapping("updateAlturaAtual/{id}")
     public ResponseEntity<Evolucao> updateAlturaAtual(@PathVariable Long id, @RequestBody @Valid Evolucao evolucao){
         Evolucao evolucaoUpdatado = this.evolucaoService.updateAlturaAtual(id, evolucao);

@@ -35,8 +35,13 @@ public class AdminController {
         return new ResponseEntity<List<Admin>>(administradores, HttpStatus.OK);
     }
 
+    @PostMapping("findById")
+    public ResponseEntity<Admin> findById(@RequestParam long id) {
+        Admin admin = this.adminService.findById(id);
+        return new ResponseEntity<Admin>(admin, HttpStatus.OK);
+    }
     @GetMapping("findById/{id}")
-    public ResponseEntity<Admin> findById(@PathVariable long id) {
+    public ResponseEntity<Admin> findId(@PathVariable long id) {
         Admin admin = this.adminService.findById(id);
         return new ResponseEntity<Admin>(admin, HttpStatus.OK);
     }

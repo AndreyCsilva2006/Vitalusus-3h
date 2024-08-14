@@ -96,23 +96,6 @@ VALUES(
 	1
 )
 GO
-
--- Tabela Canal
-CREATE TABLE Canal(
-	id				INT				IDENTITY,
-	visualizacoes	INT				NULL,
-	nome			VARCHAR(100)	NOT NULL,
-	seguidores		BIGINT			NOT NULL,
-
-	PRIMARY KEY (id)
-)
-GO
-INSERT Canal(visualizacoes, nome, seguidores) 
-VALUES(
-	3243254,
-	'Paradas Musculat�rias', 1
-)
-
 -- Tabela Treinador
 CREATE TABLE Treinador
 (
@@ -120,22 +103,38 @@ CREATE TABLE Treinador
 	cref			VARCHAR(21)	  UNIQUE NOT NULL,
 	dataNasc		DATE		  NOT NULL,
 	usuario_id		INT			  NOT NULL,
-	canal_id		INT			  NOT NULL,
 
 	FOREIGN KEY (usuario_id) REFERENCES Usuario(id),
-	FOREIGN KEY (canal_id) REFERENCES Canal(id),
 	PRIMARY KEY (id)
 )
 GO
-INSERT Treinador(cref, dataNasc, usuario_id, canal_id)
+INSERT Treinador(cref, dataNasc, usuario_id)
 VALUES(
 	'324321-G/SP',
 	'1998-02-27',
-	2,
-	1
+	2
 )
 GO
 
+-- Tabela Canal
+CREATE TABLE Canal(
+	id				INT				IDENTITY,
+	visualizacoes	INT				NULL,
+	nome			VARCHAR(100)	NOT NULL,
+	seguidores		BIGINT			NOT NULL,
+	treinador_id	INT				NOT NULL,
+
+	FOREIGN KEY (treinador_id) REFERENCES Treinador(id),
+	PRIMARY KEY (id)
+)
+GO
+INSERT Canal(visualizacoes, nome, seguidores, treinador_id) 
+VALUES(
+	3243254,
+	'Paradas Musculat�rias', 1, 1
+)
+
+GO
 -- Tabela Banco 
 CREATE TABLE Banco(
 	id				INT				IDENTITY,
@@ -153,7 +152,6 @@ GO
 -- Tabela Videoaula
 CREATE TABLE Videoaula(
 	id				INT				IDENTITY,
-	link			VARCHAR(2048)	NULL,
 	descricao		VARCHAR(255)	NULL,
 	titulo			VARCHAR(100)	NOT NULL,
 	likes			INT				NULL,
@@ -162,20 +160,21 @@ CREATE TABLE Videoaula(
 	visualizacoes	BIGINT			NOT NULL,
 	video			VARBINARY(MAX)	NULL, 
 	thumbnail		VARBINARY(MAX)	NULL,
+	dataPubli		SMALLDATETIME	NOT NULL,
 
 	FOREIGN KEY (canal_id) REFERENCES Canal(id),
 	PRIMARY KEY(id)
 )
 GO
-INSERT Videoaula(link, descricao, titulo, likes, deslikes, canal_id, visualizacoes)
+INSERT Videoaula(descricao, titulo, likes, deslikes, canal_id, visualizacoes, dataPubli)
 VALUES(
-	'vitalusus/video/comofazerflexoes',
 	'Um v�deo sobre como fazer belas flex�es',
 	'Como Fazer Flex�es',
 	1332,
 	0,
 	1, 
-	123
+	123,
+	GETDATE()
 )
 GO
 

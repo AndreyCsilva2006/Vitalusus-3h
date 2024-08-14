@@ -1,5 +1,6 @@
 package br.itb.projeto.vitalususPlus.rest.controller;
 
+import br.itb.projeto.vitalususPlus.model.entity.Admin;
 import br.itb.projeto.vitalususPlus.model.entity.Usuario;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -31,12 +32,16 @@ public class UsuarioController {
 		return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.OK);
 	}
 
-	@GetMapping("findById/{id}")
-	public ResponseEntity<Usuario> findById(@PathVariable long id) {
+	@PostMapping("findById")
+	public ResponseEntity<Usuario> findById(@RequestParam long id) {
 		Usuario usuario = this.usuarioService.findById(id);
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
-
+	@GetMapping("findById/{id}")
+	public ResponseEntity<Usuario> findId(@PathVariable long id) {
+		Usuario usuario = this.usuarioService.findById(id);
+		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+	}
 	@GetMapping("findByLogin/{email}/{senha}")
 	public ResponseEntity<Usuario> findByLogin(@PathVariable String email, @PathVariable String senha) {
 		Usuario usuario = this.usuarioService.findByLogin(email, senha);
@@ -48,7 +53,22 @@ public class UsuarioController {
 		Usuario usuarioSalvo = this.usuarioService.save(usuario);
 		return new ResponseEntity<Usuario>(usuarioSalvo, HttpStatus.OK);
 	}
+	@PutMapping("corrigirBugSenha/{id}")
+	public ResponseEntity<Usuario> corrigirBugSenha(@PathVariable long id) {
+		Usuario usuarioSalvo = this.usuarioService.corrigirBugSenha(id);
+		return new ResponseEntity<Usuario>(usuarioSalvo, HttpStatus.OK);
+	}
 
+	@DeleteMapping("delete")
+	public void deletarUsuario(@RequestBody Usuario usuario) {
+		this.usuarioService.delete(usuario);
+	}
+
+	@PutMapping("update")
+	public ResponseEntity<Usuario> updateUsuario(@RequestBody @Valid Usuario usuario) {
+		Usuario usuarioUpdatado = this.usuarioService.update(usuario);
+		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
+		}
 	@PutMapping("updateSenha/{id}")
 	public ResponseEntity<Usuario> updateUsuario(@PathVariable long id, @RequestBody Usuario usuario) {
 		Usuario usuarioUpdatado = this.usuarioService.updateSenha(id, usuario);
@@ -81,7 +101,7 @@ public class UsuarioController {
 		Usuario usuarioUpdatado = usuarioService.alterarSenha(id, usuario);
 		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
 	}
-
+	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> handleValidationException(MethodArgumentNotValidException ex) {

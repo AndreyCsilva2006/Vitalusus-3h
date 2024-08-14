@@ -30,8 +30,13 @@ public class ComentarioController {
         List<Comentario> comentarios = this.comentarioService.findAll();
         return new ResponseEntity<List<Comentario>>(comentarios, HttpStatus.OK);
     }
+    @PostMapping("findById")
+    public ResponseEntity<Comentario> findById(@RequestParam long id){
+        Comentario comentario = this.comentarioService.findById(id);
+        return new ResponseEntity<Comentario>(comentario, HttpStatus.OK);
+    }
     @GetMapping("findById/{id}")
-    public ResponseEntity<Comentario> findById(@PathVariable long id){
+    public ResponseEntity<Comentario> findId(@PathVariable long id) {
         Comentario comentario = this.comentarioService.findById(id);
         return new ResponseEntity<Comentario>(comentario, HttpStatus.OK);
     }
