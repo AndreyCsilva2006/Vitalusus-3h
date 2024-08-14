@@ -13,6 +13,9 @@ import java.util.*;
 
 import static java.lang.Double.isNaN;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 @Service
 public class VideoaulaService {
@@ -50,6 +53,8 @@ public class VideoaulaService {
         if (videoaula.getAlunosDeslikes()==null){
             videoaula.setAlunosDeslikes(new ArrayList<>());
         }
+        videoaula.setDataPubli(LocalDateTime.now());
+		videoaula.getDataPubli().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         videoaula.setVisualizacoes(videoaula.getAlunos().size());
         videoaula.setLikes(videoaula.getAlunosLikes().size());
         videoaula.setDeslikes(videoaula.getAlunosDeslikes().size());

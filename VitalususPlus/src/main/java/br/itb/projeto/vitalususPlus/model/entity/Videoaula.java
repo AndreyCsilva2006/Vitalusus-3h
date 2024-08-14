@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -54,6 +55,8 @@ public class Videoaula {
 			inverseJoinColumns = {@JoinColumn(name="aluno_id")}
 	)
 	private List<Aluno> alunosDeslikes;
+	
+	private LocalDateTime dataPubli;
 
 	public Long getId() {
 		return id;
@@ -150,4 +153,13 @@ public class Videoaula {
 	public void setAlunosDeslikes(List<Aluno> alunosDeslikes) {
 		this.alunosDeslikes = alunosDeslikes;
 	}
+
+	public LocalDateTime getDataPubli() {
+		return dataPubli;
+	}
+
+	public void setDataPubli(LocalDateTime dataPubli) {
+		this.dataPubli = dataPubli;
+	}
+	
 }
