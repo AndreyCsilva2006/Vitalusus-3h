@@ -3,14 +3,18 @@ package br.itb.projeto.vitalususPlus.service;
 import br.itb.projeto.vitalususPlus.model.entity.Admin;
 import br.itb.projeto.vitalususPlus.model.entity.Admin;
 import br.itb.projeto.vitalususPlus.model.entity.Administrado;
+import br.itb.projeto.vitalususPlus.model.entity.Treinador;
 import br.itb.projeto.vitalususPlus.model.entity.Usuario;
 import br.itb.projeto.vitalususPlus.model.repository.AdminRepository;
 import br.itb.projeto.vitalususPlus.model.repository.AdministradoRepository;
+import jakarta.transaction.Transactional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +44,12 @@ public class AdminService {
         admin.setId(null);
         if (admin.getListaUsuarios()==null){
             admin.setListaUsuarios(new ArrayList<>());
+        }
+        Usuario usuario = admin.getUsuario();
+        if(admin != null) {
+        usuario.setTipoUsuario("ADMINISTRADOR");
+        usuario.setNivelAcesso("ADMIN");
+        usuarioService.save(usuario);
         }
         admin.setNumeroUsuarios(admin.getListaUsuarios().size());
         return adminRepository.save(admin);
@@ -83,4 +93,20 @@ public class AdminService {
         }
         return null;
     }
+    @Transactional
+	public Admin sigin(String email, String senha) {
+		Usuario usuario = usuarioService.findByEmail(email);
+		if (usuario != null) {
+			if (!usuario.getStatusUsuario().equals("INATIVO")) {
+				byte[] decodedPass = Base64.getDecoder().decode(usuario.getSenha());
+				if (new String(decodedPass).equals(senha) && usuario.getTipoUsuario().equals("ADMINISTRADOR")) {
+						Admin admin = adminRepository.findByUsuario(usuario);
+						return admin;
+					}
+				return null;
+				}
+			}
+			
+		return null;
+	}
 }

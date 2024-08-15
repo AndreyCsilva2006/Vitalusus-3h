@@ -63,6 +63,12 @@ public class TreinadorService {
     }
     public Treinador save(Treinador treinador){
         treinador.setId(null);
+        Usuario usuario = treinador.getUsuario();
+        if(treinador != null) {
+        usuario.setTipoUsuario("TREINADOR");
+        usuario.setNivelAcesso("USER");
+        usuarioService.save(usuario);
+        }
         return treinadorRepository.save(treinador);
     }
 }

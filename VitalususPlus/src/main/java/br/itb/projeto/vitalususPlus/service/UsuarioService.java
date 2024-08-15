@@ -47,6 +47,7 @@ public class UsuarioService {
 	public Usuario save(Usuario usuario) {
 		usuario.setId(null);
 		String senha = Base64.getEncoder().encodeToString(usuario.getSenha().getBytes());
+		usuario.setStatusUsuario("ATIVO");
 		usuario.setSenha(senha);
 		usuario.setDataCadastro(LocalDateTime.now());
 		usuario.getDataCadastro().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
