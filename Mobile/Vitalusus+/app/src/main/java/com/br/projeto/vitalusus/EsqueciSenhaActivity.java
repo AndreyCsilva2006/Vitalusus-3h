@@ -14,8 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.br.projeto.vitalusus.dao.AlunoDAO;
-import com.br.projeto.vitalusus.model.Aluno;
+import com.br.projeto.vitalusus.dao.UsuarioDAO;
+import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.util.MensagemUtil;
 
 public class EsqueciSenhaActivity extends AppCompatActivity {
@@ -64,10 +64,10 @@ public class EsqueciSenhaActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = editEsqueciSenhaEmail.getText().toString();
 
-                Aluno alu = new AlunoDAO().consultaEmailAluno(email);
-                if (alu != null) {
+                Usuario usu = new UsuarioDAO().consultaEmailUsuario(email);
+                if (usu != null) {
                     MensagemUtil.exibir(EsqueciSenhaActivity.this, "E-Mail Encontrado! Responda a Pergunta de Segurança.");
-                    txtPerguntaSeguranca.setText(alu.getpSeguranca());
+                    txtPerguntaSeguranca.setText(usu.getpSeguranca());
 
                     // mudando para o tamanho do passo 2 verificar pergunta secreta
                     layoutParams.height = 570;
@@ -82,7 +82,7 @@ public class EsqueciSenhaActivity extends AppCompatActivity {
                     editRespostaSeguranca.setText("");
                     editRespostaSeguranca.requestFocus();
                 } else {
-                    MensagemUtil.exibir(EsqueciSenhaActivity.this, "Aluno não identificado. Coloque um E-Mail Cadastrado.");
+                    MensagemUtil.exibir(EsqueciSenhaActivity.this, "Usuario não identificado. Coloque um E-Mail Cadastrado.");
 
                     editEsqueciSenhaEmail.setBackground(redBorder);
                     editEsqueciSenhaEmail.setText("");
@@ -97,8 +97,8 @@ public class EsqueciSenhaActivity extends AppCompatActivity {
                 String email = editEsqueciSenhaEmail.getText().toString();
                 String rSeguranca = editRespostaSeguranca.getText().toString();
 
-                Aluno alu = new AlunoDAO().validarRespostaPSeguranca(email, rSeguranca);
-                if (alu != null) {
+                Usuario usu = new UsuarioDAO().validarRespostaPSeguranca(email, rSeguranca);
+                if (usu != null) {
                     MensagemUtil.exibir(EsqueciSenhaActivity.this, "Resposta Correta!");
 
                     // passo 3
@@ -161,7 +161,7 @@ public class EsqueciSenhaActivity extends AppCompatActivity {
 
                     editESNovaSenha.requestFocus();
                 } else if (novaSenha.trim().length() >= 8) {
-                    Aluno alu = new AlunoDAO().redefinirSenha(email, novaSenha);
+                    Usuario usu = new UsuarioDAO().redefinirSenha(email, novaSenha);
 
                     Intent formlogin = new Intent(EsqueciSenhaActivity.this, FormLogin.class);
                     startActivity(formlogin);

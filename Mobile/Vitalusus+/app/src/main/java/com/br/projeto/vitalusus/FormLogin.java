@@ -15,7 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.br.projeto.vitalusus.dao.AlunoDAO;
+import com.br.projeto.vitalusus.dao.UsuarioDAO;
 import com.br.projeto.vitalusus.model.Aluno;
+import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.util.MensagemUtil;
 
 public class FormLogin extends AppCompatActivity {
@@ -78,16 +80,15 @@ public class FormLogin extends AppCompatActivity {
         String senha = editSenha.getText().toString();
 
         // DAO - Data Access Object (Objeto de Acesso de Dados)
-        Aluno alu = new AlunoDAO().selecionarAluno(email, senha);
-        if (alu != null) {
+        Usuario usu = new UsuarioDAO().selecionarUsuario(email, senha);
+        if (usu != null) {
             MensagemUtil.exibir(this, "Login com Sucesso!");
             Intent intent = new Intent(FormLogin.this, TelaPrincipal.class);
-            intent.putExtra("nome", alu.getNome().toString());
-            intent.putExtra("email", alu.getEmail().toString());
+            intent.putExtra("nome", usu.getNome().toString());
+            intent.putExtra("email", usu.getEmail().toString());
             startActivity(intent);
         } else {
-            MensagemUtil.exibir(this, "Aluno não identificado, tente novamente.");
-            // método limpar() seria uma parte do nossa validação.
+            MensagemUtil.exibir(this, "Usuario não identificado, tente novamente.");
             limpar();
         }
     }
@@ -101,6 +102,7 @@ public class FormLogin extends AppCompatActivity {
 
         editEmail.setBackground(redBorder);
         editSenha.setBackground(redBorder);
+        // limpa campos
         editEmail.setText("");
         editSenha.setText("");
 

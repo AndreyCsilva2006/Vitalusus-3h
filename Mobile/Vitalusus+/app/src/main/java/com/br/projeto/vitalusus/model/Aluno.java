@@ -4,14 +4,11 @@ package com.br.projeto.vitalusus.model;
 public class Aluno {
 
     private Integer id;
-    private String nome;
-    private String email;
-    private String senha;
+    private String dataNasc;
+    private Float altura;
+    private Float peso;
 
-    // pergunta de segurança
-    private String pSeguranca;
-    // resposta da pergunta de segurança
-    private String rSeguranca;
+    private int usuario_id;
 
     public Integer getId() {
         return id;
@@ -21,44 +18,35 @@ public class Aluno {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getDataNasc() {
+        return dataNasc;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setDataNasc(String dataNasc) {
+        this.dataNasc = dataNasc;
     }
 
-    public String getEmail() {
-        return email;
+    public Float getAltura() {
+        return altura;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setAltura(Float altura) {
+        this.altura = altura;
     }
 
-    public String getSenha() {
-        return senha;
+    public Float getPeso() {
+        return peso;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setPeso(Float peso) {
+        this.peso = peso;
     }
 
-    public String getpSeguranca() {
-        return pSeguranca;
+    public int getUsuario_id() {
+        return usuario_id;
     }
 
-    public void setpSeguranca(String pSeguranca) {
-        this.pSeguranca = pSeguranca;
+    public void setUsuario_id(int usuario_id) {
+        this.usuario_id = usuario_id;
     }
-
-    public String getrSeguranca() {
-        return rSeguranca;
-    }
-
-    public void setrSeguranca(String rSeguranca) {
-        this.rSeguranca = rSeguranca;
-    }
-
 }

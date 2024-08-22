@@ -47,11 +47,11 @@ public class ListarCanal extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View v, int i, long l) {
-                Intent intent = new Intent(ListarCanal.this, ActivityAluno.class);
+//                Intent intent = new Intent(ListarCanal.this, ActivityAluno.class);
                 // retorna o Canal
                 Canal c = (Canal) adapterView.getItemAtPosition(i);
-                intent.putExtra("canal", c.getId());
-                startActivity(intent);
+//                intent.putExtra("canal", c.getId());
+//                startActivity(intent);
             }
         });
     }

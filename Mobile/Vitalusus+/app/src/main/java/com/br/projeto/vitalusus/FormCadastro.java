@@ -8,19 +8,25 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.br.projeto.vitalusus.dao.AlunoDAO;
+import com.br.projeto.vitalusus.dao.UsuarioDAO;
 import com.br.projeto.vitalusus.model.Aluno;
+import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.util.MensagemUtil;
 
 // código copiado e adaptador da ActivityAluno (com.br.projeto.vitalusus.view.ActivityAluno).
 public class FormCadastro extends AppCompatActivity {
 
-    EditText editNome, editEmail, editSenha, editPSeguranca, editRSeguranca;
-    Button btnSalvar, btnFormCadastroOlharSenha;
+    View containerComponents;
+    EditText editNome, editEmail, editSenha, editPSeguranca, editRSeguranca, editAltura, editPeso, editDataNasc;
+    Button btnFormCadastroSalvar, btnFormCadastroAvancarPasso, btnFormCadastroOlharSenha;
+    ImageView ic_seta;
     TextView text_tela_principal;
 
     Aluno alunoEditando = null;
@@ -28,14 +34,10 @@ public class FormCadastro extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_form_cadastro2);
-        btnFormCadastroOlharSenha = findViewById(R.id.btnFormCadastroOlharSenha);
-        editEmail = findViewById(R.id.editFormCadastroLoginEmail);
-        editSenha = findViewById(R.id.editFormCadastroLoginSenha);
-        text_tela_principal = findViewById(R.id.text_tela_principal);
+        setContentView(R.layout.activity_form_cadastro);
 
         carregaFormulario();
-        carregaBundle();
+//        carregaBundle();
 
         text_tela_principal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,15 +67,54 @@ public class FormCadastro extends AppCompatActivity {
     }
 
     private void carregaFormulario() {
+        // passo 1
         editNome = findViewById(R.id.editFormCadastroLoginNome);
         editEmail = findViewById(R.id.editFormCadastroLoginEmail);
         editSenha = findViewById(R.id.editFormCadastroLoginSenha);
         editPSeguranca = findViewById(R.id.editFormCadastroPergSeguranca);
         editRSeguranca = findViewById(R.id.editFormCadastroRespSeguranca);
+        btnFormCadastroAvancarPasso = findViewById(R.id.btnCadastroAvancarPasso);
+        btnFormCadastroOlharSenha = findViewById(R.id.btnFormCadastroOlharSenha);
+        editNome.setVisibility(View.VISIBLE);
+        editEmail.setVisibility(View.VISIBLE);
+        editSenha.setVisibility(View.VISIBLE);
+        editPSeguranca.setVisibility(View.VISIBLE);
+        editRSeguranca.setVisibility(View.VISIBLE);
+        btnFormCadastroAvancarPasso.setVisibility(View.VISIBLE);
+        btnFormCadastroOlharSenha.setVisibility(View.VISIBLE);
 
-        btnSalvar = findViewById(R.id.btnCadastroAlunoSalvar);
+        // passo 2
+        editAltura = findViewById(R.id.editFormCadastroAltura);
+        editPeso = findViewById(R.id.editFormCadastroPeso);
+        editDataNasc = findViewById(R.id.editFormCadastroDataNascimento);
+        btnFormCadastroSalvar = findViewById(R.id.btnCadastroSalvar);
+        editDataNasc.setVisibility(View.GONE);
+        editAltura.setVisibility(View.GONE);
+        editPeso.setVisibility(View.GONE);
+        btnFormCadastroSalvar.setVisibility(View.GONE);
 
-        btnSalvar.setOnClickListener(new View.OnClickListener() {
+        // extra
+        text_tela_principal = findViewById(R.id.text_tela_principal);
+        containerComponents = findViewById(R.id.containerComponents);
+        ic_seta = findViewById(R.id.FormCadastroSeta);
+        ic_seta.setVisibility(View.GONE);
+//      tamanho passo 1 em pixels
+        ViewGroup.LayoutParams layoutParams = containerComponents.getLayoutParams();
+        layoutParams.height = 1080;
+
+        btnFormCadastroAvancarPasso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validar();
+            }
+        });
+        ic_seta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                carregaFormulario();
+            }
+        });
+        btnFormCadastroSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 salvar();
@@ -82,32 +123,12 @@ public class FormCadastro extends AppCompatActivity {
     }
 
     // carrega informações do Aluno
-    private void carregaBundle() {
-        AlunoDAO dao = new AlunoDAO();
-        Bundle b = getIntent().getExtras();
-        // verificação para editar Aluno
-        if (b != null) {
-            if (b.get("aluno") != null) {
-                Integer idA = (Integer) b.get("aluno");
-                alunoEditando = dao.findById(idA);
-                if (alunoEditando != null) {
-                    // mostra as informações do aluno que deseja editar
-                    mostra(alunoEditando);
-                }
-            }
-        }
-    }
-
-    private void mostra(Aluno a) {
-        editNome.setText(a.getNome());
-        editEmail.setText(a.getEmail());
-        editSenha.setText(a.getSenha());
-    }
+    // editar aluno
 
     // validações cadastro
     private Boolean validar() {
 
-// Fazendo com que o campo fique com a borda vermelha caso o campo esteja inválido.
+        // Fazendo com que o campo fique com a borda vermelha caso o campo esteja inválido.
         GradientDrawable redBorder = new GradientDrawable();
         redBorder.setColor(Color.WHITE); // Cor do fundo.
         redBorder.setCornerRadius(50); // Raio do arredondamento das bordas (em pixels fica 60px que é equivalente a 20dp).
@@ -142,7 +163,7 @@ public class FormCadastro extends AppCompatActivity {
             editEmail.requestFocus();
             return false;
         }
-        // ! no início de uma expressão lógica é usado para negar o resultado dessa expressão. Ou seja, ele inverte o valor booleano.
+        // ! no início de uma expressão lógica é usado para negar o resultado dessa expressão. Ou seja, ele inverte o valor booleano. (Se o valor for falso)
         if (!editEmail.getText().toString().trim().contains("@")) {
             editEmail.setBackground(redBorder);
 
@@ -204,8 +225,62 @@ public class FormCadastro extends AppCompatActivity {
             MensagemUtil.exibir(this, "Digite uma Resposta para a Pergunta de Segurança que tenha pelo menos 4 caracteres");
             editRSeguranca.requestFocus();
             return false;
+        } else {
+            // Some
+            editNome.setVisibility(View.GONE);
+            editEmail.setVisibility(View.GONE);
+            editSenha.setVisibility(View.GONE);
+            editPSeguranca.setVisibility(View.GONE);
+            editRSeguranca.setVisibility(View.GONE);
+            btnFormCadastroAvancarPasso.setVisibility(View.GONE);
+            btnFormCadastroOlharSenha.setVisibility(View.GONE);
+
+            // Aparece
+            editDataNasc.setVisibility(View.VISIBLE);
+            editAltura.setVisibility(View.VISIBLE);
+            editPeso.setVisibility(View.VISIBLE);
+            btnFormCadastroSalvar.setVisibility(View.VISIBLE);
+            ic_seta.setVisibility(View.VISIBLE);
+
+            // tamanho passo 2 em pixel
+            ViewGroup.LayoutParams layoutParams = containerComponents.getLayoutParams();
+            layoutParams.height = 660;
         }
         editRSeguranca.setBackground(blackBorder);
+
+        // passo 2
+        if (editDataNasc.getText().toString().trim().isEmpty()) {
+            editDataNasc.setBackground(redBorder);
+
+            MensagemUtil.exibir(this, "Digite uma Data de Nascimento.");
+            editDataNasc.requestFocus();
+            return false;
+        }
+        // validação data nascimento correta
+//        if (editDataNasc.getText().toString().trim().isEmpty()) {
+//            editRSeguranca.setBackground(redBorder);
+//
+//            MensagemUtil.exibir(this, "Digite uma Data de Nascimento.");
+//            editDataNasc.requestFocus();
+//            return false;
+//        }
+        editDataNasc.setBackground(blackBorder);
+
+        if (editAltura.getText().toString().trim().isEmpty()) {
+            editAltura.setBackground(redBorder);
+
+            MensagemUtil.exibir(this, "Digite sua Altura.");
+            editAltura.requestFocus();
+            return false;
+        }
+        if (editAltura.getText().toString().trim().length() < 1 ) {
+            editAltura.setBackground(redBorder);
+
+            MensagemUtil.exibir(this, "Digite sua Altura.");
+            editAltura.requestFocus();
+            return false;
+        }
+        editAltura.setBackground(blackBorder);
 
         return true;
     }
@@ -217,21 +292,26 @@ public class FormCadastro extends AppCompatActivity {
             return;
         }
         Aluno a = new Aluno();
+        Usuario u = new Usuario();
 
-        if (alunoEditando != null) {
-            a = alunoEditando;
-        }
-        a.setNome(editNome.getText().toString());
-        a.setEmail(editEmail.getText().toString());
-        a.setSenha(editSenha.getText().toString());
-        a.setpSeguranca(editPSeguranca.getText().toString());
-        a.setrSeguranca(editRSeguranca.getText().toString());
+//        if (alunoEditando != null) {
+//            a = alunoEditando;
+//        }
+        u.setNome(editNome.getText().toString());
+        u.setEmail(editEmail.getText().toString());
+        u.setSenha(editSenha.getText().toString());
+        u.setpSeguranca(editPSeguranca.getText().toString());
+        u.setrSeguranca(editRSeguranca.getText().toString());
+        a.setDataNasc(editDataNasc.getText().toString());
+        a.setAltura(editAltura.getTextSize());
+        a.setPeso(editPeso.getTextSize());
 
-        AlunoDAO dao = new AlunoDAO();
+        AlunoDAO daoAlu = new AlunoDAO();
+        UsuarioDAO daoUsu = new UsuarioDAO();
         if (alunoEditando != null) {
-            dao.alterar(a);
+//            daoAlu.alterar(a);
         } else {
-            dao.cadastrar(a);
+            daoAlu.cadastrarAluno(a, u);
         }
 
         Intent intent = new Intent(FormCadastro.this, FormLogin.class);

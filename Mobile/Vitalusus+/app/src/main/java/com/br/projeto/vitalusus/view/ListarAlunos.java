@@ -50,19 +50,19 @@ public class ListarAlunos extends AppCompatActivity {
         btnCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ListarAlunos.this, ActivityAluno.class);
-                startActivity(intent);
+//                Intent intent = new Intent(ListarAlunos.this, ActivityAluno.class);
+//                startActivity(intent);
             }
         });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View v, int i, long l) {
-                Intent intent = new Intent(ListarAlunos.this, ActivityAluno.class);
+//                Intent intent = new Intent(ListarAlunos.this, ActivityAluno.class);
                 // retorna o Aluno
                 Aluno a = (Aluno) adapterView.getItemAtPosition(i);
-                intent.putExtra("aluno", a.getId());
-                startActivity(intent);
+//                intent.putExtra("aluno", a.getId());
+//                startActivity(intent);
             }
         });
     }
@@ -71,15 +71,12 @@ public class ListarAlunos extends AppCompatActivity {
         AlunoDAO dao = new AlunoDAO();
         // busca pesquisar
         if (busca.isEmpty()) {
-            lista = dao.getAll();
+//            lista = dao.getAll();
         } else {
-            lista = dao.getAll(busca);
+//            lista = dao.getAll(busca);
         }
-
 
         adapter = new ListaAlunoAdapter(lista, this);
         listView.setAdapter(adapter);
     }
-
-
 }

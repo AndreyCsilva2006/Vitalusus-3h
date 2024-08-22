@@ -53,9 +53,9 @@ public class ListaAlunoAdapter extends BaseAdapter implements Serializable {
         TextView txtSenha = v.findViewById(R.id.txtConsultaAlunoSenha);
 
         txtId.setText(alu.getId().toString());
-        txtNome.setText(alu.getNome());
-        txtEmail.setText(alu.getEmail().toString());
-        txtSenha.setText(alu.getSenha().toString());
+//        txtNome.setText(alu.getNome());
+//        txtEmail.setText(alu.getEmail().toString());
+//        txtSenha.setText(alu.getSenha().toString());
 
         return v;
     }

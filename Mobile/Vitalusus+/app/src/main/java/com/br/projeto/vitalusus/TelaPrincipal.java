@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.br.projeto.vitalusus.dao.AlunoDAO;
 import com.br.projeto.vitalusus.model.Aluno;
-import com.br.projeto.vitalusus.view.ActivityAluno;
 import com.br.projeto.vitalusus.view.ListarAlunos;
 
 import org.parceler.Parcels;
