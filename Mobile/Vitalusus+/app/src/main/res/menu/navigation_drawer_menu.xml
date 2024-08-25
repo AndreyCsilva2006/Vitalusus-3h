@@ -7,10 +7,6 @@
     <group
         android:checkableBehavior="single">
 
-        <item
-            android:id="@+id/nav_videosalta"
-            android:icon="@drawable/videosalta"
-            android:title="Videos em Alta"/>
 
     <item
         android:id="@+id/nav_configuracoes"

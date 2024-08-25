@@ -30,10 +30,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     FragmentManager fragmentManager;
     Toolbar toolbar;
 
-    ListView listView;
-    String[] name = {"Exercicios","Dieta","Recomendações"};
 
-    ArrayAdapter<String> arrayAdapter;
+    //Comentei as linhas do sistema de busca
+    //ListView listView;
+    //String[] name = {"Exercicios","Dieta","Recomendações"};
+
+    //ArrayAdapter<String> arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +45,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        listView = findViewById(R.id.listview);
+        //
+        //listView = findViewById(R.id.listview);
 
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,name);
-        listView.setAdapter(arrayAdapter);
-        listView.setVisibility(listView.GONE);
+        //arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,name);
+        //listView.setAdapter(arrayAdapter);
+        //listView.setVisibility(listView.GONE);
+
 
         drawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open,
@@ -90,9 +94,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == R.id.nav_videosalta) {
-            openFragment(new VideosAltaFragment());
-        } else if (itemId == R.id.nav_suporte) {
+        if (itemId == R.id.nav_suporte) {
             openFragment(new SuporteFragment());
         } else if (itemId == R.id.nav_configuracoes) {
             Toast.makeText(this, "Configurações", Toast.LENGTH_SHORT).show();
@@ -128,38 +130,38 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         transaction.commit();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    //@Override
+    //public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.busca, menu);
+    //  getMenuInflater().inflate(R.menu.busca, menu);
 
-        MenuItem menuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) menuItem.getActionView();
-        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(@NonNull MenuItem item) {
-                listView.setVisibility(View.VISIBLE);
-                return true;
+    //  MenuItem menuItem = menu.findItem(R.id.action_search);
+    //  SearchView searchView = (SearchView) menuItem.getActionView();
+    //  menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+    //      @Override
+    //      public boolean onMenuItemClick(@NonNull MenuItem item) {
+    //          listView.setVisibility(View.VISIBLE);
+    //          return true;
+    //      }
+    //  });
+    //  searchView.setQueryHint("Pesquise Aqui!");
+
+
+
+    //  searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+    //      @Override
+    //      public boolean onQueryTextSubmit(String query) {
+    //          return false;
+    //      }
+
+    //      @Override
+    //      public boolean onQueryTextChange(String newText) {
+
+    //          arrayAdapter.getFilter().filter(newText);
+
+    //          return false;
             }
-        });
-        searchView.setQueryHint("Pesquise Aqui!");
-
-
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                arrayAdapter.getFilter().filter(newText);
-
-                return false;
-            }
-        });
-         return super.onCreateOptionsMenu(menu);
-    }
-}
+//  });
+//       return super.onCreateOptionsMenu(menu);
+//  }
+//}

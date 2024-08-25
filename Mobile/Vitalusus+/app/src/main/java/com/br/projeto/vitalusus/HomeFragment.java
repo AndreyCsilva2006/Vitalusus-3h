@@ -1,64 +1,115 @@
 package com.br.projeto.vitalusus;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.ImageView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private GridLayout videoGrid;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public HomeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Infla o layout para esse fragmento
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        // Iniciar as views
+        videoGrid = view.findViewById(R.id.video_grid);
+
+        // Inicia os botões de categoria
+        Button categoryHigh = view.findViewById(R.id.categoria_videosalta);
+        Button categoryWorkouts = view.findViewById(R.id.categoria_treinos);
+        Button categoryRecommendations = view.findViewById(R.id.categoria_recomendacoes);
+        Button categoryDiet = view.findViewById(R.id.category_history);
+
+        // Seta os listeners para os botões
+        categoryHigh.setOnClickListener(v -> filterVideos("alta"));
+        categoryWorkouts.setOnClickListener(v -> filterVideos("treinos"));
+        categoryRecommendations.setOnClickListener(v -> filterVideos("recomendacoes"));
+        categoryDiet.setOnClickListener(v -> filterVideos("dieta"));
+
+        // Inicia o video grid com todas as categorias
+        filterVideos("all");
+
+        return view;
+    }
+
+    private void filterVideos(String category) {
+        // Limpa o video grid atual
+        videoGrid.removeAllViews();
+
+        // Exemplo da lista de videos (isso normalmente viria de um banco de dados ou API)
+        List<Video> videos = getMockVideos();
+
+        // Filtrar videos baseados na categoria
+        List<Video> filteredVideos = new ArrayList<>();
+        for (Video video : videos) {
+            if ("all".equals(category) || video.getCategory().equals(category)) {
+                filteredVideos.add(video);
+            }
+        }
+
+        // Popular a grid com os videos filtrados
+        populateVideoGrid(filteredVideos);
+    }
+
+    private void populateVideoGrid(List<Video> videos) {
+        for (Video video : videos) {
+            ImageView videoThumbnail = new ImageView(getContext());
+            videoThumbnail.setLayoutParams(new GridLayout.LayoutParams(
+                    new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 150)));
+            videoThumbnail.setImageResource(video.getThumbnailResource()); // Use video-specific thumbnail
+            videoThumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+            GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+            params.width = 0;
+            params.height = GridLayout.LayoutParams.WRAP_CONTENT;
+            params.rowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+            params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+            params.setMargins(4, 4, 4, 4);
+            videoThumbnail.setLayoutParams(params);
+
+            videoGrid.addView(videoThumbnail);
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+    // Lista simulada de vídeos, devemos substituir isso pela nossa fonte de dados real
+    private List<Video> getMockVideos() {
+        List<Video> videos = new ArrayList<>();
+        videos.add(new Video(R.drawable.logo, "alta"));
+        videos.add(new Video(R.drawable.logo, "treinos"));
+        videos.add(new Video(R.drawable.logo, "recomendacoes"));
+        videos.add(new Video(R.drawable.logo, "dieta"));
+        // Adicione quantos videos forem precisos
+        return videos;
+    }
+
+    // Classe de video para demonstração
+    private static class Video {
+        private final int thumbnailResource;
+        private final String category;
+
+        public Video(int thumbnailResource, String category) {
+            this.thumbnailResource = thumbnailResource;
+            this.category = category;
+        }
+
+        public int getThumbnailResource() {
+            return thumbnailResource;
+        }
+
+        public String getCategory() {
+            return category;
+        }
     }
 }
