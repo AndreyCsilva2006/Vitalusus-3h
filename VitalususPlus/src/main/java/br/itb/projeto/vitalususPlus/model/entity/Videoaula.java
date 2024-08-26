@@ -57,6 +57,10 @@ public class Videoaula {
 	private List<Aluno> alunosDeslikes;
 	
 	private LocalDateTime dataPubli;
+	
+	private String categoria;
+	
+	private String tipoVideoaula;
 
 	public Long getId() {
 		return id;
@@ -161,5 +165,22 @@ public class Videoaula {
 	public void setDataPubli(LocalDateTime dataPubli) {
 		this.dataPubli = dataPubli;
 	}
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	public String getTipoVideoaula() {
+		return tipoVideoaula;
+	}
+
+	public void setTipoVideoaula(String tipoVideoaula) {
+		this.tipoVideoaula = tipoVideoaula;
+	}
+	
 	
 }
