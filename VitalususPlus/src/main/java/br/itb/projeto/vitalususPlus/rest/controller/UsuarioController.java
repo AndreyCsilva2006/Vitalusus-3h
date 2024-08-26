@@ -65,10 +65,15 @@ public class UsuarioController {
 	}
 
 	@PutMapping("update")
-	public ResponseEntity<Usuario> updateUsuario(@RequestBody @Valid Usuario usuario) {
+	public ResponseEntity<Usuario> updateUsuario(@RequestBody Usuario usuario) {
 		Usuario usuarioUpdatado = this.usuarioService.update(usuario);
 		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
 		}
+	@PutMapping("updateFoto/{id}")
+	public ResponseEntity<Usuario> updateFoto(@PathVariable long id, @RequestBody Usuario usuario) {
+		Usuario usuarioUpdatado = this.usuarioService.updateFoto(id, usuario);
+		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
+	}
 	@PutMapping("updateSenha/{id}")
 	public ResponseEntity<Usuario> updateUsuario(@PathVariable long id, @RequestBody Usuario usuario) {
 		Usuario usuarioUpdatado = this.usuarioService.updateSenha(id, usuario);

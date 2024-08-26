@@ -12,6 +12,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +50,7 @@ public class TreinadorController {
         return  new ResponseEntity<Treinador>(treinador, HttpStatus.OK);
     }
     @PostMapping("post")
-    public ResponseEntity<Treinador> salvarTreinador(@RequestBody @Valid Treinador treinador){
+    public ResponseEntity<Treinador> salvarTreinador(@RequestBody @Valid Treinador treinador) throws IOException {
         Treinador treinadorSalvo = this.treinadorService.save(treinador);
         return new ResponseEntity<Treinador>(treinadorSalvo, HttpStatus.OK);
     }

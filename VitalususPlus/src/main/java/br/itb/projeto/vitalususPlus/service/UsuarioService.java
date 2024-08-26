@@ -1,5 +1,7 @@
 package br.itb.projeto.vitalususPlus.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
@@ -8,6 +10,7 @@ import java.util.Optional;
 
 import br.itb.projeto.vitalususPlus.model.repository.AlunoRepository;
 import br.itb.projeto.vitalususPlus.model.repository.TreinadorRepository;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +47,7 @@ public class UsuarioService {
 		return usuario;
 	}
 
-	public Usuario save(Usuario usuario) {
+	public Usuario save(Usuario usuario){
 		usuario.setId(null);
 		String senha = Base64.getEncoder().encodeToString(usuario.getSenha().getBytes());
 		usuario.setStatusUsuario("ATIVO");
@@ -95,6 +98,16 @@ public class UsuarioService {
 		return usuarioRepository.save(usuario);
 	}
 
+	public Usuario updateFoto(Long id, Usuario usuario) {
+		Optional<Usuario> _usuario = usuarioRepository.findById(id);
+		if (_usuario.isPresent()) {
+			Usuario usuarioUpdatado = _usuario.get();
+			usuarioUpdatado.setFoto(usuario.getFoto());
+			return usuarioRepository.save(usuarioUpdatado);
+		}
+		return null;
+	}
+
 	@Transactional
 	public Usuario inativar(Long id, Usuario usuario) {
 		Optional<Usuario> _usuario = usuarioRepository.findById(id);
@@ -103,7 +116,6 @@ public class UsuarioService {
 			usuarioUpdatado.setStatusUsuario("INATIVO");
 			return usuarioRepository.save(usuarioUpdatado);
 		}
-		;
 		return usuarioRepository.save(usuario);
 	}
 
