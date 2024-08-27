@@ -75,9 +75,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (itemId == R.id.nav_suporte) {
             openFragment(new SuporteFragment());
         } else if (itemId == R.id.nav_configuracoes) {
-            Toast.makeText(this, "Configurações", Toast.LENGTH_SHORT).show();
+            openFragment(new ConfiguracoesFragment());
         } else if (itemId == R.id.nav_estatisticas) {
-            Toast.makeText(this, "Estatísticas", Toast.LENGTH_SHORT).show();
+            openFragment(new EstatisticasFragment());
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
