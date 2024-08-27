@@ -24,9 +24,7 @@
         <activity
             android:name=".PlayerVideo"
             android:exported="false" />
-        <activity
-            android:name=".view.ActivityAluno"
-            android:exported="false" />
+
         <activity
             android:name=".view.ListarAlunos"
             android:exported="false" />

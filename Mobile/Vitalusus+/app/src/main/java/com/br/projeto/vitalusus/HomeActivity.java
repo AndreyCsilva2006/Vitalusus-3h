@@ -3,7 +3,6 @@ package com.br.projeto.vitalusus;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -12,11 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -25,17 +20,10 @@ import com.google.android.material.navigation.NavigationView;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    DrawerLayout drawerLayout;
-    BottomNavigationView bottomNavigationView;
-    FragmentManager fragmentManager;
-    Toolbar toolbar;
-
-
-    //Comentei as linhas do sistema de busca
-    //ListView listView;
-    //String[] name = {"Exercicios","Dieta","Recomendações"};
-
-    //ArrayAdapter<String> arrayAdapter;
+    private DrawerLayout drawerLayout;
+    private BottomNavigationView bottomNavigationView;
+    private FragmentManager fragmentManager;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,22 +33,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //
-        //listView = findViewById(R.id.listview);
-
-        //arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,name);
-        //listView.setAdapter(arrayAdapter);
-        //listView.setVisibility(listView.GONE);
-
-
         drawerLayout = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.navigation_drawer);
-        navigationView.setNavigationItemSelectedListener(null);
+        navigationView.setNavigationItemSelectedListener(this);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setBackground(null);
@@ -90,7 +69,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         openFragment(new HomeFragment());
     }
 
-    // Funcionalidade de selecionar cada Fragment
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
@@ -99,18 +77,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         } else if (itemId == R.id.nav_configuracoes) {
             Toast.makeText(this, "Configurações", Toast.LENGTH_SHORT).show();
         } else if (itemId == R.id.nav_estatisticas) {
-            Toast.makeText(this, "Estatisticas", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Estatísticas", Toast.LENGTH_SHORT).show();
         }
         drawerLayout.closeDrawer(GravityCompat.START);
-
-        //Caso ter Estatisticas e configurações como um dos Fragments -
-        // } else if (itemId == R.id.nav_estatisticas) {
-        //   openFragment(new EstatisticasFragment());
-        // } else if (itemId == R.id.nav_configuracoes) {
-        //  openFragment(new ConfiguracoesFragment());
-        // }
-
-
         return true;
     }
 
@@ -119,9 +88,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-
+            super.onBackPressed();
         }
-        super.onBackPressed();
     }
 
     private void openFragment(Fragment fragment) {
@@ -129,39 +97,4 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         transaction.replace(R.id.fragment_container, fragment);
         transaction.commit();
     }
-
-    //@Override
-    //public boolean onCreateOptionsMenu(Menu menu) {
-
-    //  getMenuInflater().inflate(R.menu.busca, menu);
-
-    //  MenuItem menuItem = menu.findItem(R.id.action_search);
-    //  SearchView searchView = (SearchView) menuItem.getActionView();
-    //  menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-    //      @Override
-    //      public boolean onMenuItemClick(@NonNull MenuItem item) {
-    //          listView.setVisibility(View.VISIBLE);
-    //          return true;
-    //      }
-    //  });
-    //  searchView.setQueryHint("Pesquise Aqui!");
-
-
-
-    //  searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-    //      @Override
-    //      public boolean onQueryTextSubmit(String query) {
-    //          return false;
-    //      }
-
-    //      @Override
-    //      public boolean onQueryTextChange(String newText) {
-
-    //          arrayAdapter.getFilter().filter(newText);
-
-    //          return false;
-            }
-//  });
-//       return super.onCreateOptionsMenu(menu);
-//  }
-//}
+}
