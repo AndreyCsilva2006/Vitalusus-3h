@@ -23,6 +23,22 @@
         <item name="android:layout_marginTop">15dp</item>
     </style>
 
+    <style name="editTxtSuporte">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:maxLength">25</item>
+        <item name="android:textColor">@color/black</item>
+        <!--Text Color Hint (placeholder ou texto dica)-->
+        <item name="android:textColorHint">@color/hintGray</item>
+        <item name="android:layout_marginLeft">40dp</item>
+        <item name="android:layout_marginRight">40dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+    </style>
+
+
+
+
     <style name="Button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
