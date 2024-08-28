@@ -66,14 +66,6 @@ public class AdminController {
         Admin adminUpdatado = this.adminService.removeUsuariosAdministrados(id, usuario);
         return new ResponseEntity<Admin>(adminUpdatado, HttpStatus.OK);
     }
-    @PostMapping("login")
-    public ResponseEntity<?> sigin(@RequestParam String email, @RequestParam String senha) {
-        Admin admin = adminService.sigin(email, senha);
-        if (admin != null) {
-            return ResponseEntity.ok().body(admin);
-        }
-        return ResponseEntity.badRequest().body("Dados incorretos!");
-    }
     
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

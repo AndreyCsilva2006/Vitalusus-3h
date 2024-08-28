@@ -1,10 +1,7 @@
 package br.itb.projeto.vitalususPlus.service;
 
+import br.itb.projeto.vitalususPlus.model.entity.*;
 import br.itb.projeto.vitalususPlus.model.entity.Admin;
-import br.itb.projeto.vitalususPlus.model.entity.Admin;
-import br.itb.projeto.vitalususPlus.model.entity.Administrado;
-import br.itb.projeto.vitalususPlus.model.entity.Treinador;
-import br.itb.projeto.vitalususPlus.model.entity.Usuario;
 import br.itb.projeto.vitalususPlus.model.repository.AdminRepository;
 import br.itb.projeto.vitalususPlus.model.repository.AdministradoRepository;
 import jakarta.transaction.Transactional;
@@ -39,6 +36,10 @@ public class AdminService {
         return admin.orElseThrow(() -> new RuntimeException(
                 "Admin não encontrado"
         ));
+    }
+    public Admin findByUsuario(Usuario usuario) {
+        Admin admin = this.adminRepository.findByUsuario(usuario);
+        return admin;
     }
     public Admin save(Admin admin){
         admin.setId(null);

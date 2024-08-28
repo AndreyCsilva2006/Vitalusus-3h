@@ -1,7 +1,12 @@
 package br.itb.projeto.vitalususPlus.rest.controller;
 
 import br.itb.projeto.vitalususPlus.model.entity.Admin;
+import br.itb.projeto.vitalususPlus.model.entity.Aluno;
+import br.itb.projeto.vitalususPlus.model.entity.Treinador;
 import br.itb.projeto.vitalususPlus.model.entity.Usuario;
+import br.itb.projeto.vitalususPlus.service.AdminService;
+import br.itb.projeto.vitalususPlus.service.AlunoService;
+import br.itb.projeto.vitalususPlus.service.TreinadorService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +25,16 @@ import java.util.Map;
 @RequestMapping("/vitalusus/usuario/")
 public class UsuarioController {
 	private UsuarioService usuarioService;
+	private AdminService adminService;
+	private TreinadorService treinadorService;
+	private AlunoService alunoService;
 
-	public UsuarioController(UsuarioService usuarioService) {
+	public UsuarioController(UsuarioService usuarioService, AdminService adminService, TreinadorService treinadorService, AlunoService alunoService) {
 		super();
 		this.usuarioService = usuarioService;
+		this.adminService = adminService;
+		this.treinadorService = treinadorService;
+		this.alunoService = alunoService;
 	}
 
 	@GetMapping("findAll")
@@ -84,8 +95,21 @@ public class UsuarioController {
 	public ResponseEntity<?> sigin(@RequestParam String email, @RequestParam String senha) {
 		Usuario usuario = usuarioService.sigin(email, senha);
 		if (usuario != null) {
-			return ResponseEntity.ok().body(usuario);
-		}
+            switch (usuario.getTipoUsuario()) {
+                case "ADMINISTRADOR" -> {
+                    Admin admin = adminService.findByUsuario(usuario);
+                    return ResponseEntity.ok().body(admin);
+                }
+                case "ALUNO" -> {
+                    Aluno aluno = alunoService.findByUsuario(usuario);
+                    return ResponseEntity.ok().body(aluno);
+                }
+                case "TREINADOR" -> {
+                    Treinador treinador = treinadorService.findByUsuario(usuario);
+                    return ResponseEntity.ok().body(treinador);
+                }
+            }
+        }
 		return ResponseEntity.badRequest().body("Dados incorretos!");
 	}
 	

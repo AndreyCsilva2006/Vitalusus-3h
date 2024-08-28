@@ -50,14 +50,6 @@ public class AlunoController {
         Aluno alunoSalvo = this.alunoService.save(aluno);
         return new ResponseEntity<Aluno>(alunoSalvo, HttpStatus.OK);
     }
-    @PostMapping("login")
-    public ResponseEntity<?> sigin(@RequestParam String email, @RequestParam String senha) {
-        Aluno aluno = alunoService.sigin(email, senha);
-        if (aluno != null) {
-            return ResponseEntity.ok().body(aluno);
-        }
-        return ResponseEntity.badRequest().body("Dados incorretos!");
-    }
     @PutMapping("updateGeral/{id}")
     public ResponseEntity<Aluno> updateGeral(@PathVariable long id, @RequestBody @Valid Aluno aluno){
         Aluno alunoUpdatado = this.alunoService.updateGeral(id, aluno);

@@ -54,14 +54,6 @@ public class TreinadorController {
         Treinador treinadorSalvo = this.treinadorService.save(treinador);
         return new ResponseEntity<Treinador>(treinadorSalvo, HttpStatus.OK);
     }
-    @PostMapping("login")
-	public ResponseEntity<?> sigin(@RequestParam String email, @RequestParam String senha) {
-		Treinador treinador = treinadorService.sigin(email, senha);
-		if (treinador != null) {
-			return ResponseEntity.ok().body(treinador);
-		}
-		return ResponseEntity.badRequest().body("Dados incorretos!");
-	}
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationException(MethodArgumentNotValidException ex){
