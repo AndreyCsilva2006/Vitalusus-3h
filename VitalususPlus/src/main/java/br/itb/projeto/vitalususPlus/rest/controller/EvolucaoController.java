@@ -31,7 +31,7 @@ public class EvolucaoController {
         List<Evolucao> evolucoes = this.evolucaoService.findAll();
         return new ResponseEntity<List<Evolucao>>(evolucoes, HttpStatus.OK);
     }
-    @PostMapping("findById")
+    @PostMapping("findById/")
     public ResponseEntity<Evolucao> findById(@RequestParam long id){
         Evolucao evolucao = this.evolucaoService.findById(id);
         return new ResponseEntity<Evolucao>(evolucao, HttpStatus.OK);

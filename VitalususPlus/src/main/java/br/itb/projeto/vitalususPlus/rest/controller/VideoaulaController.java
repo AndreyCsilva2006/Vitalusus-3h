@@ -33,7 +33,7 @@ public class VideoaulaController {
         List<Videoaula> videoaulas = this.videoaulaService.findAll();
         return new ResponseEntity<List<Videoaula>>(videoaulas, HttpStatus.OK);
     }
-    @PostMapping("findById")
+    @PostMapping("findById/")
     public ResponseEntity<Videoaula> findById(@RequestParam long id){
         Videoaula videoaula = this.videoaulaService.findById(id);
         return new ResponseEntity<Videoaula>(videoaula, HttpStatus.OK);

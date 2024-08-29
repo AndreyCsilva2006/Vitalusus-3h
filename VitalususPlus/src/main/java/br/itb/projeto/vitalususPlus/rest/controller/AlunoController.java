@@ -35,7 +35,7 @@ public class AlunoController {
         List<Aluno> alunos = this.alunoService.findAll();
         return new ResponseEntity<List<Aluno>>(alunos, HttpStatus.OK);
     }
-    @PostMapping("findById")
+    @PostMapping("findById/")
     public ResponseEntity<Aluno> findById(@RequestParam long id){
         Aluno aluno = this.alunoService.findById(id);
         return new ResponseEntity<Aluno>(aluno, HttpStatus.OK);

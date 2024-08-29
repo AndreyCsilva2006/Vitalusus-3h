@@ -209,15 +209,15 @@ GO
 CREATE TABLE Comentario(
 	id				INT				IDENTITY,
 	texto			VARCHAR(255)	NOT NULL,
-	usuario_id		INT				NOT NULL,
+	aluno_id		INT				NOT NULL,
 	videoaula_id	INT				NOT NULL,
 
 	PRIMARY KEY (id),
-	FOREIGN KEY(usuario_id) REFERENCES Usuario(id),
+	FOREIGN KEY(aluno_id) REFERENCES Aluno(id),
 	FOREIGN KEY(videoaula_id) REFERENCES Videoaula(id)
 )
 GO
-INSERT Comentario(texto, usuario_id, videoaula_id)
+INSERT Comentario(texto, aluno_id, videoaula_id)
 VALUES(
 	'Uau, que aula daora! Segui as suas instru��es por 6 meses e agora eu t� sheipado!',
 	1,

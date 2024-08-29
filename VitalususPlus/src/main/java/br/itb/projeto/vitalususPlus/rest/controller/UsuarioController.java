@@ -43,7 +43,7 @@ public class UsuarioController {
 		return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.OK);
 	}
 
-	@PostMapping("findById")
+	@PostMapping("findById/")
 	public ResponseEntity<Usuario> findById(@RequestParam long id) {
 		Usuario usuario = this.usuarioService.findById(id);
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
@@ -91,7 +91,7 @@ public class UsuarioController {
 		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
 	}
 
-	@PostMapping("login")
+	@PostMapping("login/")
 	public ResponseEntity<?> sigin(@RequestParam String email, @RequestParam String senha) {
 		Usuario usuario = usuarioService.sigin(email, senha);
 		if (usuario != null) {

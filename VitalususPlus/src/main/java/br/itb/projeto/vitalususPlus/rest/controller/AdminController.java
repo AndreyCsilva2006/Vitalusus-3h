@@ -35,7 +35,7 @@ public class AdminController {
         return new ResponseEntity<List<Admin>>(administradores, HttpStatus.OK);
     }
 
-    @PostMapping("findById")
+    @PostMapping("findById/")
     public ResponseEntity<Admin> findById(@RequestParam long id) {
         Admin admin = this.adminService.findById(id);
         return new ResponseEntity<Admin>(admin, HttpStatus.OK);

@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -42,14 +43,14 @@ public class Videoaula {
 	@JoinColumn(name = "canal_id")
 	private Canal canal;
 
-	@ManyToMany
+	@OneToMany
 	@JoinTable(name="Likes",
 			joinColumns = {@JoinColumn(name="videoaula_id")},
 			inverseJoinColumns = {@JoinColumn(name="aluno_id")}
 	)
 	private List<Aluno> alunosLikes;
 
-	@ManyToMany
+	@OneToMany
 	@JoinTable(name="Deslikes",
 			joinColumns = {@JoinColumn(name="videoaula_id")},
 			inverseJoinColumns = {@JoinColumn(name="aluno_id")}
@@ -61,7 +62,7 @@ public class Videoaula {
 	private String categoria;
 	
 	private String tipoVideoaula;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -181,6 +182,8 @@ public class Videoaula {
 	public void setTipoVideoaula(String tipoVideoaula) {
 		this.tipoVideoaula = tipoVideoaula;
 	}
+
+
 	
 	
 }

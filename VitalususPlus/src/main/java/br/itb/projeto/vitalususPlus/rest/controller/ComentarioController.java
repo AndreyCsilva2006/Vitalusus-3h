@@ -30,7 +30,7 @@ public class ComentarioController {
         List<Comentario> comentarios = this.comentarioService.findAll();
         return new ResponseEntity<List<Comentario>>(comentarios, HttpStatus.OK);
     }
-    @PostMapping("findById")
+    @PostMapping("findById/")
     public ResponseEntity<Comentario> findById(@RequestParam long id){
         Comentario comentario = this.comentarioService.findById(id);
         return new ResponseEntity<Comentario>(comentario, HttpStatus.OK);

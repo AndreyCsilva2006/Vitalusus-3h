@@ -44,7 +44,7 @@ public class TreinadorController {
         Treinador treinador = this.treinadorService.findById(id);
         return new ResponseEntity<Treinador>(treinador, HttpStatus.OK);
     }
-    @PostMapping("findById")
+    @PostMapping("findById/")
     public ResponseEntity<Treinador> findById(@RequestParam long id){
         Treinador treinador = this.treinadorService.findById(id);
         return  new ResponseEntity<Treinador>(treinador, HttpStatus.OK);

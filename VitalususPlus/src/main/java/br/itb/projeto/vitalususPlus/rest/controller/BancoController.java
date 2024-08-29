@@ -31,7 +31,7 @@ public class BancoController {
         List<Banco> bancos = this.bancoService.findAll();
         return new ResponseEntity<List<Banco>>(bancos, HttpStatus.OK);
     }
-    @PostMapping("findById")
+    @PostMapping("findById/")
     public ResponseEntity<Banco> findById(@RequestParam long id){
         Banco banco = this.bancoService.findById(id);
         return new ResponseEntity<Banco>(banco, HttpStatus.OK);
