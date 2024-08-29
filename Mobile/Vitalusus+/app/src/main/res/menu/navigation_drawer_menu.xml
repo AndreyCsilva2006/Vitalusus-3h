@@ -24,6 +24,14 @@
             android:icon="@drawable/suporte"
             android:title="Suporte"/>
 
+        <item
+            android:id="@+id/nav_sobrenos"
+            android:icon="@drawable/baseline_question_mark_24"
+            android:title="Suporte"/>
+
+
+
+
 
 </group>
 </menu>

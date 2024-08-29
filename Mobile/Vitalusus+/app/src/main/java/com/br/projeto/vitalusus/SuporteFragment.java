@@ -1,64 +1,53 @@
 package com.br.projeto.vitalusus;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SuporteFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SuporteFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private EditText editFormSuporte;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public SuporteFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SuporteFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SuporteFragment newInstance(String param1, String param2) {
-        SuporteFragment fragment = new SuporteFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Infla o layout para o fragmento
+        View view = inflater.inflate(R.layout.fragment_suporte, container, false);
+
+        // Obtém referência ao EditText
+        editFormSuporte = view.findViewById(R.id.editFormSuporte);
+
+        // Configura o botão para chamar o método enviar quando clicado
+        View btnEnviar = view.findViewById(R.id.btnFormSuporteEnviar);
+        btnEnviar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enviar();
+            }
+        });
+
+        return view;
+    }
+
+    // Método chamado quando o botão é clicado
+    public void enviar() {
+        // Obtém o texto do EditText
+        String texto = editFormSuporte.getText().toString();
+
+        // Verifica se o campo não está vazio
+        if (!texto.isEmpty()) {
+            // Aqui você pode adicionar a lógica para processar o texto, como enviar para um servidor
+            // Exemplo: Toast para mostrar uma mensagem simples
+            Toast.makeText(getActivity(), "Mensagem enviada: " + texto, Toast.LENGTH_SHORT).show();
+        } else {
+            // Informa ao usuário que o campo está vazio
+            Toast.makeText(getActivity(), "Por favor, preencha o campo de mensagem.", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_suporte, container, false);
     }
 }
