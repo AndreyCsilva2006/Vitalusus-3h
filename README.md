@@ -1,4 +1,4 @@
-*==ADMINR==*
+*==ADMIN==*
 
 ATRIBUTOS
 id (é um long que representa o número de identificação do administrador)
