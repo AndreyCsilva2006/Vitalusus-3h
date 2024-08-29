@@ -1,8 +1,13 @@
-**PROTOCOLOS HTTP PARA USAR**
+*==ADMINR==*
 
+ATRIBUTOS
+id (é um long que representa o número de identificação do administrador)
+usuario (é o objeto Usuario que está ligado ao objeto Admin)
+listaUsuarios (é a lista de usuários que o administrador administra)
+numeroUsuarios (é um int que conta a quantidade de usuários que administrador administra)
+dataNasc (é um Date que representa a data de nascimento do administrador)
 
-*==ADMINISTRADOR==*
-
+ENDPOINTS
 FIND ALL (GET)
 http://localhost:8080/vitalusus/admin/findAll
 
@@ -10,9 +15,9 @@ FIND BY ID (GET)
 http://localhost:8080/vitalusus/admin/findById/{id}
 
 FIND BY ID (POST)
-http://localhost:8080/vitalusus/admin/findById
+http://localhost:8080/vitalusus/admin/findById/
 
-CRIAR UM NOVO ADMINISTRADOR (POST)
+CRIAR UM NOVO ADMINISTRADOR E SUA RESPECTIVA CONTA DE USUÁRIO (POST)
 http://localhost:8080/vitalusus/admin/post
 
 ARRUMAR AUTOMATICAMENTE O NÚMERO DE USUÁRIOS ADMINISTRADOS (PUT)
@@ -27,6 +32,14 @@ http://localhost:8080/vitalusus/admin/removeUsuariosAdministrados/{id}
 
 *==ALUNO==*
 
+ATRIBUTOS
+id (é um long que representa o número de identificação do aluno)
+dataNasc (é um Date que representa a data de nascimento do aluno)
+altura (é um float que representa a altura do aluno)
+peso (é um float que representa o peso do aluno)
+usuario (é o objeto Usuario que está ligado ao objeto Aluno)
+
+ENDPOINTS
 FIND ALL (GET)
 http://localhost:8080/vitalusus/aluno/findAll
 
@@ -34,10 +47,13 @@ FIND BY ID (GET)
 http://localhost:8080/vitalusus/aluno/findById/{id}
 
 FIND BY ID (POST)
-http://localhost:8080/vitalusus/aluno/findById
+http://localhost:8080/vitalusus/aluno/findById/
 
-CRIAR NOVO ALUNO (POST)
+CRIAR NOVO ALUNO  E SEU RESPECTIVO USUÁRIO(POST)
 http://localhost:8080/vitalusus/aluno/post
+
+ALTERAR ALTURA E PESO DE UMA VEZ
+http://localhost:8080/vitalusus/aluno/updateGeral/{id}
 
 ALTERAR ALTURA (PUT)
 http://localhost:8080/vitalusus/aluno/updateAltura/{id}
@@ -48,6 +64,12 @@ http://localhost:8080/vitalusus/aluno/updatePeso/{id}
 
 *==BANCO==*
 
+ATRIBUTOS
+id (é um long que representa o número de identificação do banco)
+numeroCartao (é uma String que representa o número do cartão do banco do treinador ligado ao seu respectivo objeto Banco)
+treinador (é o objeto Treinador que está ligado ao objeto Banco)
+
+ENDPOINTS
 FIND ALL (GET)
 http://localhost:8080/vitalusus/banco/findAll
 
@@ -55,7 +77,7 @@ FIND BY ID (GET)
 http://localhost:8080/vitalusus/banco/findById/{id}
 
 FIND BY ID (POST)
-http://localhost:8080/vitalusus/banco/findById
+http://localhost:8080/vitalusus/banco/findById/
 
 CRIAR UM NOVO BANCO (POST)
 http://localhost:8080/vitalusus/banco/post
@@ -63,6 +85,15 @@ http://localhost:8080/vitalusus/banco/post
 
 *==CANAL==*
 
+ATRIBUTOS
+id (é um long que representa o número de identificação do canal)
+treinador (é o objeto Treinador que está ligado ao objeto Canal)
+visualizacoes (é um long que representa o número de visualizações de todos os vídeos do canal)
+nome (é uma String que representa o nome do canal)
+alunos (é uma lista de objetos Aluno que representa todos os alunos que seguem o canal)
+seguidores (é um int que representa a quantidade numérica de seguidores do canal)
+
+ENDPOINTS
 FIND ALL (GET)
 http://localhost:8080/vitalusus/canal/findAll
 
@@ -70,7 +101,7 @@ FIND BY ID (GET)
 http://localhost:8080/vitalusus/canal/findById/{id}
 
 FIND BY ID (POST)
-http://localhost:8080/vitalusus/canal/findById
+http://localhost:8080/vitalusus/canal/findById/
 
 CRIAR UM NOVO CANAL (POST)
 http://localhost:8080/vitalusus/canal/post
@@ -90,6 +121,13 @@ http://localhost:8080/vitalusus/canal/updateNome/{id}
 
 *==COMENTÁRIO==*
 
+ATRIBUTOS
+id (é um long que representa o número de identificação do comentário)
+texto (é uma String que representa o texto que foi escrito no comentário)
+videoaula (é o objeto Videoaula que está ligado ao objeto Comentario)
+aluno (é o objeto Aluno que está ligado ao objeto Comentario)
+
+ENDPOINTS
 FIND ALL (GET)
 http://localhost:8080/vitalusus/comentario/findAll
 
@@ -97,7 +135,7 @@ FIND BY ID (GET)
 http://localhost:8080/vitalusus/comentario/findById/{id}
 
 FIND BY ID (POST)
-http://localhost:8080/vitalusus/comentario/findById
+http://localhost:8080/vitalusus/comentario/findById/
 
 CRIAR UM NOVO COMENTÁRIO (POST)
 http://localhost:8080/vitalusus/comentario/post
@@ -108,6 +146,15 @@ http://localhost:8080/vitalusus/comentario/updateTexto/{id}
 
 *==EVOLUÇÃO==*
 
+ATRIBUTOS
+id (é um long que representa o número de identificação da evolução)
+aluno (é o objeto Aluno que está ligado ao objeto Evolucao)
+imc (é um float que representa o imc do aluno ligado à evolução)
+metBasal (é um float que representa o metabolismo basal do aluno ligado à evolução)
+pesoAtual (é um float que representa o pese atual do aluno ligado à evolução)
+alturaAtual (é um float que representa a altura atual do aluno ligado à evolução)
+
+ENDPOINTS
 FIND ALL (GET)
 http://localhost:8080/vitalusus/evolucao/findAll
 
@@ -115,7 +162,7 @@ FIND BY ID (GET)
 http://localhost:8080/vitalusus/evolucao/findById/{id}
 
 FIND BY ID (POST)
-http://localhost:8080/vitalusus/evolucao/findById
+http://localhost:8080/vitalusus/evolucao/findById/
 
 CRIAR UMA NOVA EVOLUÇÃO (POST)
 http://localhost:8080/vitalusus/evolucao/post
@@ -135,6 +182,13 @@ http://localhost:8080/vitalusus/evolucao/updatePesoAtual/{id}
 
 *==TREINADOR==*
 
+ATRIBUTOS
+id (é um long que representa o número de identificação do treinador)
+usuario (é o objeto Usuario que está ligado ao objeto Treinador)
+cref (é uma String que representa o CREF do treinador)
+dataNasc (é um Date que representa a data de nascimento do treinador)
+
+ENDPOINTS
 FIND ALL (GET)
 http://localhost:8080/vitalusus/treinador/findAll
 
@@ -142,14 +196,26 @@ FIND BY ID (GET)
 http://localhost:8080/vitalusus/treinador/findById/{id}
 
 FIND BY ID (POST)
-http://localhost:8080/vitalusus/treinador/findById
+http://localhost:8080/vitalusus/treinador/findById/
 
-CRIAR UM NOVO TREINADOR (POST)
+CRIAR UM NOVO TREINADOR E SEU RESPECTIVO USUÁRIO(POST)
 http://localhost:8080/vitalusus/treinador/post
 
 
 *==USUÁRIO==*
 
+ATRIBUTOS
+id (é um long que representa o número de identificação do usuário)
+nome (é uma String que representa o nome do usuário)
+email (é uma String que representa o email do usuário)
+senha (é uma String que representa a senha da conta do usuário)
+nivelAcesso (é uma String que representa o nível de acesso do usuario, sendo ele USER ou ADMIN)
+foto (é um byte[] que representa a foto de perfil do usuário)
+dataCadstro (é um LocalDateTime que representa a data na qual o usuário criou sua conta)
+statusUsuario (é uma String que representa o status do usuário, sendo ele ATIVO ou INATIVO)
+tipoUsuario (é uma String que representa o tipo do usuário, sendo ele ADMINISTRADOR, ALUNO ou TREINADOR)
+
+ENDPOINTS
 FIND ALL (GET)
 http://localhost:8080/vitalusus/usuario/findAll
 
@@ -179,6 +245,24 @@ http://localhost:8080/vitalusus/usuario/corrigirBugSenha/{id}
 
 *==VIDEOAULA==*
 
+ATRIBUTOS
+id (é um long que representa o número de identificação da videoaula)
+canal (é o objeto Canal que está ligado ao objeto Treinador)
+titulo (é uma String que representa o título da videoaula)
+descricao (é uma String que representa a descrição da videoaula)
+likes (é um long que representa o número de likes)
+alunosLikes (é uma lista de objetos Aluno que representa os alunos que deram like na videoaula)
+deslikes (é um long que representa o número de deslikes)
+alunosDeslikes (é uma lista de objetos Aluno que representa os alunos que deram deslike na videoaula)
+alunos (é uma lista de objetos Aluno que representa os alunos que visualizaram a videoaula)
+visualizacoes (é um int que representa o número de vizualizações da videoaula)
+video (é um byte[] que representa o arquivo de vídeo da videoaula)
+thumbnail (é um byte[] que representa o arquivo de imagem da thumbnail da videoaula)
+dataPubli (é um LocalDateTime que representa a data de publicação da videoaula)
+categoria (é uma String que representa a categoria da videoaula)
+tipovideoaula (é uma String que representa o tipo de videoaula)
+
+ENDPOINTS
 FIND ALL (GET)
 http://localhost:8080/vitalusus/videoaula/findAll
 
