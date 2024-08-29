@@ -54,8 +54,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 } else if (itemId == R.id.bottom_canais) {
                     openFragment(new CanaisFragment());
                     return true;
-                } else if (itemId == R.id.bottom_notificacoes) {
-                    openFragment(new NotificacoesFragment());
+                } else if (itemId == R.id.bottom_estatisticas) {
+                    openFragment(new EstatisticasFragment());
                     return true;
                 } else if (itemId == R.id.bottom_perfil) {
                     openFragment(new PerfilFragment());
@@ -76,8 +76,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             openFragment(new SuporteFragment());
         } else if (itemId == R.id.nav_configuracoes) {
             openFragment(new ConfiguracoesFragment());
-        } else if (itemId == R.id.nav_estatisticas) {
-            openFragment(new EstatisticasFragment());
+        } else if (itemId == R.id.nav_notificacoes) {
+            openFragment(new NotificacoesFragment());
         } else if (itemId == R.id.nav_sobrenos) {
             openFragment(new SobreNosFragment());
         }

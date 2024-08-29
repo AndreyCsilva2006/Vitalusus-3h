@@ -45,6 +45,11 @@ public class SuporteFragment extends Fragment {
             // Aqui você pode adicionar a lógica para processar o texto, como enviar para um servidor
             // Exemplo: Toast para mostrar uma mensagem simples
             Toast.makeText(getActivity(), "Mensagem enviada: " + texto, Toast.LENGTH_SHORT).show();
+
+
+
+
+
         } else {
             // Informa ao usuário que o campo está vazio
             Toast.makeText(getActivity(), "Por favor, preencha o campo de mensagem.", Toast.LENGTH_SHORT).show();

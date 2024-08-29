@@ -14,10 +14,6 @@
         android:title="Configurações"/>
 
 
-    <item
-        android:id="@+id/nav_estatisticas"
-        android:icon="@drawable/estatisticas"
-        android:title="Estatisticas"/>
 
         <item
             android:id="@+id/nav_suporte"
@@ -29,7 +25,10 @@
             android:icon="@drawable/baseline_question_mark_24"
             android:title="Suporte"/>
 
-
+       <item
+           android:id="@+id/nav_notificacoes"
+           android:icon="@drawable/baseline_notifications_24"
+           android:title="Notificações"/>
 
 
 

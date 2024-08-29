@@ -14,9 +14,9 @@
 
 
     <item
-        android:id="@+id/bottom_notificacoes"
-        android:title="@string/notificacoes"
-        android:icon="@drawable/baseline_notifications_24"/>
+        android:id="@+id/bottom_estatisticas"
+        android:title="@string/estatisticas"
+        android:icon="@drawable/estatisticas"/>
 
     <item
         android:id="@+id/bottom_perfil"
