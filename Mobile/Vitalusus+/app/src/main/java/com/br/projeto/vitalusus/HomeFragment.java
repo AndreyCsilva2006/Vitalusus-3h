@@ -30,7 +30,7 @@ public class HomeFragment extends Fragment {
         Button categoryHigh = view.findViewById(R.id.categoria_videosalta);
         Button categoryWorkouts = view.findViewById(R.id.categoria_treinos);
         Button categoryRecommendations = view.findViewById(R.id.categoria_recomendacoes);
-        Button categoryDiet = view.findViewById(R.id.category_history);
+        Button categoryDiet = view.findViewById(R.id.categoria_dieta);
 
         // Seta os listeners para os botões
         categoryHigh.setOnClickListener(v -> filterVideos("alta"));
@@ -87,29 +87,29 @@ public class HomeFragment extends Fragment {
     private List<Video> getMockVideos() {
         List<Video> videos = new ArrayList<>();
         videos.add(new Video(R.drawable.logo, "alta"));
-        videos.add(new Video(R.drawable.logo, "treinos"));
+        videos.add(new Video(R.drawable.abababa, "treinos"));
         videos.add(new Video(R.drawable.logo, "recomendacoes"));
-        videos.add(new Video(R.drawable.logo, "dieta"));
+        videos.add(new Video(R.drawable.abababa, "dieta"));
         // Adicione quantos videos forem precisos
         return videos;
     }
 
     // Classe de video para demonstração
     private static class Video {
-        private final int thumbnailResource;
-        private final String category;
+        private final int thumbnailRecurso;
+        private final String categoria;
 
-        public Video(int thumbnailResource, String category) {
-            this.thumbnailResource = thumbnailResource;
-            this.category = category;
+        public Video(int thumbnailResource, String categoria) {
+            this.thumbnailRecurso = thumbnailResource;
+            this.categoria = categoria;
         }
 
         public int getThumbnailResource() {
-            return thumbnailResource;
+            return thumbnailRecurso;
         }
 
         public String getCategory() {
-            return category;
+            return categoria;
         }
     }
 }
