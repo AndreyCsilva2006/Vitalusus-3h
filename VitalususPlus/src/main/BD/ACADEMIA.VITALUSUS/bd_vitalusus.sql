@@ -66,12 +66,13 @@ CREATE TABLE Administrador
 	id			 INT		    IDENTITY,
 	usuario_id	 INT			NOT NULL,
 	numeroUsuarios INT			NOT NULL,
+	dataNasc	DATE			NOT NULL,
 
 	FOREIGN KEY(usuario_id) REFERENCES Usuario(id),
 	PRIMARY KEY (id),
 )
 GO
-INSERT Administrador(usuario_id, numeroUsuarios) VALUES(3, 1)
+INSERT Administrador(usuario_id, numeroUsuarios, dataNasc) VALUES(3, 1, '1982-05-23')
 GO
 -- Tabela Aluno
 CREATE TABLE Aluno
