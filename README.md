@@ -260,7 +260,7 @@ video (é um byte[] que representa o arquivo de vídeo da videoaula)
 thumbnail (é um byte[] que representa o arquivo de imagem da thumbnail da videoaula)
 dataPubli (é um LocalDateTime que representa a data de publicação da videoaula)
 categoria (é uma String que representa a categoria da videoaula)
-tipovideoaula (é uma String que representa o tipo de videoaula)
+tipoVideoaula (é uma String que representa o tipo de videoaula)
 
 ENDPOINTS
 FIND ALL (GET)
