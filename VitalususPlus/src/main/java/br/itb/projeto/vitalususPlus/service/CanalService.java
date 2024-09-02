@@ -37,19 +37,11 @@ public class CanalService {
 
 	public Canal save(Canal canal) {
 		canal.setId(null);
-		List<Videoaula> videoaula = videoaulaRepository.findAllByCanal(canal);
 		if (canal.getAlunos() == null) {
 			canal.setAlunos(new ArrayList<>());
 		}
-		if (videoaula == null){
-			videoaula = new ArrayList<>();
-		}
 		canal.setVisualizacoes(0);
-		for (int i = 0; i < videoaula.size(); i++) {
-			canal.setVisualizacoes(canal.getVisualizacoes() + videoaula.get(i).getVisualizacoes());
-		}
 		canal.setSeguidores(canal.getAlunos().size());
-		canal.setVisualizacoes(videoaula.size());
 		return canalRepository.save(canal);
 	}
 

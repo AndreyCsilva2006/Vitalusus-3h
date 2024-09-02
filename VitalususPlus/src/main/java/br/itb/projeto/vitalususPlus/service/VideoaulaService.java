@@ -69,8 +69,12 @@ public class VideoaulaService {
     	return null;
     }
     
-    public void delete(Videoaula videoaula) {
-        this.videoaulaRepository.delete(videoaula);
+    public void delete(long id) {
+        Optional<Videoaula> videoaula = videoaulaRepository.findById(id);
+        if (videoaula.isPresent()) {
+            Videoaula videoaulaDeletada = videoaula.get();
+            this.videoaulaRepository.delete(videoaulaDeletada);
+        }
     }
     public Videoaula updateFix(long id){
         Optional<Videoaula> videoaula = videoaulaRepository.findById(id);

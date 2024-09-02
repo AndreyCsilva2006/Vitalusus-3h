@@ -49,9 +49,9 @@ public class VideoaulaController {
         return new ResponseEntity<Videoaula>(videoaulaSalvo, HttpStatus.OK);
     }
 
-    @DeleteMapping("delete")
-    public void deletarVideoaula(@RequestBody Videoaula videoaula){
-        this.videoaulaService.delete(videoaula);
+    @DeleteMapping("delete/{id}")
+    public void deletarVideoaula(@PathVariable Long id){
+        this.videoaulaService.delete(id);
     }
     @PutMapping("updateFix/{id}")
     public ResponseEntity<Videoaula> update(@PathVariable long id){
