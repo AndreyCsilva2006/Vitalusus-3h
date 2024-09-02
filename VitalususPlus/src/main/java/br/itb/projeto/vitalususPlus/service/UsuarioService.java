@@ -125,8 +125,6 @@ public class UsuarioService {
         Usuario usuarioUpdatado = null;
         if (_usuario.isPresent()) {
             usuarioUpdatado = _usuario.get();
-            String senha = Base64.getEncoder().encodeToString("12345678".getBytes());
-            usuarioUpdatado.setSenha(senha);
             usuarioUpdatado.setDataCadastro(LocalDateTime.now());
             usuarioUpdatado.setStatusUsuario("ATIVO");
             return usuarioRepository.save(usuarioUpdatado);
