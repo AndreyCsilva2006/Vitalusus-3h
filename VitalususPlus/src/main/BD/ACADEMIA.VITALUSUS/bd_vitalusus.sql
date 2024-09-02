@@ -66,12 +66,13 @@ CREATE TABLE Administrador
 	id			 INT		    IDENTITY,
 	usuario_id	 INT			NOT NULL,
 	numeroUsuarios INT			NOT NULL,
+	dataNasc	DATE			NOT NULL,
 
 	FOREIGN KEY(usuario_id) REFERENCES Usuario(id),
 	PRIMARY KEY (id),
 )
 GO
-INSERT Administrador(usuario_id, numeroUsuarios) VALUES(3, 1)
+INSERT Administrador(usuario_id, numeroUsuarios, dataNasc) VALUES(3, 1, '1982-05-23')
 GO
 -- Tabela Aluno
 CREATE TABLE Aluno
@@ -94,23 +95,6 @@ VALUES(
 	1
 )
 GO
-
--- Tabela Canal
-CREATE TABLE Canal(
-	id				INT				IDENTITY,
-	visualizacoes	INT				NULL,
-	nome			VARCHAR(100)	NOT NULL,
-	seguidores		BIGINT			NOT NULL,
-
-	PRIMARY KEY (id)
-)
-GO
-INSERT Canal(visualizacoes, nome, seguidores) 
-VALUES(
-	3243254,
-	'Paradas Musculat�rias', 1
-)
-
 -- Tabela Treinador
 CREATE TABLE Treinador
 (
@@ -118,22 +102,38 @@ CREATE TABLE Treinador
 	cref			VARCHAR(21)	  UNIQUE NOT NULL,
 	dataNasc		DATE		  NOT NULL,
 	usuario_id		INT			  NOT NULL,
-	canal_id		INT			  NOT NULL,
 
 	FOREIGN KEY (usuario_id) REFERENCES Usuario(id),
-	FOREIGN KEY (canal_id) REFERENCES Canal(id),
 	PRIMARY KEY (id)
 )
 GO
-INSERT Treinador(cref, dataNasc, usuario_id, canal_id)
+INSERT Treinador(cref, dataNasc, usuario_id)
 VALUES(
 	'324321-G/SP',
 	'1998-02-27',
-	2,
-	1
+	2
 )
 GO
 
+-- Tabela Canal
+CREATE TABLE Canal(
+	id				INT				IDENTITY,
+	visualizacoes	INT				NULL,
+	nome			VARCHAR(100)	NOT NULL,
+	seguidores		BIGINT			NOT NULL,
+	treinador_id	INT				NOT NULL,
+
+	FOREIGN KEY (treinador_id) REFERENCES Treinador(id),
+	PRIMARY KEY (id)
+)
+GO
+INSERT Canal(visualizacoes, nome, seguidores, treinador_id) 
+VALUES(
+	3243254,
+	'Paradas Musculat�rias', 1, 1
+)
+
+GO
 -- Tabela Banco 
 CREATE TABLE Banco(
 	id				INT				IDENTITY,
@@ -151,7 +151,6 @@ GO
 -- Tabela Videoaula
 CREATE TABLE Videoaula(
 	id				INT				IDENTITY,
-	link			VARCHAR(2048)	NULL,
 	descricao		VARCHAR(255)	NULL,
 	titulo			VARCHAR(100)	NOT NULL,
 	likes			INT				NULL,
@@ -160,20 +159,25 @@ CREATE TABLE Videoaula(
 	visualizacoes	BIGINT			NOT NULL,
 	video			VARBINARY(MAX)	NULL, 
 	thumbnail		VARBINARY(MAX)	NULL,
+	dataPubli		SMALLDATETIME	NOT NULL,
+	categoria		VARCHAR(100)	NOT NULL,
+	tipoVideoaula	VARCHAR(100)	NOT NULL,
 
 	FOREIGN KEY (canal_id) REFERENCES Canal(id),
 	PRIMARY KEY(id)
 )
 GO
-INSERT Videoaula(link, descricao, titulo, likes, deslikes, canal_id, visualizacoes)
+INSERT Videoaula(descricao, titulo, likes, deslikes, canal_id, visualizacoes, dataPubli, categoria, tipoVideoaula)
 VALUES(
-	'vitalusus/video/comofazerflexoes',
 	'Um v�deo sobre como fazer belas flex�es',
 	'Como Fazer Flex�es',
 	1332,
 	0,
 	1, 
-	123
+	123,
+	GETDATE(),
+	'Musculação',
+	'Flexões'
 )
 GO
 
@@ -205,15 +209,15 @@ GO
 CREATE TABLE Comentario(
 	id				INT				IDENTITY,
 	texto			VARCHAR(255)	NOT NULL,
-	usuario_id		INT				NOT NULL,
+	aluno_id		INT				NOT NULL,
 	videoaula_id	INT				NOT NULL,
 
 	PRIMARY KEY (id),
-	FOREIGN KEY(usuario_id) REFERENCES Usuario(id),
+	FOREIGN KEY(aluno_id) REFERENCES Aluno(id),
 	FOREIGN KEY(videoaula_id) REFERENCES Videoaula(id)
 )
 GO
-INSERT Comentario(texto, usuario_id, videoaula_id)
+INSERT Comentario(texto, aluno_id, videoaula_id)
 VALUES(
 	'Uau, que aula daora! Segui as suas instru��es por 6 meses e agora eu t� sheipado!',
 	1,
