@@ -1,7 +1,6 @@
 package br.itb.projeto.vitalususPlus.service;
 
 import br.itb.projeto.vitalususPlus.model.entity.*;
-import br.itb.projeto.vitalususPlus.model.repository.AlunoRepository;
 import br.itb.projeto.vitalususPlus.model.repository.DeslikesRepository;
 import br.itb.projeto.vitalususPlus.model.repository.LikesRepository;
 import br.itb.projeto.vitalususPlus.model.repository.VideoaulaRepository;
@@ -11,30 +10,29 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-import static java.lang.Double.isNaN;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
 @Service
 public class VideoaulaService {
-    private VideoaulaRepository videoaulaRepository;
-    private CanalService canalService;
-    private LikesRepository likesRepository;
-    private DeslikesRepository deslikesRepository;
+    private final VideoaulaRepository videoaulaRepository;
+    private final LikesRepository likesRepository;
+    private final DeslikesRepository deslikesRepository;
+    private final CanalService canalService;
 
-    public VideoaulaService(VideoaulaRepository videoaulaRepository, CanalService canalService, LikesRepository likesRepository, DeslikesRepository deslikesRepository) {
+    public VideoaulaService(VideoaulaRepository videoaulaRepository, LikesRepository likesRepository, DeslikesRepository deslikesRepository, CanalService canalService) {
         super();
         this.videoaulaRepository = videoaulaRepository;
-        this.canalService = canalService;
         this.likesRepository = likesRepository;
         this.deslikesRepository = deslikesRepository;
+        this.canalService = canalService;
     }
+    @Transactional
     public List<Videoaula> findAll(){
-        List<Videoaula> listaVideoaula = videoaulaRepository.findAll();
-        return listaVideoaula;
+        return videoaulaRepository.findAll();
     }
+    @Transactional
     public Videoaula findById(long id) {
         Optional<Videoaula> videoaula = this.videoaulaRepository.findById(id);
         return videoaula.orElseThrow(() -> new RuntimeException(
@@ -53,11 +51,12 @@ public class VideoaulaService {
         if (videoaula.getAlunosDeslikes()==null){
             videoaula.setAlunosDeslikes(new ArrayList<>());
         }
+        videoaula.setVisualizacoes(videoaula.getAlunos().size());
         videoaula.setDataPubli(LocalDateTime.now());
 		videoaula.getDataPubli().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        videoaula.setVisualizacoes(videoaula.getAlunos().size());
         videoaula.setLikes(videoaula.getAlunosLikes().size());
         videoaula.setDeslikes(videoaula.getAlunosDeslikes().size());
+        canalService.updateFix(videoaula.getCanal().getId());
         return videoaulaRepository.save(videoaula);
     }
     public Videoaula postId(long id) {
@@ -243,6 +242,7 @@ public class VideoaulaService {
             _videoaula.setVisualizacoes(_videoaula.getAlunos().size());
             _videoaula.setLikes(_videoaula.getAlunosLikes().size());
             _videoaula.setDeslikes(_videoaula.getAlunosDeslikes().size());
+            canalService.updateFix(_videoaula.getCanal().getId());
             return videoaulaRepository.save(_videoaula);
         }
         return null;

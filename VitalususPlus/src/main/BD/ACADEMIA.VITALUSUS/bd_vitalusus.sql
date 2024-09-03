@@ -48,7 +48,51 @@ VALUES(
 	1231
 )
 GO
-
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id) 
+VALUES(
+	'Seranilda de Assis',
+	'sera@gmail.com',
+	'sdfgh$$%#D',
+	'USER',
+	null,
+	GETDATE(),
+	'ATIVO',
+	'TREINADOR',
+	1231
+)
+GO
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id) 
+VALUES(
+	'Don Corleone',
+	'corleoneDon@gmail.com',
+	'sdfgh$$%#D',
+	'ADMIN',
+	null,
+	GETDATE(),
+	'ATIVO',
+	'ADMINISTRADOR',
+	1231
+)
+GO
+CREATE TABLE Denuncia
+(
+	id			INT				IDENTITY,
+	mensagem	VARCHAR(MAX)	NOT NULL,
+	usuario_id	INT				NOT NULL,
+	usuarioDenunciado_id	INT	NOT NULL,
+	
+	PRIMARY KEY (id),
+	FOREIGN KEY (usuario_id) REFERENCES Usuario(id),
+	FOREIGN KEY (usuarioDenunciado_id)	REFERENCES Usuario(id)
+)
+GO
+INSERT Denuncia(mensagem, usuario_id, usuarioDenunciado_id) 
+VALUES(
+	'Estou denunciando essa treinadora vagabunda que me mandou nudes do marido dela sem minha permissão!!',
+	1,
+	2
+)
+GO
 -- Tabela admin
 CREATE TABLE Administrador
 (

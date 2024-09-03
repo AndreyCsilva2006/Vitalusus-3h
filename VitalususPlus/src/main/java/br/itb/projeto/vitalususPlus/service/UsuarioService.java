@@ -57,6 +57,9 @@ public class UsuarioService {
 		usuario.setSenha(senha);
 		usuario.setDataCadastro(LocalDateTime.now());
 		usuario.getDataCadastro().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		ChaveSeguranca chaveSeguranca = new ChaveSeguranca();
+		usuario.setChaveSeguranca(chaveSeguranca);
+		chavesegurancaService.save(usuario.getChaveSeguranca());
 		return usuarioRepository.save(usuario);
 	}
 	public Usuario corrigirBugSenha(long id) {
