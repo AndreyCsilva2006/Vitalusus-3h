@@ -6,6 +6,7 @@ import br.itb.projeto.vitalususPlus.model.entity.Treinador;
 import br.itb.projeto.vitalususPlus.model.entity.Usuario;
 import br.itb.projeto.vitalususPlus.service.AdminService;
 import br.itb.projeto.vitalususPlus.service.AlunoService;
+import br.itb.projeto.vitalususPlus.service.ChaveSegurancaService;
 import br.itb.projeto.vitalususPlus.service.TreinadorService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -28,13 +29,15 @@ public class UsuarioController {
 	private AdminService adminService;
 	private TreinadorService treinadorService;
 	private AlunoService alunoService;
+	private ChaveSegurancaService chaveSegurancaService;
 
-	public UsuarioController(UsuarioService usuarioService, AdminService adminService, TreinadorService treinadorService, AlunoService alunoService) {
+	public UsuarioController(UsuarioService usuarioService, AdminService adminService, TreinadorService treinadorService, AlunoService alunoService, ChaveSegurancaService chaveSegurancaService) {
 		super();
 		this.usuarioService = usuarioService;
 		this.adminService = adminService;
 		this.treinadorService = treinadorService;
 		this.alunoService = alunoService;
+		this.chaveSegurancaService = chaveSegurancaService;
 	}
 
 	@GetMapping("findAll")
@@ -46,6 +49,11 @@ public class UsuarioController {
 	@PostMapping("findById/")
 	public ResponseEntity<Usuario> findById(@RequestParam long id) {
 		Usuario usuario = this.usuarioService.findById(id);
+		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+	}
+	@PostMapping("findByChaveSeguranca/")
+	public ResponseEntity<Usuario> findByChaveSeguranca(@RequestParam long chaveSeguranca) {
+		Usuario usuario = this.usuarioService.findByChaveSeguranca(chaveSeguranca);
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
 	@GetMapping("findById/{id}")

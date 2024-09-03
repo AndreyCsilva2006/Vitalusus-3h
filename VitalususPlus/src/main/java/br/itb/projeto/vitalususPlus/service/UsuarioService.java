@@ -14,6 +14,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.itb.projeto.vitalususPlus.model.entity.ChaveSeguranca;
 import br.itb.projeto.vitalususPlus.model.entity.Usuario;
 import br.itb.projeto.vitalususPlus.model.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
@@ -21,10 +22,12 @@ import jakarta.transaction.Transactional;
 @Service
 public class UsuarioService {
 	private UsuarioRepository usuarioRepository;
+	private ChaveSegurancaService chavesegurancaService;
 
-	public UsuarioService(UsuarioRepository usuarioRepository) {
+	public UsuarioService(UsuarioRepository usuarioRepository, ChaveSegurancaService chaveSegurancaService) {
 		super();
 		this.usuarioRepository = usuarioRepository;
+		this.chavesegurancaService = chaveSegurancaService;
 	}
 
 	public List<Usuario> findAll() {
@@ -155,5 +158,12 @@ public class UsuarioService {
 			}
 		}
 		return null;
+	} 
+	
+	@Transactional
+	public Usuario findByChaveSeguranca(Long chaveSeguranca) {
+		ChaveSeguranca _chaveSeguranca = chavesegurancaService.findById(chaveSeguranca);
+		Usuario usuario = usuarioRepository.findByChaveSeguranca(_chaveSeguranca);
+		return usuario;
 	}
 }

@@ -8,6 +8,15 @@ GO
 USE bd_vitalusus2h
 GO
 
+-- Tabela ChaveSeguranca
+CREATE TABLE ChaveSeguranca(
+	id					INT			IDENTITY,
+	chave				VARCHAR(50) 
+	PRIMARY KEY(id)
+)
+GO
+INSERT ChaveSeguranca
+GO
 -- Tabela Usuario
 CREATE TABLE Usuario
 ( 
@@ -20,10 +29,13 @@ CREATE TABLE Usuario
    dataCadastro	 SMALLDATETIME	NOT NULL,
    statusUsuario VARCHAR(20)    NOT NULL, -- ATIVO ou INATIVO ou TROCAR_SENHA	
    tipoUsuario	 VARCHAR(15)	NOT NULL, -- ADMINISTRADOR OU ALUNO OU TREINADOR	
-   PRIMARY KEY (id)
+   chaveSeguranca_id INT		NOT NULL,
+
+   PRIMARY KEY (id),
+   FOREIGN KEY (chaveSeguranca_id) REFERENCES ChaveSeguranca(id)
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id) 
 VALUES(
 	'Fulano fulanoide',
 	'fulano@gmail.com',
@@ -32,31 +44,8 @@ VALUES(
 	null,
 	GETDATE(),
 	'ATIVO',
-	'ALUNO'
-)
-GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario) 
-VALUES(
-	'Seranilda de Assis',
-	'nildassis@gmail.com',
-	'sdfgh$$%#D',
-	'USER',
-	null,
-	GETDATE(),
-	'ATIVO',
-	'TREINADOR'
-)
-GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario) 
-VALUES(
-	'Don Corleone',
-	'corleonedon@gmail.com',
-	'sdfgh$$%#D',
-	'ADMIN',
-	null,
-	GETDATE(),
-	'ATIVO',
-	'ADMINISTRADOR'
+	'ALUNO',
+	1231
 )
 GO
 
@@ -302,6 +291,8 @@ CREATE TABLE Deslikes(
 )
 GO
 
+
+
 SELECT * FROM Usuario
 SELECT * FROM Canal
 SELECT * FROM Videoaula
@@ -316,6 +307,7 @@ SELECT * FROM Aluno_videoaula
 SELECT * FROM Admin_usuario
 SELECT * FROM Deslikes
 SELECT * FROM Likes
+SELECT * FROM ChaveSeguranca
 
 /*
 UPDATE Usuario SET nome = 'Maria Joana' WHERE id = 1

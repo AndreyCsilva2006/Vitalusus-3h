@@ -52,6 +52,9 @@ public class Usuario {
 	@Column(name="tipoUsuario")
 	private String tipoUsuario;
 
+	@OneToOne
+	private ChaveSeguranca chaveSeguranca;
+	
 	public Long getId() {
 		return id;
 	}
