@@ -25,25 +25,13 @@ public class Treinador{
 	@NotBlank(message = "campo não preenchido")
 	@CREF(message ="campo inválido")
 	private String cref;
-
+ 
 	@Column(name="dataNasc")
 	private Date dataNasc;
-
+	
 	@OneToOne
 	@JoinColumn(name = "usuario_id",nullable=false)
 	private Usuario usuario;
-
-	@OneToOne
-	@JoinColumn(name="canal_id")
-	private Canal canal;
-
-	public Canal getCanal() {
-		return canal;
-	}
-
-	public void setCanal(Canal canal) {
-		this.canal = canal;
-	}
 
 	public Long getId() {
 		return id;

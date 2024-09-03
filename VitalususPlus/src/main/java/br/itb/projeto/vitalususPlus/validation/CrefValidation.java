@@ -1,4 +1,4 @@
- package br.itb.projeto.vitalususPlus.validation;
+package br.itb.projeto.vitalususPlus.validation;
 
 import br.itb.projeto.vitalususPlus.validation.constraints.CREF;
 import jakarta.validation.ConstraintValidator;
@@ -12,6 +12,6 @@ public class CrefValidation implements ConstraintValidator<CREF, String> {
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         String placa = value == null ? "": value;
-        return placa.matches("[0-9]{6}-G/[A-Z]{2}");
+        return placa.matches("[0-9]{6}-[GP]/[A-Z]{2}(-[A-Z]{2})?(-[A-Z]{2}-[A-Z]{2})?");
     }
 }

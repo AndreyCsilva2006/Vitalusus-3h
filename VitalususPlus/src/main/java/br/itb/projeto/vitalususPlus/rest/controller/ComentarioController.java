@@ -30,8 +30,13 @@ public class ComentarioController {
         List<Comentario> comentarios = this.comentarioService.findAll();
         return new ResponseEntity<List<Comentario>>(comentarios, HttpStatus.OK);
     }
+    @PostMapping("findById/")
+    public ResponseEntity<Comentario> findById(@RequestParam long id){
+        Comentario comentario = this.comentarioService.findById(id);
+        return new ResponseEntity<Comentario>(comentario, HttpStatus.OK);
+    }
     @GetMapping("findById/{id}")
-    public ResponseEntity<Comentario> findById(@PathVariable long id){
+    public ResponseEntity<Comentario> findId(@PathVariable long id) {
         Comentario comentario = this.comentarioService.findById(id);
         return new ResponseEntity<Comentario>(comentario, HttpStatus.OK);
     }
@@ -44,9 +49,10 @@ public class ComentarioController {
     public void deletarComentario(@RequestBody Comentario comentario){
         this.comentarioService.delete(comentario);
     }
-    @PutMapping("update")
-    public ResponseEntity<Comentario> updateComentario(@RequestBody @Valid Comentario comentario){
-        Comentario comentarioUpdatado = this.comentarioService.update(comentario);
+
+    @PutMapping("updateTexto/{id}")
+    public ResponseEntity<Comentario> updateComentario(@PathVariable long id, @RequestBody Comentario comentario){
+        Comentario comentarioUpdatado = this.comentarioService.update(id, comentario);
         return new ResponseEntity<Comentario>(comentarioUpdatado, HttpStatus.OK);
     }
     @ResponseStatus(HttpStatus.BAD_REQUEST)

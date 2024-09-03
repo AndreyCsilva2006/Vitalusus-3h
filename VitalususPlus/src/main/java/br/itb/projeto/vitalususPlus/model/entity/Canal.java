@@ -33,7 +33,11 @@ public class Canal{
 			{@JoinColumn(name="seguidor_id")})
 	private List<Aluno> alunos;
 	private Integer seguidores;
-
+	
+	@ManyToOne
+	@JoinColumn(name = "treinador_id",nullable=false)
+	private Treinador treinador;
+	
 	public Long getId() {
 		return id;
 	}
@@ -73,5 +77,14 @@ public class Canal{
 	public void setSeguidores(Integer seguidores) {
 		this.seguidores = seguidores;
 	}
+
+	public Treinador getTreinador() {
+		return treinador;
+	}
+
+	public void setTreinador(Treinador treinador) {
+		this.treinador = treinador;
+	}
+	
 	
 }

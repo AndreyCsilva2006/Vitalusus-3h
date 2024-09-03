@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,12 +20,18 @@ public class Videoaula {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String link;
 	private String descricao;
 	@NotBlank(message = "campo não preenchido")
 	private String titulo;
 	private long likes;
 	private long deslikes;
+	
+	@Lob
+	private byte[] video;
+
+	@Lob
+	private byte[] thumbnail;
+	
 	@ManyToMany
 	@JoinTable(name="aluno_videoaula",
 			joinColumns = {@JoinColumn(name="videoaula_id")},
@@ -31,10 +39,30 @@ public class Videoaula {
 	private List<Aluno> alunos;
 	private Integer visualizacoes;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "canal_id")
 	private Canal canal;
 
+	@OneToMany
+	@JoinTable(name="Likes",
+			joinColumns = {@JoinColumn(name="videoaula_id")},
+			inverseJoinColumns = {@JoinColumn(name="aluno_id")}
+	)
+	private List<Aluno> alunosLikes;
+
+	@OneToMany
+	@JoinTable(name="Deslikes",
+			joinColumns = {@JoinColumn(name="videoaula_id")},
+			inverseJoinColumns = {@JoinColumn(name="aluno_id")}
+	)
+	private List<Aluno> alunosDeslikes;
+	
+	private LocalDateTime dataPubli;
+	
+	private String categoria;
+	
+	private String tipoVideoaula;
+	
 	public Long getId() {
 		return id;
 	}
@@ -42,15 +70,7 @@ public class Videoaula {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public String getLink() {
-		return link;
-	}
-
-	public void setLink(String link) {
-		this.link = link;
-	}
-
+	
 	public String getDescricao() {
 		return descricao;
 	}
@@ -106,5 +126,64 @@ public class Videoaula {
 	public void setCanal(Canal canal) {
 		this.canal = canal;
 	}
+
+	public byte[] getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(byte[] thumbail) {
+		this.thumbnail = thumbail;
+	}
+
+	public byte[] getVideo() {
+		return video;
+	}
+
+	public void setVideo(byte[] video) {
+		this.video = video;
+	}
+
+	public List<Aluno> getAlunosLikes() {
+		return alunosLikes;
+	}
+
+	public void setAlunosLikes(List<Aluno> alunosLikes) {
+		this.alunosLikes = alunosLikes;
+	}
+
+	public List<Aluno> getAlunosDeslikes() {
+		return alunosDeslikes;
+	}
+
+	public void setAlunosDeslikes(List<Aluno> alunosDeslikes) {
+		this.alunosDeslikes = alunosDeslikes;
+	}
+
+	public LocalDateTime getDataPubli() {
+		return dataPubli;
+	}
+
+	public void setDataPubli(LocalDateTime dataPubli) {
+		this.dataPubli = dataPubli;
+	}
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	public String getTipoVideoaula() {
+		return tipoVideoaula;
+	}
+
+	public void setTipoVideoaula(String tipoVideoaula) {
+		this.tipoVideoaula = tipoVideoaula;
+	}
+
+
+	
 	
 }
