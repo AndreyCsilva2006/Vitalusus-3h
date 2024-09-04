@@ -1,5 +1,7 @@
 package br.itb.projeto.vitalususPlus.model.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +26,8 @@ public class Denuncia {
     private Usuario usuarioDenunciado;
 
     private String mensagem;
+    
+    private LocalDateTime dataDenuncia;
 
     public Long getId() {
         return id;
@@ -56,4 +60,13 @@ public class Denuncia {
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;
     }
+
+	public LocalDateTime getDataDenuncia() {
+		return dataDenuncia;
+	}
+
+	public void setDataDenuncia(LocalDateTime dataDenuncia) {
+		this.dataDenuncia = dataDenuncia;
+	}
+    
 }

@@ -5,6 +5,7 @@ import br.itb.projeto.vitalususPlus.model.entity.Evolucao;
 import br.itb.projeto.vitalususPlus.model.repository.DenunciaRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,17 @@ public class DenunciaService {
     }
     public Denuncia save(Denuncia denuncia){
         denuncia.setId(null);
+        denuncia.setDataDenuncia(LocalDateTime.now());
         return denunciaRepository.save(denuncia);
+    }
+    
+    public Denuncia updateMensagem(Long id, Denuncia denuncia) {
+    	Optional<Denuncia> _denuncia = denunciaRepository.findById(id);
+    	if(_denuncia.isPresent()) {
+    		Denuncia denunciaUpdatado = _denuncia.get();
+    		denunciaUpdatado.setMensagem(denuncia.getMensagem());
+    		return denunciaUpdatado;
+    	}
+    	return null;
     }
 }

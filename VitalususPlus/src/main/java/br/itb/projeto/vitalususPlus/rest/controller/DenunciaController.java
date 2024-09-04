@@ -40,4 +40,9 @@ public class DenunciaController {
         Denuncia denunciaSalvo = this.denunciaService.save(denuncia);
         return new ResponseEntity<Denuncia>(denunciaSalvo, HttpStatus.OK);
     }
+    @PutMapping("updateMensagem/{id}")
+    public ResponseEntity<Denuncia> updateMensagem(@PathVariable long id, @RequestBody Denuncia denuncia){
+    	Denuncia denunciaUpdatado = this.denunciaService.updateMensagem(id, denuncia);
+    	return new ResponseEntity<Denuncia>(denunciaUpdatado, HttpStatus.OK);
+    }
 }
