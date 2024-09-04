@@ -1,7 +1,13 @@
 package br.itb.projeto.vitalususPlus.rest.controller;
 
 import br.itb.projeto.vitalususPlus.model.entity.Admin;
+import br.itb.projeto.vitalususPlus.model.entity.Aluno;
+import br.itb.projeto.vitalususPlus.model.entity.Treinador;
 import br.itb.projeto.vitalususPlus.model.entity.Usuario;
+import br.itb.projeto.vitalususPlus.service.AdminService;
+import br.itb.projeto.vitalususPlus.service.AlunoService;
+import br.itb.projeto.vitalususPlus.service.ChaveSegurancaService;
+import br.itb.projeto.vitalususPlus.service.TreinadorService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +26,18 @@ import java.util.Map;
 @RequestMapping("/vitalusus/usuario/")
 public class UsuarioController {
 	private UsuarioService usuarioService;
+	private AdminService adminService;
+	private TreinadorService treinadorService;
+	private AlunoService alunoService;
+	private ChaveSegurancaService chaveSegurancaService;
 
-	public UsuarioController(UsuarioService usuarioService) {
+	public UsuarioController(UsuarioService usuarioService, AdminService adminService, TreinadorService treinadorService, AlunoService alunoService, ChaveSegurancaService chaveSegurancaService) {
 		super();
 		this.usuarioService = usuarioService;
+		this.adminService = adminService;
+		this.treinadorService = treinadorService;
+		this.alunoService = alunoService;
+		this.chaveSegurancaService = chaveSegurancaService;
 	}
 
 	@GetMapping("findAll")
@@ -32,9 +46,14 @@ public class UsuarioController {
 		return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.OK);
 	}
 
-	@PostMapping("findById")
+	@PostMapping("findById/")
 	public ResponseEntity<Usuario> findById(@RequestParam long id) {
 		Usuario usuario = this.usuarioService.findById(id);
+		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+	}
+	@PostMapping("findByChaveSeguranca/")
+	public ResponseEntity<Usuario> findByChaveSeguranca(@RequestParam long chaveSeguranca) {
+		Usuario usuario = this.usuarioService.findByChaveSeguranca(chaveSeguranca);
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
 	@GetMapping("findById/{id}")
@@ -65,22 +84,40 @@ public class UsuarioController {
 	}
 
 	@PutMapping("update")
-	public ResponseEntity<Usuario> updateUsuario(@RequestBody @Valid Usuario usuario) {
+	public ResponseEntity<Usuario> updateUsuario(@RequestBody Usuario usuario) {
 		Usuario usuarioUpdatado = this.usuarioService.update(usuario);
 		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
 		}
+	@PutMapping("updateFoto/{id}")
+	public ResponseEntity<Usuario> updateFoto(@PathVariable long id, @RequestBody Usuario usuario) {
+		Usuario usuarioUpdatado = this.usuarioService.updateFoto(id, usuario);
+		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
+	}
 	@PutMapping("updateSenha/{id}")
 	public ResponseEntity<Usuario> updateUsuario(@PathVariable long id, @RequestBody Usuario usuario) {
 		Usuario usuarioUpdatado = this.usuarioService.updateSenha(id, usuario);
 		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
 	}
 
-	@PostMapping("login")
+	@PostMapping("login/")
 	public ResponseEntity<?> sigin(@RequestParam String email, @RequestParam String senha) {
 		Usuario usuario = usuarioService.sigin(email, senha);
 		if (usuario != null) {
-			return ResponseEntity.ok().body(usuario);
-		}
+            switch (usuario.getTipoUsuario()) {
+                case "ADMINISTRADOR" -> {
+                    Admin admin = adminService.findByUsuario(usuario);
+                    return ResponseEntity.ok().body(admin);
+                }
+                case "ALUNO" -> {
+                    Aluno aluno = alunoService.findByUsuario(usuario);
+                    return ResponseEntity.ok().body(aluno);
+                }
+                case "TREINADOR" -> {
+                    Treinador treinador = treinadorService.findByUsuario(usuario);
+                    return ResponseEntity.ok().body(treinador);
+                }
+            }
+        }
 		return ResponseEntity.badRequest().body("Dados incorretos!");
 	}
 	

@@ -35,7 +35,7 @@ public class AlunoController {
         List<Aluno> alunos = this.alunoService.findAll();
         return new ResponseEntity<List<Aluno>>(alunos, HttpStatus.OK);
     }
-    @PostMapping("findById")
+    @PostMapping("findById/")
     public ResponseEntity<Aluno> findById(@RequestParam long id){
         Aluno aluno = this.alunoService.findById(id);
         return new ResponseEntity<Aluno>(aluno, HttpStatus.OK);
@@ -49,14 +49,6 @@ public class AlunoController {
     public ResponseEntity<Aluno> salvarAluno(@RequestBody @Valid Aluno aluno){
         Aluno alunoSalvo = this.alunoService.save(aluno);
         return new ResponseEntity<Aluno>(alunoSalvo, HttpStatus.OK);
-    }
-    @PostMapping("login")
-    public ResponseEntity<?> sigin(@RequestParam String email, @RequestParam String senha) {
-        Aluno aluno = alunoService.sigin(email, senha);
-        if (aluno != null) {
-            return ResponseEntity.ok().body(aluno);
-        }
-        return ResponseEntity.badRequest().body("Dados incorretos!");
     }
     @PutMapping("updateGeral/{id}")
     public ResponseEntity<Aluno> updateGeral(@PathVariable long id, @RequestBody @Valid Aluno aluno){

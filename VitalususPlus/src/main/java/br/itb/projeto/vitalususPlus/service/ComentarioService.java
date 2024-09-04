@@ -23,7 +23,7 @@ public class ComentarioService {
     public Comentario findById(long id) {
         Optional<Comentario> comentario = this.comentarioRepository.findById(id);
         return comentario.orElseThrow(() -> new RuntimeException(
-                "Admin não encontrado"
+                "Comentário não encontrado"
         ));
     }
     @Transactional

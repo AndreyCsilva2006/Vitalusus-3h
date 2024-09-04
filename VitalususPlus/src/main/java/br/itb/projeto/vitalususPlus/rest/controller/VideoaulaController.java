@@ -33,7 +33,7 @@ public class VideoaulaController {
         List<Videoaula> videoaulas = this.videoaulaService.findAll();
         return new ResponseEntity<List<Videoaula>>(videoaulas, HttpStatus.OK);
     }
-    @PostMapping("findById")
+    @PostMapping("findById/")
     public ResponseEntity<Videoaula> findById(@RequestParam long id){
         Videoaula videoaula = this.videoaulaService.findById(id);
         return new ResponseEntity<Videoaula>(videoaula, HttpStatus.OK);
@@ -44,14 +44,14 @@ public class VideoaulaController {
         return new ResponseEntity<Videoaula>(videoaula, HttpStatus.OK);
     }
     @PostMapping("post")
-    public ResponseEntity<Videoaula> salvarVideoaula(@RequestBody @Valid Videoaula videoaula){
+    public ResponseEntity<Videoaula> salvarVideoaula(@RequestBody Videoaula videoaula){
         Videoaula videoaulaSalvo = this.videoaulaService.save(videoaula);
         return new ResponseEntity<Videoaula>(videoaulaSalvo, HttpStatus.OK);
     }
 
-    @DeleteMapping("delete")
-    public void deletarVideoaula(@RequestBody Videoaula videoaula){
-        this.videoaulaService.delete(videoaula);
+    @DeleteMapping("delete/{id}")
+    public void deletarVideoaula(@PathVariable Long id){
+        this.videoaulaService.delete(id);
     }
     @PutMapping("updateFix/{id}")
     public ResponseEntity<Videoaula> update(@PathVariable long id){
@@ -71,6 +71,16 @@ public class VideoaulaController {
     @PutMapping("updateDescricao/{id}")
     public ResponseEntity<Videoaula> updateDescricao(@PathVariable long id, @RequestBody Videoaula videoaula){
         Videoaula videoaulaUpdatado = this.videoaulaService.updateDescricao(id, videoaula);
+        return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
+    }
+    @PutMapping("updateCategoria/{id}")
+    public ResponseEntity<Videoaula> updateCategoria(@PathVariable long id, @RequestBody Videoaula videoaula){
+        Videoaula videoaulaUpdatado = this.videoaulaService.updateCategoria(id, videoaula);
+        return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
+    }
+    @PutMapping("updateTipoVideoaula/{id}")
+    public ResponseEntity<Videoaula> updateTipoVideoaula(@PathVariable long id, @RequestBody Videoaula videoaula){
+        Videoaula videoaulaUpdatado = this.videoaulaService.updateTipoVideoaula(id, videoaula);
         return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
     }
     @PutMapping("addLikes/{id}")

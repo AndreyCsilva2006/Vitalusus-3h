@@ -36,9 +36,18 @@ public class AlunoService {
 		Optional<Aluno> aluno = this.alunoRepository.findById(id);
 		return aluno.orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
 	}
-
+	public Aluno findByUsuario(Usuario usuario) {
+		Aluno aluno = this.alunoRepository.findByUsuario(usuario);
+		return aluno;
+	}
 	public Aluno save(Aluno aluno) {
 		aluno.setId(null);
+		Usuario usuario = aluno.getUsuario();
+        if(aluno != null) {
+        usuario.setTipoUsuario("ALUNO");
+        usuario.setNivelAcesso("USER");
+        usuarioService.save(usuario);
+        }
 		return alunoRepository.save(aluno);
 	}
 

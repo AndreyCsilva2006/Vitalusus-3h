@@ -12,6 +12,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,24 +44,16 @@ public class TreinadorController {
         Treinador treinador = this.treinadorService.findById(id);
         return new ResponseEntity<Treinador>(treinador, HttpStatus.OK);
     }
-    @PostMapping("findById")
+    @PostMapping("findById/")
     public ResponseEntity<Treinador> findById(@RequestParam long id){
         Treinador treinador = this.treinadorService.findById(id);
         return  new ResponseEntity<Treinador>(treinador, HttpStatus.OK);
     }
     @PostMapping("post")
-    public ResponseEntity<Treinador> salvarTreinador(@RequestBody @Valid Treinador treinador){
+    public ResponseEntity<Treinador> salvarTreinador(@RequestBody @Valid Treinador treinador) throws IOException {
         Treinador treinadorSalvo = this.treinadorService.save(treinador);
         return new ResponseEntity<Treinador>(treinadorSalvo, HttpStatus.OK);
     }
-    @PostMapping("login")
-	public ResponseEntity<?> sigin(@RequestParam String email, @RequestParam String senha) {
-		Treinador treinador = treinadorService.sigin(email, senha);
-		if (treinador != null) {
-			return ResponseEntity.ok().body(treinador);
-		}
-		return ResponseEntity.badRequest().body("Dados incorretos!");
-	}
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationException(MethodArgumentNotValidException ex){

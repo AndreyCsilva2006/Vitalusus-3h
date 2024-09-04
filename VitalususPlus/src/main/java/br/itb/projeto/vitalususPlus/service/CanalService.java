@@ -7,6 +7,7 @@ import java.util.Optional;
 import br.itb.projeto.vitalususPlus.model.entity.*;
 import br.itb.projeto.vitalususPlus.model.repository.SeguidorRepository;
 import br.itb.projeto.vitalususPlus.model.repository.VideoaulaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import br.itb.projeto.vitalususPlus.model.repository.CanalRepository;
@@ -14,42 +15,35 @@ import br.itb.projeto.vitalususPlus.model.repository.TreinadorRepository;
 
 @Service
 public class CanalService {
-	private CanalRepository canalRepository;
-	private SeguidorRepository seguidorRepository;
-	private VideoaulaRepository videoaulaRepository;
+	private final CanalRepository canalRepository;
+	private final SeguidorRepository seguidorRepository;
 
-	public CanalService(CanalRepository canalRepository, SeguidorRepository seguidorRepository, VideoaulaRepository videoaulaRepository) {
+	public CanalService(CanalRepository canalRepository, SeguidorRepository seguidorRepository) {
 		super();
 		this.canalRepository = canalRepository;
 		this.seguidorRepository = seguidorRepository;
-		this.videoaulaRepository = videoaulaRepository;
 	}
 
+	@Transactional
 	public List<Canal> findAll() {
 		List<Canal> canais = canalRepository.findAll();
 		return canais;
 	}
 
+	@Transactional
 	public Canal findById(long id) {
 		Optional<Canal> canal = this.canalRepository.findById(id);
 		return canal.orElseThrow(() -> new RuntimeException("treinador não encontrado"));
 	}
 
+	@Transactional
 	public Canal save(Canal canal) {
 		canal.setId(null);
-		List<Videoaula> videoaula = videoaulaRepository.findAllByCanal(canal);
 		if (canal.getAlunos() == null) {
 			canal.setAlunos(new ArrayList<>());
 		}
-		if (videoaula == null){
-			videoaula = new ArrayList<>();
-		}
 		canal.setVisualizacoes(0);
-		for (int i = 0; i < videoaula.size(); i++) {
-			canal.setVisualizacoes(canal.getVisualizacoes() + videoaula.get(i).getVisualizacoes());
-		}
 		canal.setSeguidores(canal.getAlunos().size());
-		canal.setVisualizacoes(videoaula.size());
 		return canalRepository.save(canal);
 	}
 
@@ -57,11 +51,12 @@ public class CanalService {
 		this.canalRepository.delete(canal);
 	}
 
+	@Transactional
 	public Canal updateFix(Long id) {
 		Optional<Canal> _canal = canalRepository.findById(id);
 		if (_canal.isPresent()) {
 			Canal canalUpdatado = _canal.get();
-			List<Videoaula> videoaula = videoaulaRepository.findAllByCanal(canalUpdatado);
+			List<Videoaula> videoaula = canalUpdatado.getVideoaulas();
 			if (videoaula == null){
 				videoaula = new ArrayList<>();
 			}
@@ -80,11 +75,12 @@ public class CanalService {
 		}
 		return null;
 	}
+	@Transactional
 	public Canal addAlunos(Long id, Canal canal) {
 		Optional<Canal> _canal = canalRepository.findById(id);
 		if (_canal.isPresent()) {
 			Canal canalUpdatado = _canal.get();
-			List<Videoaula> videoaula = videoaulaRepository.findAllByCanal(canalUpdatado);
+			List<Videoaula> videoaula = canalUpdatado.getVideoaulas();
 			canalUpdatado.getAlunos().addAll(canal.getAlunos());
 			if (canalUpdatado.getAlunos() == null) {
 				canalUpdatado.setAlunos(new ArrayList<>());
@@ -98,11 +94,12 @@ public class CanalService {
 		}
 		return null;
 	}
+	@Transactional
 	public Canal removeAlunos(Long id, Aluno aluno) {
 		Optional<Canal> _canal = canalRepository.findById(id);
 		if (_canal.isPresent()) {
 			Canal canalUpdatado = _canal.get();
-			List<Videoaula> videoaula = videoaulaRepository.findAllByCanal(canalUpdatado);
+			List<Videoaula> videoaula = canalUpdatado.getVideoaulas();
 			List<Seguidor> seguidor = seguidorRepository.findAllByAlunoAndCanal(aluno, canalUpdatado);
 			seguidorRepository.deleteAll(seguidor);
 			if (canalUpdatado.getAlunos() == null) {
@@ -117,11 +114,12 @@ public class CanalService {
 		}
 		return null;
 	}
+	@Transactional
 	public Canal updateNome(Long id, Canal canal) {
 		Optional<Canal> _canal = canalRepository.findById(id);
 		if (_canal.isPresent()) {
 			Canal canalUpdatado = _canal.get();
-			List<Videoaula> videoaula = videoaulaRepository.findAllByCanal(canalUpdatado);
+			List<Videoaula> videoaula = canalUpdatado.getVideoaulas();
 			canalUpdatado.setNome(canal.getNome());
 			if (canalUpdatado.getAlunos() == null) {
 				canalUpdatado.setAlunos(new ArrayList<>());

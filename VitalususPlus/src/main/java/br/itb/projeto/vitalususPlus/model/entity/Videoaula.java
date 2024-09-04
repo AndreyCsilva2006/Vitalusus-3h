@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -41,20 +43,26 @@ public class Videoaula {
 	@JoinColumn(name = "canal_id")
 	private Canal canal;
 
-	@ManyToMany
+	@OneToMany
 	@JoinTable(name="Likes",
 			joinColumns = {@JoinColumn(name="videoaula_id")},
 			inverseJoinColumns = {@JoinColumn(name="aluno_id")}
 	)
 	private List<Aluno> alunosLikes;
 
-	@ManyToMany
+	@OneToMany
 	@JoinTable(name="Deslikes",
 			joinColumns = {@JoinColumn(name="videoaula_id")},
 			inverseJoinColumns = {@JoinColumn(name="aluno_id")}
 	)
 	private List<Aluno> alunosDeslikes;
-
+	
+	private LocalDateTime dataPubli;
+	
+	private String categoria;
+	
+	private String tipoVideoaula;
+	
 	public Long getId() {
 		return id;
 	}
@@ -150,4 +158,32 @@ public class Videoaula {
 	public void setAlunosDeslikes(List<Aluno> alunosDeslikes) {
 		this.alunosDeslikes = alunosDeslikes;
 	}
+
+	public LocalDateTime getDataPubli() {
+		return dataPubli;
+	}
+
+	public void setDataPubli(LocalDateTime dataPubli) {
+		this.dataPubli = dataPubli;
+	}
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	public String getTipoVideoaula() {
+		return tipoVideoaula;
+	}
+
+	public void setTipoVideoaula(String tipoVideoaula) {
+		this.tipoVideoaula = tipoVideoaula;
+	}
+
+
+	
+	
 }

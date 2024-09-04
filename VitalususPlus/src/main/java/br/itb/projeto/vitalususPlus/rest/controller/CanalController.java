@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.itb.projeto.vitalususPlus.model.entity.Admin;
-import br.itb.projeto.vitalususPlus.model.entity.Aluno;
+import br.itb.projeto.vitalususPlus.model.entity.*;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +12,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import br.itb.projeto.vitalususPlus.model.entity.Canal;
-import br.itb.projeto.vitalususPlus.model.entity.Treinador;
 import br.itb.projeto.vitalususPlus.service.CanalService;
 import br.itb.projeto.vitalususPlus.service.TreinadorService;
 
@@ -33,7 +30,7 @@ public class CanalController {
 	        List<Canal> canais = this.canalService.findAll();
 	        return new ResponseEntity<List<Canal>>(canais, HttpStatus.OK);
 	    }
-	    @PostMapping("findById")
+	    @PostMapping("findById/")
 	    public ResponseEntity<Canal> findById(@RequestParam long id){
 	        Canal canal = this.canalService.findById(id);
 	        return  new ResponseEntity<Canal>(canal, HttpStatus.OK);
@@ -44,7 +41,7 @@ public class CanalController {
 		return new ResponseEntity<Canal>(canal, HttpStatus.OK);
 	}
 	    @PostMapping("post")
-	    public ResponseEntity<Canal> salvarCanal(@RequestBody @Valid Canal canal){
+	    public ResponseEntity<Canal> salvarCanal(@RequestBody Canal canal){
 	        Canal canalSalvo = this.canalService.save(canal);
 	        return new ResponseEntity<Canal>(canalSalvo, HttpStatus.OK);
 	    }

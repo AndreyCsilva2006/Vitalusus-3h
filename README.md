@@ -1,151 +1,308 @@
-**PROTOCOLOS HTTP PARA USAR**
+*==ADMIN==*
 
+ATRIBUTOS
+id (é um long que representa o número de identificação do administrador)
+usuario (é o objeto Usuario que está ligado ao objeto Admin)
+listaUsuarios (é a lista de usuários que o administrador administra)
+numeroUsuarios (é um int que conta a quantidade de usuários que administrador administra)
+dataNasc (é um Date que representa a data de nascimento do administrador)
 
-*==ADMINISTRADOR==*
-
-FIND ALL
+ENDPOINTS
+FIND ALL (GET)
 http://localhost:8080/vitalusus/admin/findAll
 
-FIND BY ID 
+FIND BY ID (GET)
 http://localhost:8080/vitalusus/admin/findById/{id}
 
-POST
+FIND BY ID (POST)
+http://localhost:8080/vitalusus/admin/findById/
+
+CRIAR UM NOVO ADMINISTRADOR E SUA RESPECTIVA CONTA DE USUÁRIO (POST)
 http://localhost:8080/vitalusus/admin/post
 
-ARRUMAR AUTOMATICAMENTE O NÚMERO DE USUÁRIOS ADMINISTRADOS
+ARRUMAR AUTOMATICAMENTE O NÚMERO DE USUÁRIOS ADMINISTRADOS (PUT)
 http://localhost:8080/vitalusus/admin/updateFix/{id}
 
-ADICIONAR USUÁRIO A SER ADMINISTRADO
+ADICIONAR USUÁRIO A SER ADMINISTRADO (PUT)
 http://localhost:8080/vitalusus/admin/addUsuariosAdministrados/{id}
 
-REMOVER USUÁRIO ADMINISTRADO
+REMOVER USUÁRIO ADMINISTRADO (PUT)
 http://localhost:8080/vitalusus/admin/removeUsuariosAdministrados/{id}
 
 
 *==ALUNO==*
 
-FIND ALL
+ATRIBUTOS
+id (é um long que representa o número de identificação do aluno)
+dataNasc (é um Date que representa a data de nascimento do aluno)
+altura (é um float que representa a altura do aluno)
+peso (é um float que representa o peso do aluno)
+usuario (é o objeto Usuario que está ligado ao objeto Aluno)
+
+ENDPOINTS
+FIND ALL (GET)
 http://localhost:8080/vitalusus/aluno/findAll
 
-FIND BY ID 
+FIND BY ID (GET)
 http://localhost:8080/vitalusus/aluno/findById/{id}
 
-POST
+FIND BY ID (POST)
+http://localhost:8080/vitalusus/aluno/findById/
+
+CRIAR NOVO ALUNO  E SEU RESPECTIVO USUÁRIO(POST)
 http://localhost:8080/vitalusus/aluno/post
 
-ALTERAR ALTURA
+ALTERAR ALTURA E PESO DE UMA VEZ
+http://localhost:8080/vitalusus/aluno/updateGeral/{id}
+
+ALTERAR ALTURA (PUT)
 http://localhost:8080/vitalusus/aluno/updateAltura/{id}
 
-ALTERAR PESO
+ALTERAR PESO (PUT)
 http://localhost:8080/vitalusus/aluno/updatePeso/{id}
 
 
 *==BANCO==*
 
-FIND ALL
+ATRIBUTOS
+id (é um long que representa o número de identificação do banco)
+numeroCartao (é uma String que representa o número do cartão do banco do treinador ligado ao seu respectivo objeto Banco)
+treinador (é o objeto Treinador que está ligado ao objeto Banco)
+
+ENDPOINTS
+FIND ALL (GET)
 http://localhost:8080/vitalusus/banco/findAll
 
-FIND BY ID 
+FIND BY ID (GET)
 http://localhost:8080/vitalusus/banco/findById/{id}
 
-POST
+FIND BY ID (POST)
+http://localhost:8080/vitalusus/banco/findById/
+
+CRIAR UM NOVO BANCO (POST)
 http://localhost:8080/vitalusus/banco/post
 
 
 *==CANAL==*
 
-FIND ALL
+ATRIBUTOS
+id (é um long que representa o número de identificação do canal)
+treinador (é o objeto Treinador que está ligado ao objeto Canal)
+visualizacoes (é um long que representa o número de visualizações de todos os vídeos do canal)
+nome (é uma String que representa o nome do canal)
+alunos (é uma lista de objetos Aluno que representa todos os alunos que seguem o canal)
+seguidores (é um int que representa a quantidade numérica de seguidores do canal)
+
+ENDPOINTS
+FIND ALL (GET)
 http://localhost:8080/vitalusus/canal/findAll
 
-FIND BY ID 
+FIND BY ID (GET)
 http://localhost:8080/vitalusus/canal/findById/{id}
 
-POST
+FIND BY ID (POST)
+http://localhost:8080/vitalusus/canal/findById/
+
+CRIAR UM NOVO CANAL (POST)
 http://localhost:8080/vitalusus/canal/post
 
-ARRUMAR AUTOMATICAMENTE O NÚMERO DE SEGUIDORES E VISUALIZAÇÕES
+ARRUMAR AUTOMATICAMENTE O NÚMERO DE SEGUIDORES E VISUALIZAÇÕES (PUT)
 http://localhost:8080/vitalusus/canal/updateFixSeguidores/{id}
 
-ADICIONAR ALUNO
+ADICIONAR ALUNO (PUT)
 http://localhost:8080/vitalusus/canal/addAlunos/{id}
 
-REMOVER ALUNO
+REMOVER ALUNO (PUT)
 http://localhost:8080/vitalusus/canal/removeAlunos/{id}
 
-ALTERAR NOME DO CANAL
+ALTERAR NOME DO CANAL (PUT)
 http://localhost:8080/vitalusus/canal/updateNome/{id}
 
 
 *==COMENTÁRIO==*
 
-FIND ALL
+ATRIBUTOS
+id (é um long que representa o número de identificação do comentário)
+texto (é uma String que representa o texto que foi escrito no comentário)
+videoaula (é o objeto Videoaula que está ligado ao objeto Comentario)
+aluno (é o objeto Aluno que está ligado ao objeto Comentario)
+
+ENDPOINTS
+FIND ALL (GET)
 http://localhost:8080/vitalusus/comentario/findAll
 
-FIND BY ID 
+FIND BY ID (GET)
 http://localhost:8080/vitalusus/comentario/findById/{id}
 
-POST
+FIND BY ID (POST)
+http://localhost:8080/vitalusus/comentario/findById/
+
+CRIAR UM NOVO COMENTÁRIO (POST)
 http://localhost:8080/vitalusus/comentario/post
 
-ALTERAR TEXTO DO COMENTÁRIO
+ALTERAR TEXTO DO COMENTÁRIO (PUT)
 http://localhost:8080/vitalusus/comentario/updateTexto/{id}
 
 
 *==EVOLUÇÃO==*
 
-FIND ALL
+ATRIBUTOS
+id (é um long que representa o número de identificação da evolução)
+aluno (é o objeto Aluno que está ligado ao objeto Evolucao)
+imc (é um float que representa o imc do aluno ligado à evolução)
+metBasal (é um float que representa o metabolismo basal do aluno ligado à evolução)
+pesoAtual (é um float que representa o pese atual do aluno ligado à evolução)
+alturaAtual (é um float que representa a altura atual do aluno ligado à evolução)
+
+ENDPOINTS
+FIND ALL (GET)
 http://localhost:8080/vitalusus/evolucao/findAll
 
-FIND BY ID 
+FIND BY ID (GET)
 http://localhost:8080/vitalusus/evolucao/findById/{id}
 
-POST
+FIND BY ID (POST)
+http://localhost:8080/vitalusus/evolucao/findById/
+
+CRIAR UMA NOVA EVOLUÇÃO (POST)
 http://localhost:8080/vitalusus/evolucao/post
 
-ALTERAR ALTURA ATUAL
+ALTERAR ALTURA ATUAL (PUT)
 http://localhost:8080/vitalusus/evolucao/updateAlturaAtual/{id}
 
-ALTERAR IMC ATUAL
+ALTERAR IMC ATUAL (PUT)
 http://localhost:8080/vitalusus/evolucao/updateImc/{id}
 
-ALTERAR METABOLISMO BASAL ATUAL
+ALTERAR METABOLISMO BASAL ATUAL (PUT)
 http://localhost:8080/vitalusus/evolucao/updateMetBasal/{id}
 
-ALTERAR PESO ATUAL
+ALTERAR PESO ATUAL (PUT)
 http://localhost:8080/vitalusus/evolucao/updatePesoAtual/{id}
 
 
 *==TREINADOR==*
 
-FIND ALL
+ATRIBUTOS
+id (é um long que representa o número de identificação do treinador)
+usuario (é o objeto Usuario que está ligado ao objeto Treinador)
+cref (é uma String que representa o CREF do treinador)
+dataNasc (é um Date que representa a data de nascimento do treinador)
+
+ENDPOINTS
+FIND ALL (GET)
 http://localhost:8080/vitalusus/treinador/findAll
 
-FIND BY ID 
+FIND BY ID (GET)
 http://localhost:8080/vitalusus/treinador/findById/{id}
 
-POST
+FIND BY ID (POST)
+http://localhost:8080/vitalusus/treinador/findById/
+
+CRIAR UM NOVO TREINADOR E SEU RESPECTIVO USUÁRIO(POST)
 http://localhost:8080/vitalusus/treinador/post
 
 
 *==USUÁRIO==*
 
-FIND ALL
+ATRIBUTOS
+id (é um long que representa o número de identificação do usuário)
+nome (é uma String que representa o nome do usuário)
+email (é uma String que representa o email do usuário)
+senha (é uma String que representa a senha da conta do usuário)
+nivelAcesso (é uma String que representa o nível de acesso do usuario, sendo ele USER ou ADMIN)
+foto (é um byte[] que representa a foto de perfil do usuário)
+dataCadstro (é um LocalDateTime que representa a data na qual o usuário criou sua conta)
+statusUsuario (é uma String que representa o status do usuário, sendo ele ATIVO ou INATIVO)
+tipoUsuario (é uma String que representa o tipo do usuário, sendo ele ADMINISTRADOR, ALUNO ou TREINADOR)
+
+ENDPOINTS
+FIND ALL (GET)
 http://localhost:8080/vitalusus/usuario/findAll
 
-FIND BY ID 
+FIND BY ID (GET)
 http://localhost:8080/vitalusus/usuario/findById/{id}
 
-POST
+FIND BY ID (POST)
+http://localhost:8080/vitalusus/usuario/findById
+
+CRIAR UM NOVO USUÁRIO (POST)
 http://localhost:8080/vitalusus/usuario/post
 
-ALTERAR SENHA
+ALTERAR SENHA (PUT)
 http://localhost:8080/vitalusus/usuario/updateSenha/{id}
 
-INATIVAR
+INATIVAR (PUT)
 http://localhost:8080/vitalusus/usuario/inativar/{id}
 
-REATIVAR
+REATIVAR (PUT)
 http://localhost:8080/vitalusus/usuario/reativar/{id}
 
-LOGIN
+LOGIN (POST)
 http://localhost:8080/vitalusus/usuario/login
+
+CORRIGIR BUG DA ENCRIPTAÇÃO DA SENHA DOS TRÊS USUÁRIOS QUE O SCRIPT SQL CRIA (PUT)
+http://localhost:8080/vitalusus/usuario/corrigirBugSenha/{id}
+
+*==VIDEOAULA==*
+
+ATRIBUTOS
+id (é um long que representa o número de identificação da videoaula)
+canal (é o objeto Canal que está ligado ao objeto Treinador)
+titulo (é uma String que representa o título da videoaula)
+descricao (é uma String que representa a descrição da videoaula)
+likes (é um long que representa o número de likes)
+alunosLikes (é uma lista de objetos Aluno que representa os alunos que deram like na videoaula)
+deslikes (é um long que representa o número de deslikes)
+alunosDeslikes (é uma lista de objetos Aluno que representa os alunos que deram deslike na videoaula)
+alunos (é uma lista de objetos Aluno que representa os alunos que visualizaram a videoaula)
+visualizacoes (é um int que representa o número de vizualizações da videoaula)
+video (é um byte[] que representa o arquivo de vídeo da videoaula)
+thumbnail (é um byte[] que representa o arquivo de imagem da thumbnail da videoaula)
+dataPubli (é um LocalDateTime que representa a data de publicação da videoaula)
+categoria (é uma String que representa a categoria da videoaula)
+tipoVideoaula (é uma String que representa o tipo de videoaula)
+
+ENDPOINTS
+FIND ALL (GET)
+http://localhost:8080/vitalusus/videoaula/findAll
+
+FIND BY ID (GET)
+http://localhost:8080/vitalusus/videoaula/findById/{id}
+
+FIND BY ID (POST)
+http://localhost:8080/vitalusus/videoaula/findById
+
+CRIAR UMA NOVA VIDEOAULA (POST)
+http://localhost:8080/vitalusus/videoaula/post
+
+CORRIGIR POSSÍVEIS INCONSISTÊNCIAS NOS ATRIBUTOS DA VIDEOAULA (PUT)
+http://localhost:8080/vitalusus/videoaula/updateFix/{id}
+
+FAZER ATUALIZAÇÃO DO TÍTULO, DESCRIÇÃO E THUMBNAIL DE UMA VEZ (PUT)
+http://localhost:8080/vitalusus/videoaula/updateGeral/{id}
+
+FAZER A ATUALIZAÇÃO SÓ DO TÍTULO (PUT)
+http://localhost:8080/vitalusus/videoaula/updateTitulo/{id}
+
+FAZER A ATUALIZAÇÃO SÓ DA DESCRIÇÃO (PUT)
+http://localhost:8080/vitalusus/videoaula/updateDescricao/{id}
+
+FAZER A ATUALIZAÇÃO SÓ DA THUMBNAIL (PUT)
+http://localhost:8080/vitalusus/videoaula/updateThumbnail/{id}
+
+ADICIONAR UM LIKE À VIDEOAULA (PUT) [NOTA -- O ATRIBUTO DA VIDEOAULA QUE O FRONTEND TEM QUE MANDAR PARA O BACKEND SE CHAMA alunosLikes E SE TRATA DE UMA CLASSE ALUNO DENTRO DA CLASSE VIDEOAULA]
+http://localhost:8080/vitalusus/videoaula/addLikes/{id}
+
+REMOVER UM LIKE DA VIDEOAULA (PUT) [NOTA -- O ATRIBUTO DA VIDEOAULA QUE O FRONTEND TEM QUE MANDAR PARA O BACKEND SE CHAMA alunosLikes E SE TRATA DE UMA CLASSE ALUNO DENTRO DA CLASSE VIDEOAULA]
+http://localhost:8080/vitalusus/videoaula/removeLikes/{id}
+
+ADICIONAR UM DESLIKE À VIDEOAULA (PUT) [NOTA -- O ATRIBUTO DA VIDEOAULA QUE O FRONTEND TEM QUE MANDAR PARA O BACKEND SE CHAMA alunosDeslikes E SE TRATA DE UMA CLASSE ALUNO DENTRO DA CLASSE VIDEOAULA]
+http://localhost:8080/vitalusus/videoaula/addDeslikes/{id}
+
+REMOVER UM DESLIKE DA VIDEOAULA (PUT) [NOTA -- O ATRIBUTO DA VIDEOAULA QUE O FRONTEND TEM QUE MANDAR PARA O BACKEND SE CHAMA alunosDeslikes E SE TRATA DE UMA CLASSE ALUNO DENTRO DA CLASSE VIDEOAULA]
+http://localhost:8080/vitalusus/videoaula/removeDeslikes/{id}
+
+ADICIONAR UMA VISUALIZAÇÃO À VIDEOAULA (PUT) [NOTA -- AQUI O FRONTEND TEM QUE MANDAR UM ATRIBUTO DA VIDEOAULA CHAMADO alunos, QUE SE TRATA DE UMA CLASSE ALUNO DENTRO DA CLASSE VIDEOAULA PARA QUE O BACKEND POSSA CONTAR OS ALUNOS QUE VIRAM A VIDEOAULA]
+http://localhost:8080/vitalusus/videoaula/addAlunos/{id}
+
+

@@ -8,8 +8,12 @@ import br.itb.projeto.vitalususPlus.model.repository.TreinadorRepository;
 import br.itb.projeto.vitalususPlus.model.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.tomcat.util.buf.UEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
@@ -63,6 +67,10 @@ public class TreinadorService {
     }
     public Treinador save(Treinador treinador){
         treinador.setId(null);
+        Usuario usuario = treinador.getUsuario();
+        usuario.setTipoUsuario("TREINADOR");
+        usuario.setNivelAcesso("USER");
+        usuarioService.save(usuario);
         return treinadorRepository.save(treinador);
     }
 }

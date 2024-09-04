@@ -8,6 +8,15 @@ GO
 USE bd_vitalusus2h
 GO
 
+-- Tabela ChaveSeguranca
+CREATE TABLE ChaveSeguranca(
+	id					INT			IDENTITY,
+	chave				VARCHAR(50) 
+	PRIMARY KEY(id)
+)
+GO
+INSERT ChaveSeguranca
+GO
 -- Tabela Usuario
 CREATE TABLE Usuario
 ( 
@@ -20,10 +29,13 @@ CREATE TABLE Usuario
    dataCadastro	 SMALLDATETIME	NOT NULL,
    statusUsuario VARCHAR(20)    NOT NULL, -- ATIVO ou INATIVO ou TROCAR_SENHA	
    tipoUsuario	 VARCHAR(15)	NOT NULL, -- ADMINISTRADOR OU ALUNO OU TREINADOR	
-   PRIMARY KEY (id)
+   chaveSeguranca_id INT		NOT NULL,
+
+   PRIMARY KEY (id),
+   FOREIGN KEY (chaveSeguranca_id) REFERENCES ChaveSeguranca(id)
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id) 
 VALUES(
 	'Fulano fulanoide',
 	'fulano@gmail.com',
@@ -32,46 +44,68 @@ VALUES(
 	null,
 	GETDATE(),
 	'ATIVO',
-	'ALUNO'
+	'ALUNO',
+	1231
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id) 
 VALUES(
 	'Seranilda de Assis',
-	'nildassis@gmail.com',
+	'sera@gmail.com',
 	'sdfgh$$%#D',
 	'USER',
 	null,
 	GETDATE(),
 	'ATIVO',
-	'TREINADOR'
+	'TREINADOR',
+	1231
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id) 
 VALUES(
 	'Don Corleone',
-	'corleonedon@gmail.com',
+	'corleoneDon@gmail.com',
 	'sdfgh$$%#D',
 	'ADMIN',
 	null,
 	GETDATE(),
 	'ATIVO',
-	'ADMINISTRADOR'
+	'ADMINISTRADOR',
+	1231
 )
 GO
-
+CREATE TABLE Denuncia
+(
+	id			INT				IDENTITY,
+	mensagem	VARCHAR(MAX)	NOT NULL,
+	usuario_id	INT				NOT NULL,
+	usuarioDenunciado_id	INT	NOT NULL,
+	
+	PRIMARY KEY (id),
+	FOREIGN KEY (usuario_id) REFERENCES Usuario(id),
+	FOREIGN KEY (usuarioDenunciado_id)	REFERENCES Usuario(id)
+)
+GO
+INSERT Denuncia(mensagem, usuario_id, usuarioDenunciado_id) 
+VALUES(
+	'Estou denunciando essa treinadora vagabunda que me mandou nudes do marido dela sem minha permissão!!',
+	1,
+	2
+)
+GO
 -- Tabela admin
 CREATE TABLE Administrador
 (
 	id			 INT		    IDENTITY,
 	usuario_id	 INT			NOT NULL,
 	numeroUsuarios INT			NOT NULL,
+	dataNasc	DATE			NOT NULL,
 
 	FOREIGN KEY(usuario_id) REFERENCES Usuario(id),
 	PRIMARY KEY (id),
 )
 GO
-INSERT Administrador(usuario_id, numeroUsuarios) VALUES(3, 1)
+INSERT Administrador(usuario_id, numeroUsuarios, dataNasc) VALUES(3, 1, '1982-05-23')
 GO
 -- Tabela Aluno
 CREATE TABLE Aluno
@@ -158,19 +192,25 @@ CREATE TABLE Videoaula(
 	visualizacoes	BIGINT			NOT NULL,
 	video			VARBINARY(MAX)	NULL, 
 	thumbnail		VARBINARY(MAX)	NULL,
+	dataPubli		SMALLDATETIME	NOT NULL,
+	categoria		VARCHAR(100)	NOT NULL,
+	tipoVideoaula	VARCHAR(100)	NOT NULL,
 
 	FOREIGN KEY (canal_id) REFERENCES Canal(id),
 	PRIMARY KEY(id)
 )
 GO
-INSERT Videoaula(descricao, titulo, likes, deslikes, canal_id, visualizacoes)
+INSERT Videoaula(descricao, titulo, likes, deslikes, canal_id, visualizacoes, dataPubli, categoria, tipoVideoaula)
 VALUES(
 	'Um v�deo sobre como fazer belas flex�es',
 	'Como Fazer Flex�es',
 	1332,
 	0,
 	1, 
-	123
+	123,
+	GETDATE(),
+	'Musculação',
+	'Flexões'
 )
 GO
 
@@ -202,15 +242,15 @@ GO
 CREATE TABLE Comentario(
 	id				INT				IDENTITY,
 	texto			VARCHAR(255)	NOT NULL,
-	usuario_id		INT				NOT NULL,
+	aluno_id		INT				NOT NULL,
 	videoaula_id	INT				NOT NULL,
 
 	PRIMARY KEY (id),
-	FOREIGN KEY(usuario_id) REFERENCES Usuario(id),
+	FOREIGN KEY(aluno_id) REFERENCES Aluno(id),
 	FOREIGN KEY(videoaula_id) REFERENCES Videoaula(id)
 )
 GO
-INSERT Comentario(texto, usuario_id, videoaula_id)
+INSERT Comentario(texto, aluno_id, videoaula_id)
 VALUES(
 	'Uau, que aula daora! Segui as suas instru��es por 6 meses e agora eu t� sheipado!',
 	1,
@@ -295,6 +335,8 @@ CREATE TABLE Deslikes(
 )
 GO
 
+
+
 SELECT * FROM Usuario
 SELECT * FROM Canal
 SELECT * FROM Videoaula
@@ -309,6 +351,7 @@ SELECT * FROM Aluno_videoaula
 SELECT * FROM Admin_usuario
 SELECT * FROM Deslikes
 SELECT * FROM Likes
+SELECT * FROM ChaveSeguranca
 
 /*
 UPDATE Usuario SET nome = 'Maria Joana' WHERE id = 1

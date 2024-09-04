@@ -35,7 +35,7 @@ public class AdminController {
         return new ResponseEntity<List<Admin>>(administradores, HttpStatus.OK);
     }
 
-    @PostMapping("findById")
+    @PostMapping("findById/")
     public ResponseEntity<Admin> findById(@RequestParam long id) {
         Admin admin = this.adminService.findById(id);
         return new ResponseEntity<Admin>(admin, HttpStatus.OK);
@@ -66,7 +66,7 @@ public class AdminController {
         Admin adminUpdatado = this.adminService.removeUsuariosAdministrados(id, usuario);
         return new ResponseEntity<Admin>(adminUpdatado, HttpStatus.OK);
     }
-
+    
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationException(MethodArgumentNotValidException ex) {
