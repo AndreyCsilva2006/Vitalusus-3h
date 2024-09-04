@@ -55,6 +55,8 @@ public class Usuario {
 	@OneToOne
 	private ChaveSeguranca chaveSeguranca;
 	
+	private String nivelPrivacidade;
+	
 	public Long getId() {
 		return id;
 	}
@@ -134,6 +136,12 @@ public class Usuario {
 	public void setChaveSeguranca(ChaveSeguranca chaveSeguranca) {
 		this.chaveSeguranca = chaveSeguranca;
 	}
-	
-	
+
+	public String getNivelPrivacidade() {
+		return nivelPrivacidade;
+	}
+
+	public void setNivelPrivacidade(String nivelPrivacidade) {
+		this.nivelPrivacidade = nivelPrivacidade;
+	}
 }

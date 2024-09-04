@@ -121,9 +121,15 @@ public class UsuarioController {
 		return ResponseEntity.badRequest().body("Dados incorretos!");
 	}
 	
-	@PutMapping("inativar/{id}")
-	public ResponseEntity<Usuario> inativar(@PathVariable long id){
-		Usuario usuarioUpdatado = usuarioService.inativar(id);
+	@PutMapping("tornarPublico/{id}")
+	public ResponseEntity<Usuario> tornarPublico(@PathVariable long id){
+		Usuario usuarioUpdatado = usuarioService.tornarPublico(id);
+		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
+	}
+	
+	@PutMapping("tornarPrivado/{id}")
+	public ResponseEntity<Usuario> tornarPrivado(@PathVariable long id){
+		Usuario usuarioUpdatado = usuarioService.tornarPrivado(id);
 		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
 	}
 	
