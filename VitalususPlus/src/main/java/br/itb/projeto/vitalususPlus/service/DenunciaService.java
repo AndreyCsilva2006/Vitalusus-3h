@@ -32,4 +32,14 @@ public class DenunciaService {
         denuncia.setDataDenuncia(LocalDateTime.now());
         return denunciaRepository.save(denuncia);
     }
+    
+    public Denuncia updateMensagem(Long id, Denuncia denuncia) {
+    	Optional<Denuncia> _denuncia = denunciaRepository.findById(id);
+    	if(_denuncia.isPresent()) {
+    		Denuncia denunciaUpdatado = _denuncia.get();
+    		denunciaUpdatado.setMensagem(denuncia.getMensagem());
+    		return denunciaUpdatado;
+    	}
+    	return null;
+    }
 }
