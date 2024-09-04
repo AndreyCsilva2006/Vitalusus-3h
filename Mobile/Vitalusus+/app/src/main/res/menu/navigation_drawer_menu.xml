@@ -23,7 +23,7 @@
         <item
             android:id="@+id/nav_sobrenos"
             android:icon="@drawable/baseline_question_mark_24"
-            android:title="Suporte"/>
+            android:title="Sobre nós"/>
 
        <item
            android:id="@+id/nav_notificacoes"

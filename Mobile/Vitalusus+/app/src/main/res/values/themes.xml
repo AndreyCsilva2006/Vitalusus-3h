@@ -24,4 +24,12 @@
     <style name="Theme.Vitalusus.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Vitalusus.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="RadioButtonStyle" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- cor do radio quando marcado -->
+        <item name="colorAccent">@android:color/white</item>
+        <!-- cor padrão -->
+        <item name="android:textColorPrimary">@android:color/black</item>
+    </style>
+
 </resources>
