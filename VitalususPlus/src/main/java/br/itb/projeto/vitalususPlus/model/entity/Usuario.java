@@ -126,6 +126,14 @@ public class Usuario {
 	public void setTipoUsuario(String tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
 	}
+
+	public ChaveSeguranca getChaveSeguranca() {
+		return chaveSeguranca;
+	}
+
+	public void setChaveSeguranca(ChaveSeguranca chaveSeguranca) {
+		this.chaveSeguranca = chaveSeguranca;
+	}
 	
 	
 }

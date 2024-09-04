@@ -10,12 +10,14 @@ GO
 
 -- Tabela ChaveSeguranca
 CREATE TABLE ChaveSeguranca(
-	id					INT			IDENTITY,
+	id					INT			IDENTITY(1231,1),
 	chave				VARCHAR(50) 
 	PRIMARY KEY(id)
 )
 GO
-INSERT ChaveSeguranca
+INSERT INTO ChaveSeguranca DEFAULT VALUES 
+INSERT INTO ChaveSeguranca DEFAULT VALUES 
+INSERT INTO ChaveSeguranca DEFAULT VALUES 
 GO
 -- Tabela Usuario
 CREATE TABLE Usuario
@@ -58,7 +60,7 @@ VALUES(
 	GETDATE(),
 	'ATIVO',
 	'TREINADOR',
-	1231
+	1232
 )
 GO
 INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id) 
@@ -71,7 +73,7 @@ VALUES(
 	GETDATE(),
 	'ATIVO',
 	'ADMINISTRADOR',
-	1231
+	1233
 )
 GO
 CREATE TABLE Denuncia
@@ -80,17 +82,19 @@ CREATE TABLE Denuncia
 	mensagem	VARCHAR(MAX)	NOT NULL,
 	usuario_id	INT				NOT NULL,
 	usuarioDenunciado_id	INT	NOT NULL,
+	dataDenuncia SMALLDATETIME  NOT NULL,
 	
 	PRIMARY KEY (id),
 	FOREIGN KEY (usuario_id) REFERENCES Usuario(id),
 	FOREIGN KEY (usuarioDenunciado_id)	REFERENCES Usuario(id)
 )
 GO
-INSERT Denuncia(mensagem, usuario_id, usuarioDenunciado_id) 
+INSERT Denuncia(mensagem, usuario_id, usuarioDenunciado_id, dataDenuncia) 
 VALUES(
 	'Estou denunciando essa treinadora vagabunda que me mandou nudes do marido dela sem minha permissão!!',
 	1,
-	2
+	2,
+	GETDATE()
 )
 GO
 -- Tabela admin

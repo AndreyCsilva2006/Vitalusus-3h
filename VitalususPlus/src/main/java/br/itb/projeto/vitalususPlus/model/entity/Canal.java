@@ -90,6 +90,14 @@ public class Canal{
 	public void setTreinador(Treinador treinador) {
 		this.treinador = treinador;
 	}
+
+	public List<Videoaula> getVideoaulas() {
+		return videoaulas;
+	}
+
+	public void setVideoaulas(List<Videoaula> videoaulas) {
+		this.videoaulas = videoaulas;
+	}
 	
 	
 }
