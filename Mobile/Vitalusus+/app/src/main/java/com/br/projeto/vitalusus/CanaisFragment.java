@@ -20,62 +20,45 @@ public class CanaisFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ListaCanalAdapter adapter;
-    private List<Treinador> listaTreinador; // Lista de treinadores
+    private List<Treinador> listaTreinador;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_canais, container, false);
 
-        // Inicializando o RecyclerView
         recyclerView = view.findViewById(R.id.recyclerViewCanaisTreinadores);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Inicialize a lista de treinadores
         listaTreinador = new ArrayList<>();
+        inicializarTreinadores();
 
-        // Adiciona alguns exemplos de treinadores e seus canais
-        Canal canal1 = new Canal();
-        canal1.setId(1);
-        canal1.setNome("Canal do João");
-        canal1.setSeguidores(BigInteger.valueOf(1500));
-        canal1.setFoto(null); // Pode ser uma imagem real em byte[]
-
-        Treinador treinador1 = new Treinador("João", "Treinador de musculação", canal1);
-        listaTreinador.add(treinador1);
-
-        Canal canal2 = new Canal();
-        canal2.setId(2);
-        canal2.setNome("Canal da Maria");
-        canal2.setSeguidores(BigInteger.valueOf(20000));
-        canal2.setFoto(null); // Pode ser uma imagem real em byte[]
-
-        Treinador treinador2 = new Treinador("Maria", "Treinadora de yoga", canal2);
-        listaTreinador.add(treinador2);
-
-        // Inicializa o adapter com a lista de treinadores
         adapter = new ListaCanalAdapter(listaTreinador, getContext());
         recyclerView.setAdapter(adapter);
 
-        // Adicionando um novo treinador e seu canal
         adicionarNovoTreinador();
 
         return view;
     }
 
-    // Método para adicionar um novo treinador dinamicamente
+    private void inicializarTreinadores() {
+        listaTreinador.add(createTreinador("João", "Treinador de musculação", 1, "Canal do João", BigInteger.valueOf(1500)));
+        listaTreinador.add(createTreinador("Maria", "Treinadora de yoga", 2, "Canal da Maria", BigInteger.valueOf(20000)));
+    }
+
+    private Treinador createTreinador(String nome, String descricao, int canalId, String canalNome, BigInteger seguidores) {
+        Canal canal = new Canal();
+        canal.setId(canalId);
+        canal.setNome(canalNome);
+        canal.setSeguidores(seguidores);
+        canal.setFoto(null);
+
+        return new Treinador(nome, descricao, canal);
+    }
+
     private void adicionarNovoTreinador() {
-        Canal novoCanal = new Canal();
-        novoCanal.setId(3);
-        novoCanal.setNome("Canal do Pedro");
-        novoCanal.setSeguidores(BigInteger.valueOf(10000));
-        novoCanal.setFoto(null); // Pode ser uma imagem real em byte[]
-
-        Treinador novoTreinador = new Treinador("Pedro", "Treinador de crossfit", novoCanal);
+        Treinador novoTreinador = createTreinador("Pedro", "Treinador de crossfit", 3, "Canal do Pedro", BigInteger.valueOf(10000));
         listaTreinador.add(novoTreinador);
-
-        // Notifica o adapter sobre a mudança nos dados
         adapter.notifyDataSetChanged();
     }
 }

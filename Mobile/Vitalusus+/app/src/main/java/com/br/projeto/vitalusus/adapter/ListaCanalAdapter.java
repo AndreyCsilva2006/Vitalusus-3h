@@ -19,8 +19,7 @@ import java.util.List;
 
 public class ListaCanalAdapter extends RecyclerView.Adapter<ListaCanalAdapter.ViewHolder> {
 
-    private List<Treinador> listaTreinador; // Agora é uma lista de Treinador
-    private List<Canal> listaCanal; // Agora é uma lista de Treinador
+    private List<Treinador> listaTreinador;
     private Context context;
     private LayoutInflater layout;
 
@@ -38,22 +37,27 @@ public class ListaCanalAdapter extends RecyclerView.Adapter<ListaCanalAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Treinador treinador = listaTreinador.get(position);  // Pega o treinador
-//        Treinador treinador = listaTreinador.get(position);
-        Canal canal = treinador.getCanal();           // Pega o canal associado ao treinador
-        // Configure os dados do treinador no ViewHolder
-        holder.txtNomeTreinador.setText(treinador.getNome());
+        Treinador treinador = listaTreinador.get(position);
+        Canal canal = treinador.getCanal();
+
+        holder.txtNomeTreinador.setText(canal.getNome());
         holder.txtDescricaoTreinador.setText(treinador.getDescricao());
         holder.txtSeguidores.setText("Seguidores: " + canal.getSeguidores().toString());
 
+        if (canal.getFoto() != null) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(canal.getFoto(), 0, canal.getFoto().length);
+            holder.imgFoto.setImageBitmap(bitmap);
+        } else {
+            holder.imgFoto.setImageResource(R.drawable.ic_launcher_background);
+        }
     }
 
+    @Override
     public int getItemCount() {
         return listaTreinador.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        // Defina os elementos de UI do item_treinador.xml
         TextView txtNomeTreinador;
         TextView txtDescricaoTreinador;
         TextView txtSeguidores;
@@ -61,27 +65,12 @@ public class ListaCanalAdapter extends RecyclerView.Adapter<ListaCanalAdapter.Vi
 
         public ViewHolder(View itemView) {
             super(itemView);
-            // Inicialize os elementos de UI
-            TextView txtNomeTreinador = itemView.findViewById(R.id.tv_nome);
-            TextView txtDescricaoTreinador = itemView.findViewById(R.id.tv_descricao);
-            TextView txtSeguidores = itemView.findViewById(R.id.tv_seguidores);
-            ImageView imgFoto = itemView.findViewById(R.id.iv_imagem);
+            txtNomeTreinador = itemView.findViewById(R.id.tv_nome);
+            txtDescricaoTreinador = itemView.findViewById(R.id.tv_descricao);
+            txtSeguidores = itemView.findViewById(R.id.tv_seguidores);
+            imgFoto = itemView.findViewById(R.id.iv_imagem);
         }
     }
-
-    // acho que é pra lista
-//    public View getView(int i, View view, ViewGroup viewGroup) {
-//
-//        // Decodifica a foto para bitmap
-////        Bitmap bitmap = BitmapFactory.decodeByteArray(canal.getFoto(), 0, canal.getFoto().length);
-//
-//        // Exibe o bitmap na ImageView
-//        if (bitmap != null) {
-//            imgFoto.setImageBitmap(bitmap);
-//        } else {
-//            imgFoto.setImageResource(R.drawable.ic_launcher_background); // Imagem padrão
-//        }
-//
-//        return v;
-//    }
 }
+
+
