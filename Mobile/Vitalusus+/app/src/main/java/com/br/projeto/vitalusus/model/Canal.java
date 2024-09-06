@@ -29,13 +29,6 @@ public class Canal {
         this.nome = nome;
     }
 
-    public Integer getVisualizacoes() {
-        return visualizacoes;
-    }
-
-    public void setVisualizacoes(Integer visualizacoes) {
-        this.visualizacoes = visualizacoes;
-    }
 
     public BigInteger getSeguidores() {
         return seguidores;
@@ -52,4 +45,13 @@ public class Canal {
     public void setFoto(byte[] foto) {
         this.foto = foto;
     }
+
+    public Canal getCanal() {
+        Canal canal = null;
+        return canal;
+    }
+
+    public int getDescricao() {
+    }
 }
+

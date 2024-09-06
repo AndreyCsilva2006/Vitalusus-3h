@@ -1,11 +1,8 @@
 package com.br.projeto.vitalusus.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,32 +12,32 @@ import android.widget.TextView;
 
 import com.br.projeto.vitalusus.R;
 import com.br.projeto.vitalusus.model.Canal;
+import com.br.projeto.vitalusus.model.Treinador;
 
-import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.List;
 
 public class ListaCanalAdapter extends BaseAdapter implements Serializable {
 
     private static final long serialVersionUID = 546546546546L;
-    private List<Canal> listaCanal;
+    private List<Treinador> listaTreinador; // Agora é uma lista de Treinador
     private Context context;
     private LayoutInflater layout;
 
-    public ListaCanalAdapter(List<Canal> listaCanal, Context context) {
-        this.listaCanal = listaCanal;
+    public ListaCanalAdapter(List<Treinador> listaTreinador, Context context) {
+        this.listaTreinador = listaTreinador;
         this.context = context;
         layout = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
-        return listaCanal.size();
+        return listaTreinador.size(); // Número de treinadores
     }
 
     @Override
     public Object getItem(int i) {
-        return listaCanal.get(i);
+        return listaTreinador.get(i);
     }
 
     @Override
@@ -50,22 +47,30 @@ public class ListaCanalAdapter extends BaseAdapter implements Serializable {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        Canal canal = listaCanal.get(i);
-        View v = layout.inflate(R.layout.item_canal, null);
+        Canal treinador = listaTreinador.get(i).getCanal();  // Pega o treinador
+        Canal canal = treinador.getCanal();           // Pega o canal associado ao treinador
 
-        TextView txtNome = v.findViewById(R.id.txtConsultaCanalNome);
-        TextView txtVisualizacoes = v.findViewById(R.id.txtConsultaCanalVisualizacoes);
-        TextView txtSeguidores = v.findViewById(R.id.txtConsultaCanalSeguidores);
-        ImageView imgFoto = v.findViewById(R.id.imgConsultaCanalFoto);
+        View v = layout.inflate(R.layout.item_canal, null); // Usa o layout já existente
 
-        txtNome.setText(canal.getNome().toString());
-        txtVisualizacoes.setText(canal.getVisualizacoes().toString());
-        txtSeguidores.setText(canal.getSeguidores().toString());
+        TextView txtNomeTreinador = v.findViewById(R.id.tv_nome);
+        TextView txtDescricaoTreinador = v.findViewById(R.id.tv_descricao);
+        TextView txtSeguidores = v.findViewById(R.id.tv_seguidores);
+        ImageView imgFoto = v.findViewById(R.id.iv_imagem);
 
+        // Definindo os valores
+        txtNomeTreinador.setText(treinador.getNome());
+        txtDescricaoTreinador.setText(treinador.getDescricao());
+        txtSeguidores.setText("Seguidores: " + canal.getSeguidores().toString());
+
+        // Decodifica a foto para bitmap
         Bitmap bitmap = BitmapFactory.decodeByteArray(canal.getFoto(), 0, canal.getFoto().length);
 
-        // Exiba o bitmap em uma ImageView
-        imgFoto.setImageBitmap(bitmap);
+        // Exibe o bitmap na ImageView
+        if (bitmap != null) {
+            imgFoto.setImageBitmap(bitmap);
+        } else {
+            imgFoto.setImageResource(R.drawable.ic_launcher_background); // Imagem padrão
+        }
 
         return v;
     }
