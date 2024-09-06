@@ -11,6 +11,10 @@ public class Treinador {
         this.canal = canal;
     }
 
+    public Treinador() {
+
+    }
+
     public String getNome() {
         return nome;
     }

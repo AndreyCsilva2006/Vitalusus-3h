@@ -2,16 +2,24 @@ package com.br.projeto.vitalusus.model;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import com.br.projeto.vitalusus.model.Treinador;
 
 import java.math.BigInteger;
 
-public class Canal {
-
+public class Canal extends Treinador{
     private Integer id;
     private String nome;
-    private Integer visualizacoes;
+    private String nome_treinador;
     private BigInteger seguidores;
     private byte[] foto;
+
+    public Canal(String nome, String descricao, Canal canal) {
+        super(nome, descricao, canal);
+    }
+
+    public Canal() {
+        super();
+    }
 
     public Integer getId() {
         return id;
@@ -46,12 +54,12 @@ public class Canal {
         this.foto = foto;
     }
 
-    public Canal getCanal() {
-        Canal canal = null;
-        return canal;
+    public String getNome_treinador() {
+        return nome_treinador;
     }
 
-    public int getDescricao() {
+    public void setNome_treinador(String nome_treinador) {
+        this.nome_treinador = nome_treinador;
     }
 }
 
