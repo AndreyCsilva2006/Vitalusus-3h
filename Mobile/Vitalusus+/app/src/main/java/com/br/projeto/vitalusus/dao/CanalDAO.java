@@ -31,7 +31,6 @@ public class CanalDAO {
             canal.setId(rs.getInt(1));
             canal.setNome(rs.getString(2));
             canal.setFoto(rs.getBytes(3));
-            canal.setVisualizacoes(rs.getInt(4));
             canal.setSeguidores(BigInteger.valueOf(rs.getInt(5)));
 
             lista.add(canal);

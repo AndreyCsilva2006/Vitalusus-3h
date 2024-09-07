@@ -1,72 +1,76 @@
 package com.br.projeto.vitalusus.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.br.projeto.vitalusus.R;
 import com.br.projeto.vitalusus.model.Canal;
+import com.br.projeto.vitalusus.model.Treinador;
 
-import java.io.ByteArrayInputStream;
-import java.io.Serializable;
 import java.util.List;
 
-public class ListaCanalAdapter extends BaseAdapter implements Serializable {
+public class ListaCanalAdapter extends RecyclerView.Adapter<ListaCanalAdapter.ViewHolder> {
 
-    private static final long serialVersionUID = 546546546546L;
-    private List<Canal> listaCanal;
+    private List<Treinador> listaTreinador;
     private Context context;
     private LayoutInflater layout;
 
-    public ListaCanalAdapter(List<Canal> listaCanal, Context context) {
-        this.listaCanal = listaCanal;
+    public ListaCanalAdapter(List<Treinador> listaTreinador, Context context) {
+        this.listaTreinador = listaTreinador;
         this.context = context;
         layout = LayoutInflater.from(context);
     }
 
     @Override
-    public int getCount() {
-        return listaCanal.size();
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_canal, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public Object getItem(int i) {
-        return listaCanal.get(i);
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Treinador treinador = listaTreinador.get(position);
+        Canal canal = treinador.getCanal();
+
+        holder.txtNomeTreinador.setText(canal.getNome());
+        holder.txtDescricaoTreinador.setText(treinador.getDescricao());
+        holder.txtSeguidores.setText("Seguidores: " + canal.getSeguidores().toString());
+
+        if (canal.getFoto() != null) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(canal.getFoto(), 0, canal.getFoto().length);
+            holder.imgFoto.setImageBitmap(bitmap);
+        } else {
+            holder.imgFoto.setImageResource(R.drawable.ic_launcher_background);
+        }
     }
 
     @Override
-    public long getItemId(int i) {
-        return i;
+    public int getItemCount() {
+        return listaTreinador.size();
     }
 
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        Canal canal = listaCanal.get(i);
-        View v = layout.inflate(R.layout.item_canal, null);
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView txtNomeTreinador;
+        TextView txtDescricaoTreinador;
+        TextView txtSeguidores;
+        ImageView imgFoto;
 
-        TextView txtNome = v.findViewById(R.id.txtConsultaCanalNome);
-        TextView txtVisualizacoes = v.findViewById(R.id.txtConsultaCanalVisualizacoes);
-        TextView txtSeguidores = v.findViewById(R.id.txtConsultaCanalSeguidores);
-        ImageView imgFoto = v.findViewById(R.id.imgConsultaCanalFoto);
-
-        txtNome.setText(canal.getNome().toString());
-        txtVisualizacoes.setText(canal.getVisualizacoes().toString());
-        txtSeguidores.setText(canal.getSeguidores().toString());
-
-        Bitmap bitmap = BitmapFactory.decodeByteArray(canal.getFoto(), 0, canal.getFoto().length);
-
-        // Exiba o bitmap em uma ImageView
-        imgFoto.setImageBitmap(bitmap);
-
-        return v;
+        public ViewHolder(View itemView) {
+            super(itemView);
+            txtNomeTreinador = itemView.findViewById(R.id.tv_nome);
+            txtDescricaoTreinador = itemView.findViewById(R.id.tv_descricao);
+            txtSeguidores = itemView.findViewById(R.id.tv_seguidores);
+            imgFoto = itemView.findViewById(R.id.iv_imagem);
+        }
     }
 }
+
+

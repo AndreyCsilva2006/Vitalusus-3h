@@ -65,8 +65,8 @@ public class ListarCanal extends AppCompatActivity {
             lista = dao.getAll(busca);
         }
 
-        adapter = new ListaCanalAdapter(lista, this);
-        listView.setAdapter(adapter);
+//        adapter = new ListaCanalAdapter(lista, this);
+//        listView.setAdapter(adapter);
     }
 
 }
