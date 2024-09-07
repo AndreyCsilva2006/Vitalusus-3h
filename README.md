@@ -92,6 +92,7 @@ visualizacoes (é um long que representa o número de visualizações de todos o
 nome (é uma String que representa o nome do canal)
 alunos (é uma lista de objetos Aluno que representa todos os alunos que seguem o canal)
 seguidores (é um int que representa a quantidade numérica de seguidores do canal)
+videoaulas (é um List contendo todos os objetos Videoaula relacionados ao objeto Canal)
 
 ENDPOINTS
 FIND ALL (GET)
@@ -142,6 +143,31 @@ http://localhost:8080/vitalusus/comentario/post
 
 ALTERAR TEXTO DO COMENTÁRIO (PUT)
 http://localhost:8080/vitalusus/comentario/updateTexto/{id}
+
+
+*==DENÚNCIA==*
+
+ATRIBUTOS
+id (é um long que representa o número de identificação da denuncia)
+mensagem (é uma String que representa o texto que foi escrito na denúncia)
+usuario (é o objeto Usuario que está ligado ao objeto Denuncia, representando o usuário que fez a denúncia)
+usuarioDenunciado (é o objeto Usuario que está ligado ao objeto Denuncia, representando o usuário que foi denunciado)
+
+ENDPOINTS
+FIND ALL (GET)
+http://localhost:8080/vitalusus/denuncia/findAll
+
+FIND BY ID (GET)
+http://localhost:8080/vitalusus/denuncia/findById/{id}
+
+FIND BY ID (POST)
+http://localhost:8080/vitalusus/denuncia/findById/
+
+CRIAR UMA NOVA DENÚNCIA (POST)
+http://localhost:8080/vitalusus/denuncia/post
+
+ATUALIZAR A MENSAGEM DA DENÚNCIA(PUT)
+http://localhost:8080/vitalusus/denuncia/updateMensagem/{id}
 
 
 *==EVOLUÇÃO==*
@@ -214,6 +240,7 @@ foto (é um byte[] que representa a foto de perfil do usuário)
 dataCadstro (é um LocalDateTime que representa a data na qual o usuário criou sua conta)
 statusUsuario (é uma String que representa o status do usuário, sendo ele ATIVO ou INATIVO)
 tipoUsuario (é uma String que representa o tipo do usuário, sendo ele ADMINISTRADOR, ALUNO ou TREINADOR)
+chaveSeguranca (é um objeto ChaveSeguranca que representa o id da chave de segurança do Usuário)
 
 ENDPOINTS
 FIND ALL (GET)
@@ -223,13 +250,22 @@ FIND BY ID (GET)
 http://localhost:8080/vitalusus/usuario/findById/{id}
 
 FIND BY ID (POST)
-http://localhost:8080/vitalusus/usuario/findById
+http://localhost:8080/vitalusus/usuario/findById/
+
+FIND BY CHAVESEGURANCA (POST)
+http://localhost:8080/vitalusus/videoaula/findByChaveSeguranca/
 
 CRIAR UM NOVO USUÁRIO (POST)
 http://localhost:8080/vitalusus/usuario/post
 
 ALTERAR SENHA (PUT)
 http://localhost:8080/vitalusus/usuario/updateSenha/{id}
+
+TORNAR PÚBLICO (PUT)
+http://localhost:8080/vitalusus/usuario/tornarPublico/{id}
+
+TORNAR PRIVADO (PUT)
+http://localhost:8080/vitalusus/usuario/tornarPrivado/{id}
 
 INATIVAR (PUT)
 http://localhost:8080/vitalusus/usuario/inativar/{id}
@@ -270,7 +306,7 @@ FIND BY ID (GET)
 http://localhost:8080/vitalusus/videoaula/findById/{id}
 
 FIND BY ID (POST)
-http://localhost:8080/vitalusus/videoaula/findById
+http://localhost:8080/vitalusus/videoaula/findById/
 
 CRIAR UMA NOVA VIDEOAULA (POST)
 http://localhost:8080/vitalusus/videoaula/post

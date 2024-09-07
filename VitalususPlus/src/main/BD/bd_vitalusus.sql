@@ -8,6 +8,17 @@ GO
 USE bd_vitalusus2h
 GO
 
+-- Tabela ChaveSeguranca
+CREATE TABLE ChaveSeguranca(
+	id					INT			IDENTITY(1231,1),
+	chave				VARCHAR(50) 
+	PRIMARY KEY(id)
+)
+GO
+INSERT INTO ChaveSeguranca DEFAULT VALUES 
+INSERT INTO ChaveSeguranca DEFAULT VALUES 
+INSERT INTO ChaveSeguranca DEFAULT VALUES 
+GO
 -- Tabela Usuario
 CREATE TABLE Usuario
 ( 
@@ -19,11 +30,15 @@ CREATE TABLE Usuario
    foto			 VARBINARY(MAX) NULL,
    dataCadastro	 SMALLDATETIME	NOT NULL,
    statusUsuario VARCHAR(20)    NOT NULL, -- ATIVO ou INATIVO ou TROCAR_SENHA	
-   tipoUsuario	 VARCHAR(15)	NOT NULL, -- ADMINISTRADOR OU ALUNO OU TREINADOR	
-   PRIMARY KEY (id)
+   tipoUsuario	 VARCHAR(15)	NOT NULL, -- ADMINISTRADOR ou ALUNO ou TREINADOR	
+   chaveSeguranca_id INT		NOT NULL,
+   nivelPrivacidade VARCHAR(50)NOT NULL, -- PUBLICO ou PRIVADO
+
+   PRIMARY KEY (id),
+   FOREIGN KEY (chaveSeguranca_id) REFERENCES ChaveSeguranca(id)
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id, nivelPrivacidade) 
 VALUES(
 	'Fulano fulanoide',
 	'fulano@gmail.com',
@@ -32,34 +47,60 @@ VALUES(
 	null,
 	GETDATE(),
 	'ATIVO',
-	'ALUNO'
+	'ALUNO',
+	1231,
+	'PUBLICO'
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id, nivelPrivacidade) 
 VALUES(
 	'Seranilda de Assis',
-	'nildassis@gmail.com',
+	'sera@gmail.com',
 	'sdfgh$$%#D',
 	'USER',
 	null,
 	GETDATE(),
 	'ATIVO',
-	'TREINADOR'
+	'TREINADOR',
+	1232,
+	'PUBLICO'
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id, nivelPrivacidade) 
 VALUES(
 	'Don Corleone',
-	'corleonedon@gmail.com',
+	'corleoneDon@gmail.com',
 	'sdfgh$$%#D',
 	'ADMIN',
 	null,
 	GETDATE(),
 	'ATIVO',
-	'ADMINISTRADOR'
+	'ADMINISTRADOR',
+	1233,
+	'PUBLICO'
 )
 GO
-
+CREATE TABLE Denuncia
+(
+	id			INT				IDENTITY,
+	mensagem	VARCHAR(MAX)	NOT NULL,
+	usuario_id	INT				NOT NULL,
+	usuarioDenunciado_id	INT	NOT NULL,
+	dataDenuncia SMALLDATETIME  NOT NULL,
+	
+	PRIMARY KEY (id),
+	FOREIGN KEY (usuario_id) REFERENCES Usuario(id),
+	FOREIGN KEY (usuarioDenunciado_id)	REFERENCES Usuario(id)
+)
+GO
+INSERT Denuncia(mensagem, usuario_id, usuarioDenunciado_id, dataDenuncia) 
+VALUES(
+	'Estou denunciando essa treinadora vagabunda que me mandou nudes do marido dela sem minha permissão!!',
+	1,
+	2,
+	GETDATE()
+)
+GO
 -- Tabela admin
 CREATE TABLE Administrador
 (
@@ -302,6 +343,8 @@ CREATE TABLE Deslikes(
 )
 GO
 
+
+
 SELECT * FROM Usuario
 SELECT * FROM Canal
 SELECT * FROM Videoaula
@@ -316,6 +359,7 @@ SELECT * FROM Aluno_videoaula
 SELECT * FROM Admin_usuario
 SELECT * FROM Deslikes
 SELECT * FROM Likes
+SELECT * FROM ChaveSeguranca
 
 /*
 UPDATE Usuario SET nome = 'Maria Joana' WHERE id = 1

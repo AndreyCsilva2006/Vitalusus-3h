@@ -1,5 +1,6 @@
 package br.itb.projeto.vitalususPlus.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -37,6 +38,10 @@ public class Canal{
 	@ManyToOne
 	@JoinColumn(name = "treinador_id",nullable=false)
 	private Treinador treinador;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "canal", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Videoaula> videoaulas;
 	
 	public Long getId() {
 		return id;
@@ -84,6 +89,14 @@ public class Canal{
 
 	public void setTreinador(Treinador treinador) {
 		this.treinador = treinador;
+	}
+
+	public List<Videoaula> getVideoaulas() {
+		return videoaulas;
+	}
+
+	public void setVideoaulas(List<Videoaula> videoaulas) {
+		this.videoaulas = videoaulas;
 	}
 	
 	

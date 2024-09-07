@@ -14,6 +14,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.itb.projeto.vitalususPlus.model.entity.ChaveSeguranca;
 import br.itb.projeto.vitalususPlus.model.entity.Usuario;
 import br.itb.projeto.vitalususPlus.model.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
@@ -21,32 +22,34 @@ import jakarta.transaction.Transactional;
 @Service
 public class UsuarioService {
 	private UsuarioRepository usuarioRepository;
+	private ChaveSegurancaService chavesegurancaService;
 
-	public UsuarioService(UsuarioRepository usuarioRepository) {
+	public UsuarioService(UsuarioRepository usuarioRepository, ChaveSegurancaService chaveSegurancaService) {
 		super();
 		this.usuarioRepository = usuarioRepository;
+		this.chavesegurancaService = chaveSegurancaService;
 	}
-
+	@Transactional
 	public List<Usuario> findAll() {
 		List<Usuario> listaUsuarios = usuarioRepository.findAll();
 		return listaUsuarios;
 	}
-
+	@Transactional
 	public Usuario findById(long id) {
 		Optional<Usuario> usuario = this.usuarioRepository.findById(id);
 		return usuario.orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 	}
-
+	@Transactional
 	public Usuario findByLogin(String email, String senha) {
 		Optional<Usuario> usuario = this.usuarioRepository.findByEmailAndSenha(email, senha);
 		return usuario.orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 	}
-
+	@Transactional
 	public Usuario findByEmail(String email) {
 		Usuario usuario = this.usuarioRepository.findByEmail(email);
 		return usuario;
 	}
-
+	@Transactional
 	public Usuario save(Usuario usuario){
 		usuario.setId(null);
 		String senha = Base64.getEncoder().encodeToString(usuario.getSenha().getBytes());
@@ -54,8 +57,13 @@ public class UsuarioService {
 		usuario.setSenha(senha);
 		usuario.setDataCadastro(LocalDateTime.now());
 		usuario.getDataCadastro().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		ChaveSeguranca chaveSeguranca = new ChaveSeguranca();
+		usuario.setChaveSeguranca(chaveSeguranca);
+		usuario.setNivelAcesso("PUBLICO");
+		chavesegurancaService.save(usuario.getChaveSeguranca());
 		return usuarioRepository.save(usuario);
 	}
+	@Transactional
 	public Usuario corrigirBugSenha(long id) {
 		Optional<Usuario> _usuario = usuarioRepository.findById(id);
 		if(_usuario.isPresent()) {
@@ -66,7 +74,29 @@ public class UsuarioService {
 		}
 		return null;
 	}
-
+	@Transactional
+	public Usuario tornarPrivado (long id) {
+		Optional<Usuario> _usuario = usuarioRepository.findById(id);
+		if (_usuario.isPresent()) {
+			Usuario usuarioUpdatado = _usuario.get();
+			usuarioUpdatado.setNivelPrivacidade("PRIVADO");
+			return usuarioRepository.save(usuarioUpdatado);
+		}
+		return null;
+	}
+	
+	@Transactional
+	public Usuario tornarPublico (long id) {
+		Optional<Usuario> _usuario = usuarioRepository.findById(id);
+		if (_usuario.isPresent()) {
+			Usuario usuarioUpdatado = _usuario.get();
+			usuarioUpdatado.setNivelPrivacidade("PUBLICO");
+			return usuarioRepository.save(usuarioUpdatado);
+		}
+		return null;
+	}
+	
+	@Transactional
 	public Usuario inativar(long id) {
 		Optional<Usuario> _usuario = usuarioRepository.findById(id);
 		if (_usuario.isPresent()) {
@@ -76,16 +106,16 @@ public class UsuarioService {
 		}
 		return null;
 	}
-
+	@Transactional
 	public void delete(Usuario usuario) {
 		this.usuarioRepository.delete(usuario);
 	}
-
+	@Transactional
 	public Usuario update(Usuario usuario) {
 		usuario.getDataCadastro().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		return usuarioRepository.save(usuario);
 	}
-
+	@Transactional
 	public Usuario updateSenha(Long id, Usuario usuario) {
 		Optional<Usuario> _usuario = usuarioRepository.findById(id);
 		if (_usuario.isPresent()) {
@@ -97,7 +127,7 @@ public class UsuarioService {
 		;
 		return usuarioRepository.save(usuario);
 	}
-
+	@Transactional
 	public Usuario updateFoto(Long id, Usuario usuario) {
 		Optional<Usuario> _usuario = usuarioRepository.findById(id);
 		if (_usuario.isPresent()) {
@@ -108,16 +138,6 @@ public class UsuarioService {
 		return null;
 	}
 
-	@Transactional
-	public Usuario inativar(Long id, Usuario usuario) {
-		Optional<Usuario> _usuario = usuarioRepository.findById(id);
-		if (_usuario.isPresent()) {
-			Usuario usuarioUpdatado = _usuario.get();
-			usuarioUpdatado.setStatusUsuario("INATIVO");
-			return usuarioRepository.save(usuarioUpdatado);
-		}
-		return usuarioRepository.save(usuario);
-	}
 
 	@Transactional
 	public Usuario reativar(Long id) {
@@ -155,5 +175,12 @@ public class UsuarioService {
 			}
 		}
 		return null;
+	} 
+	
+	@Transactional
+	public Usuario findByChaveSeguranca(Long chaveSeguranca) {
+		ChaveSeguranca _chaveSeguranca = chavesegurancaService.findById(chaveSeguranca);
+		Usuario usuario = usuarioRepository.findByChaveSeguranca(_chaveSeguranca);
+		return usuario;
 	}
 }

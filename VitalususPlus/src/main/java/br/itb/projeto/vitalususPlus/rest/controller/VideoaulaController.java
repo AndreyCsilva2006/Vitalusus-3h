@@ -44,7 +44,7 @@ public class VideoaulaController {
         return new ResponseEntity<Videoaula>(videoaula, HttpStatus.OK);
     }
     @PostMapping("post")
-    public ResponseEntity<Videoaula> salvarVideoaula(@RequestBody @Valid Videoaula videoaula){
+    public ResponseEntity<Videoaula> salvarVideoaula(@RequestBody Videoaula videoaula){
         Videoaula videoaulaSalvo = this.videoaulaService.save(videoaula);
         return new ResponseEntity<Videoaula>(videoaulaSalvo, HttpStatus.OK);
     }
