@@ -12,16 +12,19 @@ import org.springframework.stereotype.Service;
 
 import br.itb.projeto.vitalususPlus.model.repository.CanalRepository;
 import br.itb.projeto.vitalususPlus.model.repository.TreinadorRepository;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 public class CanalService {
 	private final CanalRepository canalRepository;
 	private final SeguidorRepository seguidorRepository;
+	private final AlunoService alunoService;
 
-	public CanalService(CanalRepository canalRepository, SeguidorRepository seguidorRepository) {
+	public CanalService(CanalRepository canalRepository, SeguidorRepository seguidorRepository, AlunoService alunoService) {
 		super();
 		this.canalRepository = canalRepository;
 		this.seguidorRepository = seguidorRepository;
+		this.alunoService = alunoService;
 	}
 
 	@Transactional
@@ -76,40 +79,31 @@ public class CanalService {
 		return null;
 	}
 	@Transactional
-	public Canal addAlunos(Long id, Canal canal) {
+	public Canal addAlunos(Long id, Long alunoId) {
 		Optional<Canal> _canal = canalRepository.findById(id);
 		if (_canal.isPresent()) {
+			Aluno aluno = alunoService.findById(alunoId);
 			Canal canalUpdatado = _canal.get();
-			List<Videoaula> videoaula = canalUpdatado.getVideoaulas();
-			canalUpdatado.getAlunos().addAll(canal.getAlunos());
-			if (canalUpdatado.getAlunos() == null) {
-				canalUpdatado.setAlunos(new ArrayList<>());
+			if (!canalUpdatado.getAlunos().contains(aluno)) {
+				canalUpdatado.getAlunos().add(aluno);
+				canalUpdatado = updateFix(canalUpdatado.getId());
+				return canalRepository.save(canalUpdatado);
 			}
-			canalUpdatado.setVisualizacoes(0);
-			for (int i = 0; i < videoaula.size(); i++) {
-				canalUpdatado.setVisualizacoes(canalUpdatado.getVisualizacoes() + videoaula.get(i).getVisualizacoes());
-			}
-			canalUpdatado.setSeguidores(canalUpdatado.getAlunos().size());
-			return canalRepository.save(canalUpdatado);
+			else throw new RuntimeException("O aluno " + aluno.getUsuario().getNome() + " já está inscrito neste canal");
 		}
 		return null;
 	}
 	@Transactional
-	public Canal removeAlunos(Long id, Aluno aluno) {
+	public Canal removeAlunos(Long id, Long alunoId) {
 		Optional<Canal> _canal = canalRepository.findById(id);
 		if (_canal.isPresent()) {
+			Aluno aluno = alunoService.findById(alunoId);
 			Canal canalUpdatado = _canal.get();
-			List<Videoaula> videoaula = canalUpdatado.getVideoaulas();
 			List<Seguidor> seguidor = seguidorRepository.findAllByAlunoAndCanal(aluno, canalUpdatado);
-			seguidorRepository.deleteAll(seguidor);
-			if (canalUpdatado.getAlunos() == null) {
-				canalUpdatado.setAlunos(new ArrayList<>());
+			for (Seguidor value : seguidor) {
+				canalUpdatado.getAlunos().remove(value.getAluno());
 			}
-			canalUpdatado.setVisualizacoes(0);
-			for (int i = 0; i < videoaula.size(); i++) {
-				canalUpdatado.setVisualizacoes(canalUpdatado.getVisualizacoes() + videoaula.get(i).getVisualizacoes());
-			}
-			canalUpdatado.setSeguidores(canalUpdatado.getAlunos().size());
+			canalUpdatado = updateFix(canalUpdatado.getId());
 			return canalRepository.save(canalUpdatado);
 		}
 		return null;
@@ -119,15 +113,8 @@ public class CanalService {
 		Optional<Canal> _canal = canalRepository.findById(id);
 		if (_canal.isPresent()) {
 			Canal canalUpdatado = _canal.get();
-			List<Videoaula> videoaula = canalUpdatado.getVideoaulas();
 			canalUpdatado.setNome(canal.getNome());
-			if (canalUpdatado.getAlunos() == null) {
-				canalUpdatado.setAlunos(new ArrayList<>());
-			}
-			canalUpdatado.setVisualizacoes(0);
-			for (int i = 0; i < videoaula.size(); i++) {
-				canalUpdatado.setVisualizacoes(canalUpdatado.getVisualizacoes() + videoaula.get(i).getVisualizacoes());
-			}
+			canalUpdatado = updateFix(canalUpdatado.getId());
 			return canalRepository.save(canalUpdatado);
 		}
 		return null;

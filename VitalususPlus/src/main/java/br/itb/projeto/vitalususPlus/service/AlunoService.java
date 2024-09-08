@@ -43,11 +43,9 @@ public class AlunoService {
 	public Aluno save(Aluno aluno) {
 		aluno.setId(null);
 		Usuario usuario = aluno.getUsuario();
-        if(aluno != null) {
-        usuario.setTipoUsuario("ALUNO");
-        usuario.setNivelAcesso("USER");
-        usuarioService.save(usuario);
-        }
+		usuario.setTipoUsuario("ALUNO");
+		usuario.setNivelAcesso("USER");
+		usuarioService.save(usuario);
 		return alunoRepository.save(aluno);
 	}
 
