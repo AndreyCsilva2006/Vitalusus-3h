@@ -67,29 +67,30 @@ public class AdminService {
         }
         return null;
     }
-    public Admin addUsuariosAdministrados(long id, Admin admin) {
+    public Admin addUsuariosAdministrados(long id, long usuarioId) {
         Optional<Admin> _admin = this.adminRepository.findById(id);
         if (_admin.isPresent()) {
             Admin adminUpdatado = _admin.get();
-            adminUpdatado.getListaUsuarios().addAll(admin.getListaUsuarios());
-            if (adminUpdatado.getListaUsuarios() == null) {
-                adminUpdatado.setListaUsuarios(new ArrayList<>());
+            Usuario usuario = usuarioService.findById(usuarioId);
+            if (!adminUpdatado.getListaUsuarios().contains(usuario)) {
+                adminUpdatado.getListaUsuarios().add(usuario);
+                adminUpdatado = updateFix(adminUpdatado.getId());
+                return adminRepository.save(adminUpdatado);
             }
-            adminUpdatado.setNumeroUsuarios(adminUpdatado.getListaUsuarios().size());
-            return adminRepository.save(adminUpdatado);
+            else throw new RuntimeException("O usuário " + usuario.getNome() + " já é administrado pelo administrador " + adminUpdatado.getUsuario().getNome());
         }
         return null;
     }
-    public Admin removeUsuariosAdministrados(long id, Usuario usuario) {
+    public Admin removeUsuariosAdministrados(long id, long usuarioId) {
         Optional<Admin> _admin = this.adminRepository.findById(id);
         if (_admin.isPresent()) {
             Admin adminUpdatado = _admin.get();
+            Usuario usuario = usuarioService.findById(id);
             List<Administrado> administrado = administradoRepository.findAllByUsuarioAndAdmin(usuario, adminUpdatado);
-            administradoRepository.deleteAll(administrado);
-            if (adminUpdatado.getListaUsuarios() == null) {
-                adminUpdatado.setListaUsuarios(new ArrayList<>());
+            for (Administrado value : administrado) {
+                adminUpdatado.getListaUsuarios().remove(value.getUsuario());
             }
-            adminUpdatado.setNumeroUsuarios(adminUpdatado.getListaUsuarios().size());
+            adminUpdatado = updateFix(adminUpdatado.getId());
             return adminRepository.save(adminUpdatado);
         }
         return null;
