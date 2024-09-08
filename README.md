@@ -24,10 +24,10 @@ ARRUMAR AUTOMATICAMENTE O NÚMERO DE USUÁRIOS ADMINISTRADOS (PUT)
 http://localhost:8080/vitalusus/admin/updateFix/{id}
 
 ADICIONAR USUÁRIO A SER ADMINISTRADO (PUT)
-http://localhost:8080/vitalusus/admin/addUsuariosAdministrados/{id}
+http://localhost:8080/vitalusus/admin/addUsuariosAdministrados/{id}/{usuarioId}
 
 REMOVER USUÁRIO ADMINISTRADO (PUT)
-http://localhost:8080/vitalusus/admin/removeUsuariosAdministrados/{id}
+http://localhost:8080/vitalusus/admin/removeUsuariosAdministrados/{id}/{usaurioId}
 
 
 *==ALUNO==*
@@ -110,11 +110,11 @@ http://localhost:8080/vitalusus/canal/post
 ARRUMAR AUTOMATICAMENTE O NÚMERO DE SEGUIDORES E VISUALIZAÇÕES (PUT)
 http://localhost:8080/vitalusus/canal/updateFixSeguidores/{id}
 
-ADICIONAR ALUNO (PUT)
-http://localhost:8080/vitalusus/canal/addAlunos/{id}
+ADICIONAR ALUNO INSCRITO NO CANAL (PUT)
+http://localhost:8080/vitalusus/canal/addAlunos/{id}/{alunoId}
 
-REMOVER ALUNO (PUT)
-http://localhost:8080/vitalusus/canal/removeAlunos/{id}
+REMOVER ALUNO INSCRITO NO CANAL (PUT)
+http://localhost:8080/vitalusus/canal/removeAlunos/{id}/{alunoId}
 
 ALTERAR NOME DO CANAL (PUT)
 http://localhost:8080/vitalusus/canal/updateNome/{id}
@@ -326,19 +326,19 @@ http://localhost:8080/vitalusus/videoaula/updateDescricao/{id}
 FAZER A ATUALIZAÇÃO SÓ DA THUMBNAIL (PUT)
 http://localhost:8080/vitalusus/videoaula/updateThumbnail/{id}
 
-ADICIONAR UM LIKE À VIDEOAULA (PUT) [NOTA -- O ATRIBUTO DA VIDEOAULA QUE O FRONTEND TEM QUE MANDAR PARA O BACKEND SE CHAMA alunosLikes E SE TRATA DE UMA CLASSE ALUNO DENTRO DA CLASSE VIDEOAULA]
-http://localhost:8080/vitalusus/videoaula/addLikes/{id}
+ADICIONAR UM LIKE À VIDEOAULA (PUT)
+http://localhost:8080/vitalusus/videoaula/addLikes/{id}/{alunoId}
 
-REMOVER UM LIKE DA VIDEOAULA (PUT) [NOTA -- O ATRIBUTO DA VIDEOAULA QUE O FRONTEND TEM QUE MANDAR PARA O BACKEND SE CHAMA alunosLikes E SE TRATA DE UMA CLASSE ALUNO DENTRO DA CLASSE VIDEOAULA]
-http://localhost:8080/vitalusus/videoaula/removeLikes/{id}
+REMOVER UM LIKE DA VIDEOAULA (PUT)
+http://localhost:8080/vitalusus/videoaula/removeLikes/{id}/{alunoId}
 
-ADICIONAR UM DESLIKE À VIDEOAULA (PUT) [NOTA -- O ATRIBUTO DA VIDEOAULA QUE O FRONTEND TEM QUE MANDAR PARA O BACKEND SE CHAMA alunosDeslikes E SE TRATA DE UMA CLASSE ALUNO DENTRO DA CLASSE VIDEOAULA]
-http://localhost:8080/vitalusus/videoaula/addDeslikes/{id}
+ADICIONAR UM DESLIKE À VIDEOAULA (PUT)
+http://localhost:8080/vitalusus/videoaula/addDeslikes/{id}/{alunoId}
 
-REMOVER UM DESLIKE DA VIDEOAULA (PUT) [NOTA -- O ATRIBUTO DA VIDEOAULA QUE O FRONTEND TEM QUE MANDAR PARA O BACKEND SE CHAMA alunosDeslikes E SE TRATA DE UMA CLASSE ALUNO DENTRO DA CLASSE VIDEOAULA]
-http://localhost:8080/vitalusus/videoaula/removeDeslikes/{id}
+REMOVER UM DESLIKE DA VIDEOAULA (PUT)
+http://localhost:8080/vitalusus/videoaula/removeDeslikes/{id}/{alunoId}
 
-ADICIONAR UMA VISUALIZAÇÃO À VIDEOAULA (PUT) [NOTA -- AQUI O FRONTEND TEM QUE MANDAR UM ATRIBUTO DA VIDEOAULA CHAMADO alunos, QUE SE TRATA DE UMA CLASSE ALUNO DENTRO DA CLASSE VIDEOAULA PARA QUE O BACKEND POSSA CONTAR OS ALUNOS QUE VIRAM A VIDEOAULA]
-http://localhost:8080/vitalusus/videoaula/addAlunos/{id}
+ADICIONAR UMA VISUALIZAÇÃO À VIDEOAULA (PUT)
+http://localhost:8080/vitalusus/videoaula/addAlunos/{id}/{alunoId}
 
 
