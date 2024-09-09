@@ -93,6 +93,7 @@ public class VideoaulaService {
             _videoaula.setVisualizacoes(_videoaula.getAlunos().size());
             _videoaula.setLikes(_videoaula.getAlunosLikes().size());
             _videoaula.setDeslikes(_videoaula.getAlunosDeslikes().size());
+            canalService.updateFix(_videoaula.getCanal().getId());
             return videoaulaRepository.save(_videoaula);
         }
         return null;
