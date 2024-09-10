@@ -4,8 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="redDark">#760000</color>
     <color name="red">#FF0000</color>
-    <color name="hintGray">#96938a</color>
+    <color name="hintGrey">#787878</color>
+    <color name="iconGrey">#515151</color>
     <color name="grey">#d3d3d3</color>
-
 
 </resources>

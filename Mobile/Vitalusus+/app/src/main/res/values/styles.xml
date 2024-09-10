@@ -17,7 +17,7 @@
         <item name="android:maxLength">25</item>
         <item name="android:textColor">@color/black</item>
         <!--Text Color Hint (placeholder ou texto dica)-->
-        <item name="android:textColorHint">@color/hintGray</item>
+        <item name="android:textColorHint">@color/hintGrey</item>
         <item name="android:layout_marginLeft">40dp</item>
         <item name="android:layout_marginRight">40dp</item>
         <item name="android:layout_marginTop">15dp</item>
@@ -30,7 +30,7 @@
         <item name="android:maxLength">25</item>
         <item name="android:textColor">@color/black</item>
         <!--Text Color Hint (placeholder ou texto dica)-->
-        <item name="android:textColorHint">@color/hintGray</item>
+        <item name="android:textColorHint">@color/hintGrey</item>
         <item name="android:layout_marginLeft">40dp</item>
         <item name="android:layout_marginRight">40dp</item>
         <item name="android:layout_marginTop">15dp</item>
