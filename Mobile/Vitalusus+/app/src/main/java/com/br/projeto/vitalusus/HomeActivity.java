@@ -77,7 +77,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         } else if (itemId == R.id.nav_configuracoes) {
             openFragment(new ConfiguracoesFragment());
         } else if (itemId == R.id.nav_notificacoes) {
-            openFragment(new NotificacoesFragment());
+            openFragment(new com.br.projeto.vitalusus.NotificacoesFragment());
         } else if (itemId == R.id.nav_sobrenos) {
             openFragment(new SobreNosFragment());
         }
