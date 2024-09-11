@@ -1,5 +1,6 @@
 package br.itb.projeto.vitalususPlus.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -31,7 +32,8 @@ public class Videoaula {
 
 	@Lob
 	private byte[] thumbnail;
-	
+
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name="aluno_videoaula",
 			joinColumns = {@JoinColumn(name="videoaula_id")},
@@ -43,6 +45,7 @@ public class Videoaula {
 	@JoinColumn(name = "canal_id")
 	private Canal canal;
 
+	@JsonIgnore
 	@OneToMany
 	@JoinTable(name="Likes",
 			joinColumns = {@JoinColumn(name="videoaula_id")},
@@ -50,6 +53,7 @@ public class Videoaula {
 	)
 	private List<Aluno> alunosLikes;
 
+	@JsonIgnore
 	@OneToMany
 	@JoinTable(name="Deslikes",
 			joinColumns = {@JoinColumn(name="videoaula_id")},
@@ -62,6 +66,11 @@ public class Videoaula {
 	private String categoria;
 	
 	private String tipoVideoaula;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "videoaula", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Comentario> comentarios;
+	
 	
 	public Long getId() {
 		return id;
@@ -181,6 +190,14 @@ public class Videoaula {
 
 	public void setTipoVideoaula(String tipoVideoaula) {
 		this.tipoVideoaula = tipoVideoaula;
+	}
+
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
 	}
 
 

@@ -65,6 +65,17 @@ public class CanalController {
 	        Canal canalUpdatado = this.canalService.updateNome(id, canal);
 	        return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
 	    }
+		@PutMapping("addVideoaula/{id}")
+		public ResponseEntity<Canal> addVideoaula(@PathVariable long id, @RequestBody Videoaula videoaula){
+			Canal canalUpdatado = this.canalService.addVideoaula(id, videoaula);
+			return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
+		}
+		@PutMapping("removeVideoaula/{id}/{videoaulaId}")
+		public ResponseEntity<Canal> addVideoaula(@PathVariable long id, @PathVariable long videoaulaId){
+		Canal canalUpdatado = this.canalService.removeVideoaula(id, videoaulaId);
+		return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
+		}
+
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> handleValidationException(MethodArgumentNotValidException ex){
