@@ -19,12 +19,14 @@ public class CanalService {
 	private final CanalRepository canalRepository;
 	private final SeguidorRepository seguidorRepository;
 	private final AlunoService alunoService;
+	private final VideoaulaService videoaulaService;
 
-	public CanalService(CanalRepository canalRepository, SeguidorRepository seguidorRepository, AlunoService alunoService) {
+	public CanalService(CanalRepository canalRepository, SeguidorRepository seguidorRepository, AlunoService alunoService, VideoaulaService videoaulaService) {
 		super();
 		this.canalRepository = canalRepository;
 		this.seguidorRepository = seguidorRepository;
 		this.alunoService = alunoService;
+		this.videoaulaService = videoaulaService;
 	}
 
 	@Transactional
@@ -105,6 +107,29 @@ public class CanalService {
 			}
 			canalUpdatado = updateFix(canalUpdatado.getId());
 			return canalRepository.save(canalUpdatado);
+		}
+		return null;
+	}
+	@Transactional
+	public Canal addVideoaula(long id, Videoaula videoaula){
+		Optional<Canal> canalOptional = canalRepository.findById(id);
+		if (canalOptional.isPresent()){
+			Canal _canal = canalOptional.get();
+			videoaula.setCanal(_canal);
+			Videoaula _videoaula = videoaulaService.save(videoaula);
+			_canal.getVideoaulas().add(_videoaula);
+			return _canal;
+		}
+		return null;
+	}
+	@Transactional
+	public Canal removeVideoaula(long id, long videoaulaId){
+		Optional<Canal> canalOptional = canalRepository.findById(id);
+		if (canalOptional.isPresent()){
+			Canal _canal = canalOptional.get();
+			Videoaula videoaula = videoaulaService.findById(videoaulaId);
+			videoaulaService.delete(videoaula.getId());
+			return _canal;
 		}
 		return null;
 	}

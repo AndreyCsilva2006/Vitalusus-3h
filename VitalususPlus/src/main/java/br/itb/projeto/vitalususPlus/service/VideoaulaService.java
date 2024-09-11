@@ -19,15 +19,15 @@ public class VideoaulaService {
     private final VideoaulaRepository videoaulaRepository;
     private final LikesRepository likesRepository;
     private final DeslikesRepository deslikesRepository;
-    private final CanalService canalService;
     private final AlunoService alunoService;
+    private final ComentarioService comentarioService;
 
-    public VideoaulaService(VideoaulaRepository videoaulaRepository, LikesRepository likesRepository, DeslikesRepository deslikesRepository, CanalService canalService, AlunoService alunoService) {
+    public VideoaulaService(VideoaulaRepository videoaulaRepository, LikesRepository likesRepository, DeslikesRepository deslikesRepository, AlunoService alunoService, ComentarioService comentarioService) {
         this.videoaulaRepository = videoaulaRepository;
         this.likesRepository = likesRepository;
         this.deslikesRepository = deslikesRepository;
-        this.canalService = canalService;
         this.alunoService = alunoService;
+        this.comentarioService = comentarioService;
     }
 
     @Transactional
@@ -58,7 +58,6 @@ public class VideoaulaService {
 		videoaula.getDataPubli().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         videoaula.setLikes(videoaula.getAlunosLikes().size());
         videoaula.setDeslikes(videoaula.getAlunosDeslikes().size());
-        canalService.updateFix(videoaula.getCanal().getId());
         return videoaulaRepository.save(videoaula);
     }
     public Videoaula postId(long id) {
@@ -74,6 +73,10 @@ public class VideoaulaService {
         Optional<Videoaula> videoaula = videoaulaRepository.findById(id);
         if (videoaula.isPresent()) {
             Videoaula videoaulaDeletada = videoaula.get();
+            List<Comentario> comentarios = videoaulaDeletada.getComentarios();
+            for (Comentario comentario : comentarios) {
+                comentarioService.delete(comentario);
+            }
             this.videoaulaRepository.delete(videoaulaDeletada);
         }
     }
@@ -93,7 +96,6 @@ public class VideoaulaService {
             _videoaula.setVisualizacoes(_videoaula.getAlunos().size());
             _videoaula.setLikes(_videoaula.getAlunosLikes().size());
             _videoaula.setDeslikes(_videoaula.getAlunosDeslikes().size());
-            canalService.updateFix(_videoaula.getCanal().getId());
             return videoaulaRepository.save(_videoaula);
         }
         return null;
@@ -169,7 +171,7 @@ public class VideoaulaService {
             Videoaula _videoaula = videoaulaOptional.get();
             _videoaula.getAlunos().add(aluno);
             _videoaula = updateFix(_videoaula.getId());
-            return videoaulaRepository.save(_videoagitstatuula);
+            return videoaulaRepository.save(_videoaula);
         }
         return null;
     }
@@ -226,6 +228,30 @@ public class VideoaulaService {
             }
             _videoaula = updateFix(_videoaula.getId());
             return videoaulaRepository.save(_videoaula);
+        }
+        return null;
+    }
+    public Videoaula addComentario(long id, long alunoId, Comentario comentario){
+        Optional<Videoaula> videoaulaOptional = videoaulaRepository.findById(id);
+        if (videoaulaOptional.isPresent()){
+            Videoaula _videoaula = videoaulaOptional.get();
+            Aluno aluno = alunoService.findById(alunoId);
+            comentario.setAluno(aluno);
+            Comentario _comentario = comentarioService.save(comentario);
+            _videoaula.getComentarios().add(_comentario);
+            return _videoaula;
+        }
+        return null;
+    }
+    @Transactional
+    public Videoaula removeComentario(long id, long comentarioId){
+        Optional<Videoaula> videoaulaOptional = videoaulaRepository.findById(id);
+        if (videoaulaOptional.isPresent()){
+            Videoaula _videoaula = videoaulaOptional.get();
+            Comentario comentario = comentarioService.findById(comentarioId);
+            comentarioService.delete(comentario);
+            _videoaula = updateFix(_videoaula.getId());
+            return _videoaula;
         }
         return null;
     }

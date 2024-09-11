@@ -28,6 +28,7 @@ public class Canal{
 	@Column(name = "nome")
 	private String nome;
 
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name="Aluno_segue_canal", joinColumns=
 			{@JoinColumn(name="canal_id")}, inverseJoinColumns=
