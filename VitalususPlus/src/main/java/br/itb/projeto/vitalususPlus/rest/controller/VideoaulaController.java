@@ -114,7 +114,7 @@ public class VideoaulaController {
         Videoaula videoaulaUpdatado = this.videoaulaService.addAlunos(id, alunoId);
         return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
     }
-    @PutMapping("addComentario/{id}/{alunoId}/{alunoId}")
+    @PutMapping("addComentario/{id}/{alunoId}")
     public ResponseEntity<Videoaula> addComentario(@PathVariable long id, @PathVariable long alunoId, @RequestBody Comentario comentario){
         Videoaula videoaulaUpdatado = this.videoaulaService.addComentario(id, alunoId, comentario);
         return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
