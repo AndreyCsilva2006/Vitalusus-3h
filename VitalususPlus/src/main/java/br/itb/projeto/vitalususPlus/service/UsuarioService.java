@@ -149,7 +149,17 @@ public class UsuarioService {
         }
         return null;
     }
-	
+	@Transactional
+	public Usuario banir(long id){
+		Optional<Usuario> _usuario = usuarioRepository.findById(id);
+		if (_usuario.isPresent()) {
+			Usuario usuario = _usuario.get();
+			usuario.setStatusUsuario("BANIDO");
+			return usuarioRepository.save(usuario);
+		}
+		else throw new RuntimeException("Esse usuário não existe no banco de dados ou ocorreu um erro no servidor");
+	}
+
 	public Usuario alterarSenha(long id, Usuario usuario) {
 		Optional<Usuario> _usuario = usuarioRepository.findById(id);
 		if (_usuario.isPresent()) {

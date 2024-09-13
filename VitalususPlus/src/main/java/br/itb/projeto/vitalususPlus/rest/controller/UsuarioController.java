@@ -98,7 +98,11 @@ public class UsuarioController {
 		Usuario usuarioUpdatado = this.usuarioService.updateSenha(id, usuario);
 		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
 	}
-
+	@PutMapping("banir/{id}")
+	public ResponseEntity<Usuario> banirUsuario(@PathVariable long id) {
+		Usuario usuarioBanido = this.usuarioService.banir(id);
+		return new ResponseEntity<Usuario>(usuarioBanido, HttpStatus.OK);
+	}
 	@PostMapping("login/")
 	public ResponseEntity<?> sigin(@RequestParam String email, @RequestParam String senha) {
 		Usuario usuario = usuarioService.sigin(email, senha);
