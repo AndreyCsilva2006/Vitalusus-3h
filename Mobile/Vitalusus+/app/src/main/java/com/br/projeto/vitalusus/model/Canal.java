@@ -1,9 +1,5 @@
 package com.br.projeto.vitalusus.model;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import com.br.projeto.vitalusus.model.Treinador;
-
 import java.math.BigInteger;
 
 public class Canal {
@@ -12,8 +8,15 @@ public class Canal {
     private BigInteger seguidores;
     private byte[] foto;
 
+    // Construtor que aceita apenas o nome
+    public Canal(String nome) {
+        this.nome = nome;
+    }
+
+    // Construtor padrão
     public Canal() { }
 
+    // Getters e Setters
     public Integer getId() {
         return id;
     }
@@ -46,5 +49,3 @@ public class Canal {
         this.foto = foto;
     }
 }
-
-

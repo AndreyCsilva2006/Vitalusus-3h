@@ -7,18 +7,16 @@ public class Video {
     private Canal canal;
     private byte[] thumbnail; // Thumbnail do vídeo
 
-    // Getters e Setters
-    public byte[] getThumbnail() {
-        return thumbnail;
-    }
-
-    public void setThumbnail(byte[] thumbnail) {
+    // Construtor com parâmetros
+    public Video(long id, String titulo, String dataPostagem, Canal canal, byte[] thumbnail) {
+        this.id = id;
+        this.titulo = titulo;
+        this.dataPostagem = dataPostagem;
+        this.canal = canal;
         this.thumbnail = thumbnail;
     }
 
-    // Demais Getters e Setters...
-
-
+    // Getters e Setters
     public long getId() {
         return id;
     }
@@ -49,5 +47,13 @@ public class Video {
 
     public void setCanal(Canal canal) {
         this.canal = canal;
+    }
+
+    public byte[] getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(byte[] thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }

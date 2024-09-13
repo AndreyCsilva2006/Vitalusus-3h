@@ -1,15 +1,22 @@
 package com.br.projeto.vitalusus;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import com.br.projeto.vitalusus.model.Canal;
+import com.br.projeto.vitalusus.model.Video;
+
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +30,7 @@ public class HomeFragment extends Fragment {
         // Infla o layout para esse fragmento
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // Iniciar as views
+        // Inicia as views
         videoGrid = view.findViewById(R.id.video_grid);
 
         // Inicia os botões de categoria
@@ -54,7 +61,7 @@ public class HomeFragment extends Fragment {
         // Filtrar videos baseados na categoria
         List<Video> filteredVideos = new ArrayList<>();
         for (Video video : videos) {
-            if ("all".equals(category) || video.getCategory().equals(category)) {
+            if ("all".equals(category) || video.getCanal().getNome().equals(category)) {
                 filteredVideos.add(video);
             }
         }
@@ -65,51 +72,49 @@ public class HomeFragment extends Fragment {
 
     private void populateVideoGrid(List<Video> videos) {
         for (Video video : videos) {
-            ImageView videoThumbnail = new ImageView(getContext());
-            videoThumbnail.setLayoutParams(new GridLayout.LayoutParams(
-                    new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 150)));
-            videoThumbnail.setImageResource(video.getThumbnailResource()); // Use video-specific thumbnail
-            videoThumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            // Verifica se o contexto está disponível
+            if (getContext() == null) return;
 
-            GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-            params.width = 0;
-            params.height = GridLayout.LayoutParams.WRAP_CONTENT;
-            params.rowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
-            params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
-            params.setMargins(4, 4, 4, 4);
-            videoThumbnail.setLayoutParams(params);
+            View videoItemView = LayoutInflater.from(getContext()).inflate(R.layout.item_video, videoGrid, false);
 
-            videoGrid.addView(videoThumbnail);
+            // Configura a miniatura do vídeo
+            ImageView videoThumbnail = videoItemView.findViewById(R.id.video_thumbnail);
+            if (video.getThumbnail() != null) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(video.getThumbnail(), 0, video.getThumbnail().length);
+                videoThumbnail.setImageBitmap(bitmap);
+            }
+
+            // Configura o título do vídeo
+            TextView videoTitle = videoItemView.findViewById(R.id.video_title);
+            videoTitle.setText(video.getTitulo() != null ? video.getTitulo() : "Título não disponível");
+
+            // Configura o nome do canal e a data de postagem
+            TextView channelName = videoItemView.findViewById(R.id.channel_name);
+            channelName.setText(video.getCanal() != null && video.getCanal().getNome() != null ? video.getCanal().getNome() : "Canal não disponível");
+
+            TextView videoDate = videoItemView.findViewById(R.id.video_date);
+            videoDate.setText(video.getDataPostagem() != null ? video.getDataPostagem() : "Data não disponível");
+
+            // Adiciona a view do item ao GridLayout
+            videoGrid.addView(videoItemView);
         }
     }
 
     // Lista simulada de vídeos, devemos substituir isso pela nossa fonte de dados real
     private List<Video> getMockVideos() {
         List<Video> videos = new ArrayList<>();
-        videos.add(new Video(R.drawable.logo, "alta"));
-        videos.add(new Video(R.drawable.abababa, "treinos"));
-        videos.add(new Video(R.drawable.logo, "recomendacoes"));
-        videos.add(new Video(R.drawable.abababa, "dieta"));
-        // Adicione quantos videos forem precisos
+        // Use thumbnails reais no formato de byte array e outros dados reais
+        videos.add(new Video(1, "Título do Vídeo 1", "01/09/2024", new Canal("Canal 1"), getMockThumbnail()));
+        videos.add(new Video(2, "Título do Vídeo 2", "02/09/2024", new Canal("Canal 2"), getMockThumbnail()));
+        // Adicione mais vídeos conforme necessário
         return videos;
     }
 
-    // Classe de video para demonstração
-    private static class Video {
-        private final int thumbnailRecurso;
-        private final String categoria;
-
-        public Video(int thumbnailResource, String categoria) {
-            this.thumbnailRecurso = thumbnailResource;
-            this.categoria = categoria;
-        }
-
-        public int getThumbnailResource() {
-            return thumbnailRecurso;
-        }
-
-        public String getCategory() {
-            return categoria;
-        }
+    private byte[] getMockThumbnail() {
+        // Simule uma thumbnail para testes usando uma imagem existente
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo); // Substitua 'thumbnail_image' pelo nome da imagem que você tem
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
     }
 }
