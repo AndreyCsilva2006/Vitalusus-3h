@@ -21,8 +21,8 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class UsuarioService {
-	private UsuarioRepository usuarioRepository;
-	private ChaveSegurancaService chavesegurancaService;
+	private final UsuarioRepository usuarioRepository;
+	private final ChaveSegurancaService chavesegurancaService;
 
 	public UsuarioService(UsuarioRepository usuarioRepository, ChaveSegurancaService chaveSegurancaService) {
 		super();
@@ -31,8 +31,7 @@ public class UsuarioService {
 	}
 	@Transactional
 	public List<Usuario> findAll() {
-		List<Usuario> listaUsuarios = usuarioRepository.findAll();
-		return listaUsuarios;
+        return usuarioRepository.findAll();
 	}
 	@Transactional
 	public Usuario findById(long id) {
@@ -46,8 +45,7 @@ public class UsuarioService {
 	}
 	@Transactional
 	public Usuario findByEmail(String email) {
-		Usuario usuario = this.usuarioRepository.findByEmail(email);
-		return usuario;
+        return this.usuarioRepository.findByEmail(email);
 	}
 	@Transactional
 	public Usuario save(Usuario usuario){
@@ -172,7 +170,9 @@ public class UsuarioService {
 				if (new String(decodedPass).equals(senha)) {
 					return usuario;
 				}
+				else throw new RuntimeException("A senha está incorreta");
 			}
+			else throw new RuntimeException("Este usuário está inativo, não pode fazer login");
 		}
 		return null;
 	} 
@@ -180,7 +180,6 @@ public class UsuarioService {
 	@Transactional
 	public Usuario findByChaveSeguranca(Long chaveSeguranca) {
 		ChaveSeguranca _chaveSeguranca = chavesegurancaService.findById(chaveSeguranca);
-		Usuario usuario = usuarioRepository.findByChaveSeguranca(_chaveSeguranca);
-		return usuario;
+        return usuarioRepository.findByChaveSeguranca(_chaveSeguranca);
 	}
 }
