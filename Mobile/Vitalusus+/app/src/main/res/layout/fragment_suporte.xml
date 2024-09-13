@@ -27,9 +27,10 @@
 
         <TextView
             android:id="@+id/suporteDesc"
-            android:layout_width="394dp"
-            android:layout_height="122dp"
+            android:layout_width="0dp"
+            android:layout_height="135dp"
             android:layout_marginTop="100dp"
+            android:padding="10dp"
             android:text="Aqui você pode nos contatar, relatando um problema ou dando sua opinião para melhorar a eficacia do nosso site!"
             android:textColor="@color/white"
             android:textSize="25dp"

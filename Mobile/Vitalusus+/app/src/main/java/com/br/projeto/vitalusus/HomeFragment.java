@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.br.projeto.vitalusus.model.Canal;
 import com.br.projeto.vitalusus.model.Video;
 
+
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -106,13 +107,14 @@ public class HomeFragment extends Fragment {
         // Use thumbnails reais no formato de byte array e outros dados reais
         videos.add(new Video(1, "Título do Vídeo 1", "01/09/2024", new Canal("Canal 1"), getMockThumbnail()));
         videos.add(new Video(2, "Título do Vídeo 2", "02/09/2024", new Canal("Canal 2"), getMockThumbnail()));
+        videos.add(new Video(3, "Título do Vídeo 3", "03/09/2024", new Canal("Canal 3"), getMockThumbnail()));
         // Adicione mais vídeos conforme necessário
         return videos;
     }
 
     private byte[] getMockThumbnail() {
         // Simule uma thumbnail para testes usando uma imagem existente
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo); // Substitua 'thumbnail_image' pelo nome da imagem que você tem
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         return stream.toByteArray();

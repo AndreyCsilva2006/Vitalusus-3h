@@ -116,8 +116,6 @@ public class AlunoDAO {
 //        return lista;
 //    }
 //
-
-//
 //    // getAll
 //    public List<Aluno> getAll() {
 //        List<Aluno> lista = new ArrayList<Aluno>();

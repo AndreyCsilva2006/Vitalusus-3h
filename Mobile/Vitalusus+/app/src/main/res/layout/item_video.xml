@@ -18,9 +18,9 @@
         android:id="@+id/video_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="@android:color/black"
-        android:layout_marginBottom="4dp"/>
+        android:layout_marginBottom="4dp"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
     <!-- Nome do Canal e Data -->
     <LinearLayout
