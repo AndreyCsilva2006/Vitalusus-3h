@@ -132,7 +132,13 @@ public class UsuarioController {
 		Usuario usuarioUpdatado = usuarioService.tornarPrivado(id);
 		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
 	}
-	
+
+	@PutMapping("inativar/{id}")
+	public ResponseEntity<Usuario> inativar(@PathVariable long id){
+		Usuario usuarioUpdatado = usuarioService.inativar(id);
+		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
+	}
+
 	@PutMapping("reativar/{id}")
 	public ResponseEntity<Usuario> reativar(@PathVariable long id){
 		Usuario usuarioUpdatado = usuarioService.reativar(id);
