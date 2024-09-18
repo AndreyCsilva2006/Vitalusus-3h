@@ -19,8 +19,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:layout_marginBottom="4dp" />
+
+    <TextView
+        android:id="@+id/video_date"
+        android:layout_width="131dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:textColor="@android:color/white" />
 
     <!-- Nome do Canal e Data -->
     <LinearLayout
@@ -48,14 +55,9 @@
                 android:id="@+id/channel_name"
                 android:layout_width="132dp"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/darker_gray" />
+                android:textColor="@android:color/white" />
 
-            <TextView
-                android:id="@+id/video_date"
-                android:layout_width="131dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:textColor="@android:color/darker_gray" />
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
