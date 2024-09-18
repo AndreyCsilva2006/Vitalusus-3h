@@ -33,10 +33,10 @@ app.get('/usuarios', async (req, res) => {
     }
 });
 
-app.post('/usuario', async (req, res) => {
-    const { nome, email, senha, tipoUsuario } = req.body;
+app.post('/usuarios', async (req, res) => {
+    const { nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id, nivelPrivacidade } = req.body;
     try {
-        const result = await sql.query`INSERT INTO Usuario (nome, email, senha, tipoUsuario, dataCadastro, statusUsuario, chaveSeguranca_id, nivelPrivacidade) VALUES (${nome}, ${email}, ${senha}, ${tipoUsuario}, GETDATE(), 'ATIVO', 1231, 'PUBLICO')`;
+        const result = await sql.query`INSERT INTO Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id, nivelPrivacidade) VALUES (${nome}, ${email}, ${senha}, 'ALUNO', null, GETDATE(), 'ATIVO', ${tipoUsuario}, 1231, 'PUBLICO')`;
         res.status(201).json({ message: 'Usuário criado com sucesso!' });
     } catch (err) {
         res.status(500).send(err.message);
