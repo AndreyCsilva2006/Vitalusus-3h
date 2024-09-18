@@ -3,6 +3,9 @@ package com.br.projeto.vitalusus;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.br.projeto.vitalusus.model.Usuario;
+import com.br.projeto.vitalusus.network.RetrofitClient;
+import com.br.projeto.vitalusus.network.ApiService;
 import com.br.projeto.vitalusus.view.ListarAlunos;
 import com.br.projeto.vitalusus.view.ListarCanal;
 import com.google.android.material.snackbar.Snackbar;
@@ -23,6 +26,12 @@ import com.br.projeto.vitalusus.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -92,5 +101,32 @@ public class MainActivity extends AppCompatActivity {
     public void listaCanal(MenuItem item) {
         Intent liC = new Intent(this, ListarCanal.class);
         startActivity(liC);
+
+
+        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+        Call<List<Usuario>> call = apiService.getUsuarios();
+
+        call.enqueue(new Callback<List<Usuario>>() {
+            @Override
+            public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
+                if (response.isSuccessful()) {
+                    List<Usuario> usuarios = response.body();
+                    // Manipule os dados de usuários, como exibi-los na UI
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Usuario>> call, Throwable t) {
+                // Lide com o erro
+            }
+        });
+
+
+
+
+
+
+
+
     }
 }
