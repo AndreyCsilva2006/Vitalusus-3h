@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.br.projeto.vitalusus.R;
@@ -19,6 +20,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
         this.usuarios = usuarios;
     }
 
+    @NonNull
     @Override
     public UsuarioViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_usuario, parent, false);
@@ -26,17 +28,17 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
     }
 
     @Override
-    public void onBindViewHolder(UsuarioViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull UsuarioViewHolder holder, int position) {
         Usuario usuario = usuarios.get(position);
-        holder.nomeTextView.setText(usuario.getNome());
-        holder.emailTextView.setText(usuario.getEmail());
-        holder.senhaTextView.setText(usuario.getSenha());
-        holder.nivelAcessoTextView.setText(usuario.getNivelAcesso());
+        holder.nomeTextView.setText(String.valueOf(usuario.getNome()));
+        holder.emailTextView.setText(String.valueOf(usuario.getEmail()));
+        holder.senhaTextView.setText(String.valueOf(usuario.getSenha()));
+        holder.nivelAcessoTextView.setText(String.valueOf(usuario.getNivelAcesso()));
         holder.dataCadastroTextView.setText(usuario.getDataCadastro().toString());
-        holder.statusTextView.setText(usuario.getStatusUsuario());
-        holder.tipoUsuarioTextView.setText(usuario.getTipoUsuario());
-        holder.chaveSegurancaIdTextView.setText(usuario.getChaveSegurancaId());
-        holder.nivelPrivacidadeTextView.setText(usuario.getNivelPrivacidade());
+        holder.statusTextView.setText(String.valueOf(usuario.getStatusUsuario()));
+        holder.tipoUsuarioTextView.setText(String.valueOf(usuario.getTipoUsuario()));
+        holder.chaveSegurancaIdTextView.setText(String.valueOf(usuario.getChaveSegurancaId()));
+        holder.nivelPrivacidadeTextView.setText(String.valueOf(usuario.getNivelPrivacidade()));
         // Configure outros campos conforme necessário
     }
 

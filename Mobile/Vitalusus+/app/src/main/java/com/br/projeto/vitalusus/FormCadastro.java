@@ -14,8 +14,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.br.projeto.vitalusus.dao.AlunoDAO;
-import com.br.projeto.vitalusus.dao.UsuarioDAO;
+//import com.br.projeto.vitalusus.dao.AlunoDAO;
+//import com.br.projeto.vitalusus.dao.UsuarioDAO;
 import com.br.projeto.vitalusus.model.Aluno;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.util.MensagemUtil;
@@ -291,28 +291,28 @@ public class FormCadastro extends AppCompatActivity {
             // retorne tudo novamente.
             return;
         }
-        Aluno a = new Aluno();
-        Usuario u = new Usuario();
+//        Aluno a = new Aluno();
+//        Usuario u = new Usuario();
 
 //        if (alunoEditando != null) {
 //            a = alunoEditando;
 //        }
-        u.setNome(editNome.getText().toString());
-        u.setEmail(editEmail.getText().toString());
-        u.setSenha(editSenha.getText().toString());
-        u.setpSeguranca(editPSeguranca.getText().toString());
-        u.setrSeguranca(editRSeguranca.getText().toString());
-        a.setDataNasc(editDataNasc.getText().toString());
-        a.setAltura(editAltura.getTextSize());
-        a.setPeso(editPeso.getTextSize());
-
-        AlunoDAO daoAlu = new AlunoDAO();
-        UsuarioDAO daoUsu = new UsuarioDAO();
-        if (alunoEditando != null) {
-//            daoAlu.alterar(a);
-        } else {
-            daoAlu.cadastrarAluno(a, u);
-        }
+//        u.setNome(editNome.getText().toString());
+//        u.setEmail(editEmail.getText().toString());
+//        u.setSenha(editSenha.getText().toString());
+//        u.setpSeguranca(editPSeguranca.getText().toString());
+//        u.setrSeguranca(editRSeguranca.getText().toString());
+//        a.setDataNasc(editDataNasc.getText().toString());
+//        a.setAltura(editAltura.getTextSize());
+//        a.setPeso(editPeso.getTextSize());
+//
+//        AlunoDAO daoAlu = new AlunoDAO();
+//        UsuarioDAO daoUsu = new UsuarioDAO();
+//        if (alunoEditando != null) {
+////            daoAlu.alterar(a);
+//        } else {
+//            daoAlu.cadastrarAluno(a, u);
+//        }
 
         Intent intent = new Intent(FormCadastro.this, FormLogin.class);
         startActivity(intent);

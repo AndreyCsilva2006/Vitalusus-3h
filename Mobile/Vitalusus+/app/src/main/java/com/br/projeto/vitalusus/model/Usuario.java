@@ -2,20 +2,43 @@ package com.br.projeto.vitalusus.model;
 
 import android.graphics.Bitmap;
 
+import com.google.gson.annotations.SerializedName;
+
 import net.sourceforge.jtds.jdbc.DateTime;
 
 public class Usuario {
 
+    @SerializedName("id")
     private Integer id;
+
+    @SerializedName("nome")
     private String nome;
+
+    @SerializedName("email")
     private String email;
+
+    @SerializedName("senha")
     private String senha;
+
+    @SerializedName("nivelAcesso")
     private String nivelAcesso;
-    private Bitmap foto;
+
+    //    @SerializedName("foto")
+//    private Bitmap foto;
+
+    @SerializedName("dataCadastro")
     private DateTime dataCadastro;
+
+    @SerializedName("statusUsuario")
     private String statusUsuario;
+
+    @SerializedName("tipoUsuario")
     private String tipoUsuario;
+
+    @SerializedName("chaveSegurancaId")
     private String chaveSegurancaId;
+
+    @SerializedName("nivelPrivacidade")
     private int nivelPrivacidade;
 
     public Usuario(Integer id, String nome, String email, String senha, String nivelAcesso, Bitmap foto, DateTime dataCadastro, String statusUsuario, String tipoUsuario, String chaveSegurancaId, int nivelPrivacidade) {
@@ -24,7 +47,7 @@ public class Usuario {
         this.email = email;
         this.senha = senha;
         this.nivelAcesso = nivelAcesso;
-        this.foto = foto;
+//        this.foto = foto;
         this.dataCadastro = dataCadastro;
         this.statusUsuario = statusUsuario;
         this.tipoUsuario = tipoUsuario;
@@ -90,29 +113,13 @@ public class Usuario {
         this.statusUsuario = statusUsuario;
     }
 
-    public String getpSeguranca() {
-        return pSeguranca;
-    }
-
-    public void setpSeguranca(String pSeguranca) {
-        this.pSeguranca = pSeguranca;
-    }
-
-    public String getrSeguranca() {
-        return rSeguranca;
-    }
-
-    public void setrSeguranca(String rSeguranca) {
-        this.rSeguranca = rSeguranca;
-    }
-
-    public Bitmap getFoto() {
-        return foto;
-    }
-
-    public void setFoto(Bitmap foto) {
-        this.foto = foto;
-    }
+//    public Bitmap getFoto() {
+//        return foto;
+//    }
+//
+//    public void setFoto(Bitmap foto) {
+//        this.foto = foto;
+//    }
 
     public String getTipoUsuario() {
         return tipoUsuario;

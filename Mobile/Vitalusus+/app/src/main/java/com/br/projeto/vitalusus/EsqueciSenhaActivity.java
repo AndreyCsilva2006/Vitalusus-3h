@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.br.projeto.vitalusus.dao.UsuarioDAO;
+//import com.br.projeto.vitalusus.dao.UsuarioDAO;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.util.MensagemUtil;
 
@@ -59,70 +59,70 @@ public class EsqueciSenhaActivity extends AppCompatActivity {
         // trocando a containerComponents para o tamanho do passo 1 verificar email
         layoutParams.height = 450;
 
-        btnVerificarEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = editEsqueciSenhaEmail.getText().toString();
+//        btnVerificarEmail.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String email = editEsqueciSenhaEmail.getText().toString();
+//
+////                Usuario usu = new UsuarioDAO().consultaEmailUsuario(email);
+//                if (usu != null) {
+//                    MensagemUtil.exibir(EsqueciSenhaActivity.this, "E-Mail Encontrado! Responda a Pergunta de Segurança.");
+////                    txtPerguntaSeguranca.setText(usu.getpSeguranca());
+//
+//                    // mudando para o tamanho do passo 2 verificar pergunta secreta
+//                    layoutParams.height = 570;
+//
+//                    editEsqueciSenhaEmail.setVisibility(View.GONE);
+//                    btnVerificarEmail.setVisibility(View.GONE);
+//
+//                    txtPerguntaSeguranca.setVisibility(View.VISIBLE);
+//                    editRespostaSeguranca.setVisibility(View.VISIBLE);
+//                    btnVerificarResposta.setVisibility(View.VISIBLE);
+//
+//                    editRespostaSeguranca.setText("");
+//                    editRespostaSeguranca.requestFocus();
+//                } else {
+//                    MensagemUtil.exibir(EsqueciSenhaActivity.this, "Usuario não identificado. Coloque um E-Mail Cadastrado.");
+//
+//                    editEsqueciSenhaEmail.setBackground(redBorder);
+//                    editEsqueciSenhaEmail.setText("");
+//                    editEsqueciSenhaEmail.requestFocus();
+//                }
+//            }
+//        });
 
-                Usuario usu = new UsuarioDAO().consultaEmailUsuario(email);
-                if (usu != null) {
-                    MensagemUtil.exibir(EsqueciSenhaActivity.this, "E-Mail Encontrado! Responda a Pergunta de Segurança.");
-                    txtPerguntaSeguranca.setText(usu.getpSeguranca());
-
-                    // mudando para o tamanho do passo 2 verificar pergunta secreta
-                    layoutParams.height = 570;
-
-                    editEsqueciSenhaEmail.setVisibility(View.GONE);
-                    btnVerificarEmail.setVisibility(View.GONE);
-
-                    txtPerguntaSeguranca.setVisibility(View.VISIBLE);
-                    editRespostaSeguranca.setVisibility(View.VISIBLE);
-                    btnVerificarResposta.setVisibility(View.VISIBLE);
-
-                    editRespostaSeguranca.setText("");
-                    editRespostaSeguranca.requestFocus();
-                } else {
-                    MensagemUtil.exibir(EsqueciSenhaActivity.this, "Usuario não identificado. Coloque um E-Mail Cadastrado.");
-
-                    editEsqueciSenhaEmail.setBackground(redBorder);
-                    editEsqueciSenhaEmail.setText("");
-                    editEsqueciSenhaEmail.requestFocus();
-                }
-            }
-        });
-
-        btnVerificarResposta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = editEsqueciSenhaEmail.getText().toString();
-                String rSeguranca = editRespostaSeguranca.getText().toString();
-
-                Usuario usu = new UsuarioDAO().validarRespostaPSeguranca(email, rSeguranca);
-                if (usu != null) {
-                    MensagemUtil.exibir(EsqueciSenhaActivity.this, "Resposta Correta!");
-
-                    // passo 3
-                    layoutParams.height = 450;
-
-                    txtPerguntaSeguranca.setVisibility(View.GONE);
-                    editRespostaSeguranca.setVisibility(View.GONE);
-                    btnVerificarResposta.setVisibility(View.GONE);
-
-                    editESNovaSenha.setVisibility(View.VISIBLE);
-                    btnESOlharSenha.setVisibility(View.VISIBLE);
-                    btnRedefinirSenha.setVisibility(View.VISIBLE);
-
-                    editESNovaSenha.requestFocus();
-                } else {
-                    editRespostaSeguranca.setBackground(redBorder);
-                    editRespostaSeguranca.setText("");
-
-                    MensagemUtil.exibir(EsqueciSenhaActivity.this, "Resposta Errada!");
-
-                    editRespostaSeguranca.requestFocus();
-                }
-            }
-        });
+//        btnVerificarResposta.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String email = editEsqueciSenhaEmail.getText().toString();
+//                String rSeguranca = editRespostaSeguranca.getText().toString();
+//
+//                Usuario usu = new UsuarioDAO().validarRespostaPSeguranca(email, rSeguranca);
+//                if (usu != null) {
+//                    MensagemUtil.exibir(EsqueciSenhaActivity.this, "Resposta Correta!");
+//
+//                    // passo 3
+//                    layoutParams.height = 450;
+//
+//                    txtPerguntaSeguranca.setVisibility(View.GONE);
+//                    editRespostaSeguranca.setVisibility(View.GONE);
+//                    btnVerificarResposta.setVisibility(View.GONE);
+//
+//                    editESNovaSenha.setVisibility(View.VISIBLE);
+//                    btnESOlharSenha.setVisibility(View.VISIBLE);
+//                    btnRedefinirSenha.setVisibility(View.VISIBLE);
+//
+//                    editESNovaSenha.requestFocus();
+//                } else {
+//                    editRespostaSeguranca.setBackground(redBorder);
+//                    editRespostaSeguranca.setText("");
+//
+//                    MensagemUtil.exibir(EsqueciSenhaActivity.this, "Resposta Errada!");
+//
+//                    editRespostaSeguranca.requestFocus();
+//                }
+//            }
+//        });
 
         btnESOlharSenha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,7 +161,7 @@ public class EsqueciSenhaActivity extends AppCompatActivity {
 
                     editESNovaSenha.requestFocus();
                 } else if (novaSenha.trim().length() >= 8) {
-                    Usuario usu = new UsuarioDAO().redefinirSenha(email, novaSenha);
+//                    Usuario usu = new UsuarioDAO().redefinirSenha(email, novaSenha);
 
                     Intent formlogin = new Intent(EsqueciSenhaActivity.this, FormLogin.class);
                     startActivity(formlogin);

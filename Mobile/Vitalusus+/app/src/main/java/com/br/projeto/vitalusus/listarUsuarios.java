@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.br.projeto.vitalusus.adapter.UsuarioAdapter;
@@ -29,10 +30,11 @@ public class listarUsuarios extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_listar_usuarios);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         usuarioAdapter = new UsuarioAdapter(usuarioList);
         recyclerView.setAdapter(usuarioAdapter);
 
@@ -47,10 +49,16 @@ public class listarUsuarios extends AppCompatActivity {
         call.enqueue(new Callback<List<Usuario>>() {
             @Override
             public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful() && response.body() != null) {
                     usuarioList.clear();
                     usuarioList.addAll(response.body());
+
+                    Toast.makeText(listarUsuarios.this, "entrou dentro do carlos onResponse", Toast.LENGTH_SHORT).show();
+
+                    Log.d("Retrofit Success", "Número de usuários: " + usuarioList.size());
                     usuarioAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(listarUsuarios.this, "Resposta vazia ou erro na resposta", Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.br.projeto.vitalusus.dao.AlunoDAO;
+//import com.br.projeto.vitalusus.dao.AlunoDAO;
 import com.br.projeto.vitalusus.model.Aluno;
 import com.br.projeto.vitalusus.view.ListarAlunos;
 

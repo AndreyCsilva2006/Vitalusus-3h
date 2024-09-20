@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.br.projeto.vitalusus.dao.UsuarioDAO;
+//import com.br.projeto.vitalusus.dao.UsuarioDAO;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.util.MensagemUtil;
 
@@ -77,17 +77,17 @@ public class FormLogin extends AppCompatActivity {
         String senha = editSenha.getText().toString();
 
         // DAO - Data Access Object (Objeto de Acesso de Dados)
-        Usuario usu = new UsuarioDAO().selecionarUsuario(email, senha);
-        if (usu != null) {
-            MensagemUtil.exibir(this, "Login com Sucesso!");
-            Intent intent = new Intent(FormLogin.this, TelaPrincipal.class);
-            intent.putExtra("nome", usu.getNome().toString());
-            intent.putExtra("email", usu.getEmail().toString());
-            startActivity(intent);
-        } else {
-            MensagemUtil.exibir(this, "Usuario não identificado, tente novamente.");
-            limpar();
-        }
+//        Usuario usu = new UsuarioDAO().selecionarUsuario(email, senha);
+//        if (usu != null) {
+//            MensagemUtil.exibir(this, "Login com Sucesso!");
+//            Intent intent = new Intent(FormLogin.this, TelaPrincipal.class);
+//            intent.putExtra("nome", usu.getNome().toString());
+//            intent.putExtra("email", usu.getEmail().toString());
+//            startActivity(intent);
+//        } else {
+//            MensagemUtil.exibir(this, "Usuario não identificado, tente novamente.");
+//            limpar();
+//        }
     }
 
     private void limpar() {
