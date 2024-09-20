@@ -23,15 +23,13 @@ import java.util.Optional;
 public class TreinadorService {
     private TreinadorRepository treinadorRepository;
     private UsuarioService usuarioService;
-    private CanalService canalService;
 
     public TreinadorService(TreinadorRepository treinadorRepository,
-                            UsuarioService usuarioService,
-                            CanalService canalService) {
+                            UsuarioService usuarioService
+                            ) {
         super();
         this.treinadorRepository = treinadorRepository;
         this.usuarioService = usuarioService;
-        this.canalService = canalService;
     }
     public List<Treinador> findAll(){
         List<Treinador> listaTreinadores = treinadorRepository.findAll();
