@@ -46,7 +46,7 @@ public class TreinadorService {
 	public Treinador sigin(String email, String senha) {
 		Usuario usuario = usuarioService.findByEmail(email);
 		if (usuario != null) {
-			if (!usuario.getStatusUsuario().equals("INATIVO")) {
+			if (usuario.getStatusUsuario().equals("ATIVO")) {
 				byte[] decodedPass = Base64.getDecoder().decode(usuario.getSenha());
 				if (new String(decodedPass).equals(senha) && usuario.getTipoUsuario().equals("TREINADOR")) {
 						Treinador treinador = treinadorRepository.findByUsuario(usuario);

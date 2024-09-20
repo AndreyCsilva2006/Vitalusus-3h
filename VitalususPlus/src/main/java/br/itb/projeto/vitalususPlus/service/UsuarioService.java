@@ -21,8 +21,8 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class UsuarioService {
-	private UsuarioRepository usuarioRepository;
-	private ChaveSegurancaService chavesegurancaService;
+	private final UsuarioRepository usuarioRepository;
+	private final ChaveSegurancaService chavesegurancaService;
 
 	public UsuarioService(UsuarioRepository usuarioRepository, ChaveSegurancaService chaveSegurancaService) {
 		super();
@@ -31,8 +31,7 @@ public class UsuarioService {
 	}
 	@Transactional
 	public List<Usuario> findAll() {
-		List<Usuario> listaUsuarios = usuarioRepository.findAll();
-		return listaUsuarios;
+        return usuarioRepository.findAll();
 	}
 	@Transactional
 	public Usuario findById(long id) {
@@ -46,8 +45,7 @@ public class UsuarioService {
 	}
 	@Transactional
 	public Usuario findByEmail(String email) {
-		Usuario usuario = this.usuarioRepository.findByEmail(email);
-		return usuario;
+        return this.usuarioRepository.findByEmail(email);
 	}
 	@Transactional
 	public Usuario save(Usuario usuario){
@@ -145,13 +143,29 @@ public class UsuarioService {
         Usuario usuarioUpdatado = null;
         if (_usuario.isPresent()) {
             usuarioUpdatado = _usuario.get();
-            usuarioUpdatado.setDataCadastro(LocalDateTime.now());
-            usuarioUpdatado.setStatusUsuario("ATIVO");
-            return usuarioRepository.save(usuarioUpdatado);
+            switch (usuarioUpdatado.getStatusUsuario()) {
+                case "INATIVO" -> {
+                    usuarioUpdatado.setDataCadastro(LocalDateTime.now());
+                    usuarioUpdatado.setStatusUsuario("ATIVO");
+                    return usuarioRepository.save(usuarioUpdatado);
+                }
+                case "ATIVO" -> throw new RuntimeException("Este usuário já está ativo") ;
+                case "BANIDO" -> throw new RuntimeException("Este usuário foi banido");
+            }
         }
         return null;
     }
-	
+	@Transactional
+	public Usuario banir(long id){
+		Optional<Usuario> _usuario = usuarioRepository.findById(id);
+		if (_usuario.isPresent()) {
+			Usuario usuario = _usuario.get();
+			usuario.setStatusUsuario("BANIDO");
+			return usuarioRepository.save(usuario);
+		}
+		else throw new RuntimeException("Esse usuário não existe no banco de dados ou ocorreu um erro no servidor");
+	}
+
 	public Usuario alterarSenha(long id, Usuario usuario) {
 		Optional<Usuario> _usuario = usuarioRepository.findById(id);
 		if (_usuario.isPresent()) {
@@ -167,12 +181,14 @@ public class UsuarioService {
 	public Usuario sigin(String email, String senha) {
 		Usuario usuario = usuarioRepository.findByEmail(email);
 		if (usuario != null) {
-			if (!usuario.getStatusUsuario().equals("INATIVO")) {
+			if (usuario.getStatusUsuario().equals("ATIVO")) {
 				byte[] decodedPass = Base64.getDecoder().decode(usuario.getSenha());
 				if (new String(decodedPass).equals(senha)) {
 					return usuario;
 				}
+				else throw new RuntimeException("A senha está incorreta");
 			}
+			else throw new RuntimeException("Este usuário está inativo, não pode fazer login");
 		}
 		return null;
 	} 
@@ -180,7 +196,6 @@ public class UsuarioService {
 	@Transactional
 	public Usuario findByChaveSeguranca(Long chaveSeguranca) {
 		ChaveSeguranca _chaveSeguranca = chavesegurancaService.findById(chaveSeguranca);
-		Usuario usuario = usuarioRepository.findByChaveSeguranca(_chaveSeguranca);
-		return usuario;
+        return usuarioRepository.findByChaveSeguranca(_chaveSeguranca);
 	}
 }

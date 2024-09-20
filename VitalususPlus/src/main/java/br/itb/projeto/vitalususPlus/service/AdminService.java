@@ -99,7 +99,7 @@ public class AdminService {
 	public Admin sigin(String email, String senha) {
 		Usuario usuario = usuarioService.findByEmail(email);
 		if (usuario != null) {
-			if (!usuario.getStatusUsuario().equals("INATIVO")) {
+			if (usuario.getStatusUsuario().equals("ATIVO")) {
 				byte[] decodedPass = Base64.getDecoder().decode(usuario.getSenha());
 				if (new String(decodedPass).equals(senha) && usuario.getTipoUsuario().equals("ADMINISTRADOR")) {
 						Admin admin = adminRepository.findByUsuario(usuario);
