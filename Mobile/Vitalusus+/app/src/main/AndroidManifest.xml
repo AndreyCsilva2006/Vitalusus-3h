@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Vitalusus"
         tools:targetApi="31">
         <activity
+            android:name=".listarUsuarios"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
@@ -24,7 +27,6 @@
         <activity
             android:name=".PlayerVideo"
             android:exported="false" />
-
         <activity
             android:name=".view.ListarAlunos"
             android:exported="false" />

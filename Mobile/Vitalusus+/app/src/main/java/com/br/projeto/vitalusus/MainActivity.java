@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     List<Usuario> usuarios = response.body();
                     // Manipule os dados de usuários, como exibi-los na UI
+
                 }
             }
 

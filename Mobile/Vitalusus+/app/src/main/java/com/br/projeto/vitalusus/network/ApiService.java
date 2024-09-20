@@ -14,4 +14,7 @@ public interface ApiService {
 
     @POST("/usuarios")
     Call<Usuario> createUsuario(@Body Usuario usuario);
+
+    @GET("/vitalusus/usuario/findAll")
+    Call<List<Usuario>> findAll();
 }

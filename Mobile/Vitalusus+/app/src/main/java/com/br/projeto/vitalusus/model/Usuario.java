@@ -15,10 +15,24 @@ public class Usuario {
     private DateTime dataCadastro;
     private String statusUsuario;
     private String tipoUsuario;
-    private String pSeguranca;
-    private String rSeguranca;
+    private String chaveSegurancaId;
+    private int nivelPrivacidade;
 
-//    Getter e Setter
+    public Usuario(Integer id, String nome, String email, String senha, String nivelAcesso, Bitmap foto, DateTime dataCadastro, String statusUsuario, String tipoUsuario, String chaveSegurancaId, int nivelPrivacidade) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.nivelAcesso = nivelAcesso;
+        this.foto = foto;
+        this.dataCadastro = dataCadastro;
+        this.statusUsuario = statusUsuario;
+        this.tipoUsuario = tipoUsuario;
+        this.chaveSegurancaId = chaveSegurancaId;
+        this.nivelPrivacidade = nivelPrivacidade;
+    }
+
+    //    Getter e Setter
 
     public Integer getId() {
         return id;
@@ -108,4 +122,19 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
+    public String getChaveSegurancaId() {
+        return chaveSegurancaId;
+    }
+
+    public void setChaveSegurancaId(String chaveSegurancaId) {
+        this.chaveSegurancaId = chaveSegurancaId;
+    }
+
+    public int getNivelPrivacidade() {
+        return nivelPrivacidade;
+    }
+
+    public void setNivelPrivacidade(int nivelPrivacidade) {
+        this.nivelPrivacidade = nivelPrivacidade;
+    }
 }
