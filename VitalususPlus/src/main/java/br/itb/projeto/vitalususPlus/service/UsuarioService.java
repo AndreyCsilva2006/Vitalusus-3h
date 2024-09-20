@@ -57,7 +57,6 @@ public class UsuarioService {
 		usuario.getDataCadastro().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		ChaveSeguranca chaveSeguranca = new ChaveSeguranca();
 		usuario.setChaveSeguranca(chaveSeguranca);
-		usuario.setNivelAcesso("USER");
 		usuario.setNivelPrivacidade("PUBLICO");
 		chavesegurancaService.save(usuario.getChaveSeguranca());
 		return usuarioRepository.save(usuario);
