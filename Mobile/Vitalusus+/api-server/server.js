@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 
 const dbConfig = {
     user: 'sa',
-    password: '@ITB123456',
+    password: 'admin123',
     server: 'localhost',
     database: 'bd_vitalusus2h',
     options: {

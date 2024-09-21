@@ -1,8 +1,10 @@
 package com.br.projeto.vitalusus.adapter;
 
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,12 +36,12 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
         holder.emailTextView.setText(String.valueOf(usuario.getEmail()));
         holder.senhaTextView.setText(String.valueOf(usuario.getSenha()));
         holder.nivelAcessoTextView.setText(String.valueOf(usuario.getNivelAcesso()));
+//        holder.fotoImageView.setImageBitmap(Bitmap.createBitmap(usuario.getFoto()));
         holder.dataCadastroTextView.setText(usuario.getDataCadastro().toString());
         holder.statusTextView.setText(String.valueOf(usuario.getStatusUsuario()));
         holder.tipoUsuarioTextView.setText(String.valueOf(usuario.getTipoUsuario()));
         holder.chaveSegurancaIdTextView.setText(String.valueOf(usuario.getChaveSegurancaId()));
         holder.nivelPrivacidadeTextView.setText(String.valueOf(usuario.getNivelPrivacidade()));
-        // Configure outros campos conforme necessário
     }
 
     @Override
@@ -52,6 +54,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
         TextView emailTextView;
         TextView senhaTextView;
         TextView nivelAcessoTextView;
+        ImageView fotoImageView;
         TextView dataCadastroTextView;
         TextView statusTextView;
         TextView tipoUsuarioTextView;
@@ -64,6 +67,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
             emailTextView = itemView.findViewById(R.id.emailUsuario);
             senhaTextView = itemView.findViewById(R.id.senhaUsuario);
             nivelAcessoTextView = itemView.findViewById(R.id.nivelAcessoUsuario);
+            fotoImageView = itemView.findViewById(R.id.fotoUsuario);
             dataCadastroTextView = itemView.findViewById(R.id.dataCadastroUsuario);
             statusTextView = itemView.findViewById(R.id.statusUsuario);
             tipoUsuarioTextView = itemView.findViewById(R.id.tipoUsuario);

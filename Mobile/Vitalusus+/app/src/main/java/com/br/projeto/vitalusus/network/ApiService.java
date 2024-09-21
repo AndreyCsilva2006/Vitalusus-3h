@@ -1,5 +1,6 @@
 package com.br.projeto.vitalusus.network;
 import com.br.projeto.vitalusus.model.Usuario;
+import com.br.projeto.vitalusus.response.UsuarioResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -12,9 +13,12 @@ public interface ApiService {
     @GET("/usuarios")
     Call<List<Usuario>> getUsuarios();
 
+    @GET("usuarios")
+    Call<List<Usuario>> findAll();
+
     @POST("/usuarios")
     Call<Usuario> createUsuario(@Body Usuario usuario);
 
-    @GET("/vitalusus/usuario/findAll")
-    Call<List<Usuario>> findAll();
+//    @GET("/vitalusus/usuario/findAll")
+//    Call<List<Usuario>> findAll();
 }

@@ -23,11 +23,11 @@ public class Usuario {
     @SerializedName("nivelAcesso")
     private String nivelAcesso;
 
-    //    @SerializedName("foto")
-//    private Bitmap foto;
+    @SerializedName("foto")
+    private Bitmap foto;
 
     @SerializedName("dataCadastro")
-    private DateTime dataCadastro;
+    private String dataCadastro;
 
     @SerializedName("statusUsuario")
     private String statusUsuario;
@@ -39,15 +39,15 @@ public class Usuario {
     private String chaveSegurancaId;
 
     @SerializedName("nivelPrivacidade")
-    private int nivelPrivacidade;
+    private String nivelPrivacidade;
 
-    public Usuario(Integer id, String nome, String email, String senha, String nivelAcesso, Bitmap foto, DateTime dataCadastro, String statusUsuario, String tipoUsuario, String chaveSegurancaId, int nivelPrivacidade) {
+    public Usuario(Integer id, String nome, String email, String senha, String nivelAcesso, Bitmap foto, String dataCadastro, String statusUsuario, String tipoUsuario, String chaveSegurancaId, String nivelPrivacidade) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.nivelAcesso = nivelAcesso;
-//        this.foto = foto;
+        this.foto = foto;
         this.dataCadastro = dataCadastro;
         this.statusUsuario = statusUsuario;
         this.tipoUsuario = tipoUsuario;
@@ -97,11 +97,11 @@ public class Usuario {
         this.nivelAcesso = nivelAcesso;
     }
 
-    public DateTime getDataCadastro() {
+    public String getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(DateTime dataCadastro) {
+    public void setDataCadastro(String dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
@@ -113,13 +113,13 @@ public class Usuario {
         this.statusUsuario = statusUsuario;
     }
 
-//    public Bitmap getFoto() {
-//        return foto;
-//    }
-//
-//    public void setFoto(Bitmap foto) {
-//        this.foto = foto;
-//    }
+    public Bitmap getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Bitmap foto) {
+        this.foto = foto;
+    }
 
     public String getTipoUsuario() {
         return tipoUsuario;
@@ -137,11 +137,11 @@ public class Usuario {
         this.chaveSegurancaId = chaveSegurancaId;
     }
 
-    public int getNivelPrivacidade() {
+    public String getNivelPrivacidade() {
         return nivelPrivacidade;
     }
 
-    public void setNivelPrivacidade(int nivelPrivacidade) {
+    public void setNivelPrivacidade(String nivelPrivacidade) {
         this.nivelPrivacidade = nivelPrivacidade;
     }
 }

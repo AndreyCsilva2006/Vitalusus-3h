@@ -12,6 +12,7 @@ import com.br.projeto.vitalusus.adapter.UsuarioAdapter;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.network.ApiService;
 import com.br.projeto.vitalusus.network.RetrofitClient;
+import com.br.projeto.vitalusus.response.UsuarioResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,12 +60,15 @@ public class listarUsuarios extends AppCompatActivity {
                     usuarioAdapter.notifyDataSetChanged();
                 } else {
                     Toast.makeText(listarUsuarios.this, "Resposta vazia ou erro na resposta", Toast.LENGTH_SHORT).show();
+                    Log.d("Retrofit Response", "Status Code: " + response.code());
+                    Log.d("Retrofit Body", "Body: " + response.body());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Usuario>> call, Throwable t) {
-                // Trate o erro
+                // Tratar o erro
+                Log.e("Retrofit Error", "Erro: " + t.getMessage());
                 Toast.makeText(listarUsuarios.this, "Erro ao carregar dados", Toast.LENGTH_SHORT).show();
             }
         });
