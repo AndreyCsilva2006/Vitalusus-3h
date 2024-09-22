@@ -70,6 +70,16 @@ public class CanalController {
 		Canal canalUpdatado = this.canalService.updateBio(id, canal);
 		return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
 	}
+		@PutMapping("updateFoto/{id}")
+		public ResponseEntity<Canal> updateFoto(@PathVariable long id, @RequestBody Canal canal) {
+			Canal canalUpdatado = this.canalService.updateFoto(id, canal);
+			return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
+		}
+		@PutMapping("updateSenha/{id}")
+		public ResponseEntity<Canal> updateUsuario(@PathVariable long id, @RequestBody Canal canal) {
+			Canal canalUpdatado = this.canalService.updateSenha(id, canal);
+			return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
+		}
 		@PutMapping("addVideoaula/{id}")
 		public ResponseEntity<Canal> addVideoaula(@PathVariable long id, @RequestBody Videoaula videoaula){
 			Canal canalUpdatado = this.canalService.addVideoaula(id, videoaula);

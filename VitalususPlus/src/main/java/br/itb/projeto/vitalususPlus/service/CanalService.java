@@ -1,6 +1,7 @@
 package br.itb.projeto.vitalususPlus.service;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -151,6 +152,27 @@ public class CanalService {
 			Canal canalUpdatado = _canal.get();
 			canalUpdatado.setNome(canal.getNome());
 			canalUpdatado = updateFix(canalUpdatado.getId());
+			return canalRepository.save(canalUpdatado);
+		}
+		return null;
+	}
+	@Transactional
+	public Canal updateSenha(Long id, Canal canal) {
+		Optional<Canal> _canal = canalRepository.findById(id);
+		if (_canal.isPresent()) {
+			Canal canalUpdatado = _canal.get();
+			String senha = Base64.getEncoder().encodeToString(canal.getTreinador().getUsuario().getSenha().getBytes());
+			canalUpdatado.getTreinador().getUsuario().setSenha(senha);
+			return canalRepository.save(canalUpdatado);
+		}
+		return canalRepository.save(canal);
+	}
+	@Transactional
+	public Canal updateFoto(Long id, Canal canal) {
+		Optional<Canal> _canal = canalRepository.findById(id);
+		if (_canal.isPresent()) {
+			Canal canalUpdatado = _canal.get();
+			canalUpdatado.getTreinador().getUsuario().setFoto(canal.getTreinador().getUsuario().getFoto());
 			return canalRepository.save(canalUpdatado);
 		}
 		return null;

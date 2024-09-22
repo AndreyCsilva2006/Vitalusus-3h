@@ -122,7 +122,6 @@ public class UsuarioService {
 			usuarioUpdatado.setSenha(senha);
 			return usuarioRepository.save(usuarioUpdatado);
 		}
-		;
 		return usuarioRepository.save(usuario);
 	}
 	@Transactional
