@@ -39,7 +39,27 @@ public class TreinadorService {
 		Treinador treinador = this.treinadorRepository.findByUsuario(usuario);
 		return treinador;
 	}
-    
+    @Transactional
+    public Treinador updateSenha(Long id, Treinador treinador) {
+        Optional<Treinador> _treinador = treinadorRepository.findById(id);
+        if (_treinador.isPresent()) {
+            Treinador treinadorUpdatado = _treinador.get();
+            String senha = Base64.getEncoder().encodeToString(treinadorUpdatado.getUsuario().getSenha().getBytes());
+            treinadorUpdatado.getUsuario().setSenha(senha);
+            return treinadorRepository.save(treinadorUpdatado);
+        }
+        return treinadorRepository.save(treinador);
+    }
+    @Transactional
+    public Treinador updateFoto(Long id, Treinador treinador) {
+        Optional<Treinador> _treinador = treinadorRepository.findById(id);
+        if (_treinador.isPresent()) {
+            Treinador treinadorUpdatado = _treinador.get();
+            treinadorUpdatado.getUsuario().setFoto(treinador.getUsuario().getFoto());
+            return treinadorRepository.save(treinadorUpdatado);
+        }
+        return null;
+    }
 	@Transactional
 	public Treinador sigin(String email, String senha) {
 		Usuario usuario = usuarioService.findByEmail(email);
