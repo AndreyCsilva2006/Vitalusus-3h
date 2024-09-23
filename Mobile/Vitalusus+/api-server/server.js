@@ -26,23 +26,65 @@ sql.connect(dbConfig, err => {
 
 app.get('/usuarios', async (req, res) => {
     try {
+        await sql.connect(dbConfig);
         const result = await sql.query`SELECT * FROM Usuario`;
         res.json(result.recordset);
     } catch (err) {
+        console.error('Erro ao buscar usuarios:', err.message);
         res.status(500).send(err.message);
+    } finally {
+        // Fecha a conexão
+        await sql.close();
+    }
+});
+
+app.get('/treinadores', async (req, res) => {
+    try {
+        await sql.connect(dbConfig);
+        const result = await sql.query`SELECT * FROM Usuario WHERE tipoUsuario = 'TREINADOR'`;
+        res.json(result.recordset);
+    } catch (err) {
+        console.error('Erro ao buscar treinadores:', err.message);
+        res.status(500).send(err.message);
+    } finally {
+        // Fecha a conexão
+        await sql.close();
+    }
+});
+
+// Rota para obter todos os usuários filtrados pelo tipoUsuario
+app.get('/usuarios', async (req, res) => {
+    // Captura o parâmetro tipoUsuario da query string
+    const tipoUsuario = req.query.tipoUsuario;
+
+    try {
+        await sql.connect(dbConfig);
+        const result = await sql.query`SELECT * FROM Usuario WHERE tipoUsuario = ${tipoUsuario}`;
+        res.json(result.recordset);
+    } catch (err) {
+        // Tratar erro
+        console.error('Erro ao buscar usuários com tipoUsuario Treinador:', err.message);
+        res.status(500).send(err.message);
+    } finally {
+        // Fecha a conexão
+        await sql.close();
     }
 });
 
 app.post('/usuarios', async (req, res) => {
     const { nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id, nivelPrivacidade } = req.body;
     try {
+        await sql.connect(dbConfig);
         const result = await sql.query`INSERT INTO Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id, nivelPrivacidade) VALUES (${nome}, ${email}, ${senha}, 'ALUNO', null, GETDATE(), 'ATIVO', ${tipoUsuario}, 1231, 'PUBLICO')`;
         res.status(201).json({ message: 'Usuário criado com sucesso!' });
     } catch (err) {
         res.status(500).send(err.message);
+    } finally {
+        // Fecha a conexão
+        await sql.close();
     }
 });
 
-app.listen(8080, () => {
-    console.log('Servidor rodando na porta 8080');
+app.listen(3030, () => {
+    console.log('Servidor rodando na porta 3030');
 });

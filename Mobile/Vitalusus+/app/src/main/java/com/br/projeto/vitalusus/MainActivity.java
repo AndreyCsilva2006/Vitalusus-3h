@@ -102,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
         Intent liC = new Intent(this, ListarCanal.class);
         startActivity(liC);
 
-
         ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
         Call<List<Usuario>> call = apiService.getUsuarios();
 

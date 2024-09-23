@@ -38,18 +38,18 @@ public class ListaCanalAdapter extends RecyclerView.Adapter<ListaCanalAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Treinador treinador = listaTreinador.get(position);
-        Canal canal = treinador.getCanal();
+//        Canal canal = treinador.getCanal();
 
-        holder.txtNomeTreinador.setText(canal.getNome());
-        holder.txtDescricaoTreinador.setText(treinador.getDescricao());
-        holder.txtSeguidores.setText("Seguidores: " + canal.getSeguidores().toString());
+//        holder.txtNomeTreinador.setText(canal.getNome());
+//        holder.txtDescricaoTreinador.setText(treinador.getDescricao());
+//        holder.txtSeguidores.setText("Seguidores: " + canal.getSeguidores().toString());
 
-        if (canal.getFoto() != null) {
-            Bitmap bitmap = BitmapFactory.decodeByteArray(canal.getFoto(), 0, canal.getFoto().length);
-            holder.imgFoto.setImageBitmap(bitmap);
-        } else {
-            holder.imgFoto.setImageResource(R.drawable.ic_launcher_background);
-        }
+//        if (canal.getFoto() != null) {
+//            Bitmap bitmap = BitmapFactory.decodeByteArray(canal.getFoto(), 0, canal.getFoto().length);
+//            holder.imgFoto.setImageBitmap(bitmap);
+//        } else {
+//            holder.imgFoto.setImageResource(R.drawable.ic_launcher_background);
+//        }
     }
 
     @Override

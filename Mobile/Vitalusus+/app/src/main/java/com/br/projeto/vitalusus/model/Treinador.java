@@ -1,41 +1,49 @@
 package com.br.projeto.vitalusus.model;
 
 public class Treinador {
-    private String nome;
-    private String descricao;
-    private Canal canal;  // Associação com a classe Canal
+    private Integer id;
+    private String cref;
+    private String dataNasc;
+    private Integer usuario_id;
 
-    public Treinador(String nome, String descricao, Canal canal) {
-        this.nome = nome;
-        this.descricao = descricao;
-        this.canal = canal;
+    public Treinador(Integer id, String cref, String dataNasc, Integer usuario_id) {
+        this.id = id;
+        this.cref = cref;
+        this.dataNasc = dataNasc;
+        this.usuario_id = usuario_id;
     }
 
-    public Treinador() {
-
+    public Integer getId() {
+        return id;
     }
 
-    public String getNome() {
-        return nome;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public String getCref() {
+        return cref;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public void setCref(String cref) {
+        this.cref = cref;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public String getDataNasc() {
+        return dataNasc;
     }
 
-    public Canal getCanal() {
-        return canal;
+    public void setDataNasc(String dataNasc) {
+        this.dataNasc = dataNasc;
     }
 
-    public void setCanal(Canal canal) {
-        this.canal = canal;
+    public Integer getUsuario_id() {
+        return usuario_id;
     }
+
+    public void setUsuario_id(Integer usuario_id) {
+        this.usuario_id = usuario_id;
+    }
+
+
 }

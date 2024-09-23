@@ -52,7 +52,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     openFragment(new HomeFragment());
                     return true;
                 } else if (itemId == R.id.bottom_canais) {
-                    openFragment(new CanaisFragment());
+//                    openFragment(new CanaisFragment());
                     return true;
                 } else if (itemId == R.id.bottom_estatisticas) {
                     openFragment(new EstatisticasFragment());
