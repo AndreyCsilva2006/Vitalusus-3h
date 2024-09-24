@@ -20,7 +20,7 @@
             android:name=".listarUsuarios"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ListarTreinadores"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
@@ -44,7 +44,7 @@
             android:name=".FormCadastro"
             android:exported="false" />
         <activity
-            android:name=".ListarTreinadores"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

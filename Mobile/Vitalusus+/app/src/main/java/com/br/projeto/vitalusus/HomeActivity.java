@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.br.projeto.vitalusus.model.Treinador;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
@@ -52,7 +53,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     openFragment(new HomeFragment());
                     return true;
                 } else if (itemId == R.id.bottom_canais) {
-//                    openFragment(new CanaisFragment());
+                    openFragment(new CanaisFragment());
                     return true;
                 } else if (itemId == R.id.bottom_estatisticas) {
                     openFragment(new EstatisticasFragment());
