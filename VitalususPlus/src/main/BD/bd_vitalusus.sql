@@ -360,6 +360,7 @@ SELECT * FROM Admin_usuario
 SELECT * FROM Deslikes
 SELECT * FROM Likes
 SELECT * FROM ChaveSeguranca
+SELECT * FROM Denuncia
 
 /*
 UPDATE Usuario SET nome = 'Maria Joana' WHERE id = 1
