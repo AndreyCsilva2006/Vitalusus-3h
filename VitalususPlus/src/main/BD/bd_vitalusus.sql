@@ -267,19 +267,6 @@ VALUES(
 	1
 )
 GO
-CREATE TABLE Tag(
-	id				INT				IDENTITY,
-	texto			VARCHAR(255)	NOT NULL,
-	videoaula_id	INT				NOT NULL,
-	
-	PRIMARY KEY(id),
-	FOREIGN KEY(videoaula_id) REFERENCES Videoaula(id)
-)
-GO
-INSERT Tag(texto, videoaula_id) VALUES(
-	'flexões',
-	1
-)
 -- Tabela Aluno_segue_canal
 CREATE TABLE Aluno_segue_canal(
 	id				INT				IDENTITY,
