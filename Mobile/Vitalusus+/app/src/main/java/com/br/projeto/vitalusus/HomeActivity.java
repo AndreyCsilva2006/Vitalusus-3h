@@ -12,9 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.br.projeto.vitalusus.model.Treinador;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
@@ -74,7 +72,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.nav_suporte) {
-            openFragment(new SuporteFragment());
+            openFragment(new RelatarProblemaFragment());
         } else if (itemId == R.id.nav_configuracoes) {
             openFragment(new ConfiguracoesFragment());
         } else if (itemId == R.id.nav_notificacoes) {

@@ -43,7 +43,7 @@ public class CanaisFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        treinadorAdapter = new TreinadorAdapter(usuarioList, treinadorList);
+//        treinadorAdapter = new TreinadorAdapter(usuarioList, treinadorList);
         recyclerView.setAdapter(treinadorAdapter);
 
         fetchTreinadores();

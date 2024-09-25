@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.br.projeto.vitalusus.adapter.TreinadorAdapter;
+import com.br.projeto.vitalusus.model.Canal;
 import com.br.projeto.vitalusus.model.Treinador;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.network.ApiService;
@@ -28,6 +29,7 @@ public class ListarTreinadores extends AppCompatActivity {
     private TreinadorAdapter treinadorAdapter;
     private List<Treinador> treinadorList = new ArrayList<>();
     private List<Usuario> usuarioList = new ArrayList<>();
+    private List<Canal> canalList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,7 @@ public class ListarTreinadores extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        treinadorAdapter = new TreinadorAdapter(usuarioList, treinadorList);
+        treinadorAdapter = new TreinadorAdapter(usuarioList, treinadorList, canalList);
         recyclerView.setAdapter(treinadorAdapter);
 
         fetchTreinadores();

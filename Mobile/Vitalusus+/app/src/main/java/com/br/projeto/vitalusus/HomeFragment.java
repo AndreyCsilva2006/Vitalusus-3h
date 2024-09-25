@@ -34,6 +34,8 @@ public class HomeFragment extends Fragment {
         // Inicia as views
         videoGrid = view.findViewById(R.id.video_grid);
 
+        getActivity().setTitle("Home");
+
         // Inicia os botões de categoria
         Button categoryHigh = view.findViewById(R.id.categoria_videosalta);
         Button categoryWorkouts = view.findViewById(R.id.categoria_treinos);
