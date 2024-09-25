@@ -85,6 +85,26 @@ app.post('/usuarios', async (req, res) => {
     }
 });
 
+app.get('/search', async (req, res) => {
+    const busca = req.query.q; // Parâmetro de busca (termo do usuário)
+
+    try {
+        const result = await sql.query`
+            SELECT V.titulo, V.descricao, V.visualizacoes, V.dataPubli, C.nome AS nomeCanal
+            FROM Videoaula V
+            JOIN Canal C ON V.canal_id = C.id
+            WHERE V.titulo LIKE '%' + ${busca} + '%'
+            OR V.descricao LIKE '%' + ${busca} + '%'
+            OR V.categoria LIKE '%' + ${busca} + '%'
+            ORDER BY V.dataPubli DESC
+        `;
+        res.json(result.recordset);
+    } catch (err) {
+        console.error('Erro na consulta: ', err);
+        res.status(500).send('Erro ao buscar vídeos');
+    }
+});
+
 app.listen(3030, () => {
     console.log('Servidor rodando na porta 3030');
 });

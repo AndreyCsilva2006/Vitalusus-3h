@@ -10,20 +10,26 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.br.projeto.vitalusus.model.Canal;
 import com.br.projeto.vitalusus.model.Video;
-
+import com.br.projeto.vitalusus.network.ApiService;
+import com.br.projeto.vitalusus.network.RetrofitClient;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
     private GridLayout videoGrid;
+    private ApiService apiService;
 
     @Nullable
     @Override
@@ -33,6 +39,9 @@ public class HomeFragment extends Fragment {
 
         // Inicia as views
         videoGrid = view.findViewById(R.id.video_grid);
+
+        // Inicializa Retrofit
+        apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
 
         getActivity().setTitle("Home");
 
@@ -58,19 +67,23 @@ public class HomeFragment extends Fragment {
         // Limpa o video grid atual
         videoGrid.removeAllViews();
 
-        // Exemplo da lista de videos (isso normalmente viria de um banco de dados ou API)
-        List<Video> videos = getMockVideos();
-
-        // Filtrar videos baseados na categoria
-        List<Video> filteredVideos = new ArrayList<>();
-        for (Video video : videos) {
-            if ("all".equals(category) || video.getCanal().getNome().equals(category)) {
-                filteredVideos.add(video);
+        // Chama a API para buscar vídeos com Retrofit
+        apiService.searchVideos(category).enqueue(new Callback<List<Video>>() {
+            @Override
+            public void onResponse(Call<List<Video>> call, Response<List<Video>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Video> videos = response.body();
+                    populateVideoGrid(videos);
+                } else {
+                    Toast.makeText(getContext(), "Nenhum vídeo encontrado", Toast.LENGTH_SHORT).show();
+                }
             }
-        }
 
-        // Popular a grid com os videos filtrados
-        populateVideoGrid(filteredVideos);
+            @Override
+            public void onFailure(Call<List<Video>> call, Throwable t) {
+                Toast.makeText(getContext(), "Erro ao buscar vídeos", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void populateVideoGrid(List<Video> videos) {
@@ -101,17 +114,6 @@ public class HomeFragment extends Fragment {
             // Adiciona a view do item ao GridLayout
             videoGrid.addView(videoItemView);
         }
-    }
-
-    // Lista simulada de vídeos, devemos substituir isso pela nossa fonte de dados real
-    private List<Video> getMockVideos() {
-        List<Video> videos = new ArrayList<>();
-        // Use thumbnails reais no formato de byte array e outros dados reais
-        videos.add(new Video(1, "Título do Vídeo 1", "01/09/2024", new Canal("Canal 1"), getMockThumbnail()));
-        videos.add(new Video(2, "Título do Vídeo 2", "02/09/2024", new Canal("Canal 2"), getMockThumbnail()));
-        videos.add(new Video(3, "Título do Vídeo 3", "03/09/2024", new Canal("Canal 3"), getMockThumbnail()));
-        // Adicione mais vídeos conforme necessário
-        return videos;
     }
 
     private byte[] getMockThumbnail() {

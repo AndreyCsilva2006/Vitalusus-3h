@@ -1,6 +1,7 @@
 package com.br.projeto.vitalusus.network;
 import com.br.projeto.vitalusus.model.Treinador;
 import com.br.projeto.vitalusus.model.Usuario;
+import com.br.projeto.vitalusus.model.Video;
 import com.br.projeto.vitalusus.response.UsuarioResponse;
 
 import retrofit2.Call;
@@ -27,6 +28,12 @@ public interface ApiService {
 
     @POST("/usuarios")
     Call<Usuario> createUsuario(@Body Usuario usuario);
+
+    @GET("/search")
+    Call<List<Video>> searchVideos(@Query("q") String query);  // Temos que substituir para o nosso endpoint real
+
+
+
 
 //    @GET("vitalusus/usuario/findAll")
 //    Call<List<Usuario>> findAll();
