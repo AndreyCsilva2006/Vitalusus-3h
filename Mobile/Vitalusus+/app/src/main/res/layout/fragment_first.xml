@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:visibility="visible"
+    tools:context=".FirstFragment"
+    tools:visibility="visible">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!--        android:fontFamily="@font/inter_semibold"-->
+
+        <TextView
+            android:id="@+id/tutorialTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="138dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="138dp"
+            android:text="Vitalusus+ "
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--        android:fontFamily="@font/lato_bold"-->
+
+
+        <TextView
+            android:id="@+id/tutorialDescricao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="15dp"
+            android:lineSpacingExtra="8sp"
+            android:text="Bem Vindo(a) ao Vitalusus+ um aplicativo que irá te deixar estruturado(a) saudávelmente de verdade"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:typeface="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tutorialTitulo" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/tutorialDescricao1"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="15dp"-->
+        <!--            android:layout_marginTop="4dp"-->
+        <!--            android:layout_marginEnd="15dp"-->
+        <!--            android:fontFamily="@font/lato_bold"-->
+        <!--            android:lineSpacingExtra="8sp"-->
+        <!--            android:text="O nosso objetivo é fornecer aos usuários informações precisas e confiáveis sobre nutrição e alimentação saudável."-->
+        <!--            android:textAlignment="center"-->
+        <!--            android:textAppearance="@style/TextAppearance.AppCompat.Display1"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            android:textSize="24sp"-->
+        <!--            android:typeface="normal"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/tutorialTitulo" />-->
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/tutorialDescricao2"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="15dp"-->
+        <!--            android:layout_marginTop="4dp"-->
+        <!--            android:layout_marginEnd="15dp"-->
+        <!--            android:fontFamily="@font/lato_bold"-->
+        <!--            android:lineSpacingExtra="8sp"-->
+        <!--            android:text="Seguidas por Treinadores que possuem CREF(Conselho Regional de Educação Física) para desenvolvimento de Videoaulas."-->
+        <!--            android:textAlignment="center"-->
+        <!--            android:textAppearance="@style/TextAppearance.AppCompat.Display1"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            android:textSize="24sp"-->
+        <!--            android:typeface="normal"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/tutorialTitulo" />-->
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/tutorialDescricao3"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="15dp"-->
+        <!--            android:layout_marginTop="4dp"-->
+        <!--            android:layout_marginEnd="15dp"-->
+        <!--            android:fontFamily="@font/lato_bold"-->
+        <!--            android:lineSpacingExtra="8sp"-->
+        <!--            android:text="Uma forma fácil e eficiente de treinar. Cadastre-se agora no botão abaixo."-->
+        <!--            android:textAlignment="center"-->
+        <!--            android:textAppearance="@style/TextAppearance.AppCompat.Display1"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            android:textSize="24sp"-->
+        <!--            android:typeface="normal"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/tutorialTitulo" />-->
+
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="350dp"
+            android:layout_marginTop="100dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/btn_anteriorTutorial"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tutorialTitulo"
+            tools:src="@drawable/logo"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/btn_proximoTutorial"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:backgroundTint="@color/red"
+            android:rotation="180"
+            android:src="@drawable/ic_seta0"
+            android:textColor="#ffffff"
+            app:layout_constraintBottom_toBottomOf="@id/cadastro"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_anteriorTutorial"
+            app:layout_constraintTop_toBottomOf="@+id/logo"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/btn_anteriorTutorial"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:backgroundTint="@color/red"
+            android:src="@drawable/ic_seta0"
+            android:textColor="#ffffff"
+            app:layout_constraintBottom_toBottomOf="@id/cadastro"
+            app:layout_constraintEnd_toStartOf="@+id/btn_proximoTutorial"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo"
+            app:tint="@color/white" />
+
+        <Button
+            android:id="@+id/cadastro"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/red"
+            android:text="Cadastro"
+            android:textColor="#ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_proximoTutorial"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

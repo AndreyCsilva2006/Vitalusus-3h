@@ -171,7 +171,11 @@ public class VideoaulaService {
             Videoaula _videoaula = videoaulaOptional.get();
             _videoaula.getAlunos().add(aluno);
             _videoaula = updateFix(_videoaula.getId());
+<<<<<<< HEAD
             return videoaulaRepository.save(_videoaula);
+=======
+//            return videoaulaRepository.save(_videoagitstatuula);
+>>>>>>> android
         }
         return null;
     }
