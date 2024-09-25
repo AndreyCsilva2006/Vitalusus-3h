@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.br.projeto.vitalusus.R;
+import com.br.projeto.vitalusus.model.Canal;
 import com.br.projeto.vitalusus.model.Treinador;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.bumptech.glide.Glide;
@@ -19,11 +20,13 @@ import java.util.List;
 public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.TreinadorViewHolder> {
     private List<Usuario> usuarios;
     private List<Treinador> treinadores;
+    private List<Canal> canais;
 
     // Construtor para passar as listas de Treinadores e Usuários
-    public TreinadorAdapter(List<Usuario> usuarios, List<Treinador> treinadores) {
+    public TreinadorAdapter(List<Usuario> usuarios, List<Treinador> treinadores, List<Canal> canais) {
         this.usuarios = usuarios;
         this.treinadores = treinadores;
+        this.canais = canais;
     }
 
     @NonNull
@@ -37,9 +40,11 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
     public void onBindViewHolder(@NonNull TreinadorViewHolder holder, int position) {
         Usuario usuario = usuarios.get(position);
         Treinador treinador = treinadores.get(position);
+        Canal canal = canais.get(position);
 
         // Atribui os valores aos componentes de interface
         holder.nomeTextView.setText(usuario.getNome());
+        holder.seguidoresTextView.setText((CharSequence) canal.getSeguidores());
 
         // Carrega a imagem (se houver) com Glide, ou usa um placeholder
         Glide.with(holder.itemView.getContext())
@@ -55,11 +60,13 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
 
     public static class TreinadorViewHolder extends RecyclerView.ViewHolder {
         TextView nomeTextView;
+        TextView seguidoresTextView;
         ImageView fotoImageView;
 
         public TreinadorViewHolder(View itemView) {
             super(itemView);
             nomeTextView = itemView.findViewById(R.id.tvNomeTreinador); // Referência ao TextView para o nome do treinador
+            seguidoresTextView = itemView.findViewById(R.id.tv_seguidores);//Referência ao TextView para os seguidores do treinador
             fotoImageView = itemView.findViewById(R.id.imgTreinador); // Referência ao ImageView para a foto do treinador
         }
     }

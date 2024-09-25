@@ -159,7 +159,7 @@ GO
 -- Tabela Canal
 CREATE TABLE Canal(
 	id				INT				IDENTITY,
-	visualizacoes	INT				NULL,
+	visualizacoes	BIGINT			NULL,
 	nome			VARCHAR(100)	NOT NULL,
 	seguidores		BIGINT			NOT NULL,
 	treinador_id	INT				NOT NULL,

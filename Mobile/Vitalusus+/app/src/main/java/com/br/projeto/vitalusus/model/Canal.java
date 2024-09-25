@@ -5,8 +5,8 @@ import java.math.BigInteger;
 public class Canal {
     private Integer id;
     private String nome;
+    private BigInteger visualizacoes;
     private BigInteger seguidores;
-    private byte[] foto;
 
     // Construtor que aceita apenas o nome
     public Canal(String nome) {
@@ -41,11 +41,11 @@ public class Canal {
         this.seguidores = seguidores;
     }
 
-    public byte[] getFoto() {
-        return foto;
+    public BigInteger getVisualizacoes() {
+        return visualizacoes;
     }
 
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
+    public void setVisualizacoes(BigInteger visualizacoes) {
+        this.visualizacoes = visualizacoes;
     }
 }

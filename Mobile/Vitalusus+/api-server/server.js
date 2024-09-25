@@ -38,10 +38,10 @@ app.get('/usuarios', async (req, res) => {
     }
 });
 
-app.get('/treinadores', async (req, res) => {
+app.get('/canais', async (req, res) => {
     try {
         await sql.connect(dbConfig);
-        const result = await sql.query`SELECT * FROM Usuario WHERE tipoUsuario = 'TREINADOR'`;
+        const result = await sql.query`SELECT * FROM Canal`;
         res.json(result.recordset);
     } catch (err) {
         console.error('Erro ao buscar treinadores:', err.message);
