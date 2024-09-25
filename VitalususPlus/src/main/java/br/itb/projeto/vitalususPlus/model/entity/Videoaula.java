@@ -33,9 +33,9 @@ public class Videoaula {
 	@Lob
 	private byte[] thumbnail;
 
-	@JsonIgnore
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@ManyToMany
-	@JoinTable(name="aluno_videoaula",
+	@JoinTable(name="Aluno_videoaula",
 			joinColumns = {@JoinColumn(name="videoaula_id")},
 			inverseJoinColumns = {@JoinColumn(name="aluno_id")})
 	private List<Aluno> alunos;
@@ -45,7 +45,7 @@ public class Videoaula {
 	@JoinColumn(name = "canal_id")
 	private Canal canal;
 
-	@JsonIgnore
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@OneToMany
 	@JoinTable(name="Likes",
 			joinColumns = {@JoinColumn(name="videoaula_id")},
@@ -53,7 +53,7 @@ public class Videoaula {
 	)
 	private List<Aluno> alunosLikes;
 
-	@JsonIgnore
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@OneToMany
 	@JoinTable(name="Deslikes",
 			joinColumns = {@JoinColumn(name="videoaula_id")},

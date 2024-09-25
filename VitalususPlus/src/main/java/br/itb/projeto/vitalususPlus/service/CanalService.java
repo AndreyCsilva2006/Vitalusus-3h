@@ -1,6 +1,7 @@
 package br.itb.projeto.vitalususPlus.service;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,13 +21,14 @@ public class CanalService {
 	private final SeguidorRepository seguidorRepository;
 	private final AlunoService alunoService;
 	private final VideoaulaService videoaulaService;
+	private final TreinadorService treinadorService;
 
-	public CanalService(CanalRepository canalRepository, SeguidorRepository seguidorRepository, AlunoService alunoService, VideoaulaService videoaulaService) {
-		super();
+	public CanalService(CanalRepository canalRepository, SeguidorRepository seguidorRepository, AlunoService alunoService, VideoaulaService videoaulaService, TreinadorService treinadorService) {
 		this.canalRepository = canalRepository;
 		this.seguidorRepository = seguidorRepository;
 		this.alunoService = alunoService;
 		this.videoaulaService = videoaulaService;
+		this.treinadorService = treinadorService;
 	}
 
 	@Transactional
@@ -47,8 +49,14 @@ public class CanalService {
 		if (canal.getAlunos() == null) {
 			canal.setAlunos(new ArrayList<>());
 		}
+		if (canal.getVideoaulas() == null){
+			canal.setVideoaulas(new ArrayList<>());
+		}
+		Treinador treinador = canal.getTreinador();
 		canal.setVisualizacoes(0);
 		canal.setSeguidores(canal.getAlunos().size());
+		canal.setNumeroVideos(canal.getVideoaulas().size());
+		treinadorService.save(treinador);
 		return canalRepository.save(canal);
 	}
 
@@ -71,10 +79,14 @@ public class CanalService {
 			if (canalUpdatado.getAlunos() == null) {
 				canalUpdatado.setAlunos(new ArrayList<>());
 			}
+			if (canalUpdatado.getVideoaulas()==null){
+				canalUpdatado.setVideoaulas(new ArrayList<>());
+			}
 			canalUpdatado.setVisualizacoes(0);
 			for (int i = 0; i < videoaula.size(); i++) {
 				canalUpdatado.setVisualizacoes(canalUpdatado.getVisualizacoes() + videoaula.get(i).getVisualizacoes());
 			}
+			canalUpdatado.setNumeroVideos(canalUpdatado.getVideoaulas().size());
 			canalUpdatado.setSeguidores(canalUpdatado.getAlunos().size());
 			return canalRepository.save(canalUpdatado);
 		}
@@ -143,5 +155,41 @@ public class CanalService {
 			return canalRepository.save(canalUpdatado);
 		}
 		return null;
+	}
+	@Transactional
+	public Canal updateSenha(Long id, Canal canal) {
+		Optional<Canal> _canal = canalRepository.findById(id);
+		if (_canal.isPresent()) {
+			Canal canalUpdatado = _canal.get();
+			String senha = Base64.getEncoder().encodeToString(canal.getTreinador().getUsuario().getSenha().getBytes());
+			canalUpdatado.getTreinador().getUsuario().setSenha(senha);
+			return canalRepository.save(canalUpdatado);
+		}
+		return canalRepository.save(canal);
+	}
+	@Transactional
+	public Canal updateFoto(Long id, Canal canal) {
+		Optional<Canal> _canal = canalRepository.findById(id);
+		if (_canal.isPresent()) {
+			Canal canalUpdatado = _canal.get();
+			canalUpdatado.getTreinador().getUsuario().setFoto(canal.getTreinador().getUsuario().getFoto());
+			return canalRepository.save(canalUpdatado);
+		}
+		return null;
+	}
+	@Transactional
+	public Canal updateBio(Long id, Canal canal) {
+		Optional<Canal> _canal = canalRepository.findById(id);
+		if (_canal.isPresent()) {
+			Canal canalUpdatado = _canal.get();
+			canalUpdatado.setBio(canal.getBio());
+			canalUpdatado = updateFix(canalUpdatado.getId());
+			return canalRepository.save(canalUpdatado);
+		}
+		return null;
+	}
+	@Transactional
+	public Canal findByTreinador(Treinador treinador) {
+		return canalRepository.findByTreinador(treinador);
 	}
 }

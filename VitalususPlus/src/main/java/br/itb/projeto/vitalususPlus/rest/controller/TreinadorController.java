@@ -49,11 +49,6 @@ public class TreinadorController {
         Treinador treinador = this.treinadorService.findById(id);
         return  new ResponseEntity<Treinador>(treinador, HttpStatus.OK);
     }
-    @PostMapping("post")
-    public ResponseEntity<Treinador> salvarTreinador(@RequestBody @Valid Treinador treinador) throws IOException {
-        Treinador treinadorSalvo = this.treinadorService.save(treinador);
-        return new ResponseEntity<Treinador>(treinadorSalvo, HttpStatus.OK);
-    }
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationException(MethodArgumentNotValidException ex){
