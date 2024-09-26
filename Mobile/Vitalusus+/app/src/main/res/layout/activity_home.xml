@@ -20,21 +20,22 @@
             android:background="@color/red"
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-        <!--
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/listview"/>
-         -->
+            <!-- Adicionando a SearchView ao Toolbar -->
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_view"
+                android:layout_gravity="right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:queryHint="Buscar vídeos..."
+                android:visibility="gone"/>
+        </androidx.appcompat.widget.Toolbar>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/fragment_container">
-
-
         </FrameLayout>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -50,7 +51,6 @@
                 app:fabCradleMargin="100dp"
                 app:fabCradleRoundedCornerRadius="50dp">
 
-
                 <com.google.android.material.bottomnavigation.BottomNavigationView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -58,12 +58,7 @@
                     app:labelVisibilityMode="labeled"
                     app:menu="@menu/bottom_navigation_menu"
                     android:background="@android:color/transparent"/>
-
-
-
             </com.google.android.material.bottomappbar.BottomAppBar>
-
-
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </RelativeLayout>
 
@@ -77,10 +72,4 @@
         android:theme="@style/ThemeOverlay.AppCompat.NavTheme"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/navigation_drawer_menu"/>
-
-
-
-
-
-
 </androidx.drawerlayout.widget.DrawerLayout>
