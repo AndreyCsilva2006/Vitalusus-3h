@@ -1,11 +1,20 @@
 package com.br.projeto.vitalusus.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.math.BigInteger;
 
 public class Canal {
+    @SerializedName("id")
     private Integer id;
+
+    @SerializedName("nome")
     private String nome;
+
+    @SerializedName("visualizacoes")
     private BigInteger visualizacoes;
+
+    @SerializedName("seguidores")
     private BigInteger seguidores;
 
     // Construtor que aceita apenas o nome

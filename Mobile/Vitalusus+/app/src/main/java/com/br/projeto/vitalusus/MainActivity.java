@@ -120,13 +120,5 @@ public class MainActivity extends AppCompatActivity {
                 // Lide com o erro
             }
         });
-
-
-
-
-
-
-
-
     }
 }

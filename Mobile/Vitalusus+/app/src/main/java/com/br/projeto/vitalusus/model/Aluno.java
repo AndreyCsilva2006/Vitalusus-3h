@@ -1,11 +1,20 @@
 package com.br.projeto.vitalusus.model;
 
 
+import com.google.gson.annotations.SerializedName;
+
 public class Aluno {
 
+    @SerializedName("id")
     private Integer id;
+
+    @SerializedName("dataNasc")
     private String dataNasc;
+
+    @SerializedName("altura")
     private Float altura;
+
+    @SerializedName("peso")
     private Float peso;
 
     private int usuario_id;

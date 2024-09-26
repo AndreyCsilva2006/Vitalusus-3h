@@ -1,9 +1,18 @@
 package com.br.projeto.vitalusus.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Treinador {
+    @SerializedName("id")
     private Integer id;
+
+    @SerializedName("cref")
     private String cref;
+
+    @SerializedName("dataNasc")
     private String dataNasc;
+
+    @SerializedName("usuario_id")
     private Integer usuario_id;
 
     public Treinador(Integer id, String cref, String dataNasc, Integer usuario_id) {

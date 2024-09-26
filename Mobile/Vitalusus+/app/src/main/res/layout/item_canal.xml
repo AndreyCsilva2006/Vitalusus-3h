@@ -8,7 +8,7 @@
     >
 
     <ImageView
-        android:id="@+id/iv_imagem"
+        android:id="@+id/imgFotoCanal"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginEnd="16dp"
@@ -21,7 +21,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_nome"
+            android:id="@+id/txtNomeCanal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nome do Treinador"
@@ -36,7 +36,7 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/tv_seguidores"
+            android:id="@+id/txtSeguidoresCanal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Seguidores"

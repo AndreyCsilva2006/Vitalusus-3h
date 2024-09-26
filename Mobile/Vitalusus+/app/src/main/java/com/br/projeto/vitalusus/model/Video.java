@@ -1,10 +1,22 @@
 package com.br.projeto.vitalusus.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Video {
+
+    @SerializedName("id")
     private long id;
+
+    @SerializedName("titulo")
     private String titulo;
+
+    @SerializedName("dataPostagem")
     private String dataPostagem;
+
+    @SerializedName("canal")
     private Canal canal;
+
+    @SerializedName("thumbnail")
     private byte[] thumbnail; // Thumbnail do vídeo
 
     // Construtor com parâmetros

@@ -13,7 +13,7 @@ import com.br.projeto.vitalusus.R;
 import com.br.projeto.vitalusus.model.Canal;
 import com.br.projeto.vitalusus.model.Treinador;
 import com.br.projeto.vitalusus.model.Usuario;
-import com.bumptech.glide.Glide;
+//import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
     @NonNull
     @Override
     public TreinadorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_treinador, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_canal, parent, false);
         return new TreinadorViewHolder(view);
     }
 
@@ -43,14 +43,14 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
         Canal canal = canais.get(position);
 
         // Atribui os valores aos componentes de interface
-        holder.nomeTextView.setText(usuario.getNome());
+        holder.nomeCanalTextView.setText(usuario.getNome());
         holder.seguidoresTextView.setText((CharSequence) canal.getSeguidores());
 
         // Carrega a imagem (se houver) com Glide, ou usa um placeholder
-        Glide.with(holder.itemView.getContext())
-                .load(usuario.getFoto()) // Substitua pelo campo real de URL de foto do treinador
-                .placeholder(R.drawable.perfil) // Placeholder enquanto carrega a imagem
-                .into(holder.fotoImageView);
+//        Glide.with(holder.itemView.getContext())
+//                .load(usuario.getFoto()) // Substitua pelo campo real de URL de foto do treinador
+//                .placeholder(R.drawable.perfil) // Placeholder enquanto carrega a imagem
+//                .into(holder.fotoImageView);
     }
 
     @Override
@@ -59,15 +59,15 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
     }
 
     public static class TreinadorViewHolder extends RecyclerView.ViewHolder {
-        TextView nomeTextView;
+        TextView nomeCanalTextView;
         TextView seguidoresTextView;
         ImageView fotoImageView;
 
         public TreinadorViewHolder(View itemView) {
             super(itemView);
-            nomeTextView = itemView.findViewById(R.id.tvNomeTreinador); // Referência ao TextView para o nome do treinador
-            seguidoresTextView = itemView.findViewById(R.id.tv_seguidores);//Referência ao TextView para os seguidores do treinador
-            fotoImageView = itemView.findViewById(R.id.imgTreinador); // Referência ao ImageView para a foto do treinador
+            nomeCanalTextView = itemView.findViewById(R.id.txtNomeCanal); // Referência ao TextView para o nome do treinador
+            seguidoresTextView = itemView.findViewById(R.id.txtSeguidoresCanal);//Referência ao TextView para os seguidores do treinador
+            fotoImageView = itemView.findViewById(R.id.imgFotoCanal); // Referência ao ImageView para a foto do treinador
         }
     }
 }

@@ -35,7 +35,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/tv_seguidores"
+        android:id="@+id/txtSeguidoresCanal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Seguidores"

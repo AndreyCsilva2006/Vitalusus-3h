@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.br.projeto.vitalusus.adapter.TreinadorAdapter;
+import com.br.projeto.vitalusus.model.Canal;
 import com.br.projeto.vitalusus.model.Treinador;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.network.ApiService;
@@ -34,6 +35,7 @@ public class CanaisFragment extends Fragment {
     private TreinadorAdapter treinadorAdapter;
     private List<Treinador> treinadorList = new ArrayList<>();
     private List<Usuario> usuarioList = new ArrayList<>();
+    private List<Canal> canalList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -43,7 +45,7 @@ public class CanaisFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-//        treinadorAdapter = new TreinadorAdapter(usuarioList, treinadorList);
+        treinadorAdapter = new TreinadorAdapter(usuarioList, treinadorList, canalList);
         recyclerView.setAdapter(treinadorAdapter);
 
         fetchTreinadores();
@@ -74,12 +76,38 @@ public class CanaisFragment extends Fragment {
                                 treinadorList.addAll(response.body());
                                 treinadorAdapter.notifyDataSetChanged();
 
-                                Toast.makeText(getContext(), "Dados carregados com sucesso", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(requireContext(), "Dados carregados com sucesso", Toast.LENGTH_SHORT).show();
                                 Log.d("Sucesso", "Número de Treinadores: " + treinadorList.size());
                                 Log.d("URL Completa", retrofit.baseUrl().toString() + "treinadores?tipoUsuario=TREINADOR");
 
+                                Call<List<Canal>> callCanal = apiService.findAllCanal();
+                                callCanal.enqueue(new Callback<List<Canal>>() {
+                                    @Override
+                                    public void onResponse(Call<List<Canal>> call, Response<List<Canal>> response) {
+                                        if (response.isSuccessful() && response.body() != null) {
+                                            canalList.clear();
+                                            canalList.addAll(response.body());
+                                            treinadorAdapter.notifyDataSetChanged();
+
+                                            Toast.makeText(requireContext(), "Dados carregados com sucesso (Canal)", Toast.LENGTH_SHORT).show();
+                                            Log.d("Sucesso", "Número de Canais: " + canalList.size());
+
+                                        } else {
+                                            Toast.makeText(requireContext(), "Resposta vazia ou erro na resposta (Canal)", Toast.LENGTH_SHORT).show();
+                                            Log.d("Retrofit Response", "Status Code: " + response.code());
+                                            Log.d("Retrofit Body", "Body: " + response.body());
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<List<Canal>> call, Throwable t) {
+                                        Log.e("Retrofit Error", "Erro: " + t.getMessage());
+                                        Toast.makeText(requireContext(), "Erro ao carregar dados do Canal", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
                             } else {
-                                Toast.makeText(getContext(), "Erro ao carregar treinadores", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(requireContext(), "Erro ao carregar treinadores", Toast.LENGTH_SHORT).show();
                                 Log.d("Erro", "Falha ao carregar treinadores: " + response.code());
                             }
                         }
@@ -87,12 +115,12 @@ public class CanaisFragment extends Fragment {
                         @Override
                         public void onFailure(Call<List<Treinador>> call, Throwable t) {
                             Log.e("Retrofit Error", "Erro: " + t.getMessage());
-                            Toast.makeText(getContext(), "Erro ao carregar dados", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), "Erro ao carregar dados", Toast.LENGTH_SHORT).show();
                         }
                     });
 
                 } else {
-                    Toast.makeText(getContext(), "Resposta vazia ou erro na resposta", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Resposta vazia ou erro na resposta (Treinador)", Toast.LENGTH_SHORT).show();
                     Log.d("Retrofit Response", "Status Code: " + response.code());
                     Log.d("Retrofit Body", "Body: " + response.body());
                     Log.d("URL Completa", retrofit.baseUrl().toString() + "treinadores?tipoUsuario=TREINADOR");
@@ -102,7 +130,7 @@ public class CanaisFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Usuario>> call, Throwable t) {
                 Log.e("Retrofit Error", "Erro: " + t.getMessage());
-                Toast.makeText(getContext(), "Erro ao carregar dados do 1º if", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Erro ao carregar dados do 1º if", Toast.LENGTH_SHORT).show();
             }
         });
 
