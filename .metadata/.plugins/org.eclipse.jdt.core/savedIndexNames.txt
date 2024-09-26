@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 INDEX VERSION 1.131+Z:\Vitalusus-3h\.metadata\.plugins\org.eclipse.jdt.core
+<<<<<<< HEAD
+3346096689.index
+=======
+INDEX VERSION 1.131+C:\Users\Carlos_083971\Desktop\Vitalusus-3h\.metadata\.plugins\org.eclipse.jdt.core
+>>>>>>> android
+=======
 3838721038.index
 1176974217.index
 543110428.index
@@ -47,6 +54,7 @@ INDEX VERSION 1.131+Z:\Vitalusus-3h\.metadata\.plugins\org.eclipse.jdt.core
 1967899032.index
 3512087974.index
 1149634090.index
+>>>>>>> origin/frontend
 3124090304.index
 2922028281.index
 487932462.index
