@@ -43,7 +43,7 @@ public class FirstFragment extends Fragment {
         imagem.setImageResource(R.drawable.img_tut0);
         btnProximoTutorial.setImageResource(R.drawable.ic_seta0);
 
-        binding.cadastro.setVisibility(View.GONE);
+        binding.cadastro.setVisibility(View.VISIBLE);
         binding.cadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +61,7 @@ public class FirstFragment extends Fragment {
                     binding.btnAnteriorTutorial.setColorFilter(ContextCompat.getColor(getContext(), R.color.white), PorterDuff.Mode.SRC_ATOP);
                 }
                 if (num_passoTut == 2) {
-                    textoTutorial.setText("Seguidas por Treinadores que possuem CREF(Conselho Regional de Educação Física) para desenvolvimento de Videoaulas.");
+                    textoTutorial.setText("Seguidas por Treinadores que possuem CREF(Conselho Regional de Educação Física) para aplicamento de Videoaulas.");
                     imagem.setImageResource(R.drawable.img_tut2);
                 }
                 if (num_passoTut == 3) {
@@ -94,7 +94,7 @@ public class FirstFragment extends Fragment {
                     imagem.setImageResource(R.drawable.img_tut1);
                 }
                 if (num_passoTut == 2) {
-                    textoTutorial.setText("Seguidas por Treinadores que possuem CREF(Conselho Regional de Educação Física) para desenvolvimento de Videoaulas.");
+                    textoTutorial.setText("Seguidas por Treinadores que possuem CREF(Conselho Regional de Educação Física) para aplicamento de Videoaulas.");
                     imagem.setImageResource(R.drawable.img_tut2);
                     binding.btnProximoTutorial.setColorFilter(ContextCompat.getColor(getContext(), R.color.white), PorterDuff.Mode.SRC_ATOP);
                 }

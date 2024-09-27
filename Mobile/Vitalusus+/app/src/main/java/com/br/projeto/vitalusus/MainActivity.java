@@ -46,10 +46,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         ImageView imageView = (ImageView) findViewById(R.id.logo);
-        imageView.setImageResource(R.drawable.logo);
+        imageView.setImageResource(R.drawable.img_tut0);
 
         //suporte actionbar
         setSupportActionBar(binding.toolbar);
+        getSupportActionBar().hide();
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();

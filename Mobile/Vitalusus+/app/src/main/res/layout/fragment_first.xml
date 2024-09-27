@@ -46,7 +46,7 @@
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:typeface="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -127,6 +127,7 @@
             android:id="@+id/btn_proximoTutorial"
             android:layout_width="64dp"
             android:layout_height="64dp"
+            android:layout_marginBottom="50dp"
             android:backgroundTint="@color/red"
             android:rotation="180"
             android:src="@drawable/ic_seta0"
@@ -141,6 +142,7 @@
             android:id="@+id/btn_anteriorTutorial"
             android:layout_width="64dp"
             android:layout_height="64dp"
+            android:layout_marginBottom="50dp"
             android:backgroundTint="@color/red"
             android:src="@drawable/ic_seta0"
             android:textColor="#ffffff"
@@ -156,13 +158,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/red"
-            android:text="Cadastro"
+            android:text="Ir para o Cadastro"
             android:textColor="#ffffff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_proximoTutorial"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/btn_proximoTutorial" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

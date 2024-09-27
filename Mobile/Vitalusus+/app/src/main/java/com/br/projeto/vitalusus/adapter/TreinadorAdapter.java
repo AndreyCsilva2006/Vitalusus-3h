@@ -17,6 +17,8 @@ import com.br.projeto.vitalusus.model.Usuario;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.TreinadorViewHolder> {
     private List<Usuario> usuarios;
     private List<Treinador> treinadores;
@@ -38,30 +40,34 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
 
     @Override
     public void onBindViewHolder(@NonNull TreinadorViewHolder holder, int position) {
-        Usuario usuario = usuarios.get(position);
-        Treinador treinador = treinadores.get(position);
-        Canal canal = canais.get(position);
+        // Verifica se a posição é válida para todas as listas
+        if (position < usuarios.size() && position < treinadores.size() && position < canais.size()) {
+            Usuario usuario = usuarios.get(position);
+            Treinador treinador = treinadores.get(position);
+            Canal canal = canais.get(position);
 
-        // Atribui os valores aos componentes de interface
-        holder.nomeCanalTextView.setText(usuario.getNome());
-        holder.seguidoresTextView.setText((CharSequence) canal.getSeguidores());
+            // Atribui os valores aos componentes de interface
+            holder.nomeCanalTextView.setText(canal.getNome());
+            holder.seguidoresTextView.setText(String.valueOf(canal.getSeguidores()));
 
-        // Carrega a imagem (se houver) com Glide, ou usa um placeholder
-//        Glide.with(holder.itemView.getContext())
-//                .load(usuario.getFoto()) // Substitua pelo campo real de URL de foto do treinador
-//                .placeholder(R.drawable.perfil) // Placeholder enquanto carrega a imagem
-//                .into(holder.fotoImageView);
+            // Carrega a imagem (se houver) com Glide, ou usa um placeholder
+//            Glide.with(holder.itemView.getContext())
+//                    .load(usuario.getFoto()) // Substitua pelo campo real de URL de foto do treinador
+//                    .placeholder(R.drawable.perfil) // Placeholder enquanto carrega a imagem
+//                    .into(holder.fotoImageView);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return treinadores.size();
+        // Retorna o tamanho da menor lista para evitar IndexOutOfBoundsException
+        return Math.min(usuarios.size(), Math.min(treinadores.size(), canais.size()));
     }
 
     public static class TreinadorViewHolder extends RecyclerView.ViewHolder {
         TextView nomeCanalTextView;
         TextView seguidoresTextView;
-        ImageView fotoImageView;
+        CircleImageView fotoImageView;
 
         public TreinadorViewHolder(View itemView) {
             super(itemView);

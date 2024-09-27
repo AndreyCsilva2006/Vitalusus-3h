@@ -4,15 +4,14 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="8dp"
-    android:layout_marginTop="60dp"
-    >
+    android:layout_marginTop="60dp">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgFotoCanal"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_launcher_background" />
+        android:src="@drawable/ic_defaultuser" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -24,22 +23,22 @@
             android:id="@+id/txtNomeCanal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nome do Treinador"
+            android:text="Nome do Canal"
             android:textSize="18sp"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_descricao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Descrição do Treinador"
-            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/txtSeguidoresCanal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Seguidores"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_descricao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descrição do Treinador"
             android:textSize="14sp" />
 
 <!--        Isso aqui é um botão, é uma TextView porém vai ser usada como botão para quando ser aplicada na

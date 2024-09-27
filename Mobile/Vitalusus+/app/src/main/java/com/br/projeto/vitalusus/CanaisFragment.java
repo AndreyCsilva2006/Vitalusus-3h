@@ -42,6 +42,8 @@ public class CanaisFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_canais, container, false);
 
+        getActivity().setTitle("Canais");
+
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -76,7 +78,7 @@ public class CanaisFragment extends Fragment {
                                 treinadorList.addAll(response.body());
                                 treinadorAdapter.notifyDataSetChanged();
 
-                                Toast.makeText(requireContext(), "Dados carregados com sucesso", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(requireContext(), "Dados carregados com sucesso", Toast.LENGTH_SHORT).show();
                                 Log.d("Sucesso", "Número de Treinadores: " + treinadorList.size());
                                 Log.d("URL Completa", retrofit.baseUrl().toString() + "treinadores?tipoUsuario=TREINADOR");
 
@@ -91,7 +93,6 @@ public class CanaisFragment extends Fragment {
 
                                             Toast.makeText(requireContext(), "Dados carregados com sucesso (Canal)", Toast.LENGTH_SHORT).show();
                                             Log.d("Sucesso", "Número de Canais: " + canalList.size());
-
                                         } else {
                                             Toast.makeText(requireContext(), "Resposta vazia ou erro na resposta (Canal)", Toast.LENGTH_SHORT).show();
                                             Log.d("Retrofit Response", "Status Code: " + response.code());
