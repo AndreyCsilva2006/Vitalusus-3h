@@ -90,7 +90,11 @@ public class CanalController {
 		Canal canalUpdatado = this.canalService.removeVideoaula(id, videoaulaId);
 		return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
 		}
-
+		@PutMapping("reativar/{id}")
+		public ResponseEntity<Canal> reativar(@PathVariable long id){
+			Canal canalUpdatado = canalService.reativar(id);
+			return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
+		}
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> handleValidationException(MethodArgumentNotValidException ex){

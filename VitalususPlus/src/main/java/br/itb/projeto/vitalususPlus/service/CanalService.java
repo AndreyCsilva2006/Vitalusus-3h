@@ -22,13 +22,18 @@ public class CanalService {
 	private final AlunoService alunoService;
 	private final VideoaulaService videoaulaService;
 	private final TreinadorService treinadorService;
+	private final UsuarioService usuarioService;
 
-	public CanalService(CanalRepository canalRepository, SeguidorRepository seguidorRepository, AlunoService alunoService, VideoaulaService videoaulaService, TreinadorService treinadorService) {
+	public CanalService(CanalRepository canalRepository, SeguidorRepository seguidorRepository,
+			AlunoService alunoService, VideoaulaService videoaulaService, TreinadorService treinadorService,
+			UsuarioService usuarioService) {
+		super();
 		this.canalRepository = canalRepository;
 		this.seguidorRepository = seguidorRepository;
 		this.alunoService = alunoService;
 		this.videoaulaService = videoaulaService;
 		this.treinadorService = treinadorService;
+		this.usuarioService = usuarioService;
 	}
 
 	@Transactional
@@ -179,6 +184,19 @@ public class CanalService {
 		}
 		return null;
 	}
+	@Transactional
+	public Canal reativar(Long id) {
+		Optional<Canal> _canal = canalRepository.findById(id);
+		if(_canal.isPresent()) {
+			Canal canalUpdatado = _canal.get();
+			Usuario usuario = canalUpdatado.getTreinador().getUsuario();
+			usuario = usuarioService.reativar(usuario.getId());
+			canalUpdatado.getTreinador().setUsuario(usuario);
+			return canalUpdatado;
+		}
+		return null;
+	}
+	
 	@Transactional
 	public Canal updateBio(Long id, Canal canal) {
 		Optional<Canal> _canal = canalRepository.findById(id);

@@ -35,7 +35,7 @@ public class VideoaulaController {
         List<Videoaula> videoaulas = this.videoaulaService.findAll();
         return new ResponseEntity<List<Videoaula>>(videoaulas, HttpStatus.OK);
     }
-    @GetMapping("findAllByCanal")
+    @PostMapping("findAllByCanal")
     public ResponseEntity<List<Videoaula>> findAllByCanal(@RequestBody Canal canal){
         List<Videoaula> videoaulas = this.videoaulaService.findAllbyCanal(canal);
         return new ResponseEntity<List<Videoaula>>(videoaulas, HttpStatus.OK);
