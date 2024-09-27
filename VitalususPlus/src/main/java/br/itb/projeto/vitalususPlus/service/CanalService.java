@@ -130,6 +130,7 @@ public class CanalService {
 			videoaula.setCanal(_canal);
 			Videoaula _videoaula = videoaulaService.save(videoaula);
 			_canal.getVideoaulas().add(_videoaula);
+			_canal = updateFix(_canal.getId());
 			return _canal;
 		}
 		return null;
@@ -141,6 +142,7 @@ public class CanalService {
 			Canal _canal = canalOptional.get();
 			Videoaula videoaula = videoaulaService.findById(videoaulaId);
 			videoaulaService.delete(videoaula.getId());
+			_canal = updateFix(_canal.getId());
 			return _canal;
 		}
 		return null;
