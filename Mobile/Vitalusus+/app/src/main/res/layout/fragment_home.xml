@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="8dp"
+    android:layout_marginTop="60dp"
+    tools:context=".HomeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Barra de Categorias -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Botões de Categoria -->
+                <Button
+                    android:id="@+id/categoria_videosalta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Em alta"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/red"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button
+                    android:id="@+id/categoria_treinos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Treinos"
+                    android:backgroundTint="@color/red"
+                    android:textColor="@color/white"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button
+                    android:id="@+id/categoria_recomendacoes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/red"
+                    android:layout_marginEnd="8dp"
+                    android:text="Recomendações"/>
+
+                <Button
+                    android:id="@+id/categoria_dieta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/red"
+                    android:layout_marginEnd="8dp"
+                    android:text="Dieta"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Grid de Vídeos -->
+        <GridLayout
+            android:id="@+id/video_grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="1"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+        </GridLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+    <!--Menu do lado, ainda iremos adicionar mais coisas -->
+    <group
+        android:checkableBehavior="single">
+
+
+    <item
+        android:id="@+id/nav_configuracoes"
+        android:icon="@drawable/configuracoes"
+        android:title="Configurações"/>
+
+
+
+        <item
+            android:id="@+id/nav_suporte"
+            android:icon="@drawable/suporte"
+            android:title="Suporte"/>
+
+        <item
+            android:id="@+id/nav_sobrenos"
+            android:icon="@drawable/baseline_question_mark_24"
+            android:title="Sobre nós"/>
+
+       <item
+           android:id="@+id/nav_notificacoes"
+           android:icon="@drawable/baseline_notifications_24"
+           android:title="Notificações"/>
+
+
+
+</group>
+</menu>

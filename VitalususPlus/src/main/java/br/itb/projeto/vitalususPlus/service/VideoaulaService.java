@@ -35,6 +35,10 @@ public class VideoaulaService {
         return videoaulaRepository.findAll();
     }
     @Transactional
+    public List<Videoaula> findAllbyCanal(Canal canal){
+        return videoaulaRepository.findAllByCanal(canal);
+    }
+    @Transactional
     public Videoaula findById(long id) {
         Optional<Videoaula> videoaula = this.videoaulaRepository.findById(id);
         return videoaula.orElseThrow(() -> new RuntimeException(
@@ -172,6 +176,7 @@ public class VideoaulaService {
             _videoaula.getAlunos().add(aluno);
             _videoaula = updateFix(_videoaula.getId());
             return videoaulaRepository.save(_videoaula);
+
         }
         return null;
     }

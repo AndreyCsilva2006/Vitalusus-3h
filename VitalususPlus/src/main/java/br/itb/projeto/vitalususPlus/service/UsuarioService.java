@@ -180,7 +180,7 @@ public class UsuarioService {
 	public Usuario sigin(String email, String senha) {
 		Usuario usuario = usuarioRepository.findByEmail(email);
 		if (usuario != null) {
-			if (usuario.getStatusUsuario().equals("ATIVO")) {
+			if (!usuario.getStatusUsuario().equals("BANIDO")) {
 				byte[] decodedPass = Base64.getDecoder().decode(usuario.getSenha());
 				if (new String(decodedPass).equals(senha)) {
 					return usuario;
