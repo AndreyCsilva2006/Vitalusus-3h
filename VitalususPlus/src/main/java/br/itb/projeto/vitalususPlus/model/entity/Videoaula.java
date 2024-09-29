@@ -27,11 +27,9 @@ public class Videoaula {
 	private long likes;
 	private long deslikes;
 	
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Lob
 	private byte[] video;
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Lob
 	private byte[] thumbnail;
 
