@@ -44,7 +44,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         // Define os outros detalhes do vídeo
         holder.videoTitle.setText(video.getTitulo());
         holder.channelName.setText(video.getCanal().getNome());
-        holder.videoDate.setText(video.getDataPostagem());
+        holder.videoDate.setText(video.getDataPubli());
     }
 
     @Override
@@ -62,9 +62,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         public VideoViewHolder(@NonNull View itemView) {
             super(itemView);
             videoThumbnail = itemView.findViewById(R.id.video_thumbnail);
-            videoTitle = itemView.findViewById(R.id.video_title);
-            channelName = itemView.findViewById(R.id.channel_name);
-            videoDate = itemView.findViewById(R.id.video_date);
+            videoTitle = itemView.findViewById(R.id.titulo);
+            channelName = itemView.findViewById(R.id.nomeCanal);
+            videoDate = itemView.findViewById(R.id.DataPubli);
         }
     }
 }

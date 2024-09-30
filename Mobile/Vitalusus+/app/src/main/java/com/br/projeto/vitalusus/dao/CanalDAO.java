@@ -30,7 +30,7 @@ public class CanalDAO {
 
             canal.setId(rs.getInt(1));
             canal.setNome(rs.getString(2));
-            canal.setSeguidores(BigInteger.valueOf(rs.getInt(3)));
+            //canal.setSeguidores(BigInteger.valueOf(rs.getInt(3)));
 
             lista.add(canal);
         }

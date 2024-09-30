@@ -14,7 +14,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import com.br.projeto.vitalusus.model.Canal;
 import com.br.projeto.vitalusus.model.Video;
 import com.br.projeto.vitalusus.network.ApiService;
 import com.br.projeto.vitalusus.network.RetrofitClient;
@@ -63,8 +62,9 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    // Método para filtrar vídeos com base na categoria
     private void filterVideos(String category) {
-        // Limpa o video grid atual
+        // Limpa o grid de vídeos atual
         videoGrid.removeAllViews();
 
         // Chama a API para buscar vídeos com Retrofit
@@ -86,6 +86,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    // Método para preencher o grid de vídeos
     private void populateVideoGrid(List<Video> videos) {
         for (Video video : videos) {
             // Verifica se o contexto está disponível
@@ -101,21 +102,23 @@ public class HomeFragment extends Fragment {
             }
 
             // Configura o título do vídeo
-            TextView videoTitle = videoItemView.findViewById(R.id.video_title);
+            TextView videoTitle = videoItemView.findViewById(R.id.titulo);
             videoTitle.setText(video.getTitulo() != null ? video.getTitulo() : "Título não disponível");
 
-            // Configura o nome do canal e a data de postagem
-            TextView channelName = videoItemView.findViewById(R.id.channel_name);
+            // Configura o nome do canal
+            TextView channelName = videoItemView.findViewById(R.id.nomeCanal);
             channelName.setText(video.getCanal() != null && video.getCanal().getNome() != null ? video.getCanal().getNome() : "Canal não disponível");
 
-            TextView videoDate = videoItemView.findViewById(R.id.video_date);
-            videoDate.setText(video.getDataPostagem() != null ? video.getDataPostagem() : "Data não disponível");
+            // Configura a data de postagem do vídeo
+            TextView videoDate = videoItemView.findViewById(R.id.DataPubli);
+            videoDate.setText(video.getDataPubli() != null ? video.getDataPubli() : "Data não disponível");
 
             // Adiciona a view do item ao GridLayout
             videoGrid.addView(videoItemView);
         }
     }
 
+    // Método auxiliar para gerar uma thumbnail mock
     private byte[] getMockThumbnail() {
         // Simule uma thumbnail para testes usando uma imagem existente
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo);

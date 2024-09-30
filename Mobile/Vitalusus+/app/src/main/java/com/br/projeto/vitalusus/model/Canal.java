@@ -5,35 +5,19 @@ import com.google.gson.annotations.SerializedName;
 import java.math.BigInteger;
 
 public class Canal {
-    @SerializedName("id")
-    private Integer id;
-
-    @SerializedName("nome")
+    private int id;
     private String nome;
-
-    @SerializedName("visualizacoes")
-    private BigInteger visualizacoes;
-
-    @SerializedName("seguidores")
-    private BigInteger seguidores;
-
-    @SerializedName("bio")
+    private long visualizacoes;
+    private long seguidores;
     private String bio;
 
-    // Construtor que aceita apenas o nome
-    public Canal(String nome) {
-        this.nome = nome;
-    }
+    // Getters e setters
 
-    // Construtor padrão
-    public Canal() { }
-
-    // Getters e Setters
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -45,20 +29,20 @@ public class Canal {
         this.nome = nome;
     }
 
-    public BigInteger getSeguidores() {
-        return seguidores;
-    }
-
-    public void setSeguidores(BigInteger seguidores) {
-        this.seguidores = seguidores;
-    }
-
-    public BigInteger getVisualizacoes() {
+    public long getVisualizacoes() {
         return visualizacoes;
     }
 
-    public void setVisualizacoes(BigInteger visualizacoes) {
+    public void setVisualizacoes(long visualizacoes) {
         this.visualizacoes = visualizacoes;
+    }
+
+    public long getSeguidores() {
+        return seguidores;
+    }
+
+    public void setSeguidores(long seguidores) {
+        this.seguidores = seguidores;
     }
 
     public String getBio() {

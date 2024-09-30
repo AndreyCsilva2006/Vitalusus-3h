@@ -45,7 +45,7 @@ public class NotificacoesAdapter extends RecyclerView.Adapter<NotificacoesAdapte
         holder.imgThumbnail.setImageBitmap(thumbnail);
 
         // Exibir a data de postagem
-        String dataFormatada = dateFormat.format(video.getDataPostagem());
+        String dataFormatada = dateFormat.format(video.getDataPubli());
         holder.txtData.setText(dataFormatada);
     }
 

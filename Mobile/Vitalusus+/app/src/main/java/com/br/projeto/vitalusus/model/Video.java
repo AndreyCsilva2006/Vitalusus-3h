@@ -1,40 +1,38 @@
 package com.br.projeto.vitalusus.model;
 
-import com.google.gson.annotations.SerializedName;
+import com.br.projeto.vitalusus.model.Canal;
 
 public class Video {
-
-    @SerializedName("id")
-    private long id;
-
-    @SerializedName("titulo")
+    private int id;
+    private String descricao;
     private String titulo;
+    private int likes;
+    private int deslikes;
+    private long visualizacoes;
+    private String dataPubli; // Formato de data
+    private String categoria;
+    private String tipoVideoaula;
+    private byte[] thumbnail; // Imagem em bytes
 
-    @SerializedName("dataPostagem")
-    private String dataPostagem;
+    private Canal canal; // Para vincular ao canal
 
-    @SerializedName("canal")
-    private Canal canal;
+    // Getters e setters
 
-    @SerializedName("thumbnail")
-    private byte[] thumbnail; // Thumbnail do vídeo
 
-    // Construtor com parâmetros
-    public Video(long id, String titulo, String dataPostagem, Canal canal, byte[] thumbnail) {
-        this.id = id;
-        this.titulo = titulo;
-        this.dataPostagem = dataPostagem;
-        this.canal = canal;
-        this.thumbnail = thumbnail;
-    }
-
-    // Getters e Setters
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getTitulo() {
@@ -45,20 +43,52 @@ public class Video {
         this.titulo = titulo;
     }
 
-    public String getDataPostagem() {
-        return dataPostagem;
+    public int getLikes() {
+        return likes;
     }
 
-    public void setDataPostagem(String dataPostagem) {
-        this.dataPostagem = dataPostagem;
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 
-    public Canal getCanal() {
-        return canal;
+    public int getDeslikes() {
+        return deslikes;
     }
 
-    public void setCanal(Canal canal) {
-        this.canal = canal;
+    public void setDeslikes(int deslikes) {
+        this.deslikes = deslikes;
+    }
+
+    public long getVisualizacoes() {
+        return visualizacoes;
+    }
+
+    public void setVisualizacoes(long visualizacoes) {
+        this.visualizacoes = visualizacoes;
+    }
+
+    public String getDataPubli() {
+        return dataPubli;
+    }
+
+    public void setDataPubli(String dataPubli) {
+        this.dataPubli = dataPubli;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getTipoVideoaula() {
+        return tipoVideoaula;
+    }
+
+    public void setTipoVideoaula(String tipoVideoaula) {
+        this.tipoVideoaula = tipoVideoaula;
     }
 
     public byte[] getThumbnail() {
@@ -67,5 +97,13 @@ public class Video {
 
     public void setThumbnail(byte[] thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    public Canal getCanal() {
+        return canal;
+    }
+
+    public void setCanal(Canal canal) {
+        this.canal = canal;
     }
 }
