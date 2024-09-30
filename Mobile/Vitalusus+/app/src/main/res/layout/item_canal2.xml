@@ -27,38 +27,13 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <!--    lado a lado -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
-
-            <TextView
-                android:id="@+id/txtSeguidoresCanal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Seguidores"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv_SeguidoresCanal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="valor de seguidores"
-                android:textSize="14sp"
-                android:layout_marginStart="8dp" />
-        </LinearLayout>
-
         <TextView
-            android:id="@+id/tv_descricao"
+            android:id="@+id/txtSeguidoresCanal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Descrição do Treinador"
+            android:text="Seguidores"
             android:textSize="14sp" />
 
-<!--        Isso aqui é um botão, é uma TextView porém vai ser usada como botão para quando ser aplicada na
-            recycleView não temos problemas de conflito quando o Usuário clicar no item(canal) desejado-->
         <Button
             android:id="@+id/btn_seguir"
             android:layout_width="wrap_content"
@@ -71,5 +46,12 @@
             android:textSize="14sp"
             app:strokeColor="#000000"
             app:strokeWidth="2dp" />
+
+        <TextView
+            android:id="@+id/tv_descricao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descrição do Treinador"
+            android:textSize="14sp" />
     </LinearLayout>
 </LinearLayout>
