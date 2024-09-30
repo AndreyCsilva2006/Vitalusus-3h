@@ -163,15 +163,17 @@ CREATE TABLE Canal(
 	nome			VARCHAR(100)	NOT NULL,
 	seguidores		BIGINT			NOT NULL,
 	treinador_id	INT				NOT NULL,
+	numeroVideos	INT				NOT NULL,
+	bio				VARCHAR(255)	NULL,
 
 	FOREIGN KEY (treinador_id) REFERENCES Treinador(id),
 	PRIMARY KEY (id)
 )
 GO
-INSERT Canal(visualizacoes, nome, seguidores, treinador_id) 
+INSERT Canal(visualizacoes, nome, seguidores, treinador_id, numeroVideos, bio) 
 VALUES(
 	3243254,
-	'Paradas Musculat�rias', 1, 1
+	'Paradas Musculat�rias', 1, 1, 1, 'é um canal muito bom' 
 )
 
 GO
