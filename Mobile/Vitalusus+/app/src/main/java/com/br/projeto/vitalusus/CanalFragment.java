@@ -7,7 +7,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,7 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class CanaisFragment extends Fragment {
+public class CanalFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private TreinadorAdapter treinadorAdapter;
@@ -41,28 +40,18 @@ public class CanaisFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_canais, container, false);
+        View view = inflater.inflate(R.layout.fragment_canal, container, false);
 
-        getActivity().setTitle("Canais");
+        getActivity().setTitle("Canal");
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        treinadorAdapter = new TreinadorAdapter(usuarioList, treinadorList, canalList, position -> {
-            openDetailFragment(canalList.get(position).getId());
-        });
+        treinadorAdapter = new TreinadorAdapter(usuarioList, treinadorList, canalList);
         recyclerView.setAdapter(treinadorAdapter);
 
         fetchTreinadores();
         return view;
-    }
-
-    private void openDetailFragment(int canalId) {
-        DetailFragment detailFragment = DetailFragment.newInstance(canalId);
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, detailFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 
     private void fetchTreinadores() {
