@@ -17,6 +17,9 @@ public class Canal {
     @SerializedName("seguidores")
     private BigInteger seguidores;
 
+    @SerializedName("bio")
+    private String bio;
+
     // Construtor que aceita apenas o nome
     public Canal(String nome) {
         this.nome = nome;
@@ -56,5 +59,13 @@ public class Canal {
 
     public void setVisualizacoes(BigInteger visualizacoes) {
         this.visualizacoes = visualizacoes;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 }
