@@ -62,6 +62,9 @@ public class VideoaulaService {
 		videoaula.getDataPubli().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         videoaula.setLikes(videoaula.getAlunosLikes().size());
         videoaula.setDeslikes(videoaula.getAlunosDeslikes().size());
+        if (videoaula.getEquipamento() == null) {
+        	videoaula.setEquipamento("Nenhum");
+        }
         return videoaulaRepository.save(videoaula);
     }
     public Videoaula postId(long id) {
@@ -112,7 +115,8 @@ public class VideoaulaService {
             _videoaula.setDescricao(videoaula.getDescricao());
             _videoaula.setThumbnail(videoaula.getThumbnail());
             _videoaula.setCategoria(videoaula.getCategoria());
-            _videoaula.setTipoVideoaula(videoaula.getTipoVideoaula());
+            _videoaula.setTags(videoaula.getTags());
+            _videoaula.setEquipamento(videoaula.getEquipamento());
             _videoaula = updateFix(_videoaula.getId());
             return videoaulaRepository.save(_videoaula);
         }
@@ -158,11 +162,11 @@ public class VideoaulaService {
         }
         return null;
     }
-    public Videoaula updateTipoVideoaula(long id, Videoaula videoaula){
+    public Videoaula updateTags(long id, Videoaula videoaula){
         Optional<Videoaula> videoaulaOptional = videoaulaRepository.findById(id);
         if(videoaulaOptional.isPresent()) {
             Videoaula _videoaula = videoaulaOptional.get();
-            _videoaula.setTipoVideoaula(videoaula.getTipoVideoaula());
+            _videoaula.setTags(videoaula.getTags());
             _videoaula = updateFix(_videoaula.getId());
             return videoaulaRepository.save(_videoaula);
         }

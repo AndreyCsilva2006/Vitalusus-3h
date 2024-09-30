@@ -204,13 +204,15 @@ CREATE TABLE Videoaula(
 	thumbnail		VARBINARY(MAX)	NULL,
 	dataPubli		SMALLDATETIME	NOT NULL,
 	categoria		VARCHAR(100)	NOT NULL,
-	tipoVideoaula	VARCHAR(100)	NOT NULL,
+	tags			VARCHAR(MAX)	NOT NULL,
+	equipamento		VARCHAR(100)	NOT NULL,	
+
 
 	FOREIGN KEY (canal_id) REFERENCES Canal(id),
 	PRIMARY KEY(id)
 )
 GO
-INSERT Videoaula(descricao, titulo, likes, deslikes, canal_id, visualizacoes, dataPubli, categoria, tipoVideoaula)
+INSERT Videoaula(descricao, titulo, likes, deslikes, canal_id, visualizacoes, dataPubli, categoria, tags, equipamento)
 VALUES(
 	'Um v�deo sobre como fazer belas flex�es',
 	'Como Fazer Flex�es',
@@ -220,7 +222,8 @@ VALUES(
 	123,
 	GETDATE(),
 	'Musculação',
-	'Flexões'
+	'Flexões',
+	'Esteira'
 )
 GO
 

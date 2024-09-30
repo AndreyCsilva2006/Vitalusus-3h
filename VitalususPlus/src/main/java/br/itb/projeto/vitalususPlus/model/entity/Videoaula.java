@@ -65,8 +65,10 @@ public class Videoaula {
 	
 	private String categoria;
 	
-	private String tipoVideoaula;
-
+	private String tags;
+	
+	private String equipamento;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "videoaula", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Comentario> comentarios;
@@ -184,12 +186,12 @@ public class Videoaula {
 		this.categoria = categoria;
 	}
 
-	public String getTipoVideoaula() {
-		return tipoVideoaula;
+	public String getTags() {
+		return tags;
 	}
 
-	public void setTipoVideoaula(String tipoVideoaula) {
-		this.tipoVideoaula = tipoVideoaula;
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 
 	public List<Comentario> getComentarios() {
@@ -200,7 +202,13 @@ public class Videoaula {
 		this.comentarios = comentarios;
 	}
 
+	public String getEquipamento() {
+		return equipamento;
+	}
 
+	public void setEquipamento(String equipamento) {
+		this.equipamento = equipamento;
+	}
 	
 	
 }
