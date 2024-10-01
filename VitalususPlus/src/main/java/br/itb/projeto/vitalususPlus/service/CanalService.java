@@ -133,7 +133,9 @@ public class CanalService {
 			Canal _canal = canalOptional.get();
 			_canal.setNome(canal.getNome());
 			_canal.setBio(canal.getBio());
+			_canal = updateFix(_canal.getId());
 			return canalRepository.save(_canal);
+			
 		}
 		return null;
 	}
