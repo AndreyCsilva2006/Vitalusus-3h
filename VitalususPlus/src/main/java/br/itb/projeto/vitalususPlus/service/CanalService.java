@@ -127,6 +127,16 @@ public class CanalService {
 		}
 		return null;
 	}
+	public Canal updateInformacoes(long id, Canal canal){
+		Optional<Canal> canalOptional = canalRepository.findById(id);
+		if(canalOptional.isPresent()) {
+			Canal _canal = canalOptional.get();
+			_canal.setNome(canal.getNome());
+			_canal.setBio(canal.getBio());
+			return canalRepository.save(_canal);
+		}
+		return null;
+	}
 	@Transactional
 	public Canal addVideoaula(long id, Videoaula videoaula){
 		Optional<Canal> canalOptional = canalRepository.findById(id);

@@ -1,9 +1,7 @@
 package br.itb.projeto.vitalususPlus.service;
 
-import br.itb.projeto.vitalususPlus.model.entity.Canal;
+import br.itb.projeto.vitalususPlus.model.entity.*;
 import br.itb.projeto.vitalususPlus.model.entity.Treinador;
-import br.itb.projeto.vitalususPlus.model.entity.Treinador;
-import br.itb.projeto.vitalususPlus.model.entity.Usuario;
 import br.itb.projeto.vitalususPlus.model.repository.TreinadorRepository;
 import br.itb.projeto.vitalususPlus.model.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
@@ -76,7 +74,6 @@ public class TreinadorService {
 			
 		return null;
 	}
-	
     public Treinador findById(long id) {
         Optional<Treinador> treinador = this.treinadorRepository.findById(id);
         return treinador.orElseThrow(() -> new RuntimeException(
