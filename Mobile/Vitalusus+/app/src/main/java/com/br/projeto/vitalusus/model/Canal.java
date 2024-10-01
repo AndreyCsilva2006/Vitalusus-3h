@@ -24,16 +24,16 @@ public class Canal implements Serializable {
     private String bio;
 
     // Chave estrangeira para associar o Canal ao Usuário (ou Treinador)
-    @SerializedName("treinadorid")
-    private int treinadorid;
+    @SerializedName("treinador_id")
+    private Integer treinador_id;
 
-    public Canal(int id, String nome, long visualizacoes, long seguidores, String bio, int treinadorid) {
+    public Canal(int id, String nome, long visualizacoes, long seguidores, String bio, Integer treinador_id) {
         this.id = id;
         this.nome = nome;
         this.visualizacoes = visualizacoes;
         this.seguidores = seguidores;
         this.bio = bio;
-        this.treinadorid = treinadorid;
+        this.treinador_id = treinador_id;
     }
 
     // Getters e Setters
@@ -79,10 +79,10 @@ public class Canal implements Serializable {
     }
 
     public int getTreinadorId() {
-        return treinadorid;
+        return treinador_id;
     }
 
-    public void setTreinadorId(int treinadorid) {
-        this.treinadorid = treinadorid;
+    public void setTreinadorId(Integer treinador_id) {
+        this.treinador_id = treinador_id;
     }
 }

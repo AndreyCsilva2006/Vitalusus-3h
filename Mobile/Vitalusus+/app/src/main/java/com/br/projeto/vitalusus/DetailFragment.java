@@ -52,20 +52,21 @@ public class DetailFragment extends Fragment {
 
         getActivity().setTitle("Detalhes do Canal");
 
-        TextView nomeTextView = view.findViewById(R.id.txtNomeCanal);
-        TextView seguidoresTextView = view.findViewById(R.id.txtSeguidoresCanal);
+        TextView nomeTextView = view.findViewById(R.id.txtNomeCanalDetail);
+        TextView seguidoresTextView = view.findViewById(R.id.tv_SeguidoresCanalDetail);
+        TextView visualizacoesTextView = view.findViewById(R.id.tv_VisualizacoesCanalDetail);
+        TextView biografiaTextView = view.findViewById(R.id.tv_BiografiaCanalDetail);
 
         // Inicie o fetch de detalhes do canal
-        fetchCanalDetails(canalId, nomeTextView, seguidoresTextView);
+        fetchCanalDetails(canalId, nomeTextView, seguidoresTextView, visualizacoesTextView, biografiaTextView);
 
         return view;
     }
 
-    private void fetchCanalDetails(int canalId, TextView nomeTextView, TextView seguidoresTextView) {
+    private void fetchCanalDetails(int canalId, TextView nomeTextView, TextView seguidoresTextView, TextView visualizacoesTextView, TextView biografiaTextView) {
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         ApiService apiService = retrofit.create(ApiService.class);
 
-        // Busca as informações do canal pelo ID
         Call<Canal> callCanal = apiService.getCanalById(canalId);
         callCanal.enqueue(new Callback<Canal>() {
             @Override
@@ -73,13 +74,20 @@ public class DetailFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     Canal canal = response.body();
 
-                    // Atualize a UI com as informações do canal
+                    // Atualiza a UI com as informações do canal
                     nomeTextView.setText(canal.getNome());
                     seguidoresTextView.setText(String.valueOf(canal.getSeguidores()));
+                    visualizacoesTextView.setText(String.valueOf(canal.getVisualizacoes()));
+                    biografiaTextView.setText(canal.getBio());
 
-                    // Aqui você deve buscar o treinador associado ao canal
-                    int treinadorId = canal.getTreinadorId(); // Obter o treinadorId do canal
-                    fetchTreinadorDetails(treinadorId); // Chamada para buscar as informações do treinador
+                    // Verifica se o treinador_id não é nulo
+                    Integer treinadorId = canal.getTreinadorId();
+                    if (treinadorId != null) {
+                        fetchTreinadorDetails(treinadorId); // Chamada para buscar as informações do treinador
+                    } else {
+                        Log.e("Erro", "TreinadorId é nulo.");
+                        Toast.makeText(getContext(), "Treinador não encontrado.", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Log.e("Erro", "Erro ao carregar canal: " + response.code());
                     Toast.makeText(getContext(), "Erro ao carregar canal.", Toast.LENGTH_SHORT).show();
@@ -94,11 +102,11 @@ public class DetailFragment extends Fragment {
         });
     }
 
+
     private void fetchTreinadorDetails(int treinadorId) {
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         ApiService apiService = retrofit.create(ApiService.class);
 
-        // Busca as informações do treinador pelo ID
         Call<Treinador> callTreinador = apiService.getTreinadorById(treinadorId);
         callTreinador.enqueue(new Callback<Treinador>() {
             @Override
@@ -106,9 +114,17 @@ public class DetailFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     Treinador treinador = response.body();
 
-                    // Agora você pode buscar as informações do usuário associado ao treinador
-                    int usuarioId = treinador.getUsuarioId(); // Obter o usuarioId do treinador
-                    fetchUsuarioDetails(usuarioId);
+                    Log.d("RespostaTreinador", "Treinador: " + treinador.toString());
+                    Log.d("RespostaJSON", response.raw().toString());  // Loga a resposta bruta da API
+
+                    // Verifica se o usuario_id não é nulo
+                    Integer usuarioId = treinador.getUsuarioId();
+                    if (usuarioId != null) {
+                        fetchUsuarioDetails(usuarioId);
+                    } else {
+                        Log.e("Erro", "Treinador ou UsuarioId é nulo.");
+                        Toast.makeText(getContext(), "Usuário do treinador não encontrado.", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Log.e("Erro", "Erro ao carregar treinador: " + response.code());
                     Toast.makeText(getContext(), "Erro ao carregar treinador.", Toast.LENGTH_SHORT).show();

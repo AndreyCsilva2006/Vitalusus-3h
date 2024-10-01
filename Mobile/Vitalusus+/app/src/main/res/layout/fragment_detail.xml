@@ -2,12 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="60dp"
     android:orientation="horizontal"
-    android:padding="8dp"
-    android:layout_marginTop="60dp">
+    android:padding="8dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgFotoCanal"
+        android:id="@+id/imgFotoCanalDetail"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginEnd="16dp"
@@ -20,7 +20,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txtNomeCanal"
+            android:id="@+id/txtNomeCanalDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nome do Canal"
@@ -34,12 +34,49 @@
             android:text="Nome do Treinador"
             android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/txtSeguidoresCanal"
+        <!--    lado a lado -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Seguidores"
-            android:textSize="14sp" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtSeguidoresCanalDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seguidores"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_SeguidoresCanalDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="valor de seguidores"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!--    lado a lado -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtVisualizacoesCanalDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Visualizações"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_VisualizacoesCanalDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="valor dev Visualizações"
+                android:textSize="14sp" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btn_seguir"
@@ -55,10 +92,21 @@
             app:strokeWidth="2dp" />
 
         <TextView
-            android:id="@+id/tv_descricao"
+            android:id="@+id/tv_BiografiaCanalDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Descrição do Treinador"
+            android:text="Biografia do Canal"
             android:textSize="14sp" />
+
+        <!-- Grid de Vídeos -->
+        <GridLayout
+            android:id="@+id/video_grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:columnCount="1"
+            android:orientation="vertical"></GridLayout>
+
     </LinearLayout>
 </LinearLayout>

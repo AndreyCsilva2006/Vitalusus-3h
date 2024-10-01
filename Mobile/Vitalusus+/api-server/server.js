@@ -89,12 +89,36 @@ sql.connect(dbConfig).then(pool => {
     });
 
     // Rota para buscar Treinador pelo ID
+//        app.get('/treinadores/:id', async (req, res) => {
+//            const treinadorId = req.params.id;
+//            try {
+//                const result = await pool.request()
+//                    .input('id', sql.Int, treinadorId)
+//                    .query('SELECT * FROM Treinador WHERE id = @id');
+//
+//                if (result.recordset.length > 0) {
+//                    res.json(result.recordset[0]);
+//                } else {
+//                    res.status(404).send('Treinador não encontrado');
+//                }
+//            } catch (err) {
+//                console.error('Erro ao buscar Treinador pelo ID:', err.message);
+//                res.status(500).send(err.message);
+//            }
+//        });
+
+        // Rota para buscar Treinador pelo ID
         app.get('/treinadores/:id', async (req, res) => {
             const treinadorId = req.params.id;
             try {
                 const result = await pool.request()
                     .input('id', sql.Int, treinadorId)
-                    .query('SELECT * FROM Treinador WHERE id = @id');
+                    .query(`
+                        SELECT T.*, U.id AS usuarioId
+                        FROM Treinador T
+                        JOIN Usuario U ON T.usuario_id = U.id
+                        WHERE T.id = @id
+                    `);
 
                 if (result.recordset.length > 0) {
                     res.json(result.recordset[0]);
@@ -106,6 +130,7 @@ sql.connect(dbConfig).then(pool => {
                 res.status(500).send(err.message);
             }
         });
+
 
         // Rota para buscar canal pelo ID
             app.get('/canais/:id', async (req, res) => {
