@@ -140,6 +140,26 @@ public class CanalService {
 		return null;
 	}
 	@Transactional
+	public Canal tornarPrivado (long id) {
+		Optional<Canal> _canal = canalRepository.findById(id);
+		if (_canal.isPresent()) {
+			Canal canalUpdatado = _canal.get();
+			canalUpdatado.getTreinador().getUsuario().setNivelPrivacidade("PRIVADO");
+			return canalRepository.save(canalUpdatado);
+		}
+		return null;
+	}
+	@Transactional
+	public Canal tornarPublico (long id) {
+		Optional<Canal> _canal = canalRepository.findById(id);
+		if (_canal.isPresent()) {
+			Canal canalUpdatado = _canal.get();
+			canalUpdatado.getTreinador().getUsuario().setNivelPrivacidade("PUBLICO");
+			return canalRepository.save(canalUpdatado);
+		}
+		return null;
+	}
+	@Transactional
 	public Canal addVideoaula(long id, Videoaula videoaula){
 		Optional<Canal> canalOptional = canalRepository.findById(id);
 		if (canalOptional.isPresent()){

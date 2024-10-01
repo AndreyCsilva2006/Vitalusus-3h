@@ -40,6 +40,16 @@ public class CanalController {
 		Canal canal = this.canalService.findById(id);
 		return new ResponseEntity<Canal>(canal, HttpStatus.OK);
 	}
+		@PutMapping("tornarPublico/{id}")
+		public ResponseEntity<Canal> tornarPublico(@PathVariable long id){
+		Canal canalUpdatado = canalService.tornarPublico(id);
+		return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
+	}
+		@PutMapping("tornarPrivado/{id}")
+		public ResponseEntity<Canal> tornarPrivado(@PathVariable long id){
+		Canal canalUpdatado = canalService.tornarPrivado(id);
+		return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
+	}
 	    @PostMapping("post")
 	    public ResponseEntity<Canal> salvarCanal(@RequestBody Canal canal){
 	        Canal canalSalvo = this.canalService.save(canal);
