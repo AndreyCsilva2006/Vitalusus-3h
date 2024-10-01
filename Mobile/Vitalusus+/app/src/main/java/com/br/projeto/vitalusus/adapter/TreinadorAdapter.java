@@ -25,15 +25,17 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
     private List<Treinador> treinadores;
     private List<Canal> canais;
     private OnItemClickListener listener;
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-    }
 
-    // Construtor para passar as listas de Treinadores e Usuários
-    public TreinadorAdapter(List<Usuario> usuarios, List<Treinador> treinadores, List<Canal> canais) {
+    // Construtor
+    public TreinadorAdapter(List<Usuario> usuarios, List<Treinador> treinadores, List<Canal> canais, OnItemClickListener listener) {
         this.usuarios = usuarios;
         this.treinadores = treinadores;
         this.canais = canais;
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Usuario usuario, Treinador treinador, Canal canal);
     }
 
     @NonNull
@@ -55,11 +57,7 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
             holder.nomeCanalTextView.setText(canal.getNome());
             holder.seguidoresTextView.setText(String.valueOf(canal.getSeguidores()));
 
-            holder.itemView.setOnClickListener(v -> {
-                if (listener != null) {
-                    listener.onItemClick(position);
-                }
-            });
+            holder.itemView.setOnClickListener(v -> listener.onItemClick(usuario, treinador, canal));
 
             // Carrega a imagem (se houver) com Glide, ou usa um placeholder
 //            Glide.with(holder.itemView.getContext())

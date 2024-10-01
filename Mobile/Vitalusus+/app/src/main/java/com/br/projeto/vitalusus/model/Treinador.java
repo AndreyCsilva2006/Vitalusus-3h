@@ -2,7 +2,12 @@ package com.br.projeto.vitalusus.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Treinador {
+import java.io.Serializable;
+
+public class Treinador implements Serializable {
+
+    private static final long serialVersionUID = 2L;
+
     @SerializedName("id")
     private Integer id;
 
@@ -12,14 +17,14 @@ public class Treinador {
     @SerializedName("dataNasc")
     private String dataNasc;
 
-    @SerializedName("usuario_id")
-    private Integer usuario_id;
+    @SerializedName("usuarioId")
+    private Integer usuarioId;
 
     public Treinador(Integer id, String cref, String dataNasc, Integer usuario_id) {
         this.id = id;
         this.cref = cref;
         this.dataNasc = dataNasc;
-        this.usuario_id = usuario_id;
+        this.usuarioId = usuarioId;
     }
 
     public Integer getId() {
@@ -46,12 +51,12 @@ public class Treinador {
         this.dataNasc = dataNasc;
     }
 
-    public Integer getUsuario_id() {
-        return usuario_id;
+    public Integer getUsuarioId() {
+        return usuarioId;
     }
 
-    public void setUsuario_id(Integer usuario_id) {
-        this.usuario_id = usuario_id;
+    public void setUsuarioId(Integer usuario_id) {
+        this.usuarioId = usuarioId;
     }
 
 

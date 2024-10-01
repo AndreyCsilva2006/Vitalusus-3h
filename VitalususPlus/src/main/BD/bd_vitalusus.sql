@@ -68,6 +68,20 @@ VALUES(
 GO
 INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id, nivelPrivacidade) 
 VALUES(
+	'Paulo',
+	'sdw21321312a@gmail.com',
+	'sdfgh$$%#D',
+	'USER',
+	null,
+	GETDATE(),
+	'ATIVO',
+	'TREINADOR',
+	1232,
+	'PUBLICO'
+)
+GO
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id, nivelPrivacidade) 
+VALUES(
 	'Don Corleone',
 	'corleoneDon@gmail.com',
 	'sdfgh$$%#D',
@@ -155,6 +169,13 @@ VALUES(
 	2
 )
 GO
+INSERT Treinador(cref, dataNasc, usuario_id)
+VALUES(
+	'123987-G/SP',
+	'1990-03-20',
+	3
+)
+GO
 
 -- Tabela Canal
 CREATE TABLE Canal(
@@ -175,8 +196,14 @@ VALUES(
 	3243254,
 	'Paradas Musculat�rias', 1, 1, 1, 'é um canal muito bom' 
 )
-
 GO
+INSERT Canal(visualizacoes, nome, seguidores, treinador_id, numeroVideos, bio) 
+VALUES(
+	100000,
+	'Academia monstro', 10000, 2, 3, 'canal academia mosntro bio' 
+)
+GO
+
 -- Tabela Banco 
 CREATE TABLE Banco(
 	id				INT				IDENTITY,

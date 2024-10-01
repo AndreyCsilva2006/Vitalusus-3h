@@ -2,16 +2,41 @@ package com.br.projeto.vitalusus.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.math.BigInteger;
+import java.io.Serializable;
 
-public class Canal {
+public class Canal implements Serializable {
+
+    private static final long serialVersionUID = 3L;
+
+    @SerializedName("id")
     private int id;
+
+    @SerializedName("nome")
     private String nome;
+
+    @SerializedName("visualizacoes")
     private long visualizacoes;
+
+    @SerializedName("seguidores")
     private long seguidores;
+
+    @SerializedName("bio")
     private String bio;
 
-    // Getters e setters
+    // Chave estrangeira para associar o Canal ao Usuário (ou Treinador)
+    @SerializedName("treinadorid")
+    private int treinadorid;
+
+    public Canal(int id, String nome, long visualizacoes, long seguidores, String bio, int treinadorid) {
+        this.id = id;
+        this.nome = nome;
+        this.visualizacoes = visualizacoes;
+        this.seguidores = seguidores;
+        this.bio = bio;
+        this.treinadorid = treinadorid;
+    }
+
+    // Getters e Setters
 
     public int getId() {
         return id;
@@ -51,5 +76,13 @@ public class Canal {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public int getTreinadorId() {
+        return treinadorid;
+    }
+
+    public void setTreinadorId(int treinadorid) {
+        this.treinadorid = treinadorid;
     }
 }

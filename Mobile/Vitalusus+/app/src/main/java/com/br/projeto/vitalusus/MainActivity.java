@@ -7,7 +7,6 @@ import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.network.RetrofitClient;
 import com.br.projeto.vitalusus.network.ApiService;
 import com.br.projeto.vitalusus.view.ListarAlunos;
-import com.br.projeto.vitalusus.view.ListarCanal;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.Nullable;
@@ -58,27 +57,27 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // infla o menu.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // infla o menu.
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -87,39 +86,4 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public void listaAluno(MenuItem item) {
-        // Intent = intenção
-        // this = tela atual
-        Intent liA = new Intent(this, ListarAlunos.class);
-        startActivity(liA);
-    }
-
-    public void config(MenuItem item) {
-        Intent con = new Intent(this, PlayerVideo.class);
-        startActivity(con);
-    }
-
-    public void listaCanal(MenuItem item) {
-        Intent liC = new Intent(this, ListarCanal.class);
-        startActivity(liC);
-
-        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
-        Call<List<Usuario>> call = apiService.getUsuarios();
-
-        call.enqueue(new Callback<List<Usuario>>() {
-            @Override
-            public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
-                if (response.isSuccessful()) {
-                    List<Usuario> usuarios = response.body();
-                    // Manipule os dados de usuários, como exibi-los na UI
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Usuario>> call, Throwable t) {
-                // Lide com o erro
-            }
-        });
-    }
 }

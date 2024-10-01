@@ -48,8 +48,8 @@ public class CanaisFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        treinadorAdapter = new TreinadorAdapter(usuarioList, treinadorList, canalList, position -> {
-            openDetailFragment(canalList.get(position).getId());
+        treinadorAdapter = new TreinadorAdapter(usuarioList, treinadorList, canalList, (usuario, treinador, canal) -> {
+            openDetailFragment(canal.getId());
         });
         recyclerView.setAdapter(treinadorAdapter);
 
@@ -69,82 +69,80 @@ public class CanaisFragment extends Fragment {
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         ApiService apiService = retrofit.create(ApiService.class);
 
-        // Chamada para buscar os usuários com tipoUsuario = "TREINADOR"
-        Call<List<Usuario>> callUsuarios = apiService.findUsuariosTreinadores("TREINADOR");
-        callUsuarios.enqueue(new Callback<List<Usuario>>() {
+        // Busca usuários com tipoUsuario "TREINADOR"
+        apiService.findUsuariosTreinadores("TREINADOR").enqueue(new Callback<List<Usuario>>() {
             @Override
             public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     usuarioList.clear();
                     usuarioList.addAll(response.body());
-                    Log.d("Sucesso", "Número de Usuários Treinadores: " + usuarioList.size());
+                    Log.d("Sucesso", "Usuários treinadores carregados: " + usuarioList.size());
 
-                    // Depois de obter os usuários, busca os treinadores
-                    Call<List<Treinador>> callTreina = apiService.findAllTreinadores();
-                    callTreina.enqueue(new Callback<List<Treinador>>() {
-                        @Override
-                        public void onResponse(Call<List<Treinador>> call, Response<List<Treinador>> response) {
-                            if (response.isSuccessful() && response.body() != null) {
-                                treinadorList.clear();
-                                treinadorList.addAll(response.body());
-                                treinadorAdapter.notifyDataSetChanged();
-
-//                                Toast.makeText(requireContext(), "Dados carregados com sucesso", Toast.LENGTH_SHORT).show();
-                                Log.d("Sucesso", "Número de Treinadores: " + treinadorList.size());
-                                Log.d("URL Completa", retrofit.baseUrl().toString() + "treinadores?tipoUsuario=TREINADOR");
-
-                                Call<List<Canal>> callCanal = apiService.findAllCanal();
-                                callCanal.enqueue(new Callback<List<Canal>>() {
-                                    @Override
-                                    public void onResponse(Call<List<Canal>> call, Response<List<Canal>> response) {
-                                        if (response.isSuccessful() && response.body() != null) {
-                                            canalList.clear();
-                                            canalList.addAll(response.body());
-                                            treinadorAdapter.notifyDataSetChanged();
-
-                                            Toast.makeText(requireContext(), "Dados carregados com sucesso (Canal)", Toast.LENGTH_SHORT).show();
-                                            Log.d("Sucesso", "Número de Canais: " + canalList.size());
-                                        } else {
-                                            Toast.makeText(requireContext(), "Resposta vazia ou erro na resposta (Canal)", Toast.LENGTH_SHORT).show();
-                                            Log.d("Retrofit Response", "Status Code: " + response.code());
-                                            Log.d("Retrofit Body", "Body: " + response.body());
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<List<Canal>> call, Throwable t) {
-                                        Log.e("Retrofit Error", "Erro: " + t.getMessage());
-                                        Toast.makeText(requireContext(), "Erro ao carregar dados do Canal", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-
-                            } else {
-                                Toast.makeText(requireContext(), "Erro ao carregar treinadores", Toast.LENGTH_SHORT).show();
-                                Log.d("Erro", "Falha ao carregar treinadores: " + response.code());
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<List<Treinador>> call, Throwable t) {
-                            Log.e("Retrofit Error", "Erro: " + t.getMessage());
-                            Toast.makeText(requireContext(), "Erro ao carregar dados", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
+                    // Após carregar os usuários, busca treinadores
+                    fetchTreinadoresData(apiService);
                 } else {
-                    Toast.makeText(requireContext(), "Resposta vazia ou erro na resposta (Treinador)", Toast.LENGTH_SHORT).show();
-                    Log.d("Retrofit Response", "Status Code: " + response.code());
-                    Log.d("Retrofit Body", "Body: " + response.body());
-                    Log.d("URL Completa", retrofit.baseUrl().toString() + "treinadores?tipoUsuario=TREINADOR");
+                    mostrarErro("Falha ao carregar usuários treinadores", response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Usuario>> call, Throwable t) {
-                Log.e("Retrofit Error", "Erro: " + t.getMessage());
-                Toast.makeText(requireContext(), "Erro ao carregar dados do 1º if", Toast.LENGTH_SHORT).show();
+                mostrarErro("Erro ao carregar usuários treinadores: " + t.getMessage());
             }
         });
+    }
 
+    private void fetchTreinadoresData(ApiService apiService) {
+        apiService.findAllTreinadores().enqueue(new Callback<List<Treinador>>() {
+            @Override
+            public void onResponse(Call<List<Treinador>> call, Response<List<Treinador>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    treinadorList.clear();
+                    treinadorList.addAll(response.body());
+                    Log.d("Sucesso", "Treinadores carregados: " + treinadorList.size());
+
+                    // Após carregar os treinadores, busca canais
+                    fetchCanaisData(apiService);
+                } else {
+                    mostrarErro("Falha ao carregar treinadores", response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Treinador>> call, Throwable t) {
+                mostrarErro("Erro ao carregar treinadores: " + t.getMessage());
+            }
+        });
+    }
+
+    private void fetchCanaisData(ApiService apiService) {
+        apiService.findAllCanal().enqueue(new Callback<List<Canal>>() {
+            @Override
+            public void onResponse(Call<List<Canal>> call, Response<List<Canal>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    canalList.clear();
+                    canalList.addAll(response.body());
+                    treinadorAdapter.notifyDataSetChanged();
+                    Log.d("Sucesso", "Canais carregados: " + canalList.size());
+                } else {
+                    mostrarErro("Falha ao carregar canais", response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Canal>> call, Throwable t) {
+                mostrarErro("Erro ao carregar canais: " + t.getMessage());
+            }
+        });
+    }
+
+    private void mostrarErro(String mensagem, int codigo) {
+        Toast.makeText(requireContext(), mensagem + " (Código: " + codigo + ")", Toast.LENGTH_SHORT).show();
+        Log.e("Erro", mensagem + " - Código: " + codigo);
+    }
+
+    private void mostrarErro(String mensagem) {
+        Toast.makeText(requireContext(), mensagem, Toast.LENGTH_SHORT).show();
+        Log.e("Erro", mensagem);
     }
 }

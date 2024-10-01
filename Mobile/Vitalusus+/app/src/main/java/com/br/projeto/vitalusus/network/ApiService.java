@@ -36,6 +36,18 @@ public interface ApiService {
     @GET("/search")
     Call<List<Video>> searchVideos(@Query("q") String query);  // Temos que substituir para o nosso endpoint real
 
+    // Método para buscar um Usuario por ID
+    @GET("/usuarios/{id}")
+    Call<Usuario> getUsuarioById(@Path("id") int id);
+
+    // Método para buscar um Treinador por ID
+    @GET("/treinadores/{id}")
+    Call<Treinador> getTreinadorById(@Path("id") int id);
+
+    // Método para buscar um Canal por ID
+    @GET("/canais/{id}")
+    Call<Canal> getCanalById(@Path("id") int id);
+
 //    @GET("vitalusus/usuario/findAll")
 //    Call<List<Usuario>> findAll();
 }

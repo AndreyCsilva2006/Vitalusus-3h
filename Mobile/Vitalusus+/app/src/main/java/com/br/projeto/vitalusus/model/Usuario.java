@@ -6,7 +6,12 @@ import com.google.gson.annotations.SerializedName;
 
 import net.sourceforge.jtds.jdbc.DateTime;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
 
     @SerializedName("id")
     private Integer id;
@@ -24,7 +29,7 @@ public class Usuario {
     private String nivelAcesso;
 
     @SerializedName("foto")
-    private Bitmap foto;
+    private byte[] foto;
 
     @SerializedName("dataCadastro")
     private String dataCadastro;
@@ -41,7 +46,7 @@ public class Usuario {
     @SerializedName("nivelPrivacidade")
     private String nivelPrivacidade;
 
-    public Usuario(Integer id, String nome, String email, String senha, String nivelAcesso, Bitmap foto, String dataCadastro, String statusUsuario, String tipoUsuario, String chaveSegurancaId, String nivelPrivacidade) {
+    public Usuario(Integer id, String nome, String email, String senha, String nivelAcesso, byte[] foto, String dataCadastro, String statusUsuario, String tipoUsuario, String chaveSegurancaId, String nivelPrivacidade) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -113,11 +118,11 @@ public class Usuario {
         this.statusUsuario = statusUsuario;
     }
 
-    public Bitmap getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
-    public void setFoto(Bitmap foto) {
+    public void setFoto(byte[] foto) {
         this.foto = foto;
     }
 

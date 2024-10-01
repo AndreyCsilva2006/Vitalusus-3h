@@ -1,14 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".DetailFragment">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:layout_marginTop="60dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgFotoCanal"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_defaultuser" />
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtNomeCanal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome do Canal"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtNomeTreinadorCanalDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome do Treinador"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtSeguidoresCanal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seguidores"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_seguir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FF0000"
+            android:clickable="true"
+            android:text="Seguir"
+            android:textColor="#FFFFFF"
+            android:textColorLink="#FFFFFF"
+            android:textSize="14sp"
+            app:strokeColor="#000000"
+            app:strokeWidth="2dp" />
+
+        <TextView
+            android:id="@+id/tv_descricao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descrição do Treinador"
+            android:textSize="14sp" />
+    </LinearLayout>
+</LinearLayout>

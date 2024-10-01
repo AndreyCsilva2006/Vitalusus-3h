@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 
 const dbConfig = {
     user: 'sa',
-    password: '@ITB123456',
+    password: 'admin123',
     server: 'localhost',
     database: 'bd_vitalusus2h',
     options: {
@@ -68,6 +68,63 @@ sql.connect(dbConfig).then(pool => {
             res.status(500).send(err.message);
         }
     });
+
+    // Rota para buscar usuário pelo ID
+    app.get('/usuarios/:id', async (req, res) => {
+        const usuarioId = req.params.id;
+        try {
+            const result = await pool.request()
+                .input('id', sql.Int, usuarioId)
+                .query('SELECT * FROM Usuario WHERE id = @id');
+
+            if (result.recordset.length > 0) {
+                res.json(result.recordset[0]);
+            } else {
+                res.status(404).send('Usuário não encontrado');
+            }
+        } catch (err) {
+            console.error('Erro ao buscar usuário pelo ID:', err.message);
+            res.status(500).send(err.message);
+        }
+    });
+
+    // Rota para buscar Treinador pelo ID
+        app.get('/treinadores/:id', async (req, res) => {
+            const treinadorId = req.params.id;
+            try {
+                const result = await pool.request()
+                    .input('id', sql.Int, treinadorId)
+                    .query('SELECT * FROM Treinador WHERE id = @id');
+
+                if (result.recordset.length > 0) {
+                    res.json(result.recordset[0]);
+                } else {
+                    res.status(404).send('Treinador não encontrado');
+                }
+            } catch (err) {
+                console.error('Erro ao buscar Treinador pelo ID:', err.message);
+                res.status(500).send(err.message);
+            }
+        });
+
+        // Rota para buscar canal pelo ID
+            app.get('/canais/:id', async (req, res) => {
+                const canalId = req.params.id;
+                try {
+                    const result = await pool.request()
+                        .input('id', sql.Int, canalId)
+                        .query('SELECT * FROM Canal WHERE id = @id');
+
+                    if (result.recordset.length > 0) {
+                        res.json(result.recordset[0]);
+                    } else {
+                        res.status(404).send('Canal não encontrado');
+                    }
+                } catch (err) {
+                    console.error('Erro ao buscar canal pelo ID:', err.message);
+                    res.status(500).send(err.message);
+                }
+            });
 
     // Rota para buscar vídeos
     app.get('/search', async (req, res) => {
