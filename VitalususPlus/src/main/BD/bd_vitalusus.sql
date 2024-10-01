@@ -199,8 +199,8 @@ VALUES(
 GO
 INSERT Canal(visualizacoes, nome, seguidores, treinador_id, numeroVideos, bio) 
 VALUES(
-	100000,
-	'Academia monstro', 10000, 2, 3, 'canal academia mosntro bio' 
+	132900,
+	'Academia monstro', 12900, 2, 3, 'canal academia mosntro bio' 
 )
 GO
 
