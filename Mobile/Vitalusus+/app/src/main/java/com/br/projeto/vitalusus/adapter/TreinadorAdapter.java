@@ -17,6 +17,7 @@ import com.br.projeto.vitalusus.model.Usuario;
 
 
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -38,6 +39,26 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
         void onItemClick(Usuario usuario, Treinador treinador, Canal canal);
     }
 
+    private String formatarNumeroAbreviado(int numero) {
+        if (numero < 1_000) {
+            return String.valueOf(numero); // Menos de mil, retorna o número normal
+        } else if (numero < 1_000_000) {
+            // Para milhares
+            if (numero % 1_000 == 0) {
+                return String.format(Locale.US, "%.0f mil", numero / 1_000.0).replace('.', ',');
+            } else {
+                return String.format(Locale.US, "%.1f mil", numero / 1_000.0).replace('.', ',');
+            }
+        } else {
+            // Para milhões
+            if (numero % 1_000_000 == 0) {
+                return String.format(Locale.US, "%.0f mi", numero / 1_000_000.0).replace('.', ',');
+            } else {
+                return String.format(Locale.US, "%.1f mi", numero / 1_000_000.0).replace('.', ',');
+            }
+        }
+    }
+
     @NonNull
     @Override
     public TreinadorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -55,7 +76,10 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
 
             // Atribui os valores aos componentes de interface
             holder.nomeCanalTextView.setText(canal.getNome());
-            holder.seguidoresTextView.setText(String.valueOf(canal.getSeguidores()));
+//            holder.seguidoresTextView.setText(String.valueOf(canal.getSeguidores()));
+
+            // Formatar e exibir seguidores
+            holder.seguidoresTextView.setText(formatarNumeroAbreviado((int) canal.getSeguidores()));
 
             holder.itemView.setOnClickListener(v -> listener.onItemClick(usuario, treinador, canal));
 

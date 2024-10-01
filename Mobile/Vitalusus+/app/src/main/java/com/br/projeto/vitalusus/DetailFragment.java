@@ -1,5 +1,8 @@
 package com.br.projeto.vitalusus;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -28,6 +31,26 @@ public class DetailFragment extends Fragment {
 
     private static final String ARG_CANAL_ID = "canal_id";
     private int canalId;
+
+    private String formatarNumeroAbreviado(int numero) {
+        if (numero < 1_000) {
+            return String.valueOf(numero); // Menos de mil, retorna o número normal
+        } else if (numero < 1_000_000) {
+            // Para milhares
+            if (numero % 1_000 == 0) {
+                return String.format(Locale.US, "%.0f mil", numero / 1_000.0).replace('.', ',');
+            } else {
+                return String.format(Locale.US, "%.1f mil", numero / 1_000.0).replace('.', ',');
+            }
+        } else {
+            // Para milhões
+            if (numero % 1_000_000 == 0) {
+                return String.format(Locale.US, "%.0f mi", numero / 1_000_000.0).replace('.', ',');
+            } else {
+                return String.format(Locale.US, "%.1f mi", numero / 1_000_000.0).replace('.', ',');
+            }
+        }
+    }
 
     public static DetailFragment newInstance(int canalId) {
         DetailFragment fragment = new DetailFragment();
@@ -76,8 +99,11 @@ public class DetailFragment extends Fragment {
 
                     // Atualiza a UI com as informações do canal
                     nomeTextView.setText(canal.getNome());
-                    seguidoresTextView.setText(String.valueOf(canal.getSeguidores()));
-                    visualizacoesTextView.setText(String.valueOf(canal.getVisualizacoes()));
+
+                    // Formata o número de seguidores e visualizações
+                    seguidoresTextView.setText(formatarNumeroAbreviado((int) canal.getSeguidores()));
+                    visualizacoesTextView.setText(formatarNumeroAbreviado((int) canal.getVisualizacoes()));
+
                     biografiaTextView.setText(canal.getBio());
 
                     // Verifica se o treinador_id não é nulo
