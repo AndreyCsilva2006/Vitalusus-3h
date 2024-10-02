@@ -18,7 +18,14 @@ import android.widget.TextView;
 //import com.br.projeto.vitalusus.dao.UsuarioDAO;
 import com.br.projeto.vitalusus.model.Aluno;
 import com.br.projeto.vitalusus.model.Usuario;
+import com.br.projeto.vitalusus.network.ApiService;
+import com.br.projeto.vitalusus.network.RetrofitClient;
 import com.br.projeto.vitalusus.util.MensagemUtil;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 // código copiado e adaptador da ActivityAluno (com.br.projeto.vitalusus.view.ActivityAluno).
 public class FormCadastro extends AppCompatActivity {
@@ -292,11 +299,12 @@ public class FormCadastro extends AppCompatActivity {
             return;
         }
 
-        // Código comentado para estudar mais profundo.
-//    Usuario novoUsuario = new Usuario(/* parâmetros */);
-//    Aluno novoAluno = new Aluno(/* parâmetros */);
-//    ApiService apiService = RetrofitClient.getApiService();
-//    Call<Usuario> call = apiService.createUsuario(novoUsuario);
+        // retrofit api
+//    Usuario novoUsuario = new Usuario();
+//    Aluno novoAluno = new Aluno();
+//    Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+//        ApiService apiService = retrofit.create(ApiService.class);
+//        Call<Usuario> call = apiService.createUsuario(novoUsuario);
 //
 //    call.enqueue(new Callback<Usuario>() {
 //        @Override
