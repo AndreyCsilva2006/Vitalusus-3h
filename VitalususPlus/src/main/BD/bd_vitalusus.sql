@@ -164,7 +164,7 @@ CREATE TABLE Canal(
 	seguidores		BIGINT			NOT NULL,
 	treinador_id	INT				NOT NULL,
 	numeroVideos	INT				NOT NULL,
-	bio				VARCHAR(255)	NULL,
+	bio				VARCHAR(MAX)	NULL,
 
 	FOREIGN KEY (treinador_id) REFERENCES Treinador(id),
 	PRIMARY KEY (id)
@@ -194,7 +194,7 @@ GO
 -- Tabela Videoaula
 CREATE TABLE Videoaula(
 	id				INT				IDENTITY,
-	descricao		VARCHAR(255)	NULL,
+	descricao		VARCHAR(MAX)	NULL,
 	titulo			VARCHAR(100)	NOT NULL,
 	likes			INT				NULL,
 	deslikes		INT				NULL,
