@@ -76,7 +76,6 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
 
             // Atribui os valores aos componentes de interface
             holder.nomeCanalTextView.setText(canal.getNome());
-//            holder.seguidoresTextView.setText(String.valueOf(canal.getSeguidores()));
 
             // Formatar e exibir seguidores
             holder.seguidoresTextView.setText(formatarNumeroAbreviado((int) canal.getSeguidores()));

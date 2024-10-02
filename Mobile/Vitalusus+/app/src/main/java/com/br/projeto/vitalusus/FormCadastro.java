@@ -273,7 +273,7 @@ public class FormCadastro extends AppCompatActivity {
             editAltura.requestFocus();
             return false;
         }
-        if (editAltura.getText().toString().trim().length() < 1 ) {
+        if (editAltura.getText().toString().trim().length() < 1) {
             editAltura.setBackground(redBorder);
 
             MensagemUtil.exibir(this, "Digite sua Altura.");
@@ -285,12 +285,48 @@ public class FormCadastro extends AppCompatActivity {
         return true;
     }
 
+
     private void salvar() {
-        // se ele o método validar() não for verdadeiro...
+        // se ele o método validar() não for verdadeiro.
         if (!validar()) {
-            // retorne tudo novamente.
             return;
         }
+
+        // Código comentado para estudar mais profundo.
+//    Usuario novoUsuario = new Usuario(/* parâmetros */);
+//    Aluno novoAluno = new Aluno(/* parâmetros */);
+//    ApiService apiService = RetrofitClient.getApiService();
+//    Call<Usuario> call = apiService.createUsuario(novoUsuario);
+//
+//    call.enqueue(new Callback<Usuario>() {
+//        @Override
+//        public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+//            if (response.isSuccessful()) {
+//                // Aqui você poderia adicionar o aluno se necessário
+//                novoAluno.setUsuario_id(response.body().getId()); // use o ID do usuário criado
+//                apiService.createAluno(novoAluno).enqueue(new Callback<Aluno>() {
+//                    @Override
+//                    public void onResponse(Call<Aluno> call, Response<Aluno> response) {
+//                        if (response.isSuccessful()) {
+//                            // Sucesso na criação do aluno
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Aluno> call, Throwable t) {
+//                        // Tratamento de erro
+//                    }
+//                });
+//            }
+//        }
+//
+//        @Override
+//        public void onFailure(Call<Usuario> call, Throwable t) {
+//            // Tratamento de erro
+//        }
+//    });
+
+
 //        Aluno a = new Aluno();
 //        Usuario u = new Usuario();
 

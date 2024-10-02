@@ -1,4 +1,5 @@
 package com.br.projeto.vitalusus.network;
+import com.br.projeto.vitalusus.model.Aluno;
 import com.br.projeto.vitalusus.model.Canal;
 import com.br.projeto.vitalusus.model.Treinador;
 import com.br.projeto.vitalusus.model.Usuario;
@@ -30,9 +31,6 @@ public interface ApiService {
     @GET("usuarios")
     Call<List<Usuario>> findUsuariosTreinadores(@Query("tipoUsuario") String tipoUsuario);
 
-    @POST("/usuarios")
-    Call<Usuario> createUsuario(@Body Usuario usuario);
-
     @GET("/search")
     Call<List<Video>> searchVideos(@Query("q") String query);  // Temos que substituir para o nosso endpoint real
 
@@ -48,6 +46,11 @@ public interface ApiService {
     @GET("/canais/{id}")
     Call<Canal> getCanalById(@Path("id") int id);
 
-//    @GET("vitalusus/usuario/findAll")
-//    Call<List<Usuario>> findAll();
+    // POST
+    @POST("/usuarios")
+    Call<Usuario> createUsuario(@Body Usuario usuario);
+
+    @POST("/alunos")
+    Call<Aluno> createAluno(@Body Aluno aluno);
+
 }

@@ -12,12 +12,21 @@ public class Aluno {
     private String dataNasc;
 
     @SerializedName("altura")
-    private Float altura;
+    private double altura;
 
     @SerializedName("peso")
-    private Float peso;
+    private double peso;
 
+    @SerializedName("usuario_id")
     private int usuario_id;
+
+    public Aluno(Integer id, String dataNasc, double altura, double peso, int usuario_id) {
+        this.id = id;
+        this.dataNasc = dataNasc;
+        this.altura = altura;
+        this.peso = peso;
+        this.usuario_id = usuario_id;
+    }
 
     public Integer getId() {
         return id;
@@ -35,19 +44,19 @@ public class Aluno {
         this.dataNasc = dataNasc;
     }
 
-    public Float getAltura() {
+    public double getAltura() {
         return altura;
     }
 
-    public void setAltura(Float altura) {
+    public void setAltura(double altura) {
         this.altura = altura;
     }
 
-    public Float getPeso() {
+    public double getPeso() {
         return peso;
     }
 
-    public void setPeso(Float peso) {
+    public void setPeso(double peso) {
         this.peso = peso;
     }
 

@@ -185,7 +185,7 @@ CREATE TABLE Canal(
 	seguidores		BIGINT			NOT NULL,
 	treinador_id	INT				NOT NULL,
 	numeroVideos	INT				NOT NULL,
-	bio				VARCHAR(255)	NULL,
+	bio				VARCHAR(MAX)	NULL,
 
 	FOREIGN KEY (treinador_id) REFERENCES Treinador(id),
 	PRIMARY KEY (id)
@@ -194,16 +194,14 @@ GO
 INSERT Canal(visualizacoes, nome, seguidores, treinador_id, numeroVideos, bio) 
 VALUES(
 	3243254,
-	'Paradas Musculat�rias', 1, 1, 1, 'é um canal muito bom' 
+	'Paradas Musculat�rias', 35000560, 1, 1, 'é um canal muito bom' 
 )
 GO
 INSERT Canal(visualizacoes, nome, seguidores, treinador_id, numeroVideos, bio) 
 VALUES(
-	132900,
-	'Academia monstro', 12900, 2, 3, 'canal academia mosntro bio' 
+	13900,'Academia monstro', 12900, 2, 3, 'canal academia mosntro bio' 
 )
 GO
-
 -- Tabela Banco 
 CREATE TABLE Banco(
 	id				INT				IDENTITY,
@@ -221,7 +219,7 @@ GO
 -- Tabela Videoaula
 CREATE TABLE Videoaula(
 	id				INT				IDENTITY,
-	descricao		VARCHAR(255)	NULL,
+	descricao		VARCHAR(MAX)	NULL,
 	titulo			VARCHAR(100)	NOT NULL,
 	likes			INT				NULL,
 	deslikes		INT				NULL,

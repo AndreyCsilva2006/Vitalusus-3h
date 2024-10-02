@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 
 const dbConfig = {
     user: 'sa',
-    password: 'admin123',
+    password: '@ITB123456',
     server: 'localhost',
     database: 'bd_vitalusus2h',
     options: {
@@ -88,25 +88,6 @@ sql.connect(dbConfig).then(pool => {
         }
     });
 
-    // Rota para buscar Treinador pelo ID
-//        app.get('/treinadores/:id', async (req, res) => {
-//            const treinadorId = req.params.id;
-//            try {
-//                const result = await pool.request()
-//                    .input('id', sql.Int, treinadorId)
-//                    .query('SELECT * FROM Treinador WHERE id = @id');
-//
-//                if (result.recordset.length > 0) {
-//                    res.json(result.recordset[0]);
-//                } else {
-//                    res.status(404).send('Treinador não encontrado');
-//                }
-//            } catch (err) {
-//                console.error('Erro ao buscar Treinador pelo ID:', err.message);
-//                res.status(500).send(err.message);
-//            }
-//        });
-
         // Rota para buscar Treinador pelo ID
         app.get('/treinadores/:id', async (req, res) => {
             const treinadorId = req.params.id;
@@ -175,7 +156,7 @@ sql.connect(dbConfig).then(pool => {
 
     // Rota para criar um usuário
     app.post('/usuarios', async (req, res) => {
-        const { nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, chaveSeguranca_id, nivelPrivacidade } = req.body;
+        const { nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, chaveSeguranca_id, nivelPrivacidade, dataNasc, altura, peso } = req.body;
         try {
             const result = await pool.request()
                 .input('nome', sql.VarChar, nome)
@@ -192,9 +173,23 @@ sql.connect(dbConfig).then(pool => {
                     INSERT INTO Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, chaveSeguranca_id, nivelPrivacidade)
                     VALUES (@nome, @email, @senha, @nivelAcesso, @foto, @dataCadastro, @statusUsuario, @tipoUsuario, @chaveSeguranca_id, @nivelPrivacidade)
                 `);
-            res.status(201).json({ message: 'Usuário criado com sucesso!' });
+
+                const usuarioId = result.recordset[0].id; // pra pegar o ID gerado
+
+                // inserir aluno
+                        await pool.request()
+                            .input('dataNasc', sql.Date, dataNasc)
+                            .input('altura', sql.Decimal, altura)
+                            .input('peso', sql.Decimal, peso)
+                            .input('usuario_id', sql.Int, usuarioId)
+                            .query(`
+                                INSERT INTO Aluno (dataNasc, altura, peso, usuario_id)
+                                VALUES (@dataNasc, @altura, @peso, @usuario_id);
+                            `);
+
+            res.status(201).json({ message: 'Usuário e Aluno criado com sucesso!' });
         } catch (err) {
-            console.error('Erro ao criar usuário:', err.message);
+            console.error('Erro ao criar usuário e Aluno:', err.message);
             res.status(500).send(err.message);
         }
     });
