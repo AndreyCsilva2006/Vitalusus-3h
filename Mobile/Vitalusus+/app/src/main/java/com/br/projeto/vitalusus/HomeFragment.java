@@ -81,10 +81,13 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Video>> call, Throwable t) {
-                Toast.makeText(getContext(), "Erro ao buscar vídeos", Toast.LENGTH_SHORT).show();
+                // Verifica se o Fragment ainda está associado a um Context antes de exibir o Toast
+                if (getContext() != null) {
+                    Toast.makeText(getContext(), "Falha ao carregar os vídeos", Toast.LENGTH_SHORT).show();
+                }
+                // Outras ações de falha
             }
-        });
-    }
+
 
     // Método para preencher o grid de vídeos
     private void populateVideoGrid(List<Video> videos) {
@@ -126,4 +129,5 @@ public class HomeFragment extends Fragment {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         return stream.toByteArray();
     }
-}
+});
+    }}

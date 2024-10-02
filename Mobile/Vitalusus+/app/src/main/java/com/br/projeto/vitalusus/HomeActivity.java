@@ -77,6 +77,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         openFragment(new HomeFragment()); // Abre o HomeFragment inicialmente
     }
 
+
     // Controla a navegação no drawer
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

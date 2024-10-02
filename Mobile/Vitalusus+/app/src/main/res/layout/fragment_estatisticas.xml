@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:theme="@style/Base.Theme.Vitalusus.Light">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,8 +14,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="70dp">
+            android:layout_marginTop="70dp"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/et_peso"
@@ -47,22 +47,22 @@
             android:id="@+id/rg_genero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/rb_masculino"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:theme="@style/RadioButtonStyle"
-                android:text="Masculino" />
+                android:text="Masculino"
+                android:theme="@style/RadioButtonStyle" />
 
             <RadioButton
                 android:id="@+id/rb_feminino"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:theme="@style/RadioButtonStyle"
-                android:text="Feminino" />
+                android:text="Feminino"
+                android:theme="@style/RadioButtonStyle" />
         </RadioGroup>
 
         <!-- Nível de atividade física -->
@@ -70,29 +70,29 @@
             android:id="@+id/rg_atividade_fisica"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical">
 
             <RadioButton
                 android:id="@+id/rb_sedentario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:theme="@style/RadioButtonStyle"
-                android:text="Nenhuma atividade física" />
+                android:text="Nenhuma atividade física"
+                android:theme="@style/RadioButtonStyle" />
 
             <RadioButton
                 android:id="@+id/rb_moderado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:theme="@style/RadioButtonStyle"
-                android:text="Atividade física moderada (meia hora de exercício, 4x por semana)" />
+                android:text="Atividade física moderada (meia hora de exercício, 4x por semana)"
+                android:theme="@style/RadioButtonStyle" />
 
             <RadioButton
                 android:id="@+id/rb_intenso"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:theme="@style/RadioButtonStyle"
-                android:text="Atividade física intensa (1h de exercício, 4x por semana)" />
+                android:text="Atividade física intensa (1h de exercício, 4x por semana)"
+                android:theme="@style/RadioButtonStyle" />
         </RadioGroup>
 
         <!-- Botão para calcular -->
