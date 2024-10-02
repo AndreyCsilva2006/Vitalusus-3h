@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuários</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Adicione seu CSS aqui -->
+</head>
+
+<body>
+    <div class="App">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Senha</th>
+                    <th>Foto</th>
+                    <th>Nivel Acesso</th>
+                    <th>Status Usuário</th>
+                    <th>Tipo Usuário</th>
+                    <th>Data Cadastro</th>
+                </tr>
+            </thead>
+            <tbody id="tabela-usuarios">
+                <!-- Os dados dos usuários serão inseridos aqui -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Função para buscar usuários da API
+        const fetchUsuarios = async () => {
+            try {
+                const response = await fetch('http://localhost:8080/vitalusus/usuario/findAll');
+                const usuarios = await response.json();
+                preencherTabela(usuarios);
+            } catch (error) {
+                console.error("Erro ao buscar usuários:", error);
+            }
+        };
+
+        // Função para preencher a tabela com os dados dos usuários
+        const preencherTabela = (usuarios) => {
+            const tabelaBody = document.getElementById("tabela-usuarios");
+            tabelaBody.innerHTML = ""; // Limpa a tabela antes de adicionar novos dados
+
+            usuarios.forEach((obj) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${obj.id}</td>
+                    <td>${obj.nome}</td>
+                    <td>${obj.email}</td>
+                    <td>${obj.senha}</td>
+                    <td><img src="${obj.foto}" alt="${obj.nome}" style="width:50px;height:50px;"></td>
+                    <td>${obj.nivelAcesso}</td>
+                    <td>${obj.statusUsuario}</td>
+                    <td>${obj.tipoUsuario}</td>
+                    <td>${obj.dataCadastro}</td>
+                `;
+                tabelaBody.appendChild(row);
+            });
+        };
+
+        // Chama a função para buscar usuários ao carregar a página
+        window.onload = fetchUsuarios;
+    </script>
+</body>
+
+</html>

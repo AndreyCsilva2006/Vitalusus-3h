@@ -1,6 +1,7 @@
 package br.itb.projeto.vitalususPlus.model.entity;
 
 import br.itb.projeto.vitalususPlus.validation.constraints.CREF;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -32,6 +33,7 @@ public class Treinador{
 	@OneToOne
 	@JoinColumn(name = "usuario_id",nullable=false)
 	private Usuario usuario;
+
 
 	public Long getId() {
 		return id;

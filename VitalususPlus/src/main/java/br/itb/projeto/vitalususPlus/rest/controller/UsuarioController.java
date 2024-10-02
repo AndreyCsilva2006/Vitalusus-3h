@@ -1,21 +1,13 @@
 package br.itb.projeto.vitalususPlus.rest.controller;
 
-import br.itb.projeto.vitalususPlus.model.entity.Admin;
-import br.itb.projeto.vitalususPlus.model.entity.Aluno;
-import br.itb.projeto.vitalususPlus.model.entity.Treinador;
-import br.itb.projeto.vitalususPlus.model.entity.Usuario;
-import br.itb.projeto.vitalususPlus.service.AdminService;
-import br.itb.projeto.vitalususPlus.service.AlunoService;
-import br.itb.projeto.vitalususPlus.service.ChaveSegurancaService;
-import br.itb.projeto.vitalususPlus.service.TreinadorService;
+import br.itb.projeto.vitalususPlus.model.entity.*;
+import br.itb.projeto.vitalususPlus.service.*;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-
-import br.itb.projeto.vitalususPlus.service.UsuarioService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,14 +22,15 @@ public class UsuarioController {
 	private TreinadorService treinadorService;
 	private AlunoService alunoService;
 	private ChaveSegurancaService chaveSegurancaService;
+	private CanalService canalService;
 
-	public UsuarioController(UsuarioService usuarioService, AdminService adminService, TreinadorService treinadorService, AlunoService alunoService, ChaveSegurancaService chaveSegurancaService) {
-		super();
+	public UsuarioController(UsuarioService usuarioService, AdminService adminService, TreinadorService treinadorService, AlunoService alunoService, ChaveSegurancaService chaveSegurancaService, CanalService canalService) {
 		this.usuarioService = usuarioService;
 		this.adminService = adminService;
 		this.treinadorService = treinadorService;
 		this.alunoService = alunoService;
 		this.chaveSegurancaService = chaveSegurancaService;
+		this.canalService = canalService;
 	}
 
 	@GetMapping("findAll")
@@ -98,7 +91,11 @@ public class UsuarioController {
 		Usuario usuarioUpdatado = this.usuarioService.updateSenha(id, usuario);
 		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
 	}
-
+	@PutMapping("banir/{id}")
+	public ResponseEntity<Usuario> banirUsuario(@PathVariable long id) {
+		Usuario usuarioBanido = this.usuarioService.banir(id);
+		return new ResponseEntity<Usuario>(usuarioBanido, HttpStatus.OK);
+	}
 	@PostMapping("login/")
 	public ResponseEntity<?> sigin(@RequestParam String email, @RequestParam String senha) {
 		Usuario usuario = usuarioService.sigin(email, senha);
@@ -114,7 +111,8 @@ public class UsuarioController {
                 }
                 case "TREINADOR" -> {
                     Treinador treinador = treinadorService.findByUsuario(usuario);
-                    return ResponseEntity.ok().body(treinador);
+					Canal canal = canalService.findByTreinador(treinador);
+                    return ResponseEntity.ok().body(canal);
                 }
             }
         }
@@ -132,7 +130,13 @@ public class UsuarioController {
 		Usuario usuarioUpdatado = usuarioService.tornarPrivado(id);
 		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
 	}
-	
+
+	@PutMapping("inativar/{id}")
+	public ResponseEntity<Usuario> inativar(@PathVariable long id){
+		Usuario usuarioUpdatado = usuarioService.inativar(id);
+		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
+	}
+
 	@PutMapping("reativar/{id}")
 	public ResponseEntity<Usuario> reativar(@PathVariable long id){
 		Usuario usuarioUpdatado = usuarioService.reativar(id);

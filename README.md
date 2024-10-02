@@ -340,5 +340,3 @@ http://localhost:8080/vitalusus/videoaula/removeDeslikes/{id}/{alunoId}
 
 ADICIONAR UMA VISUALIZAÇÃO À VIDEOAULA (PUT)
 http://localhost:8080/vitalusus/videoaula/addAlunos/{id}/{alunoId}
-
-

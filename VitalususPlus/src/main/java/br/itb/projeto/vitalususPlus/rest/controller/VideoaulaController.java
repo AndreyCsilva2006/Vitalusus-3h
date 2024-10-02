@@ -2,9 +2,13 @@ package br.itb.projeto.vitalususPlus.rest.controller;
 
 import br.itb.projeto.vitalususPlus.model.entity.Admin;
 import br.itb.projeto.vitalususPlus.model.entity.Aluno;
+import br.itb.projeto.vitalususPlus.model.entity.Canal;
+import br.itb.projeto.vitalususPlus.model.entity.Comentario;
 import br.itb.projeto.vitalususPlus.model.entity.Videoaula;
 import br.itb.projeto.vitalususPlus.service.CanalService;
 import br.itb.projeto.vitalususPlus.service.VideoaulaService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +35,11 @@ public class VideoaulaController {
     @GetMapping("findAll")
     public ResponseEntity<List<Videoaula>> findAll(){
         List<Videoaula> videoaulas = this.videoaulaService.findAll();
+        return new ResponseEntity<List<Videoaula>>(videoaulas, HttpStatus.OK);
+    }
+    @PostMapping("findAllByCanal")
+    public ResponseEntity<List<Videoaula>> findAllByCanal(@RequestBody Canal canal){
+        List<Videoaula> videoaulas = this.videoaulaService.findAllbyCanal(canal);
         return new ResponseEntity<List<Videoaula>>(videoaulas, HttpStatus.OK);
     }
     @PostMapping("findById/")
@@ -78,9 +87,9 @@ public class VideoaulaController {
         Videoaula videoaulaUpdatado = this.videoaulaService.updateCategoria(id, videoaula);
         return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
     }
-    @PutMapping("updateTipoVideoaula/{id}")
+    @PutMapping("updateTags/{id}")
     public ResponseEntity<Videoaula> updateTipoVideoaula(@PathVariable long id, @RequestBody Videoaula videoaula){
-        Videoaula videoaulaUpdatado = this.videoaulaService.updateTipoVideoaula(id, videoaula);
+        Videoaula videoaulaUpdatado = this.videoaulaService.updateTags(id, videoaula);
         return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
     }
     @PutMapping("addLikes/{id}/{alunoId}")
@@ -111,6 +120,16 @@ public class VideoaulaController {
     @PutMapping("addAlunos/{id}/{alunoId}")
     public ResponseEntity<Videoaula> addAlunos(@PathVariable long id, @PathVariable long alunoId){
         Videoaula videoaulaUpdatado = this.videoaulaService.addAlunos(id, alunoId);
+        return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
+    }
+    @PutMapping("addComentario/{id}/{alunoId}")
+    public ResponseEntity<Videoaula> addComentario(@PathVariable long id, @PathVariable long alunoId, @RequestBody Comentario comentario){
+        Videoaula videoaulaUpdatado = this.videoaulaService.addComentario(id, alunoId, comentario);
+        return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
+    }
+    @PutMapping("removeComentario/{id}/{comentarioId}")
+    public ResponseEntity<Videoaula> removeComentario(@PathVariable long id, @PathVariable long comentarioId, @RequestBody Comentario comentario){
+        Videoaula videoaulaUpdatado = this.videoaulaService.removeComentario(id, comentarioId);
         return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
     }
     @ResponseStatus(HttpStatus.BAD_REQUEST)

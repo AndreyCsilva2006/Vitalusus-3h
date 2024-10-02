@@ -1,5 +1,6 @@
 package br.itb.projeto.vitalususPlus.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -31,9 +32,10 @@ public class Videoaula {
 
 	@Lob
 	private byte[] thumbnail;
-	
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@ManyToMany
-	@JoinTable(name="aluno_videoaula",
+	@JoinTable(name="Aluno_videoaula",
 			joinColumns = {@JoinColumn(name="videoaula_id")},
 			inverseJoinColumns = {@JoinColumn(name="aluno_id")})
 	private List<Aluno> alunos;
@@ -43,6 +45,7 @@ public class Videoaula {
 	@JoinColumn(name = "canal_id")
 	private Canal canal;
 
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@OneToMany
 	@JoinTable(name="Likes",
 			joinColumns = {@JoinColumn(name="videoaula_id")},
@@ -50,6 +53,7 @@ public class Videoaula {
 	)
 	private List<Aluno> alunosLikes;
 
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@OneToMany
 	@JoinTable(name="Deslikes",
 			joinColumns = {@JoinColumn(name="videoaula_id")},
@@ -61,7 +65,14 @@ public class Videoaula {
 	
 	private String categoria;
 	
-	private String tipoVideoaula;
+	private String tags;
+	
+	private String equipamento;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "videoaula", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Comentario> comentarios;
+	
 	
 	public Long getId() {
 		return id;
@@ -175,15 +186,29 @@ public class Videoaula {
 		this.categoria = categoria;
 	}
 
-	public String getTipoVideoaula() {
-		return tipoVideoaula;
+	public String getTags() {
+		return tags;
 	}
 
-	public void setTipoVideoaula(String tipoVideoaula) {
-		this.tipoVideoaula = tipoVideoaula;
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
 
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
+	}
+
+	public String getEquipamento() {
+		return equipamento;
+	}
+
+	public void setEquipamento(String equipamento) {
+		this.equipamento = equipamento;
+	}
 	
 	
 }

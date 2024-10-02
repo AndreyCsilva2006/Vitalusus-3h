@@ -1,9 +1,7 @@
 package br.itb.projeto.vitalususPlus.service;
 
-import br.itb.projeto.vitalususPlus.model.entity.Canal;
+import br.itb.projeto.vitalususPlus.model.entity.*;
 import br.itb.projeto.vitalususPlus.model.entity.Treinador;
-import br.itb.projeto.vitalususPlus.model.entity.Treinador;
-import br.itb.projeto.vitalususPlus.model.entity.Usuario;
 import br.itb.projeto.vitalususPlus.model.repository.TreinadorRepository;
 import br.itb.projeto.vitalususPlus.model.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
@@ -23,15 +21,13 @@ import java.util.Optional;
 public class TreinadorService {
     private TreinadorRepository treinadorRepository;
     private UsuarioService usuarioService;
-    private CanalService canalService;
 
     public TreinadorService(TreinadorRepository treinadorRepository,
-                            UsuarioService usuarioService,
-                            CanalService canalService) {
+                            UsuarioService usuarioService
+                            ) {
         super();
         this.treinadorRepository = treinadorRepository;
         this.usuarioService = usuarioService;
-        this.canalService = canalService;
     }
     public List<Treinador> findAll(){
         List<Treinador> listaTreinadores = treinadorRepository.findAll();
@@ -41,12 +37,32 @@ public class TreinadorService {
 		Treinador treinador = this.treinadorRepository.findByUsuario(usuario);
 		return treinador;
 	}
-    
+    @Transactional
+    public Treinador updateSenha(Long id, Treinador treinador) {
+        Optional<Treinador> _treinador = treinadorRepository.findById(id);
+        if (_treinador.isPresent()) {
+            Treinador treinadorUpdatado = _treinador.get();
+            String senha = Base64.getEncoder().encodeToString(treinadorUpdatado.getUsuario().getSenha().getBytes());
+            treinadorUpdatado.getUsuario().setSenha(senha);
+            return treinadorRepository.save(treinadorUpdatado);
+        }
+        return treinadorRepository.save(treinador);
+    }
+    @Transactional
+    public Treinador updateFoto(Long id, Treinador treinador) {
+        Optional<Treinador> _treinador = treinadorRepository.findById(id);
+        if (_treinador.isPresent()) {
+            Treinador treinadorUpdatado = _treinador.get();
+            treinadorUpdatado.getUsuario().setFoto(treinador.getUsuario().getFoto());
+            return treinadorRepository.save(treinadorUpdatado);
+        }
+        return null;
+    }
 	@Transactional
 	public Treinador sigin(String email, String senha) {
 		Usuario usuario = usuarioService.findByEmail(email);
 		if (usuario != null) {
-			if (!usuario.getStatusUsuario().equals("INATIVO")) {
+			if (usuario.getStatusUsuario().equals("ATIVO")) {
 				byte[] decodedPass = Base64.getDecoder().decode(usuario.getSenha());
 				if (new String(decodedPass).equals(senha) && usuario.getTipoUsuario().equals("TREINADOR")) {
 						Treinador treinador = treinadorRepository.findByUsuario(usuario);
@@ -58,7 +74,6 @@ public class TreinadorService {
 			
 		return null;
 	}
-	
     public Treinador findById(long id) {
         Optional<Treinador> treinador = this.treinadorRepository.findById(id);
         return treinador.orElseThrow(() -> new RuntimeException(

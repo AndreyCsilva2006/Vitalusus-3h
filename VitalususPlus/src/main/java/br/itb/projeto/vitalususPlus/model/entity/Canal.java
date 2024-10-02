@@ -28,6 +28,7 @@ public class Canal{
 	@Column(name = "nome")
 	private String nome;
 
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@ManyToMany
 	@JoinTable(name="Aluno_segue_canal", joinColumns=
 			{@JoinColumn(name="canal_id")}, inverseJoinColumns=
@@ -42,6 +43,10 @@ public class Canal{
 	@JsonIgnore
 	@OneToMany(mappedBy = "canal", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Videoaula> videoaulas;
+
+	private String bio;
+
+	private int numeroVideos;
 	
 	public Long getId() {
 		return id;
@@ -98,6 +103,20 @@ public class Canal{
 	public void setVideoaulas(List<Videoaula> videoaulas) {
 		this.videoaulas = videoaulas;
 	}
-	
-	
+
+	public String getBio() {
+		return bio;
+	}
+
+	public void setBio(String bio) {
+		this.bio = bio;
+	}
+
+	public int getNumeroVideos() {
+		return numeroVideos;
+	}
+
+	public void setNumeroVideos(int numeroVideos) {
+		this.numeroVideos = numeroVideos;
+	}
 }

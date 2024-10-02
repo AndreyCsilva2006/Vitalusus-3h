@@ -40,6 +40,16 @@ public class CanalController {
 		Canal canal = this.canalService.findById(id);
 		return new ResponseEntity<Canal>(canal, HttpStatus.OK);
 	}
+		@PutMapping("tornarPublico/{id}")
+		public ResponseEntity<Canal> tornarPublico(@PathVariable long id){
+		Canal canalUpdatado = canalService.tornarPublico(id);
+		return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
+	}
+		@PutMapping("tornarPrivado/{id}")
+		public ResponseEntity<Canal> tornarPrivado(@PathVariable long id){
+		Canal canalUpdatado = canalService.tornarPrivado(id);
+		return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
+	}
 	    @PostMapping("post")
 	    public ResponseEntity<Canal> salvarCanal(@RequestBody Canal canal){
 	        Canal canalSalvo = this.canalService.save(canal);
@@ -50,6 +60,11 @@ public class CanalController {
 	        Canal canalUpdatado = this.canalService.updateFix(id);
 	        return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
 	    }
+		@PutMapping("updateInformacoes/{id}")
+		public ResponseEntity<Canal> update(@PathVariable long id, @RequestBody Canal canal){
+		Canal canalUpdatado = this.canalService.updateInformacoes(id, canal);
+		return  new ResponseEntity<Canal>(canal, HttpStatus.OK);
+	}
 		@PutMapping("addAlunos/{id}/{alunoId}")
 		public ResponseEntity<Canal> updateAlunos(@PathVariable long id, @PathVariable long alunoId){
 		Canal canalUpdatado = this.canalService.addAlunos(id, alunoId);
@@ -65,6 +80,36 @@ public class CanalController {
 	        Canal canalUpdatado = this.canalService.updateNome(id, canal);
 	        return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
 	    }
+		@PutMapping("updateBio/{id}")
+		public ResponseEntity<Canal> updateBio(@PathVariable long id, @RequestBody Canal canal){
+		Canal canalUpdatado = this.canalService.updateBio(id, canal);
+		return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
+	}
+		@PutMapping("updateFoto/{id}")
+		public ResponseEntity<Canal> updateFoto(@PathVariable long id, @RequestBody Canal canal) {
+			Canal canalUpdatado = this.canalService.updateFoto(id, canal);
+			return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
+		}
+		@PutMapping("updateSenha/{id}")
+		public ResponseEntity<Canal> updateUsuario(@PathVariable long id, @RequestBody Canal canal) {
+			Canal canalUpdatado = this.canalService.updateSenha(id, canal);
+			return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
+		}
+		@PutMapping("addVideoaula/{id}")
+		public ResponseEntity<Canal> addVideoaula(@PathVariable long id, @RequestBody Videoaula videoaula){
+			Canal canalUpdatado = this.canalService.addVideoaula(id, videoaula);
+			return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
+		}
+		@PutMapping("removeVideoaula/{id}/{videoaulaId}")
+		public ResponseEntity<Canal> addVideoaula(@PathVariable long id, @PathVariable long videoaulaId){
+		Canal canalUpdatado = this.canalService.removeVideoaula(id, videoaulaId);
+		return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
+		}
+		@PutMapping("reativar/{id}")
+		public ResponseEntity<Canal> reativar(@PathVariable long id){
+			Canal canalUpdatado = canalService.reativar(id);
+			return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
+		}
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> handleValidationException(MethodArgumentNotValidException ex){
