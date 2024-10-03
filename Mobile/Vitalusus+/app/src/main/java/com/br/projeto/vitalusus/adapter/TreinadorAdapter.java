@@ -75,7 +75,7 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
             Canal canal = canais.get(position);
 
             // Verifica se o nível de privacidade é "PRIVADO"
-            if (!"PRIVADO".equals(usuario.getNivelPrivacidade())) {
+            if ("PRIVADO".equals(usuario.getNivelPrivacidade())) {
                 holder.itemView.setVisibility(View.GONE);
                 holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0)); // Remove o espaço do item
             } else {
