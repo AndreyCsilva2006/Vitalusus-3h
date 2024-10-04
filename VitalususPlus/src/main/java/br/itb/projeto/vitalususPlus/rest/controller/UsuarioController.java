@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -21,15 +22,13 @@ public class UsuarioController {
 	private AdminService adminService;
 	private TreinadorService treinadorService;
 	private AlunoService alunoService;
-	private ChaveSegurancaService chaveSegurancaService;
 	private CanalService canalService;
 
-	public UsuarioController(UsuarioService usuarioService, AdminService adminService, TreinadorService treinadorService, AlunoService alunoService, ChaveSegurancaService chaveSegurancaService, CanalService canalService) {
+	public UsuarioController(UsuarioService usuarioService, AdminService adminService, TreinadorService treinadorService, AlunoService alunoService, CanalService canalService) {
 		this.usuarioService = usuarioService;
 		this.adminService = adminService;
 		this.treinadorService = treinadorService;
 		this.alunoService = alunoService;
-		this.chaveSegurancaService = chaveSegurancaService;
 		this.canalService = canalService;
 	}
 
@@ -45,7 +44,7 @@ public class UsuarioController {
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
 	@PostMapping("findByChaveSeguranca/")
-	public ResponseEntity<Usuario> findByChaveSeguranca(@RequestParam long chaveSeguranca) {
+	public ResponseEntity<Usuario> findByChaveSeguranca(@RequestParam UUID chaveSeguranca) {
 		Usuario usuario = this.usuarioService.findByChaveSeguranca(chaveSeguranca);
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}

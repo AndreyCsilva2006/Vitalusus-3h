@@ -8,6 +8,9 @@ import br.itb.projeto.vitalususPlus.model.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.List;
@@ -46,6 +49,11 @@ public class AlunoService {
 		usuario.setTipoUsuario("ALUNO");
 		usuario.setNivelAcesso("USER");
 		usuarioService.save(usuario);
+		LocalDate dataAtual = LocalDate.now();
+		LocalDate dataNascimento = aluno.getDataNasc().toInstant()
+				.atZone(ZoneId.systemDefault())
+				.toLocalDate();
+		aluno.getUsuario().setIdade(Period.between(dataNascimento, dataAtual).getYears());
 		return alunoRepository.save(aluno);
 	}
 
@@ -84,6 +92,19 @@ public class AlunoService {
 			Aluno alunoUpdatado = _aluno.get();
 			alunoUpdatado.setPeso(aluno.getPeso());
 			return alunoRepository.save(alunoUpdatado);
+		}
+		return null;
+	}
+	public Aluno updateIdade(Long id){
+		Optional<Aluno> _aluno = alunoRepository.findById(id);
+		if(_aluno.isPresent()) {
+			Aluno alunoUpdatado = _aluno.get();
+			LocalDate dataAtual = LocalDate.now();
+			LocalDate dataNascimento = alunoUpdatado.getDataNasc().toInstant()
+					.atZone(ZoneId.systemDefault())
+					.toLocalDate();
+			alunoUpdatado.getUsuario().setIdade(Period.between(dataNascimento, dataAtual).getYears());
+			return alunoUpdatado;
 		}
 		return null;
 	}

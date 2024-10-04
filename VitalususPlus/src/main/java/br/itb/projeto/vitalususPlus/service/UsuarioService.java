@@ -1,20 +1,14 @@
 package br.itb.projeto.vitalususPlus.service;
 
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-import br.itb.projeto.vitalususPlus.model.repository.AlunoRepository;
-import br.itb.projeto.vitalususPlus.model.repository.TreinadorRepository;
-import org.apache.commons.io.FileUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.itb.projeto.vitalususPlus.model.entity.ChaveSeguranca;
 import br.itb.projeto.vitalususPlus.model.entity.Usuario;
 import br.itb.projeto.vitalususPlus.model.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
@@ -22,12 +16,9 @@ import jakarta.transaction.Transactional;
 @Service
 public class UsuarioService {
 	private final UsuarioRepository usuarioRepository;
-	private final ChaveSegurancaService chavesegurancaService;
-
-	public UsuarioService(UsuarioRepository usuarioRepository, ChaveSegurancaService chaveSegurancaService) {
+	public UsuarioService(UsuarioRepository usuarioRepository) {
 		super();
 		this.usuarioRepository = usuarioRepository;
-		this.chavesegurancaService = chaveSegurancaService;
 	}
 	@Transactional
 	public List<Usuario> findAll() {
@@ -55,10 +46,7 @@ public class UsuarioService {
 		usuario.setSenha(senha);
 		usuario.setDataCadastro(LocalDateTime.now());
 		usuario.getDataCadastro().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-		ChaveSeguranca chaveSeguranca = new ChaveSeguranca();
-		usuario.setChaveSeguranca(chaveSeguranca);
 		usuario.setNivelPrivacidade("PUBLICO");
-		chavesegurancaService.save(usuario.getChaveSeguranca());
 		return usuarioRepository.save(usuario);
 	}
 	@Transactional
@@ -193,8 +181,7 @@ public class UsuarioService {
 	} 
 	
 	@Transactional
-	public Usuario findByChaveSeguranca(Long chaveSeguranca) {
-		ChaveSeguranca _chaveSeguranca = chavesegurancaService.findById(chaveSeguranca);
-        return usuarioRepository.findByChaveSeguranca(_chaveSeguranca);
+	public Usuario findByChaveSeguranca(UUID chaveSeguranca) {
+		return usuarioRepository.findByChaveSeguranca(chaveSeguranca);
 	}
 }
