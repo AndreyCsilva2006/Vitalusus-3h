@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.br.projeto.vitalusus.FormLogin;
 import com.br.projeto.vitalusus.R;
-import com.br.projeto.vitalusus.TelaPrincipal;
 import com.br.projeto.vitalusus.adapter.ListaAlunoAdapter;
 //import com.br.projeto.vitalusus.dao.AlunoDAO;
 import com.br.projeto.vitalusus.model.Aluno;

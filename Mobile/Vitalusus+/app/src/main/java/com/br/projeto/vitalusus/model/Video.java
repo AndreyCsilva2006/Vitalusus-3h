@@ -2,10 +2,7 @@ package com.br.projeto.vitalusus.model;
 
 import com.br.projeto.vitalusus.model.Canal;
 
-import java.io.Serializable;
-
-public class Video  implements Serializable
-{
+public class Video {
     private int id;
     private String descricao;
     private String titulo;
