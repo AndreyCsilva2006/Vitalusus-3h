@@ -12,5 +12,8 @@ public interface VideoApi {
         @GET("videos/{id}")
         Call<Video> getVideoById(@Path("id") long videoId);
 
+        @GET("videos/seguidos")
+        Call<List<Video>> getVideosSeguidos();
+
 
 }
