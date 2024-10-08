@@ -1,11 +1,11 @@
 package com.br.projeto.vitalusus.model;
 
-import com.br.projeto.vitalusus.model.Canal;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
-public class Video {
+public class Video implements Serializable {
 
     @SerializedName("id")
     private int id;
