@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 INDEX VERSION 1.131+Z:\TCC VITALUSUS+\Vitalusus-3h\.metadata\.plugins\org.eclipse.jdt.core
 3209679910.index
 1055290320.index
@@ -97,3 +98,8 @@ INDEX VERSION 1.131+Z:\TCC VITALUSUS+\Vitalusus-3h\.metadata\.plugins\org.eclips
 2340413958.index
 3870266046.index
 1905118331.index
+=======
+INDEX VERSION 1.131+Z:\Vitalusus-3h\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
+3124090304.index
+>>>>>>> frontend
