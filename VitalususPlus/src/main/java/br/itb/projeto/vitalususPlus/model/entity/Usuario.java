@@ -1,6 +1,7 @@
 package br.itb.projeto.vitalususPlus.model.entity;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 import jakarta.persistence.*;
@@ -55,6 +56,8 @@ public class Usuario {
 	private UUID chaveSeguranca;
 	
 	private String nivelPrivacidade;
+
+	private Date dataNasc;
 
 	private int idade;
 	
@@ -153,4 +156,13 @@ public class Usuario {
 	public void setIdade(int idade) {
 		this.idade = idade;
 	}
+
+	public Date getDataNasc() {
+		return dataNasc;
+	}
+
+	public void setDataNasc(Date dataNasc) {
+		this.dataNasc = dataNasc;
+	}
 }
+

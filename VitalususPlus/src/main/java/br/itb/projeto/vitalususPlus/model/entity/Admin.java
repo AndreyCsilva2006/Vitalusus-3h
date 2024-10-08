@@ -29,7 +29,6 @@ public class Admin {
 			inverseJoinColumns = {@JoinColumn(name = "usuario_id")})
 	private List<Usuario> listaUsuarios;
 	private Integer numeroUsuarios;
-	private Date dataNasc;
 	public Long getId() {
 		return id;
 	}
@@ -53,12 +52,6 @@ public class Admin {
 	}
 	public void setNumeroUsuarios(Integer numeroUsuarios) {
 		this.numeroUsuarios = numeroUsuarios;
-	}
-	public Date getDataNasc() {
-		return dataNasc;
-	}
-	public void setDataNasc(Date dataNasc) {
-		this.dataNasc = dataNasc;
 	}
 	
 	

@@ -50,14 +50,9 @@ public class AdminService {
             admin.setListaUsuarios(new ArrayList<>());
         }
         Usuario usuario = admin.getUsuario();
-        if(admin != null) {
         usuario.setTipoUsuario("ADMINISTRADOR");
         usuario.setNivelAcesso("ADMIN");
         usuarioService.save(usuario);
-        }
-        LocalDate dataAtual = LocalDate.now();
-        LocalDate dataNascimento = admin.getDataNasc().toLocalDate();
-        admin.getUsuario().setIdade(Period.between(dataNascimento, dataAtual).getYears());
         admin.setNumeroUsuarios(admin.getListaUsuarios().size());
         return adminRepository.save(admin);
     }
@@ -69,9 +64,6 @@ public class AdminService {
                 adminUpdatado.setListaUsuarios(new ArrayList<>());
             }
             adminUpdatado.setNumeroUsuarios(adminUpdatado.getListaUsuarios().size());
-                LocalDate dataAtual = LocalDate.now();
-                LocalDate dataNascimento = adminUpdatado.getDataNasc().toLocalDate();
-                adminUpdatado.getUsuario().setIdade(Period.between(dataNascimento, dataAtual).getYears());
             return adminRepository.save(adminUpdatado);
         }
         return null;

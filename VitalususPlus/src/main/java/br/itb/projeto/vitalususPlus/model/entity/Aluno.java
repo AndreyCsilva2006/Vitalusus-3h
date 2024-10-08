@@ -19,9 +19,6 @@ public class Aluno{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "dataNasc")
-	private Date dataNasc;
-
 	@Column(name="altura")
 	private float altura;
 
@@ -38,14 +35,6 @@ public class Aluno{
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Date getDataNasc() {
-		return dataNasc;
-	}
-
-	public void setDataNasc(Date dataNasc) {
-		this.dataNasc = dataNasc;
 	}
 
 	public float getAltura() {

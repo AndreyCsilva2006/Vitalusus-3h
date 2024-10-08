@@ -22,12 +22,13 @@ CREATE TABLE Usuario
    tipoUsuario	 VARCHAR(15)	NOT NULL, -- ADMINISTRADOR ou ALUNO ou TREINADOR	
    chaveSeguranca  UNIQUEIDENTIFIER DEFAULT NEWID(),
    nivelPrivacidade VARCHAR(50)NOT NULL, -- PUBLICO ou PRIVADO
+   dataNasc	DATE			NOT NULL,
    idade		INT				NOT NULL,
 
    PRIMARY KEY (id),
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade, dataNasc) 
 VALUES(
 	'Fulano fulanoide',
 	'fulano@gmail.com',
@@ -38,10 +39,11 @@ VALUES(
 	'ATIVO',
 	'ALUNO',
 	'PUBLICO',
-	28
+	28,	
+	'1996-02-12'
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade, dataNasc) 
 VALUES(
 	'Seranilda de Assis',
 	'sera@gmail.com',
@@ -52,10 +54,11 @@ VALUES(
 	'ATIVO',
 	'TREINADOR',
 	'PUBLICO',
-	26
+	26,
+	'1998-02-27'
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade, dataNasc) 
 VALUES(
 	'Don Corleone',
 	'corleoneDon@gmail.com',
@@ -66,7 +69,8 @@ VALUES(
 	'ATIVO',
 	'ADMINISTRADOR',
 	'PUBLICO',
-	42
+	42, 
+	'1982-05-23'
 )
 GO
 CREATE TABLE Denuncia
@@ -96,19 +100,17 @@ CREATE TABLE Administrador
 	id			 INT		    IDENTITY,
 	usuario_id	 INT			NOT NULL,
 	numeroUsuarios INT			NOT NULL,
-	dataNasc	DATE			NOT NULL,
 
 	FOREIGN KEY(usuario_id) REFERENCES Usuario(id),
 	PRIMARY KEY (id),
 )
 GO
-INSERT Administrador(usuario_id, numeroUsuarios, dataNasc) VALUES(3, 1, '1982-05-23')
+INSERT Administrador(usuario_id, numeroUsuarios) VALUES(3, 1)
 GO
 -- Tabela Aluno
 CREATE TABLE Aluno
 (
 	id			INT					IDENTITY,
-	dataNasc	DATE				NOT NULL,
 	altura		DECIMAL(10,2)		NOT NULL,
 	peso		DECIMAL(10,2)		NOT NULL,
 	usuario_id	INT					NOT NULL,
@@ -117,9 +119,8 @@ CREATE TABLE Aluno
 	PRIMARY KEY(id)
 )
 GO
-INSERT Aluno(dataNasc, altura, peso, usuario_id)
+INSERT Aluno(altura, peso, usuario_id)
 VALUES(
-	'1996-02-12',
 	1.78,
 	98.5,
 	1
@@ -130,17 +131,15 @@ CREATE TABLE Treinador
 (
 	id	            INT			  IDENTITY,
 	cref			VARCHAR(21)	  UNIQUE NOT NULL,
-	dataNasc		DATE		  NOT NULL,
 	usuario_id		INT			  NOT NULL,
 
 	FOREIGN KEY (usuario_id) REFERENCES Usuario(id),
 	PRIMARY KEY (id)
 )
 GO
-INSERT Treinador(cref, dataNasc, usuario_id)
+INSERT Treinador(cref, usuario_id)
 VALUES(
 	'324321-G/SP',
-	'1998-02-27',
 	2
 )
 GO

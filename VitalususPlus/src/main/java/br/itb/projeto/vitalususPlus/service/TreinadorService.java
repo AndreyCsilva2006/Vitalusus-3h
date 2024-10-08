@@ -88,11 +88,6 @@ public class TreinadorService {
         Usuario usuario = treinador.getUsuario();
         usuario.setTipoUsuario("TREINADOR");
         usuario.setNivelAcesso("USER");
-        LocalDate dataAtual = LocalDate.now();
-        LocalDate dataNascimento = treinador.getDataNasc().toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate();
-        treinador.getUsuario().setIdade(Period.between(dataNascimento, dataAtual).getYears());
         usuarioService.save(usuario);
         return treinadorRepository.save(treinador);
     }
