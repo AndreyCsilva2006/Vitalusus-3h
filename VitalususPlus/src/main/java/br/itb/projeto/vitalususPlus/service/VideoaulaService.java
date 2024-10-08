@@ -36,7 +36,10 @@ public class VideoaulaService {
     }
     @Transactional
     public List<Videoaula> findAllbyCanal(Canal canal){
-        return videoaulaRepository.findAllByCanal(canal);
+        if (canal.getTreinador().getUsuario().getStatusUsuario().equals("ATIVO")) {
+            return videoaulaRepository.findAllByCanal(canal);
+        }
+        else throw new RuntimeException("O canal que postou as videoaulas que vodê está procurando não está ativo ou sua conta foi banida ou deletada");
     }
     @Transactional
     public Videoaula findById(long id) {
