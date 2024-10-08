@@ -70,9 +70,9 @@ public class VideoFragment extends Fragment {
 
                     // Exibir informações do vídeo
                     tvVideoTitle.setText(video.getTitulo());
-                    tvChannelName.setText(video.getCanal().getNome());
-                    tvDatePosted.setText(video.getCanal().getBio());
-
+//                    tvChannelName.setText(video.getCanal().getNome());
+//                    tvDatePosted.setText(video.getCanal().getBio());
+//
                     // Carregar e reproduzir o vídeo
                     playVideoFromBytes(video.getThumbnail());
                 } else {

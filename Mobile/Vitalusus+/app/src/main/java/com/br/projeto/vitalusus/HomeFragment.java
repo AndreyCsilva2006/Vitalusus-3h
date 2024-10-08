@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<Video>> call, Response<List<Video>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Video> videos = response.body();
-                    populateVideoGrid(videos);
+//                    populateVideoGrid(videos);
                 } else {
                     Toast.makeText(getContext(), "Nenhum vídeo encontrado", Toast.LENGTH_SHORT).show();
                 }
@@ -112,7 +112,7 @@ public class HomeFragment extends Fragment {
 
             // Configura o nome do canal
             TextView channelName = videoItemView.findViewById(R.id.nomeCanal);
-            channelName.setText(canal.getNome() != null && video.getCanal().getNome() != null ? video.getCanal().getNome() : "Canal não disponível");
+//            channelName.setText(canal.getNome() != null && video.getCanal().getNome() != null ? video.getCanal().getNome() : "Canal não disponível");
 
             // Configura a data de postagem do vídeo
             TextView videoDate = videoItemView.findViewById(R.id.DataPubliVideo);

@@ -170,11 +170,34 @@ sql.connect(dbConfig).then(pool => {
         });
     });
 
-
-    // Rota para criar um usuário
     app.post('/usuarios', async (req, res) => {
-        const { nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, chaveSeguranca_id, nivelPrivacidade, dataNasc, altura, peso } = req.body;
+        const { nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, dataNasc, altura, peso } = req.body;
+
         try {
+            // Verificar se a data de nascimento foi enviada
+            if (!dataNasc) {
+                return res.status(400).json({ error: 'A data de nascimento é obrigatória.' });
+            }
+
+            // Verificar se a idade foi calculada no cliente
+            let idade = req.body.idade;
+            if (!idade) {
+                // Se a idade não veio do cliente, calculá-la no servidor
+                const birthDate = new Date(dataNasc);
+                const currentDate = new Date();
+                idade = currentDate.getFullYear() - birthDate.getFullYear();
+                const monthDifference = currentDate.getMonth() - birthDate.getMonth();
+                if (monthDifference < 0 || (monthDifference === 0 && currentDate.getDate() < birthDate.getDate())) {
+                    idade--; // Ajuste se ainda não fez aniversário neste ano
+                }
+            }
+
+            // Verifique se a idade não é nula
+            if (!idade) {
+                return res.status(400).json({ error: 'Não foi possível calcular a idade.' });
+            }
+
+            // Inserir o usuário com a idade calculada
             const result = await pool.request()
                 .input('nome', sql.VarChar, nome)
                 .input('email', sql.VarChar, email)
@@ -184,25 +207,26 @@ sql.connect(dbConfig).then(pool => {
                 .input('dataCadastro', sql.DateTime, dataCadastro || new Date())
                 .input('statusUsuario', sql.VarChar, statusUsuario || 'ATIVO')
                 .input('tipoUsuario', sql.VarChar, tipoUsuario)
-                .input('chaveSeguranca_id', sql.Int, chaveSeguranca_id)
                 .input('nivelPrivacidade', sql.VarChar, nivelPrivacidade)
+                .input('idade', sql.Int, idade) // Inserir a idade calculada
                 .query(`
-                    INSERT INTO Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, chaveSeguranca_id, nivelPrivacidade)
-                    VALUES (@nome, @email, @senha, @nivelAcesso, @foto, @dataCadastro, @statusUsuario, @tipoUsuario, @chaveSeguranca_id, @nivelPrivacidade)
+                    INSERT INTO Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, idade)
+                    OUTPUT INSERTED.id  -- Retorna o ID do usuário inserido
+                    VALUES (@nome, @email, @senha, @nivelAcesso, @foto, @dataCadastro, @statusUsuario, @tipoUsuario, @nivelPrivacidade, @idade);
                 `);
 
-                const usuarioId = result.recordset[0].id; // pra pegar o ID gerado
+            const usuarioId = result.recordset[0].id; // Para pegar o ID gerado
 
-                // inserir aluno
-                        await pool.request()
-                            .input('dataNasc', sql.Date, dataNasc)
-                            .input('altura', sql.Decimal, altura)
-                            .input('peso', sql.Decimal, peso)
-                            .input('usuario_id', sql.Int, usuarioId)
-                            .query(`
-                                INSERT INTO Aluno (dataNasc, altura, peso, usuario_id)
-                                VALUES (@dataNasc, @altura, @peso, @usuario_id);
-                            `);
+            // Inserir aluno
+            await pool.request()
+                .input('dataNasc', sql.Date, dataNasc)
+                .input('altura', sql.Decimal, altura)
+                .input('peso', sql.Decimal, peso)
+                .input('usuario_id', sql.Int, usuarioId)
+                .query(`
+                    INSERT INTO Aluno (dataNasc, altura, peso, usuario_id)
+                    VALUES (@dataNasc, @altura, @peso, @usuario_id);
+                `);
 
             res.status(201).json({ message: 'Usuário e Aluno criado com sucesso!' });
         } catch (err) {

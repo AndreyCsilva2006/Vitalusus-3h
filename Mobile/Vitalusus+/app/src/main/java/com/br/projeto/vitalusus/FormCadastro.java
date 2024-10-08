@@ -24,7 +24,11 @@ import com.br.projeto.vitalusus.network.ApiService;
 import com.br.projeto.vitalusus.network.RetrofitClient;
 import com.br.projeto.vitalusus.util.MensagemUtil;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
@@ -304,6 +308,29 @@ public class FormCadastro extends AppCompatActivity {
         return sdf.format(new Date());
     }
 
+    // Método de calcular Idade para cadastro, Infelizmente grande porque a API mínima do projeto é 24.
+    private int calcularIdade(String dataNasc) {
+        // Supondo que a dataNasc esteja no formato "yyyy-MM-dd"
+        String[] dataParts = dataNasc.split("-");
+        int anoNasc = Integer.parseInt(dataParts[0]);
+        int mesNasc = Integer.parseInt(dataParts[1]);
+        int diaNasc = Integer.parseInt(dataParts[2]);
+
+        Calendar hoje = Calendar.getInstance();
+        int anoAtual = hoje.get(Calendar.YEAR);
+        int mesAtual = hoje.get(Calendar.MONTH) + 1; // Janeiro é 0, então somamos 1
+        int diaAtual = hoje.get(Calendar.DAY_OF_MONTH);
+
+        int idade = anoAtual - anoNasc;
+
+        // Verifica se ainda não fez aniversário neste ano
+        if (mesAtual < mesNasc || (mesAtual == mesNasc && diaAtual < diaNasc)) {
+            idade--;
+        }
+
+        return idade;
+    }
+
     private void salvar() {
         // se ele o método validar() não for verdadeiro.
         if (!validar()) {
@@ -322,97 +349,61 @@ public class FormCadastro extends AppCompatActivity {
         String nivelPrivacidade = "PUBLICO";
 
         String dataNasc = editDataNasc.getText().toString();
-        Double altura = Double.parseDouble(editAltura.getText().toString());
-        Double peso = Double.parseDouble(editPeso.getText().toString());
+        Double altura = editAltura.getText().toString().isEmpty() ? null : Double.parseDouble(editAltura.getText().toString());
+        Double peso = editPeso.getText().toString().isEmpty() ? null : Double.parseDouble(editPeso.getText().toString());
+
+        // Calcular a idade com base na data de nascimento
+        int idade = calcularIdade(dataNasc);
 
         // Retrofit para a criação do usuário
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         ApiService apiService = retrofit.create(ApiService.class);
 
-        // Criar uma nova chave de segurança
-        ChaveSeguranca novaChaveSeguranca = new ChaveSeguranca("nova-chave-gerada");
-        Call<ChaveSeguranca> callChave = apiService.createChaveSeguranca(novaChaveSeguranca);
+        // Criar novo Usuario (sem chave de segurança)
+        Usuario novoUsuario = new Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, idade);
+        Log.d("NovoUsuario", "Usuário: " + novoUsuario.toString()); // Adicione este log para verificar os valores
 
-        callChave.enqueue(new Callback<ChaveSeguranca>() {
+        // Chamar o endpoint para criar o usuário
+        Call<Usuario> callUsuario = apiService.createUsuario(novoUsuario);
+        callUsuario.enqueue(new Callback<Usuario>() {
             @Override
-            public void onResponse(Call<ChaveSeguranca> call, Response<ChaveSeguranca> response) {
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 if (response.isSuccessful()) {
-                    // Pegar o id da chave gerada
-                    ChaveSeguranca chaveSegurancaCriada = response.body();
-                    int chaveSegurancaId = chaveSegurancaCriada.getId(); // ID gerado sequencialmente
-                    // Gerando uma chave aleatória
-                    String chaveGerada = UUID.randomUUID().toString(); // Gera uma chave única
-                    ChaveSeguranca novaChaveSeguranca = new ChaveSeguranca(chaveGerada);
+                    Usuario usuarioCriado = response.body();
+                    int usuarioId = usuarioCriado.getId();
 
-                    // Criar novo Usuario com a chave de segurança gerada
-                    Usuario novoUsuario = new Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, chaveSegurancaId, nivelPrivacidade);
-                    Log.d("NovoUsuario", "Usuário: " + novoUsuario.toString()); // Adicione este log para verificar os valores
-                    Log.d("RespostaJSON", response.raw().toString());  // Loga a resposta bruta da API
+                    // Criar o Aluno associado ao usuário
+                    Aluno novoAluno = new Aluno(dataNasc, altura, peso, usuarioId);
+                    Log.d("NovoAluno", "Aluno: " + novoAluno.toString()); // Adicione este log para verificar os valores
 
-                    // Chamar o endpoint para criar o usuário
-                    Call<Usuario> callUsuario = apiService.createUsuario(novoUsuario);
-                    callUsuario.enqueue(new Callback<Usuario>() {
+                    Call<Aluno> callAluno = apiService.createAluno(novoAluno);
+                    callAluno.enqueue(new Callback<Aluno>() {
                         @Override
-                        public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                        public void onResponse(Call<Aluno> call, Response<Aluno> response) {
                             if (response.isSuccessful()) {
-                                Usuario usuarioCriado = response.body();
-                                int usuarioId = usuarioCriado.getId();
-
-                                // Criar o Aluno associado ao usuário
-                                Aluno novoAluno = new Aluno(dataNasc, altura, peso, usuarioId);
-                                Log.d("NovoAluno", "Aluno: " + novoAluno.toString()); // Adicione este log para verificar os valores
-
-                                Call<Aluno> callAluno = apiService.createAluno(novoAluno);
-                                callAluno.enqueue(new Callback<Aluno>() {
-                                    @Override
-                                    public void onResponse(Call<Aluno> call, Response<Aluno> response) {
-                                        if (response.isSuccessful()) {
-                                            MensagemUtil.exibir(FormCadastro.this, "Cadastro realizado com sucesso!");
-                                            Intent intent = new Intent(FormCadastro.this, FormLogin.class);
-                                            startActivity(intent);
-                                        } else {
-                                            // Adicionando log para entender o erro
-                                            MensagemUtil.exibir(FormCadastro.this, "Erro ao cadastrar aluno");
-                                            Log.e("CadastroAluno", "Erro ao cadastrar aluno: " + response.code() + " - " + response.message());
-                                            Log.d("DadosUsuario", "Nome: " + nome);
-                                            Log.d("DadosUsuario", "Email: " + email);
-                                            Log.d("DadosUsuario", "Senha: " + senha);
-                                            Log.d("DadosUsuario", "Nivel Acesso: " + nivelAcesso);
-                                            Log.d("DadosUsuario", "Data Cadastro: " + dataCadastro);
-                                            Log.d("DadosUsuario", "Status Usuario: " + statusUsuario);
-                                            Log.d("DadosUsuario", "Tipo Usuario: " + tipoUsuario);
-                                            Log.d("DadosUsuario", "Chave Seguranca ID: " + chaveSegurancaId);
-                                            Log.d("DadosUsuario", "Nivel Privacidade: " + nivelPrivacidade);
-                                            Log.d("RespostaJSON", response.raw().toString());  // Loga a resposta bruta da API
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<Aluno> call, Throwable t) {
-                                        MensagemUtil.exibir(FormCadastro.this, "Erro ao comunicar com o servidor");
-                                        Log.e("CadastroAluno", "Falha na requisição: ", t);
-                                    }
-                                });
+                                MensagemUtil.exibir(FormCadastro.this, "Cadastro realizado com sucesso!");
+                                Intent intent = new Intent(FormCadastro.this, FormLogin.class);
+                                startActivity(intent);
                             } else {
-                                // Adicionando log para entender o erro
-                                MensagemUtil.exibir(FormCadastro.this, "Erro ao cadastrar usuário");
-                                Log.e("CadastroUsuario", "Erro ao cadastrar usuário: " + response.code() + " - " + response.message());
+                                MensagemUtil.exibir(FormCadastro.this, "Erro ao cadastrar aluno");
+                                Log.e("CadastroAluno", "Erro ao cadastrar aluno: " + response.code() + " - " + response.message());
                             }
                         }
 
-
                         @Override
-                        public void onFailure(Call<Usuario> call, Throwable t) {
+                        public void onFailure(Call<Aluno> call, Throwable t) {
                             MensagemUtil.exibir(FormCadastro.this, "Erro ao comunicar com o servidor");
+                            Log.e("CadastroAluno", "Falha na requisição: ", t);
                         }
                     });
                 } else {
-                    MensagemUtil.exibir(FormCadastro.this, "Erro ao criar chave de segurança");
+                    MensagemUtil.exibir(FormCadastro.this, "Erro ao cadastrar usuário");
+                    Log.e("CadastroUsuario", "Erro ao cadastrar usuário: " + response.code() + " - " + response.message());
                 }
             }
 
             @Override
-            public void onFailure(Call<ChaveSeguranca> call, Throwable t) {
+            public void onFailure(Call<Usuario> call, Throwable t) {
                 MensagemUtil.exibir(FormCadastro.this, "Erro ao comunicar com o servidor");
             }
         });

@@ -2,7 +2,9 @@ package com.br.projeto.vitalusus.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ChaveSeguranca {
+import java.io.Serializable;
+
+public class ChaveSeguranca implements Serializable {
 
     @SerializedName("id")
     private Integer id;
