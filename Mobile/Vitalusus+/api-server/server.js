@@ -154,6 +154,23 @@ sql.connect(dbConfig).then(pool => {
         }
     });
 
+    // Exemplo de endpoint para criar uma chave de segurança
+    app.post('/chaveSeguranca', (req, res) => {
+        const query = 'INSERT INTO ChaveSeguranca DEFAULT VALUES; SELECT SCOPE_IDENTITY() AS id;';
+
+        // Executar a query
+        db.query(query, (err, result) => {
+            if (err) {
+                return res.status(500).json({ message: 'Erro ao inserir chave de segurança', error: err });
+            }
+
+            // Retorna o id gerado da chave de segurança
+            const idChaveSeguranca = result.recordset[0].id;
+            return res.status(201).json({ id: idChaveSeguranca, chave: 'nova-chave' }); // Caso queira retornar uma chave gerada
+        });
+    });
+
+
     // Rota para criar um usuário
     app.post('/usuarios', async (req, res) => {
         const { nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, chaveSeguranca_id, nivelPrivacidade, dataNasc, altura, peso } = req.body;
