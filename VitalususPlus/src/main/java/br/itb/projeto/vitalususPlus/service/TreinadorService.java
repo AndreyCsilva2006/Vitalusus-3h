@@ -12,7 +12,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
@@ -85,6 +88,11 @@ public class TreinadorService {
         Usuario usuario = treinador.getUsuario();
         usuario.setTipoUsuario("TREINADOR");
         usuario.setNivelAcesso("USER");
+        LocalDate dataAtual = LocalDate.now();
+        LocalDate dataNascimento = treinador.getDataNasc().toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+        treinador.getUsuario().setIdade(Period.between(dataNascimento, dataAtual).getYears());
         usuarioService.save(usuario);
         return treinadorRepository.save(treinador);
     }

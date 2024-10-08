@@ -6,18 +6,7 @@ CREATE DATABASE bd_vitalusus2h
 GO
 -- ACESSAR O BANCO DE DADOS
 USE bd_vitalusus2h
-GO
 
--- Tabela ChaveSeguranca
-CREATE TABLE ChaveSeguranca(
-	id					INT			IDENTITY(1231,1),
-	chave				VARCHAR(50) 
-	PRIMARY KEY(id)
-)
-GO
-INSERT INTO ChaveSeguranca DEFAULT VALUES 
-INSERT INTO ChaveSeguranca DEFAULT VALUES 
-INSERT INTO ChaveSeguranca DEFAULT VALUES 
 GO
 -- Tabela Usuario
 CREATE TABLE Usuario
@@ -31,14 +20,14 @@ CREATE TABLE Usuario
    dataCadastro	 SMALLDATETIME	NOT NULL,
    statusUsuario VARCHAR(20)    NOT NULL, -- ATIVO ou INATIVO ou TROCAR_SENHA	
    tipoUsuario	 VARCHAR(15)	NOT NULL, -- ADMINISTRADOR ou ALUNO ou TREINADOR	
-   chaveSeguranca_id INT		NOT NULL,
+   chaveSeguranca  UNIQUEIDENTIFIER DEFAULT NEWID(),
    nivelPrivacidade VARCHAR(50)NOT NULL, -- PUBLICO ou PRIVADO
+   idade		INT				NOT NULL,
 
    PRIMARY KEY (id),
-   FOREIGN KEY (chaveSeguranca_id) REFERENCES ChaveSeguranca(id)
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id, nivelPrivacidade) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade) 
 VALUES(
 	'Fulano fulanoide',
 	'fulano@gmail.com',
@@ -48,11 +37,11 @@ VALUES(
 	GETDATE(),
 	'ATIVO',
 	'ALUNO',
-	1231,
-	'PUBLICO'
+	'PUBLICO',
+	28
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id, nivelPrivacidade) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade) 
 VALUES(
 	'Seranilda de Assis',
 	'sera@gmail.com',
@@ -62,25 +51,11 @@ VALUES(
 	GETDATE(),
 	'ATIVO',
 	'TREINADOR',
-	1232,
-	'PUBLICO'
+	'PUBLICO',
+	26
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id, nivelPrivacidade) 
-VALUES(
-	'Paulo',
-	'sdw21321312a@gmail.com',
-	'sdfgh$$%#D',
-	'USER',
-	null,
-	GETDATE(),
-	'ATIVO',
-	'TREINADOR',
-	1232,
-	'PUBLICO'
-)
-GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id, nivelPrivacidade) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade) 
 VALUES(
 	'Don Corleone',
 	'corleoneDon@gmail.com',
@@ -90,8 +65,8 @@ VALUES(
 	GETDATE(),
 	'ATIVO',
 	'ADMINISTRADOR',
-	1233,
-	'PUBLICO'
+	'PUBLICO',
+	42
 )
 GO
 CREATE TABLE Denuncia
@@ -169,13 +144,6 @@ VALUES(
 	2
 )
 GO
-INSERT Treinador(cref, dataNasc, usuario_id)
-VALUES(
-	'123987-G/SP',
-	'1990-03-20',
-	3
-)
-GO
 
 -- Tabela Canal
 CREATE TABLE Canal(
@@ -185,7 +153,7 @@ CREATE TABLE Canal(
 	seguidores		BIGINT			NOT NULL,
 	treinador_id	INT				NOT NULL,
 	numeroVideos	INT				NOT NULL,
-	bio				VARCHAR(255)	NULL,
+	bio				VARCHAR(MAX)	NULL,
 
 	FOREIGN KEY (treinador_id) REFERENCES Treinador(id),
 	PRIMARY KEY (id)
@@ -196,14 +164,8 @@ VALUES(
 	3243254,
 	'Paradas Musculat�rias', 1, 1, 1, 'é um canal muito bom' 
 )
-GO
-INSERT Canal(visualizacoes, nome, seguidores, treinador_id, numeroVideos, bio) 
-VALUES(
-	132900,
-	'Academia monstro', 12900, 2, 3, 'canal academia mosntro bio' 
-)
-GO
 
+GO
 -- Tabela Banco 
 CREATE TABLE Banco(
 	id				INT				IDENTITY,
@@ -221,7 +183,7 @@ GO
 -- Tabela Videoaula
 CREATE TABLE Videoaula(
 	id				INT				IDENTITY,
-	descricao		VARCHAR(255)	NULL,
+	descricao		VARCHAR(MAX)	NULL,
 	titulo			VARCHAR(100)	NOT NULL,
 	likes			INT				NULL,
 	deslikes		INT				NULL,
@@ -233,7 +195,6 @@ CREATE TABLE Videoaula(
 	categoria		VARCHAR(100)	NOT NULL,
 	tags			VARCHAR(MAX)	NOT NULL,
 	equipamento		VARCHAR(100)	NOT NULL,	
-
 
 	FOREIGN KEY (canal_id) REFERENCES Canal(id),
 	PRIMARY KEY(id)
@@ -391,7 +352,6 @@ SELECT * FROM Aluno_videoaula
 SELECT * FROM Admin_usuario
 SELECT * FROM Deslikes
 SELECT * FROM Likes
-SELECT * FROM ChaveSeguranca
 SELECT * FROM Denuncia
 
 /*

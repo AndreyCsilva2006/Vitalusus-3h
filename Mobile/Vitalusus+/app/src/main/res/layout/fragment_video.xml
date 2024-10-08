@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="60dp"
+    >
+
+    <!-- Player para reproduzir o vídeo -->
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/player_view"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_gravity="center"/>
+
+    <!-- Informações do vídeo -->
+    <TextView
+        android:id="@+id/tv_video_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_channel_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_date_posted"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"/>
+
+</LinearLayout>

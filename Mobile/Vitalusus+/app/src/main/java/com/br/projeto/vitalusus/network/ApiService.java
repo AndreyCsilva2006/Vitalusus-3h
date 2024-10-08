@@ -1,12 +1,16 @@
 package com.br.projeto.vitalusus.network;
+import com.br.projeto.vitalusus.model.Aluno;
 import com.br.projeto.vitalusus.model.Canal;
+import com.br.projeto.vitalusus.model.ChaveSeguranca;
 import com.br.projeto.vitalusus.model.Treinador;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.model.Video;
-import com.br.projeto.vitalusus.response.UsuarioResponse;
+import com.br.projeto.vitalusus.network.ApiService;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -30,9 +34,6 @@ public interface ApiService {
     @GET("usuarios")
     Call<List<Usuario>> findUsuariosTreinadores(@Query("tipoUsuario") String tipoUsuario);
 
-    @POST("/usuarios")
-    Call<Usuario> createUsuario(@Body Usuario usuario);
-
     @GET("/search")
     Call<List<Video>> searchVideos(@Query("q") String query);  // Temos que substituir para o nosso endpoint real
 
@@ -48,6 +49,22 @@ public interface ApiService {
     @GET("/canais/{id}")
     Call<Canal> getCanalById(@Path("id") int id);
 
-//    @GET("vitalusus/usuario/findAll")
-//    Call<List<Usuario>> findAll();
+    // POST
+    @POST("/usuarios")
+    Call<Usuario> createUsuario(@Body Usuario usuario);
+
+    @POST("/alunos")
+    Call<Aluno> createAluno(@Body Aluno aluno);
+
+    @POST("chaveSeguranca")
+    Call<ChaveSeguranca> createChaveSeguranca(@Body ChaveSeguranca chaveSeguranca);
+
+    @FormUrlEncoded
+    @POST("/usuarios")
+    Call<Usuario> loginUser(
+            @Field("email") String email,
+            @Field("senha") String senha
+    );
 }
+
+

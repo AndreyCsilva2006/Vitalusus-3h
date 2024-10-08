@@ -40,13 +40,12 @@ public class Usuario implements Serializable {
     private String tipoUsuario;
 
     @SerializedName("chaveSegurancaId")
-    private String chaveSegurancaId;
+    private int chaveSegurancaId;
 
     @SerializedName("nivelPrivacidade")
     private String nivelPrivacidade;
 
-    public Usuario(Integer id, String nome, String email, String senha, String nivelAcesso, byte[] foto, String dataCadastro, String statusUsuario, String tipoUsuario, String chaveSegurancaId, String nivelPrivacidade) {
-        this.id = id;
+    public Usuario(String nome, String email, String senha, String nivelAcesso, byte[] foto, String dataCadastro, String statusUsuario, String tipoUsuario, int chaveSegurancaId, String nivelPrivacidade) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -133,11 +132,11 @@ public class Usuario implements Serializable {
         this.tipoUsuario = tipoUsuario;
     }
 
-    public String getChaveSegurancaId() {
+    public int getChaveSegurancaId() {
         return chaveSegurancaId;
     }
 
-    public void setChaveSegurancaId(String chaveSegurancaId) {
+    public void setChaveSegurancaId(int chaveSegurancaId) {
         this.chaveSegurancaId = chaveSegurancaId;
     }
 

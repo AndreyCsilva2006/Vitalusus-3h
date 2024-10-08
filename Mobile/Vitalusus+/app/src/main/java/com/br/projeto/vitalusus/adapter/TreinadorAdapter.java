@@ -74,20 +74,25 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
             Treinador treinador = treinadores.get(position);
             Canal canal = canais.get(position);
 
-            // Atribui os valores aos componentes de interface
-            holder.nomeCanalTextView.setText(canal.getNome());
-//            holder.seguidoresTextView.setText(String.valueOf(canal.getSeguidores()));
+            // Verifica se o nível de privacidade é "PRIVADO"
+            if ("PRIVADO".equals(usuario.getNivelPrivacidade())) {
+                holder.itemView.setVisibility(View.GONE);
+                holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0)); // Remove o espaço do item
+            } else {
+                // Se o nível de privacidade for público ou qualquer outro, exibe o canal normalmente
+                holder.itemView.setVisibility(View.VISIBLE);
+                holder.nomeCanalTextView.setText(canal.getNome());
 
-            // Formatar e exibir seguidores
-            holder.seguidoresTextView.setText(formatarNumeroAbreviado((int) canal.getSeguidores()));
+                holder.seguidoresTextView.setText(formatarNumeroAbreviado((int) canal.getSeguidores()));
 
-            holder.itemView.setOnClickListener(v -> listener.onItemClick(usuario, treinador, canal));
+                // Carregar a imagem (caso use Glide)
+                // Glide.with(holder.itemView.getContext())
+                //     .load(usuario.getFoto()) // Substitua pelo campo real de URL de foto do treinador
+                //     .placeholder(R.drawable.perfil) // Placeholder enquanto carrega a imagem
+                //     .into(holder.fotoImageView);
 
-            // Carrega a imagem (se houver) com Glide, ou usa um placeholder
-//            Glide.with(holder.itemView.getContext())
-//                    .load(usuario.getFoto()) // Substitua pelo campo real de URL de foto do treinador
-//                    .placeholder(R.drawable.perfil) // Placeholder enquanto carrega a imagem
-//                    .into(holder.fotoImageView);
+                holder.itemView.setOnClickListener(v -> listener.onItemClick(usuario, treinador, canal));
+            }
         }
     }
 

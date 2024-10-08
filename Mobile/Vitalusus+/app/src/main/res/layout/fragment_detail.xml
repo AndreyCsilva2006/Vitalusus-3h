@@ -23,7 +23,6 @@
             android:id="@+id/txtNomeCanalDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nome do Canal"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -31,7 +30,6 @@
             android:id="@+id/txtNomeTreinadorCanalDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nome do Treinador"
             android:textSize="14sp" />
 
         <!--    lado a lado -->
@@ -52,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="valor de seguidores"
+                android:text=""
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -74,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="valor dev Visualizações"
+                android:text=""
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -95,7 +93,7 @@
             android:id="@+id/tv_BiografiaCanalDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Biografia do Canal"
+            android:text=" "
             android:textSize="14sp" />
 
         <!-- Grid de Vídeos -->

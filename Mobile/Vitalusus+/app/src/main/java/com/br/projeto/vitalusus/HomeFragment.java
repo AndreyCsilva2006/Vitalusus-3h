@@ -14,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.br.projeto.vitalusus.model.Canal;
 import com.br.projeto.vitalusus.model.Video;
 import com.br.projeto.vitalusus.network.ApiService;
 import com.br.projeto.vitalusus.network.RetrofitClient;
@@ -81,13 +83,16 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Video>> call, Throwable t) {
-                Toast.makeText(getContext(), "Erro ao buscar vídeos", Toast.LENGTH_SHORT).show();
+                // Verifica se o Fragment ainda está associado a um Context antes de exibir o Toast
+                if (getContext() != null) {
+                    Toast.makeText(getContext(), "Falha ao carregar os vídeos", Toast.LENGTH_SHORT).show();
+                }
+                // Outras ações de falha
             }
-        });
-    }
+
 
     // Método para preencher o grid de vídeos
-    private void populateVideoGrid(List<Video> videos) {
+    private void populateVideoGrid(List<Video> videos, List<Canal> canal) {
         for (Video video : videos) {
             // Verifica se o contexto está disponível
             if (getContext() == null) return;
@@ -95,22 +100,22 @@ public class HomeFragment extends Fragment {
             View videoItemView = LayoutInflater.from(getContext()).inflate(R.layout.item_video, videoGrid, false);
 
             // Configura a miniatura do vídeo
-            ImageView videoThumbnail = videoItemView.findViewById(R.id.video_thumbnail);
+            ImageView videoThumbnail = videoItemView.findViewById(R.id.videoThumbnail);
             if (video.getThumbnail() != null) {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(video.getThumbnail(), 0, video.getThumbnail().length);
                 videoThumbnail.setImageBitmap(bitmap);
             }
 
             // Configura o título do vídeo
-            TextView videoTitle = videoItemView.findViewById(R.id.titulo);
+            TextView videoTitle = videoItemView.findViewById(R.id.tituloVideo);
             videoTitle.setText(video.getTitulo() != null ? video.getTitulo() : "Título não disponível");
 
             // Configura o nome do canal
             TextView channelName = videoItemView.findViewById(R.id.nomeCanal);
-            channelName.setText(video.getCanal() != null && video.getCanal().getNome() != null ? video.getCanal().getNome() : "Canal não disponível");
+            channelName.setText(canal.getNome() != null && video.getCanal().getNome() != null ? video.getCanal().getNome() : "Canal não disponível");
 
             // Configura a data de postagem do vídeo
-            TextView videoDate = videoItemView.findViewById(R.id.DataPubli);
+            TextView videoDate = videoItemView.findViewById(R.id.DataPubliVideo);
             videoDate.setText(video.getDataPubli() != null ? video.getDataPubli() : "Data não disponível");
 
             // Adiciona a view do item ao GridLayout
@@ -126,4 +131,5 @@ public class HomeFragment extends Fragment {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         return stream.toByteArray();
     }
-}
+});
+    }}

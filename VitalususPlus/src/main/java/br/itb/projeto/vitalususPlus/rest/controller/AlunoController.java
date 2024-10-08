@@ -45,6 +45,11 @@ public class AlunoController {
         Aluno aluno = this.alunoService.findById(id);
         return new ResponseEntity<Aluno>(aluno, HttpStatus.OK);
     }
+    @PutMapping("updateIdade/{id}")
+    public ResponseEntity<Aluno> updateIdade(@PathVariable long id) {
+        Aluno aluno = this.alunoService.updateIdade(id);
+        return new ResponseEntity<Aluno>(aluno, HttpStatus.OK);
+    }
     @PostMapping("post")
     public ResponseEntity<Aluno> salvarAluno(@RequestBody @Valid Aluno aluno){
         Aluno alunoSalvo = this.alunoService.save(aluno);

@@ -27,6 +27,7 @@ public class Canal implements Serializable {
     @SerializedName("treinador_id")
     private Integer treinador_id;
 
+
     public Canal(int id, String nome, long visualizacoes, long seguidores, String bio, Integer treinador_id) {
         this.id = id;
         this.nome = nome;

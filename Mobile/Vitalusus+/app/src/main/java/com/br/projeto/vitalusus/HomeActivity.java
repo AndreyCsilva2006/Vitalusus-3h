@@ -10,6 +10,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import android.content.SharedPreferences;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -29,6 +31,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Carregar a preferência do tema ANTES de chamar super.onCreate
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPreferences", MODE_PRIVATE);
+        boolean isNightMode = sharedPreferences.getBoolean("NightMode", false);
+
+        if (isNightMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
+        // Chamando super.onCreate após definir o tema
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -52,6 +65,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setBackground(null);
 
+        // Configurando o listener do BottomNavigationView
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
