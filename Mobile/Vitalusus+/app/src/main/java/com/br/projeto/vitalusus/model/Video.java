@@ -1,23 +1,70 @@
 package com.br.projeto.vitalusus.model;
 
 import com.br.projeto.vitalusus.model.Canal;
+import com.google.gson.annotations.SerializedName;
+
+import java.math.BigInteger;
 
 public class Video {
-    private int id;
-    private String descricao;
-    private String titulo;
-    private int likes;
-    private int deslikes;
-    private long visualizacoes;
-    private String dataPubli; // Formato de data
-    private String categoria;
-    private String tipoVideoaula;
-    private byte[] thumbnail; // Imagem em bytes
 
-    private Canal canal; // Para vincular ao canal
+    @SerializedName("id")
+    private int id;
+
+    @SerializedName("descricao")
+    private String descricao;
+
+    @SerializedName("titulo")
+    private String titulo;
+
+    @SerializedName("likes")
+    private int likes;
+
+    @SerializedName("deslikes")
+    private int deslikes;
+
+    @SerializedName("canal_id")
+    private int canal_id;
+
+    @SerializedName("visualizacoes")
+    private BigInteger visualizacoes;
+
+    @SerializedName("video")
+    private byte[] video;
+
+    @SerializedName("thumbnail")
+    private byte[] thumbnail;
+
+    @SerializedName("dataPubli")
+    private String dataPubli;
+
+    @SerializedName("categoria")
+    private String categoria;
+
+    @SerializedName("tags")
+    private String tags;
+
+    @SerializedName("equipamento")
+    private byte[] equipamento;
+
+    // construtor
+
+    public Video(int id, String descricao, String titulo, int likes, int deslikes, int canal_id, BigInteger visualizacoes, byte[] video, byte[] thumbnail, String dataPubli, String categoria, String tags, byte[] equipamento) {
+        this.id = id;
+        this.descricao = descricao;
+        this.titulo = titulo;
+        this.likes = likes;
+        this.deslikes = deslikes;
+        this.canal_id = canal_id;
+        this.visualizacoes = visualizacoes;
+        this.video = video;
+        this.thumbnail = thumbnail;
+        this.dataPubli = dataPubli;
+        this.categoria = categoria;
+        this.tags = tags;
+        this.equipamento = equipamento;
+    }
 
     // Getters e setters
-
 
     public int getId() {
         return id;
@@ -59,12 +106,36 @@ public class Video {
         this.deslikes = deslikes;
     }
 
-    public long getVisualizacoes() {
+    public int getCanal_id() {
+        return canal_id;
+    }
+
+    public void setCanal_id(int canal_id) {
+        this.canal_id = canal_id;
+    }
+
+    public BigInteger getVisualizacoes() {
         return visualizacoes;
     }
 
-    public void setVisualizacoes(long visualizacoes) {
+    public void setVisualizacoes(BigInteger visualizacoes) {
         this.visualizacoes = visualizacoes;
+    }
+
+    public byte[] getVideo() {
+        return video;
+    }
+
+    public void setVideo(byte[] video) {
+        this.video = video;
+    }
+
+    public byte[] getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(byte[] thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public String getDataPubli() {
@@ -83,27 +154,19 @@ public class Video {
         this.categoria = categoria;
     }
 
-    public String getTipoVideoaula() {
-        return tipoVideoaula;
+    public String getTags() {
+        return tags;
     }
 
-    public void setTipoVideoaula(String tipoVideoaula) {
-        this.tipoVideoaula = tipoVideoaula;
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
-    public byte[] getThumbnail() {
-        return thumbnail;
+    public byte[] getEquipamento() {
+        return equipamento;
     }
 
-    public void setThumbnail(byte[] thumbnail) {
-        this.thumbnail = thumbnail;
-    }
-
-    public Canal getCanal() {
-        return canal;
-    }
-
-    public void setCanal(Canal canal) {
-        this.canal = canal;
+    public void setEquipamento(byte[] equipamento) {
+        this.equipamento = equipamento;
     }
 }
