@@ -1,6 +1,9 @@
 package br.itb.projeto.vitalususPlus.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.List;
@@ -47,7 +50,15 @@ public class UsuarioService {
 		usuario.setDataCadastro(LocalDateTime.now());
 		usuario.getDataCadastro().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		usuario.setNivelPrivacidade("PUBLICO");
-		return usuarioRepository.save(usuario);
+		LocalDate dataAtual = LocalDate.now();
+		LocalDate dataNascimento = usuario.getDataNasc().toInstant()
+				.atZone(ZoneId.systemDefault())
+				.toLocalDate();
+		usuario.setIdade(Period.between(dataNascimento, dataAtual).getYears());
+		if(usuario.getIdade() >=13) {
+			return usuarioRepository.save(usuario);
+		}
+		else throw new RuntimeException("O usuário possui menos de 13 anos");
 	}
 	@Transactional
 	public Usuario corrigirBugSenha(long id) {
@@ -92,6 +103,7 @@ public class UsuarioService {
 		}
 		return null;
 	}
+
 	@Transactional
 	public void delete(Usuario usuario) {
 		this.usuarioRepository.delete(usuario);
@@ -138,6 +150,7 @@ public class UsuarioService {
                 }
                 case "ATIVO" -> throw new RuntimeException("Este usuário já está ativo") ;
                 case "BANIDO" -> throw new RuntimeException("Este usuário foi banido");
+				case "DELETADO" -> throw new RuntimeException("Este usuário foi deletado");
             }
         }
         return null;
@@ -152,7 +165,15 @@ public class UsuarioService {
 		}
 		else throw new RuntimeException("Esse usuário não existe no banco de dados ou ocorreu um erro no servidor");
 	}
-
+	public Usuario deletar(long id){
+		Optional<Usuario> _usuario = usuarioRepository.findById(id);
+		if (_usuario.isPresent()) {
+			Usuario usuario = _usuario.get();
+			usuario.setStatusUsuario("DELETADO");
+			return usuarioRepository.save(usuario);
+		}
+		else throw new RuntimeException("Esse usuário não existe no banco de dados ou ocorreu um erro no servidor");
+	}
 	public Usuario alterarSenha(long id, Usuario usuario) {
 		Optional<Usuario> _usuario = usuarioRepository.findById(id);
 		if (_usuario.isPresent()) {
@@ -168,14 +189,14 @@ public class UsuarioService {
 	public Usuario sigin(String email, String senha) {
 		Usuario usuario = usuarioRepository.findByEmail(email);
 		if (usuario != null) {
-			if (!usuario.getStatusUsuario().equals("BANIDO")) {
+			if (!usuario.getStatusUsuario().equals("BANIDO") || !usuario.getStatusUsuario().equals("DELETADO")){
 				byte[] decodedPass = Base64.getDecoder().decode(usuario.getSenha());
 				if (new String(decodedPass).equals(senha)) {
 					return usuario;
 				}
 				else throw new RuntimeException("A senha está incorreta");
 			}
-			else throw new RuntimeException("Este usuário está inativo, não pode fazer login");
+			else throw new RuntimeException("Este usuário está banido ou deletado, não pode fazer login");
 		}
 		return null;
 	} 

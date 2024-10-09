@@ -95,6 +95,11 @@ public class UsuarioController {
 		Usuario usuarioBanido = this.usuarioService.banir(id);
 		return new ResponseEntity<Usuario>(usuarioBanido, HttpStatus.OK);
 	}
+	@PutMapping("deletar/{id}")
+	public ResponseEntity<Usuario> deletarUsuario(@PathVariable long id) {
+		Usuario usuarioDeletado = this.usuarioService.deletar(id);
+		return new ResponseEntity<Usuario>(usuarioDeletado, HttpStatus.OK);
+	}
 	@PostMapping("login/")
 	public ResponseEntity<?> sigin(@RequestParam String email, @RequestParam String senha) {
 		Usuario usuario = usuarioService.sigin(email, senha);
