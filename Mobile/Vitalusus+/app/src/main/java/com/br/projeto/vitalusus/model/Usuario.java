@@ -45,8 +45,10 @@ public class Usuario implements Serializable {
     @SerializedName("nivelPrivacidade")
     private String nivelPrivacidade;
 
-    public Usuario(Integer id, String nome, String email, String senha, String nivelAcesso, byte[] foto, String dataCadastro, String statusUsuario, String tipoUsuario, int chaveSegurancaId, String nivelPrivacidade) {
-        this.id = id;
+    @SerializedName("idade")
+    private int idade;
+
+    public Usuario(String nome, String email, String senha, String nivelAcesso, byte[] foto, String dataCadastro, String statusUsuario, String tipoUsuario, String nivelPrivacidade, int idade) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -55,8 +57,8 @@ public class Usuario implements Serializable {
         this.dataCadastro = dataCadastro;
         this.statusUsuario = statusUsuario;
         this.tipoUsuario = tipoUsuario;
-        this.chaveSegurancaId = chaveSegurancaId;
         this.nivelPrivacidade = nivelPrivacidade;
+        this.idade = idade;
     }
 
     //    Getter e Setter
@@ -147,5 +149,13 @@ public class Usuario implements Serializable {
 
     public void setNivelPrivacidade(String nivelPrivacidade) {
         this.nivelPrivacidade = nivelPrivacidade;
+    }
+
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
     }
 }

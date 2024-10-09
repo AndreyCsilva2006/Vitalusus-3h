@@ -38,7 +38,7 @@ public class NotificacoesAdapter extends RecyclerView.Adapter<NotificacoesAdapte
         Video video = listaVideos.get(position);
 
         holder.txtTitulo.setText(video.getTitulo());
-        holder.txtCanal.setText(video.getCanal().getNome());
+//        holder.txtCanal.setText(video.getCanal().getNome());
 
         // Mostrar thumbnail
         Bitmap thumbnail = BitmapFactory.decodeByteArray(video.getThumbnail(), 0, video.getThumbnail().length);

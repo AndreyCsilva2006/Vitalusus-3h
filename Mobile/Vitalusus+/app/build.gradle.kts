@@ -44,7 +44,7 @@ dependencies {
     implementation("net.sourceforge.jtds:jtds:1.3.1")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation ("org.parceler:parceler:1.0.4")
+
     implementation ("org.parceler:parceler-api:1.0.4")
     implementation ("com.github.bumptech.glide:glide:4.15.1")
     implementation ("com.google.android.exoplayer:exoplayer:2.18.0")

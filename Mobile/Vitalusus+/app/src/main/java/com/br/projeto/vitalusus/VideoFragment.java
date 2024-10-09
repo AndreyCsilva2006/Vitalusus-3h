@@ -55,7 +55,7 @@ public class VideoFragment extends Fragment {
 
     private void fetchVideoFromDatabase(long videoId) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://seuservidor.com/api/") // Insira a URL correta do servidor
+                .baseUrl("http://10.0.2.2:3030/") // Insira a URL correta do servidor
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -70,9 +70,9 @@ public class VideoFragment extends Fragment {
 
                     // Exibir informações do vídeo
                     tvVideoTitle.setText(video.getTitulo());
-                    tvChannelName.setText(video.getCanal().getNome());
-                    tvDatePosted.setText(video.getCanal().getBio());
-
+//                    tvChannelName.setText(video.getCanal().getNome());
+//                    tvDatePosted.setText(video.getCanal().getBio());
+//
                     // Carregar e reproduzir o vídeo
                     playVideoFromBytes(video.getThumbnail());
                 } else {

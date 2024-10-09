@@ -196,7 +196,6 @@ CREATE TABLE Videoaula(
 	tags			VARCHAR(MAX)	NOT NULL,
 	equipamento		VARCHAR(100)	NOT NULL,	
 
-
 	FOREIGN KEY (canal_id) REFERENCES Canal(id),
 	PRIMARY KEY(id)
 )

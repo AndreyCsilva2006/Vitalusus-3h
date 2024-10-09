@@ -13,9 +13,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 //import com.br.projeto.vitalusus.dao.UsuarioDAO;
 import com.br.projeto.vitalusus.model.Usuario;
+import com.br.projeto.vitalusus.network.ApiService;
 import com.br.projeto.vitalusus.util.MensagemUtil;
+import com.br.projeto.vitalusus.network.RetrofitClient;
 
 public class FormLogin extends AppCompatActivity {
 
@@ -76,18 +83,33 @@ public class FormLogin extends AppCompatActivity {
         String email = editEmail.getText().toString();
         String senha = editSenha.getText().toString();
 
-        // DAO - Data Access Object (Objeto de Acesso de Dados)
-//        Usuario usu = new UsuarioDAO().selecionarUsuario(email, senha);
-//        if (usu != null) {
-//            MensagemUtil.exibir(this, "Login com Sucesso!");
-//            Intent intent = new Intent(FormLogin.this, TelaPrincipal.class);
-//            intent.putExtra("nome", usu.getNome().toString());
-//            intent.putExtra("email", usu.getEmail().toString());
-//            startActivity(intent);
-//        } else {
-//            MensagemUtil.exibir(this, "Usuario não identificado, tente novamente.");
-//            limpar();
-//        }
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        ApiService apiService = retrofit.create(ApiService.class);
+        Call<Usuario> call = apiService.loginUser(email, senha);
+
+        call.enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Usuario usuario = response.body();
+                    MensagemUtil.exibir(FormLogin.this, "Login com Sucesso!");
+
+                    // Navegar para a próxima tela, passando o nome e email do usuário
+                    Intent intent = new Intent(FormLogin.this, HomeActivity.class);
+                    intent.putExtra("nome", usuario.getNome());
+                    intent.putExtra("email", usuario.getEmail());
+                    startActivity(intent);
+                } else {
+                    MensagemUtil.exibir(FormLogin.this, "Usuário não identificado, tente novamente.");
+                    limpar();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                MensagemUtil.exibir(FormLogin.this, "Erro ao tentar realizar login: " + t.getMessage());
+            }
+        });
     }
 
     private void limpar() {

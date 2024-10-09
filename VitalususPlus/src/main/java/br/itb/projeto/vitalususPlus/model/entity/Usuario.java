@@ -1,14 +1,13 @@
 package br.itb.projeto.vitalususPlus.model.entity;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 
 @Entity
 @Table(name = "Usuario")
@@ -52,10 +51,12 @@ public class Usuario {
 	@Column(name="tipoUsuario")
 	private String tipoUsuario;
 
-	@OneToOne
-	private ChaveSeguranca chaveSeguranca;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private UUID chaveSeguranca;
 	
 	private String nivelPrivacidade;
+
+	private int idade;
 	
 	public Long getId() {
 		return id;
@@ -129,11 +130,11 @@ public class Usuario {
 		this.tipoUsuario = tipoUsuario;
 	}
 
-	public ChaveSeguranca getChaveSeguranca() {
+	public UUID getChaveSeguranca() {
 		return chaveSeguranca;
 	}
 
-	public void setChaveSeguranca(ChaveSeguranca chaveSeguranca) {
+	public void setChaveSeguranca(UUID chaveSeguranca) {
 		this.chaveSeguranca = chaveSeguranca;
 	}
 
@@ -143,5 +144,13 @@ public class Usuario {
 
 	public void setNivelPrivacidade(String nivelPrivacidade) {
 		this.nivelPrivacidade = nivelPrivacidade;
+	}
+
+	public int getIdade() {
+		return idade;
+	}
+
+	public void setIdade(int idade) {
+		this.idade = idade;
 	}
 }

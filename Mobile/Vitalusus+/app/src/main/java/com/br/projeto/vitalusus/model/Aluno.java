@@ -3,7 +3,9 @@ package com.br.projeto.vitalusus.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Aluno {
+import java.io.Serializable;
+
+public class Aluno implements Serializable {
 
     @SerializedName("id")
     private Integer id;
@@ -20,8 +22,7 @@ public class Aluno {
     @SerializedName("usuario_id")
     private int usuario_id;
 
-    public Aluno(Integer id, String dataNasc, double altura, double peso, int usuario_id) {
-        this.id = id;
+    public Aluno(String dataNasc, double altura, double peso, int usuario_id) {
         this.dataNasc = dataNasc;
         this.altura = altura;
         this.peso = peso;

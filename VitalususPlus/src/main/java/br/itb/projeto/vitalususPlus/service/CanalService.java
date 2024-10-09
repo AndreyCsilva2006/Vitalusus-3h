@@ -1,5 +1,8 @@
 package br.itb.projeto.vitalususPlus.service;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -91,6 +94,11 @@ public class CanalService {
 			for (int i = 0; i < videoaula.size(); i++) {
 				canalUpdatado.setVisualizacoes(canalUpdatado.getVisualizacoes() + videoaula.get(i).getVisualizacoes());
 			}
+			LocalDate dataAtual = LocalDate.now();
+			LocalDate dataNascimento = canalUpdatado.getTreinador().getDataNasc().toInstant()
+					.atZone(ZoneId.systemDefault())
+					.toLocalDate();
+			canalUpdatado.getTreinador().getUsuario().setIdade(Period.between(dataNascimento, dataAtual).getYears());
 			canalUpdatado.setNumeroVideos(canalUpdatado.getVideoaulas().size());
 			canalUpdatado.setSeguidores(canalUpdatado.getAlunos().size());
 			return canalRepository.save(canalUpdatado);
