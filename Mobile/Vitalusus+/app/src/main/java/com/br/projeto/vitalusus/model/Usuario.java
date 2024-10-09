@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import net.sourceforge.jtds.jdbc.DateTime;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Usuario implements Serializable {
 
@@ -23,6 +24,9 @@ public class Usuario implements Serializable {
 
     @SerializedName("senha")
     private String senha;
+
+    @SerializedName("dataNasc")
+    private Date dataNasc;
 
     @SerializedName("nivelAcesso")
     private String nivelAcesso;
@@ -48,7 +52,7 @@ public class Usuario implements Serializable {
     @SerializedName("idade")
     private int idade;
 
-    public Usuario(String nome, String email, String senha, String nivelAcesso, byte[] foto, String dataCadastro, String statusUsuario, String tipoUsuario, String nivelPrivacidade, int idade) {
+    public Usuario(String nome, String email, String senha, String nivelAcesso, byte[] foto, String dataCadastro, String statusUsuario, String tipoUsuario, String nivelPrivacidade, int idade, Date dataNasc) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -59,6 +63,7 @@ public class Usuario implements Serializable {
         this.tipoUsuario = tipoUsuario;
         this.nivelPrivacidade = nivelPrivacidade;
         this.idade = idade;
+        this.dataNasc = dataNasc;
     }
 
     //    Getter e Setter
@@ -157,5 +162,13 @@ public class Usuario implements Serializable {
 
     public void setIdade(int idade) {
         this.idade = idade;
+    }
+
+    public Date getDataNasc() {
+        return dataNasc;
+    }
+
+    public void setDataNasc(Date dataNasc) {
+        this.dataNasc = dataNasc;
     }
 }
