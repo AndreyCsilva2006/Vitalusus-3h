@@ -38,9 +38,6 @@
             android:name=".EsqueciSenhaActivity"
             android:exported="false" />
         <activity
-            android:name=".TelaPrincipal"
-            android:exported="false" />
-        <activity
             android:name=".FormCadastro"
             android:exported="false" />
         <activity

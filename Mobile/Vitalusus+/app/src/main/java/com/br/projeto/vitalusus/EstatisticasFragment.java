@@ -28,6 +28,8 @@ public class EstatisticasFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_estatisticas, container, false);
 
+        getActivity().setTitle("Estatísticas");
+
         etPeso = view.findViewById(R.id.et_peso);
         etAltura = view.findViewById(R.id.et_altura);
         etIdade = view.findViewById(R.id.et_idade);

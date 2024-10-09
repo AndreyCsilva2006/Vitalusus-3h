@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ConfiguracoesFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +31,7 @@
                     android:text="Modo Claro"
                     android:textSize="24sp" />
 
-                <Switch
+                <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/SwitchModoClaro"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

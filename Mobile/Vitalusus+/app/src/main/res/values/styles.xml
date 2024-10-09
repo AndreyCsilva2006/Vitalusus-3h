@@ -59,4 +59,10 @@
         <item name="android:textSize">17sp</item>
         <item name="android:textColor">#000</item>
     </style>
+
+    <style name="CustomRadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+
 </resources>

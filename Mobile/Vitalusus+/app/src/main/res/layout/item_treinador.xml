@@ -7,14 +7,14 @@
     android:layout_marginTop="60dp"
     android:padding="8dp">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgTreinador"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginEnd="16dp"
         android:contentDescription="@string/foto_treinador"
         android:scaleType="centerCrop"
-        android:src="@drawable/abababa"
+        android:src="@drawable/ic_defaultuser"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -35,7 +35,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/tv_seguidores"
+        android:id="@+id/txtSeguidoresCanal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Seguidores"

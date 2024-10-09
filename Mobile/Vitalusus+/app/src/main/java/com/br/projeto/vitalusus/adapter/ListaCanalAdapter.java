@@ -1,8 +1,6 @@
 package com.br.projeto.vitalusus.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +10,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.br.projeto.vitalusus.R;
-import com.br.projeto.vitalusus.model.Canal;
 import com.br.projeto.vitalusus.model.Treinador;
 
 import java.util.List;
@@ -65,10 +62,10 @@ public class ListaCanalAdapter extends RecyclerView.Adapter<ListaCanalAdapter.Vi
 
         public ViewHolder(View itemView) {
             super(itemView);
-            txtNomeTreinador = itemView.findViewById(R.id.tv_nome);
+            txtNomeTreinador = itemView.findViewById(R.id.txtNomeCanal);
             txtDescricaoTreinador = itemView.findViewById(R.id.tv_descricao);
-            txtSeguidores = itemView.findViewById(R.id.tv_seguidores);
-            imgFoto = itemView.findViewById(R.id.iv_imagem);
+            txtSeguidores = itemView.findViewById(R.id.txtSeguidoresCanal);
+            imgFoto = itemView.findViewById(R.id.imgFotoCanal);
         }
     }
 }

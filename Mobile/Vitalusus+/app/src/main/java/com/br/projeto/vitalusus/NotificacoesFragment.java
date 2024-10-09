@@ -34,6 +34,8 @@ public class NotificacoesFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerViewNotificacoes);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        getActivity().setTitle("Notificações");
+
         // Carregar notificações do banco de dados
         carregarNotificacoes();
 
