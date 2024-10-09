@@ -26,10 +26,8 @@ public class Treinador{
 	@NotBlank(message = "campo não preenchido")
 	@CREF(message ="campo inválido")
 	private String cref;
- 
-	@Column(name="dataNasc")
-	private Date dataNasc;
-	
+
+
 	@OneToOne
 	@JoinColumn(name = "usuario_id",nullable=false)
 	private Usuario usuario;
@@ -49,14 +47,6 @@ public class Treinador{
 
 	public void setCref(String cref) {
 		this.cref = cref;
-	}
-
-	public Date getDataNasc() {
-		return dataNasc;
-	}
-
-	public void setDataNasc(Date dataNasc) {
-		this.dataNasc = dataNasc;
 	}
 
 	public Usuario getUsuario() {
