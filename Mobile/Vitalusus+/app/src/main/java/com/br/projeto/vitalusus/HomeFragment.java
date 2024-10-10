@@ -3,6 +3,7 @@ package com.br.projeto.vitalusus;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,21 +17,25 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.br.projeto.vitalusus.model.Canal;
+import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.model.Video;
 import com.br.projeto.vitalusus.network.ApiService;
 import com.br.projeto.vitalusus.network.RetrofitClient;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class HomeFragment extends Fragment {
 
     private GridLayout videoGrid;
     private ApiService apiService;
+    private List<Video> videoList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -59,9 +64,33 @@ public class HomeFragment extends Fragment {
         categoryDiet.setOnClickListener(v -> filterVideos("dieta"));
 
         // Inicia o video grid com todas as categorias
-        filterVideos("all");
+//        filterVideos("all");
+        fetchVideos();
 
         return view;
+    }
+
+    private void fetchVideos() {
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        apiService.findAllVideo().enqueue(new Callback<List<Video>>() {
+            @Override
+            public void onResponse(Call<List<Video>> call, Response<List<Video>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    videoList.clear();
+                    videoList.addAll(response.body());
+                    Log.d("Sucesso", "Videos carregados: " + videoList.size());
+                } else {
+                    Log.d("NovoUsuario", "Usuário: " + videoList.toString()); // log para verificar os valores
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Video>> call, Throwable t) {
+
+            }
+        });
     }
 
     // Método para filtrar vídeos com base na categoria
@@ -75,7 +104,7 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<Video>> call, Response<List<Video>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Video> videos = response.body();
-//                    populateVideoGrid(videos);
+                    populateVideoGrid(videos);
                 } else {
                     Toast.makeText(getContext(), "Nenhum vídeo encontrado", Toast.LENGTH_SHORT).show();
                 }
@@ -92,7 +121,7 @@ public class HomeFragment extends Fragment {
 
 
     // Método para preencher o grid de vídeos
-    private void populateVideoGrid(List<Video> videos, List<Canal> canal) {
+    private void populateVideoGrid(List<Video> videos) {
         for (Video video : videos) {
             // Verifica se o contexto está disponível
             if (getContext() == null) return;

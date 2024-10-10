@@ -30,21 +30,21 @@ public interface ApiService {
     @GET("treinadores")
     Call<List<Treinador>> findAllTreinadores();
 
+    @GET("videos")
+    Call<List<Video>> findAllVideo();
+
     @GET("usuarios")
     Call<List<Usuario>> findUsuariosTreinadores(@Query("tipoUsuario") String tipoUsuario);
 
     @GET("/search")
     Call<List<Video>> searchVideos(@Query("q") String query);  // Temos que substituir para o nosso endpoint real
 
-    // Método para buscar um Usuario por ID
     @GET("/usuarios/{id}")
     Call<Usuario> getUsuarioById(@Path("id") int id);
 
-    // Método para buscar um Treinador por ID
     @GET("/treinadores/{id}")
     Call<Treinador> getTreinadorById(@Path("id") int id);
 
-    // Método para buscar um Canal por ID
     @GET("/canais/{id}")
     Call<Canal> getCanalById(@Path("id") int id);
 

@@ -273,14 +273,13 @@ public class FormCadastro extends AppCompatActivity {
             editDataNasc.requestFocus();
             return false;
         }
-        // validação data nascimento correta
-//        if (editDataNasc.getText().toString().trim().isEmpty()) {
-//            editRSeguranca.setBackground(redBorder);
-//
-//            MensagemUtil.exibir(this, "Digite uma Data de Nascimento.");
-//            editDataNasc.requestFocus();
-//            return false;
-//        }
+        if (editDataNasc.getText().toString().trim().isEmpty()) {
+            editRSeguranca.setBackground(redBorder);
+
+            MensagemUtil.exibir(this, "Digite uma Data de Nascimento.");
+            editDataNasc.requestFocus();
+            return false;
+        }
         editDataNasc.setBackground(blackBorder);
 
         if (editAltura.getText().toString().trim().isEmpty()) {
@@ -337,7 +336,6 @@ public class FormCadastro extends AppCompatActivity {
         }
 
         // Coletar os dados do formulário
-        Integer id = null;
         String nome = editNome.getText().toString();
         String email = editEmail.getText().toString();
         String senha = editSenha.getText().toString();
@@ -355,8 +353,8 @@ public class FormCadastro extends AppCompatActivity {
             MensagemUtil.exibir(this, "Data de nascimento inválida.");
             return;
         }
-        Double altura = editAltura.getText().toString().isEmpty() ? null : Double.parseDouble(editAltura.getText().toString());
-        Double peso = editPeso.getText().toString().isEmpty() ? null : Double.parseDouble(editPeso.getText().toString());
+//        Double altura = editAltura.getText().toString().isEmpty() ? null : Double.parseDouble(editAltura.getText().toString());
+//        Double peso = editPeso.getText().toString().isEmpty() ? null : Double.parseDouble(editPeso.getText().toString());
 
         // Calcular a idade com base na data de nascimento
         int idade = calcularIdade(editDataNasc.getText().toString());
@@ -366,7 +364,7 @@ public class FormCadastro extends AppCompatActivity {
         ApiService apiService = retrofit.create(ApiService.class);
 
         // Criar novo Usuario (sem chave de segurança)
-        Usuario novoUsuario = new Usuario(id,nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, idade, dataNasc);
+        Usuario novoUsuario = new Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, idade, dataNasc);
         Log.d("NovoUsuario", "Usuário: " + novoUsuario.toString()); // log para verificar os valores
 
         // Chamar o endpoint para criar o usuário
@@ -375,12 +373,12 @@ public class FormCadastro extends AppCompatActivity {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 if (response.isSuccessful()) {
-                    Usuario usuarioCriado = response.body();
-                    int usuarioId = usuarioCriado.getId();
+//                    Usuario usuarioCriado = response.body();
+//                    int usuarioId = usuarioCriado.getId();
 
-                    // Criar o Aluno associado ao usuário
-                    Aluno novoAluno = new Aluno(altura, peso, usuarioId);
-                    Log.d("NovoAluno", "Aluno: " + novoAluno.toString()); // Adicione este log para verificar os valores
+//                    // Criar o Aluno associado ao usuário
+                    Aluno novoAluno = new Aluno();
+//                    Log.d("NovoAluno", "Aluno: " + novoAluno.toString()); // log para verificar os valores
 
                     Call<Aluno> callAluno = apiService.createAluno(novoAluno);
                     callAluno.enqueue(new Callback<Aluno>() {

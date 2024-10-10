@@ -69,6 +69,16 @@ sql.connect(dbConfig).then(pool => {
         }
     });
 
+    app.get('/videos', async (req, res) => {
+            try {
+                const result = await pool.request().query('SELECT * FROM Videoaula');
+                res.json(result.recordset);
+            } catch (err) {
+                console.error('Erro ao buscar canais:', err.message);
+                res.status(500).send(err.message);
+            }
+        });
+
     // Rota para buscar usuário pelo ID
     app.get('/usuarios/:id', async (req, res) => {
         const usuarioId = req.params.id;
@@ -155,7 +165,7 @@ sql.connect(dbConfig).then(pool => {
     });
 
         app.post('/usuarios', async (req, res) => {
-                const { nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, dataNasc, altura, peso } = req.body;
+                const { nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, dataNasc } = req.body;
 
                 try {
                     // Verificar se a data de nascimento foi enviada
@@ -200,16 +210,15 @@ sql.connect(dbConfig).then(pool => {
                             VALUES (@nome, @email, @senha, @nivelAcesso, @foto, @dataCadastro, @statusUsuario, @tipoUsuario, @nivelPrivacidade, @dataNasc, @idade);
                         `);
 
-                    const usuarioId = result.recordset[0].id; // Para pegar o ID gerado
+                        const usuarioId = result.recordset[0].id; // Para pegar o ID gerado
 
                     // Inserir aluno, agora sem a data de nascimento
                     await pool.request()
-                        .input('altura', sql.Decimal, altura)
-                        .input('peso', sql.Decimal, peso)
+
                         .input('usuario_id', sql.Int, usuarioId)
                         .query(`
-                            INSERT INTO Aluno (altura, peso, usuario_id)
-                            VALUES (@altura, @peso, @usuario_id);
+                            INSERT INTO Aluno ( usuario_id)
+                            VALUES ( @usuario_id);
                         `);
 
                     res.status(201).json({ message: 'Usuário e Aluno criado com sucesso!' });

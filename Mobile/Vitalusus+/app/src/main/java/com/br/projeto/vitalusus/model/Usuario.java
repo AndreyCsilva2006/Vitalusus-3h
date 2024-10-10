@@ -52,8 +52,7 @@ public class Usuario implements Serializable {
     @SerializedName("idade")
     private int idade;
 
-    public Usuario(Integer id,String nome, String email, String senha, String nivelAcesso, byte[] foto, String dataCadastro, String statusUsuario, String tipoUsuario, String nivelPrivacidade, int idade, Date dataNasc) {
-        this.id = id;
+    public Usuario(String nome, String email, String senha, String nivelAcesso, byte[] foto, String dataCadastro, String statusUsuario, String tipoUsuario, String nivelPrivacidade, int idade, Date dataNasc) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;

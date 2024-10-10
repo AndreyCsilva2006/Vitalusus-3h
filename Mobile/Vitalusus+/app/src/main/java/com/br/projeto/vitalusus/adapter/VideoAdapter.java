@@ -48,8 +48,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         Usuario usuario = usuarioList.get(position);
 
         // Converte byte[] para Bitmap e exibe a thumbnail
-        Bitmap bitmap = BitmapFactory.decodeByteArray(video.getThumbnail(), 0, video.getThumbnail().length);
-        holder.videoThumbnail.setImageBitmap(bitmap);
+//        Bitmap bitmap = BitmapFactory.decodeByteArray(video.getThumbnail(), 0, video.getThumbnail().length);
+//        holder.videoThumbnail.setImageBitmap(bitmap);
 
         // Define os outros detalhes do vídeo
         holder.videoTitulo.setText(video.getTitulo());

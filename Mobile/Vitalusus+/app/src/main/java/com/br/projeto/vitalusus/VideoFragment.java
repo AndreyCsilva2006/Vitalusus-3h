@@ -74,7 +74,7 @@ public class VideoFragment extends Fragment {
 //                    tvDatePosted.setText(video.getCanal().getBio());
 //
                     // Carregar e reproduzir o vídeo
-                    playVideoFromBytes(video.getThumbnail());
+//                    playVideoFromBytes(video.getThumbnail());
                 } else {
                     Log.e("VideoFragment", "Erro ao buscar o vídeo");
                 }

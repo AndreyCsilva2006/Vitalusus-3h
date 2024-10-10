@@ -19,11 +19,9 @@ public class Aluno implements Serializable {
     @SerializedName("usuario_id")
     private int usuario_id;
 
-    public Aluno(double altura, double peso, int usuario_id) {
-        this.altura = altura;
-        this.peso = peso;
-        this.usuario_id = usuario_id;
-    }
+//    public Aluno(Integer id) {
+//        this.id = id;
+//    }
 
     public Integer getId() {
         return id;
