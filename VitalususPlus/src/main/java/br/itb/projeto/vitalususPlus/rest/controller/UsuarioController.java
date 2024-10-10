@@ -95,6 +95,11 @@ public class UsuarioController {
 		Usuario usuarioBanido = this.usuarioService.banir(id);
 		return new ResponseEntity<Usuario>(usuarioBanido, HttpStatus.OK);
 	}
+	@PutMapping("desbanir/{id}")
+	public ResponseEntity<Usuario> desbanirUsuario(@PathVariable long id) {
+		Usuario usuarioBanido = this.usuarioService.desbanir(id);
+		return new ResponseEntity<Usuario>(usuarioBanido, HttpStatus.OK);
+	}
 	@PutMapping("deletar/{id}")
 	public ResponseEntity<Usuario> deletarUsuario(@PathVariable long id) {
 		Usuario usuarioDeletado = this.usuarioService.deletar(id);

@@ -165,6 +165,17 @@ public class UsuarioService {
 		}
 		else throw new RuntimeException("Esse usuário não existe no banco de dados ou ocorreu um erro no servidor");
 	}
+	public Usuario desbanir(long id){
+		Optional<Usuario> _usuario = usuarioRepository.findById(id);
+		if (_usuario.isPresent()) {
+			Usuario usuario = _usuario.get();
+			if(usuario.getStatusUsuario().equals("BANIDO")) {
+			usuario.setStatusUsuario("ATIVO");
+			}
+			return usuarioRepository.save(usuario);
+		}
+		else throw new RuntimeException("Esse usuário não existe no banco de dados ou ocorreu um erro no servidor");
+	}
 	public Usuario deletar(long id){
 		Optional<Usuario> _usuario = usuarioRepository.findById(id);
 		if (_usuario.isPresent()) {
