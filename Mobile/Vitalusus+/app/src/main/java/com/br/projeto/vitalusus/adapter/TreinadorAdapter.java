@@ -79,7 +79,7 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
                 holder.itemView.setVisibility(View.GONE);
                 holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0)); // Remove o espaço do item
             } else {
-                // Se o nível de privacidade for público ou qualquer outro, exibe o canal normalmente
+                // Se o nível de privacidade for público, exibe o canal normalmente
                 holder.itemView.setVisibility(View.VISIBLE);
                 holder.nomeCanalTextView.setText(canal.getNome());
 

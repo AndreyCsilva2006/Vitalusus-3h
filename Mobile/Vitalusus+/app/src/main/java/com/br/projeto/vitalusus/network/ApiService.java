@@ -1,7 +1,6 @@
 package com.br.projeto.vitalusus.network;
 import com.br.projeto.vitalusus.model.Aluno;
 import com.br.projeto.vitalusus.model.Canal;
-import com.br.projeto.vitalusus.model.ChaveSeguranca;
 import com.br.projeto.vitalusus.model.Treinador;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.model.Video;
@@ -55,9 +54,6 @@ public interface ApiService {
 
     @POST("/alunos")
     Call<Aluno> createAluno(@Body Aluno aluno);
-
-    @POST("chaveSeguranca")
-    Call<ChaveSeguranca> createChaveSeguranca(@Body ChaveSeguranca chaveSeguranca);
 
     @FormUrlEncoded
     @POST("/usuarios")

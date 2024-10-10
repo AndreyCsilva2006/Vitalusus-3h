@@ -56,4 +56,14 @@ public class Aluno implements Serializable {
     public void setUsuario_id(int usuario_id) {
         this.usuario_id = usuario_id;
     }
+
+    @Override
+    public String toString() {
+        return "Aluno{" +
+                "id=" + id +
+                ", altura='" + altura + '\'' +
+                ", peso='" + peso + '\'' +
+                ", usuario_id=" + usuario_id +
+                '}';
+    }
 }

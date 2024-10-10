@@ -52,7 +52,8 @@ public class Usuario implements Serializable {
     @SerializedName("idade")
     private int idade;
 
-    public Usuario(String nome, String email, String senha, String nivelAcesso, byte[] foto, String dataCadastro, String statusUsuario, String tipoUsuario, String nivelPrivacidade, int idade, Date dataNasc) {
+    public Usuario(Integer id,String nome, String email, String senha, String nivelAcesso, byte[] foto, String dataCadastro, String statusUsuario, String tipoUsuario, String nivelPrivacidade, int idade, Date dataNasc) {
+        this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -170,5 +171,24 @@ public class Usuario implements Serializable {
 
     public void setDataNasc(Date dataNasc) {
         this.dataNasc = dataNasc;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", email=" + email +
+                ", senha=" + senha +
+                ", nivelAcesso=" + nivelAcesso +
+                ", foto=" + foto +
+                ", dataCadastro=" + dataCadastro +
+                ", statusUsuario=" + statusUsuario +
+                ", tipoUsuario=" + tipoUsuario +
+                ", chaveSegurancaId=" + chaveSegurancaId +
+                ", nivelPrivacidade=" + nivelPrivacidade +
+                ", dataNasc=" + dataNasc +
+                ", idade=" + idade +
+                '}';
     }
 }
