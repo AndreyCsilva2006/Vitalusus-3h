@@ -10,9 +10,6 @@ public class Aluno implements Serializable {
     @SerializedName("id")
     private Integer id;
 
-    @SerializedName("dataNasc")
-    private String dataNasc;
-
     @SerializedName("altura")
     private double altura;
 
@@ -22,8 +19,7 @@ public class Aluno implements Serializable {
     @SerializedName("usuario_id")
     private int usuario_id;
 
-    public Aluno(String dataNasc, double altura, double peso, int usuario_id) {
-        this.dataNasc = dataNasc;
+    public Aluno(double altura, double peso, int usuario_id) {
         this.altura = altura;
         this.peso = peso;
         this.usuario_id = usuario_id;
@@ -36,15 +32,7 @@ public class Aluno implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    public String getDataNasc() {
-        return dataNasc;
-    }
-
-    public void setDataNasc(String dataNasc) {
-        this.dataNasc = dataNasc;
-    }
-
+    
     public double getAltura() {
         return altura;
     }
@@ -67,5 +55,15 @@ public class Aluno implements Serializable {
 
     public void setUsuario_id(int usuario_id) {
         this.usuario_id = usuario_id;
+    }
+
+    @Override
+    public String toString() {
+        return "Aluno{" +
+                "id=" + id +
+                ", altura='" + altura + '\'' +
+                ", peso='" + peso + '\'' +
+                ", usuario_id=" + usuario_id +
+                '}';
     }
 }

@@ -14,16 +14,12 @@ public class Treinador implements Serializable {
     @SerializedName("cref")
     private String cref;
 
-    @SerializedName("dataNasc")
-    private String dataNasc;
-
     @SerializedName("usuario_id")
     private Integer usuario_id;
 
-    public Treinador(Integer id, String cref, String dataNasc, Integer usuario_id) {
+    public Treinador(Integer id, String cref, Integer usuario_id) {
         this.id = id;
         this.cref = cref;
-        this.dataNasc = dataNasc;
         this.usuario_id = usuario_id;
     }
 
@@ -44,14 +40,6 @@ public class Treinador implements Serializable {
         this.cref = cref;
     }
 
-    public String getDataNasc() {
-        return dataNasc;
-    }
-
-    public void setDataNasc(String dataNasc) {
-        this.dataNasc = dataNasc;
-    }
-
     public Integer getUsuarioId() {
         return usuario_id;
     }
@@ -65,7 +53,6 @@ public class Treinador implements Serializable {
         return "Treinador{" +
                 "id=" + id +
                 ", cref='" + cref + '\'' +
-                ", dataNasc='" + dataNasc + '\'' +
                 ", usuario_id=" + usuario_id +
                 '}';
     }

@@ -18,7 +18,6 @@ import android.widget.TextView;
 //import com.br.projeto.vitalusus.dao.AlunoDAO;
 //import com.br.projeto.vitalusus.dao.UsuarioDAO;
 import com.br.projeto.vitalusus.model.Aluno;
-import com.br.projeto.vitalusus.model.ChaveSeguranca;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.network.ApiService;
 import com.br.projeto.vitalusus.network.RetrofitClient;
@@ -338,6 +337,7 @@ public class FormCadastro extends AppCompatActivity {
         }
 
         // Coletar os dados do formulário
+        Integer id = null;
         String nome = editNome.getText().toString();
         String email = editEmail.getText().toString();
         String senha = editSenha.getText().toString();
@@ -348,20 +348,26 @@ public class FormCadastro extends AppCompatActivity {
         String tipoUsuario = "ALUNO";
         String nivelPrivacidade = "PUBLICO";
 
-        String dataNasc = editDataNasc.getText().toString();
+        Date dataNasc;
+        try {
+            dataNasc = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(editDataNasc.getText().toString());
+        } catch (Exception e) {
+            MensagemUtil.exibir(this, "Data de nascimento inválida.");
+            return;
+        }
         Double altura = editAltura.getText().toString().isEmpty() ? null : Double.parseDouble(editAltura.getText().toString());
         Double peso = editPeso.getText().toString().isEmpty() ? null : Double.parseDouble(editPeso.getText().toString());
 
         // Calcular a idade com base na data de nascimento
-        int idade = calcularIdade(dataNasc);
+        int idade = calcularIdade(editDataNasc.getText().toString());
 
         // Retrofit para a criação do usuário
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         ApiService apiService = retrofit.create(ApiService.class);
 
         // Criar novo Usuario (sem chave de segurança)
-        Usuario novoUsuario = new Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, idade);
-        Log.d("NovoUsuario", "Usuário: " + novoUsuario.toString()); // Adicione este log para verificar os valores
+        Usuario novoUsuario = new Usuario(id,nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, idade, dataNasc);
+        Log.d("NovoUsuario", "Usuário: " + novoUsuario.toString()); // log para verificar os valores
 
         // Chamar o endpoint para criar o usuário
         Call<Usuario> callUsuario = apiService.createUsuario(novoUsuario);
@@ -373,7 +379,7 @@ public class FormCadastro extends AppCompatActivity {
                     int usuarioId = usuarioCriado.getId();
 
                     // Criar o Aluno associado ao usuário
-                    Aluno novoAluno = new Aluno(dataNasc, altura, peso, usuarioId);
+                    Aluno novoAluno = new Aluno(altura, peso, usuarioId);
                     Log.d("NovoAluno", "Aluno: " + novoAluno.toString()); // Adicione este log para verificar os valores
 
                     Call<Aluno> callAluno = apiService.createAluno(novoAluno);
