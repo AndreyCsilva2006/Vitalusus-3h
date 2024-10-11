@@ -12,6 +12,7 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import com.br.projeto.vitalusus.model.Canal;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.model.Video;
+import com.br.projeto.vitalusus.model.VideoResponse;
 import com.br.projeto.vitalusus.network.ApiService;
 import com.br.projeto.vitalusus.network.RetrofitClient;
 
@@ -58,10 +60,10 @@ public class HomeFragment extends Fragment {
         Button categoryDiet = view.findViewById(R.id.categoria_dieta);
 
         // Seta os listeners para os botões
-        categoryHigh.setOnClickListener(v -> filterVideos("alta"));
-        categoryWorkouts.setOnClickListener(v -> filterVideos("treinos"));
-        categoryRecommendations.setOnClickListener(v -> filterVideos("recomendacoes"));
-        categoryDiet.setOnClickListener(v -> filterVideos("dieta"));
+//        categoryHigh.setOnClickListener(v -> filterVideos("alta"));
+//        categoryWorkouts.setOnClickListener(v -> filterVideos("treinos"));
+//        categoryRecommendations.setOnClickListener(v -> filterVideos("recomendacoes"));
+//        categoryDiet.setOnClickListener(v -> filterVideos("dieta"));
 
         // Inicia o video grid com todas as categorias
 //        filterVideos("all");
@@ -74,91 +76,147 @@ public class HomeFragment extends Fragment {
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         ApiService apiService = retrofit.create(ApiService.class);
 
-        apiService.findAllVideo().enqueue(new Callback<List<Video>>() {
+        apiService.findAllVideosComDetalhes().enqueue(new Callback<List<VideoResponse>>() {
             @Override
-            public void onResponse(Call<List<Video>> call, Response<List<Video>> response) {
+            public void onResponse(Call<List<VideoResponse>> call, Response<List<VideoResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     videoList.clear();
-                    videoList.addAll(response.body());
-                    Log.d("Sucesso", "Videos carregados: " + videoList.size());
+                    List<VideoResponse> videoResponses = response.body();
+
+                    for (VideoResponse videoResponse : videoResponses) {
+                        Video video = videoResponse.getVideo();
+                        Canal canal = videoResponse.getCanal();
+                        Usuario usuario = videoResponse.getUsuario();
+
+                        addVideoToGrid(video, canal, usuario);
+                    }
+                    Log.d("Sucesso", "Vídeos carregados com sucesso");
+
                 } else {
-                    Log.d("NovoUsuario", "Usuário: " + videoList.toString()); // log para verificar os valores
+                    Log.d("Erro", "Erro ao carregar vídeos");
+                    mostrarErro("Falha ao carregar usuários treinadores", response.code());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Video>> call, Throwable t) {
-
-            }
-        });
-    }
-
-    // Método para filtrar vídeos com base na categoria
-    private void filterVideos(String category) {
-        // Limpa o grid de vídeos atual
-        videoGrid.removeAllViews();
-
-        // Chama a API para buscar vídeos com Retrofit
-        apiService.searchVideos(category).enqueue(new Callback<List<Video>>() {
-            @Override
-            public void onResponse(Call<List<Video>> call, Response<List<Video>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<Video> videos = response.body();
-                    populateVideoGrid(videos);
-                } else {
-                    Toast.makeText(getContext(), "Nenhum vídeo encontrado", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Video>> call, Throwable t) {
+            public void onFailure(Call<List<VideoResponse>> call, Throwable t) {
                 // Verifica se o Fragment ainda está associado a um Context antes de exibir o Toast
                 if (getContext() != null) {
                     Toast.makeText(getContext(), "Falha ao carregar os vídeos", Toast.LENGTH_SHORT).show();
                 }
-                // Outras ações de falha
             }
+        });
+
+        // Método para filtrar vídeos com base na categoria
+//        private void filterVideos (String category){
+//            // Limpa o grid de vídeos atual
+//            videoGrid.removeAllViews();
+//
+//            // Chama a API para buscar vídeos com Retrofit
+//            apiService.searchVideos(category).enqueue(new Callback<List<Video>>() {
+//                @Override
+//                public void onResponse(Call<List<Video>> call, Response<List<Video>> response) {
+//                    if (response.isSuccessful() && response.body() != null) {
+//                        List<Video> videos = response.body();
+//                        populateVideoGrid(videos);
+//                    } else {
+//                        Toast.makeText(getContext(), "Nenhum vídeo encontrado", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<List<Video>> call, Throwable t) {
+//                    // Verifica se o Fragment ainda está associado a um Context antes de exibir o Toast
+//                    if (getContext() != null) {
+//                        Toast.makeText(getContext(), "Falha ao carregar os vídeos", Toast.LENGTH_SHORT).show();
+//                    }
+//                    // Outras ações de falha
+//                }
 
 
-    // Método para preencher o grid de vídeos
-    private void populateVideoGrid(List<Video> videos) {
-        for (Video video : videos) {
-            // Verifica se o contexto está disponível
-            if (getContext() == null) return;
+                // Método para preencher o grid de vídeos
+//                private void populateVideoGrid(List<Video> videos) {
+//                    for (Video video : videos) {
+//                        // Verifica se o contexto está disponível
+//                        if (getContext() == null) return;
+//
+//                        View videoItemView = LayoutInflater.from(getContext()).inflate(R.layout.item_video, videoGrid, false);
+//
+//                        // Configura a miniatura do vídeo
+//                        ImageView videoThumbnail = videoItemView.findViewById(R.id.videoThumbnail);
+//                        if (video.getThumbnail() != null) {
+//                            Bitmap bitmap = BitmapFactory.decodeByteArray(video.getThumbnail(), 0, video.getThumbnail().length);
+//                            videoThumbnail.setImageBitmap(bitmap);
+//                        }
+//
+//                        // Configura o título do vídeo
+//                        TextView videoTitle = videoItemView.findViewById(R.id.tituloVideo);
+//                        videoTitle.setText(video.getTitulo() != null ? video.getTitulo() : "Título não disponível");
+//
+//                        // Configura o nome do canal
+//                        TextView channelName = videoItemView.findViewById(R.id.nomeCanal);
+////            channelName.setText(canal.getNome() != null && video.getCanal().getNome() != null ? video.getCanal().getNome() : "Canal não disponível");
+//
+//                        // Configura a data de postagem do vídeo
+//                        TextView videoDate = videoItemView.findViewById(R.id.DataPubliVideo);
+//                        videoDate.setText(video.getDataPubli() != null ? video.getDataPubli() : "Data não disponível");
+//
+//                        // Adiciona a view do item ao GridLayout
+//                        videoGrid.addView(videoItemView);
+//                    }
+//                });
 
-            View videoItemView = LayoutInflater.from(getContext()).inflate(R.layout.item_video, videoGrid, false);
+                // Método auxiliar para gerar uma thumbnail mock
+//                private byte[] getMockThumbnail() {
+//                    // Simule uma thumbnail para testes usando uma imagem existente
+//                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
+//                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//                    return stream.toByteArray();
+//                }
+//            });
+//        }
+    }
 
-            // Configura a miniatura do vídeo
-            ImageView videoThumbnail = videoItemView.findViewById(R.id.videoThumbnail);
-            if (video.getThumbnail() != null) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(video.getThumbnail(), 0, video.getThumbnail().length);
-                videoThumbnail.setImageBitmap(bitmap);
-            }
+    private void addVideoToGrid(Video video, Canal canal, Usuario usuario) {
+        View videoItemView = LayoutInflater.from(getContext()).inflate(R.layout.item_video, videoGrid, false);
 
-            // Configura o título do vídeo
-            TextView videoTitle = videoItemView.findViewById(R.id.tituloVideo);
-            videoTitle.setText(video.getTitulo() != null ? video.getTitulo() : "Título não disponível");
-
-            // Configura o nome do canal
-            TextView channelName = videoItemView.findViewById(R.id.nomeCanal);
-//            channelName.setText(canal.getNome() != null && video.getCanal().getNome() != null ? video.getCanal().getNome() : "Canal não disponível");
-
-            // Configura a data de postagem do vídeo
-            TextView videoDate = videoItemView.findViewById(R.id.DataPubliVideo);
-            videoDate.setText(video.getDataPubli() != null ? video.getDataPubli() : "Data não disponível");
-
-            // Adiciona a view do item ao GridLayout
-            videoGrid.addView(videoItemView);
+        // configura thumbnail do vídeo
+        ImageView videoThumbnail = videoItemView.findViewById(R.id.videoThumbnail);
+        if (video.getThumbnail() != null) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(video.getThumbnail(), 0, video.getThumbnail().length);
+            videoThumbnail.setImageBitmap(bitmap);
         }
+
+        TextView videoTitle = videoItemView.findViewById(R.id.tituloVideo);
+        videoTitle.setText(video.getTitulo() != null ? video.getTitulo() : "Título não disponível");
+
+        // Configura o nome do canal
+        TextView channelName = videoItemView.findViewById(R.id.nomeCanal);
+        channelName.setText(canal.getNome() != null ? canal.getNome() : "Canal não disponível");
+
+        // Configura a foto de perfil do usuário (treinador)
+        ImageView userFoto = videoItemView.findViewById(R.id.fotoCanal);
+        if (usuario.getFoto() != null) {
+            Bitmap userBitmap = BitmapFactory.decodeByteArray(usuario.getFoto(), 0, usuario.getFoto().length);
+            userFoto.setImageBitmap(userBitmap);
+        }
+
+        // Configura a data de postagem do vídeo
+        TextView videoDate = videoItemView.findViewById(R.id.DataPubliVideo);
+        videoDate.setText(video.getDataPubli() != null ? video.getDataPubli() : "Data não disponível");
+
+        // Adiciona a view do item ao GridLayout
+        videoGrid.addView(videoItemView);
     }
 
-    // Método auxiliar para gerar uma thumbnail mock
-    private byte[] getMockThumbnail() {
-        // Simule uma thumbnail para testes usando uma imagem existente
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        return stream.toByteArray();
+    private void mostrarErro(String mensagem, int codigo) {
+        Toast.makeText(requireContext(), mensagem + " (Código: " + codigo + ")", Toast.LENGTH_SHORT).show();
+        Log.e("Erro", mensagem + " - Código: " + codigo);
     }
-});
-    }}
+
+    private void mostrarErro(String mensagem) {
+        Toast.makeText(requireContext(), mensagem, Toast.LENGTH_SHORT).show();
+        Log.e("Erro", mensagem);
+    }
+}

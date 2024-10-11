@@ -79,6 +79,26 @@ sql.connect(dbConfig).then(pool => {
             }
         });
 
+        // Rota para buscar vídeos com detalhes de Canal, Treinador e Usuario
+       // Rota para buscar vídeos com detalhes de Canal e Treinador (nome do treinador vindo de Usuario)
+    app.get('/videos/com-detalhes', async (req, res) => {
+        try {
+            const result = await pool.request().query(`
+                SELECT V.titulo, V.descricao, V.visualizacoes, V.dataPubli, C.nome AS nomeCanal, U.foto AS fotoUsuario, U.nome AS nomeTreinador
+                FROM Videoaula V
+                JOIN Canal C ON V.canal_id = C.id
+                JOIN Treinador T ON C.treinador_id = T.id
+                JOIN Usuario U ON T.usuario_id = U.id
+            `);
+            res.json(result.recordset);
+        } catch (err) {
+            console.error('Erro ao buscar vídeos com detalhes:', err.message);
+            res.status(500).send('Erro ao buscar vídeos com detalhes');
+        }
+    });
+
+
+
     // Rota para buscar usuário pelo ID
     app.get('/usuarios/:id', async (req, res) => {
         const usuarioId = req.params.id;
