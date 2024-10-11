@@ -4,6 +4,7 @@ import com.br.projeto.vitalusus.model.Canal;
 import com.br.projeto.vitalusus.model.Treinador;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.model.Video;
+import com.br.projeto.vitalusus.model.VideoResponse;
 import com.br.projeto.vitalusus.network.ApiService;
 
 import retrofit2.Call;
@@ -32,6 +33,9 @@ public interface ApiService {
 
     @GET("videos")
     Call<List<Video>> findAllVideo();
+
+    @GET("videos/com-detalhes")
+    Call<List<VideoResponse>> findAllVideosComDetalhes();
 
     @GET("usuarios")
     Call<List<Usuario>> findUsuariosTreinadores(@Query("tipoUsuario") String tipoUsuario);

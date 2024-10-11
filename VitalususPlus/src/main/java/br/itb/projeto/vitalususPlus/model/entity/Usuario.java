@@ -13,7 +13,6 @@ import lombok.*;
 @Entity
 @Table(name = "Usuario")
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -60,6 +59,10 @@ public class Usuario {
 	private Date dataNasc;
 
 	private int idade;
+	
+	public Usuario() {
+        this.chaveSeguranca = UUID.randomUUID();
+    }
 	
 	public Long getId() {
 		return id;

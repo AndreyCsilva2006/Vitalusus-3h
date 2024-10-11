@@ -20,7 +20,7 @@ CREATE TABLE Usuario
    dataCadastro	 SMALLDATETIME	NOT NULL,
    statusUsuario VARCHAR(20)    NOT NULL, -- ATIVO ou INATIVO ou TROCAR_SENHA	
    tipoUsuario	 VARCHAR(15)	NOT NULL, -- ADMINISTRADOR ou ALUNO ou TREINADOR	
-   chaveSeguranca  UNIQUEIDENTIFIER DEFAULT NEWID(),
+   chaveSeguranca  UNIQUEIDENTIFIER DEFAULT NEWID() NOT NULL,
    nivelPrivacidade VARCHAR(50)NOT NULL, -- PUBLICO ou PRIVADO
    dataNasc	DATE			NOT NULL,
    idade		INT				NOT NULL,
@@ -111,8 +111,8 @@ GO
 CREATE TABLE Aluno
 (
 	id			INT					IDENTITY,
-	altura		DECIMAL(10,2)		NOT NULL,
-	peso		DECIMAL(10,2)		NOT NULL,
+	altura		DECIMAL(10,2)		NULL,
+	peso		DECIMAL(10,2)		NULL,
 	usuario_id	INT					NOT NULL,
 
 	FOREIGN KEY(usuario_id) REFERENCES Usuario (id),
@@ -201,8 +201,8 @@ CREATE TABLE Videoaula(
 GO
 INSERT Videoaula(descricao, titulo, likes, deslikes, canal_id, visualizacoes, dataPubli, categoria, tags, equipamento)
 VALUES(
-	'Um v�deo sobre como fazer belas flex�es',
-	'Como Fazer Flex�es',
+	'Um vídeo sobre como fazer belas flexões',
+	'Como Fazer Flexões',
 	1332,
 	0,
 	1, 
