@@ -111,8 +111,8 @@ GO
 CREATE TABLE Aluno
 (
 	id			INT					IDENTITY,
-	altura		DECIMAL(10,2)		NOT NULL,
-	peso		DECIMAL(10,2)		NOT NULL,
+	altura		DECIMAL(10,2)		NULL,
+	peso		DECIMAL(10,2)		NULL,
 	usuario_id	INT					NOT NULL,
 
 	FOREIGN KEY(usuario_id) REFERENCES Usuario (id),

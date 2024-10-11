@@ -2,6 +2,7 @@ package com.br.projeto.vitalusus;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.br.projeto.vitalusus.model.Canal;
@@ -25,6 +27,9 @@ import com.br.projeto.vitalusus.network.ApiService;
 import com.br.projeto.vitalusus.network.RetrofitClient;
 
 import java.io.ByteArrayOutputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,10 +93,22 @@ public class HomeFragment extends Fragment {
                         Canal canal = videoResponse.getCanal();
                         Usuario usuario = videoResponse.getUsuario();
 
-                        addVideoToGrid(video, canal, usuario);
-                    }
-                    Log.d("Sucesso", "Vídeos carregados com sucesso");
+                        if (video == null) {
+                            Log.e("Erro", "O objeto 'video' é nulo.");
+                        }
+                        if (canal == null) {
+                            Log.e("Erro", "O objeto 'canal' é nulo.");
+                        }
+                        if (usuario == null) {
+                            Log.e("Erro", "O objeto 'usuario' é nulo.");
+                        }
 
+                        if (video != null && canal != null && usuario != null) {
+                            addVideoToGrid(video, canal, usuario);
+                        } else {
+                            Log.e("Erro", "Algum dado está nulo: video, canal ou usuario.");
+                        }
+                    }
                 } else {
                     Log.d("Erro", "Erro ao carregar vídeos");
                     mostrarErro("Falha ao carregar usuários treinadores", response.code());
@@ -134,7 +151,7 @@ public class HomeFragment extends Fragment {
 //                }
 
 
-                // Método para preencher o grid de vídeos
+        // Método para preencher o grid de vídeos
 //                private void populateVideoGrid(List<Video> videos) {
 //                    for (Video video : videos) {
 //                        // Verifica se o contexto está disponível
@@ -166,7 +183,7 @@ public class HomeFragment extends Fragment {
 //                    }
 //                });
 
-                // Método auxiliar para gerar uma thumbnail mock
+        // Método auxiliar para gerar uma thumbnail mock
 //                private byte[] getMockThumbnail() {
 //                    // Simule uma thumbnail para testes usando uma imagem existente
 //                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
@@ -179,6 +196,10 @@ public class HomeFragment extends Fragment {
     }
 
     private void addVideoToGrid(Video video, Canal canal, Usuario usuario) {
+        if (video == null) {
+            Log.e("Erro", "O objeto video é null, não será adicionado ao grid.");
+            return;
+        }
         View videoItemView = LayoutInflater.from(getContext()).inflate(R.layout.item_video, videoGrid, false);
 
         // configura thumbnail do vídeo
@@ -203,11 +224,34 @@ public class HomeFragment extends Fragment {
         }
 
         // Configura a data de postagem do vídeo
-        TextView videoDate = videoItemView.findViewById(R.id.DataPubliVideo);
-        videoDate.setText(video.getDataPubli() != null ? video.getDataPubli() : "Data não disponível");
+        TextView videoData = videoItemView.findViewById(R.id.DataPubliVideo);
+        String relativeDate = getRelativeTime(video.getDataPubli());
+        videoData.setText(relativeDate);
 
         // Adiciona a view do item ao GridLayout
         videoGrid.addView(videoItemView);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private String getRelativeTime(String dataPubli) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        LocalDateTime videoDate = LocalDateTime.parse(dataPubli, formatter);
+        LocalDateTime now = LocalDateTime.now();
+
+        long seconds = ChronoUnit.SECONDS.between(videoDate, now);
+
+        if (seconds < 60) {
+            return seconds + " segundos atrás";
+        } else if (seconds < 3600) {
+            long minutes = seconds / 60;
+            return minutes + (minutes == 1 ? " minuto atrás" : " minutos atrás");
+        } else if (seconds < 86400) {
+            long hours = seconds / 3600;
+            return hours + (hours == 1 ? " hora atrás" : " horas atrás");
+        } else {
+            long days = seconds / 86400;
+            return days + (days == 1 ? " dia atrás" : " dias atrás");
+        }
     }
 
     private void mostrarErro(String mensagem, int codigo) {
