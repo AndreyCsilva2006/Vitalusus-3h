@@ -13,7 +13,6 @@ import lombok.*;
 @Entity
 @Table(name = "Usuario")
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
