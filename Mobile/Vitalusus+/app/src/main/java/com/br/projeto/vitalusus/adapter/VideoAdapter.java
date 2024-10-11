@@ -12,17 +12,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.br.projeto.vitalusus.R;
+import com.br.projeto.vitalusus.model.Canal;
+import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.model.Video;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
 
+    private final List<Canal> canalList;
     private final List<Video> videoList;
+    private final List<Usuario> usuarioList;
     private final Context context;
 
-    public VideoAdapter(List<Video> videoList, Context context) {
+    public VideoAdapter(List<Video> videoList, List<Canal> canalList, List<Usuario> usuarioList, Context context) {
         this.videoList = videoList;
+        this.canalList = canalList;
+        this.usuarioList = usuarioList;
         this.context = context;
     }
 
@@ -36,15 +44,19 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     @Override
     public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
         Video video = videoList.get(position);
+        Canal canal = canalList.get(position);
+        Usuario usuario = usuarioList.get(position);
 
         // Converte byte[] para Bitmap e exibe a thumbnail
-        Bitmap bitmap = BitmapFactory.decodeByteArray(video.getThumbnail(), 0, video.getThumbnail().length);
-        holder.videoThumbnail.setImageBitmap(bitmap);
+//        Bitmap bitmap = BitmapFactory.decodeByteArray(video.getThumbnail(), 0, video.getThumbnail().length);
+//        holder.videoThumbnail.setImageBitmap(bitmap);
 
         // Define os outros detalhes do vídeo
-        holder.videoTitle.setText(video.getTitulo());
-        holder.channelName.setText(video.getCanal().getNome());
-        holder.videoDate.setText(video.getDataPostagem());
+        holder.videoTitulo.setText(video.getTitulo());
+        holder.canalNome.setText(canal.getNome());
+        holder.videoDataPubli.setText(video.getDataPubli());
+//        holder.canalFoto.setImageBitmap(usuario.getFoto());
+//        holder.videoThumbnail.setImageBitmap(video.getThumbnail());
     }
 
     @Override
@@ -55,16 +67,18 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     public static class VideoViewHolder extends RecyclerView.ViewHolder {
 
         ImageView videoThumbnail;
-        TextView videoTitle;
-        TextView channelName;
-        TextView videoDate;
+        TextView videoTitulo;
+        TextView canalNome;
+        TextView videoDataPubli;
+        CircleImageView canalFoto;
 
         public VideoViewHolder(@NonNull View itemView) {
             super(itemView);
-            videoThumbnail = itemView.findViewById(R.id.video_thumbnail);
-            videoTitle = itemView.findViewById(R.id.video_title);
-            channelName = itemView.findViewById(R.id.channel_name);
-            videoDate = itemView.findViewById(R.id.video_date);
+            videoThumbnail = itemView.findViewById(R.id.videoThumbnail);
+            videoTitulo = itemView.findViewById(R.id.tituloVideo);
+            canalNome = itemView.findViewById(R.id.nomeCanal);
+            videoDataPubli = itemView.findViewById(R.id.DataPubliVideo);
+            canalFoto = itemView.findViewById(R.id.fotoCanal);
         }
     }
 }

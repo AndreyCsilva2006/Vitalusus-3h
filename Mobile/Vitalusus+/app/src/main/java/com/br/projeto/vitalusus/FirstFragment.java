@@ -40,10 +40,10 @@ public class FirstFragment extends Fragment {
 
         textoTutorial.setText("Bem Vindo(a) ao Vitalusus+ o aplicativo que irá te deixar estruturado(a) saudávelmente de verdade.");
         binding.btnAnteriorTutorial.setColorFilter(ContextCompat.getColor(getContext(), R.color.iconGrey), PorterDuff.Mode.SRC_ATOP);
-        imagem.setImageResource(R.drawable.logo);
+        imagem.setImageResource(R.drawable.img_tut0);
         btnProximoTutorial.setImageResource(R.drawable.ic_seta0);
 
-        binding.cadastro.setVisibility(View.GONE);
+        binding.cadastro.setVisibility(View.VISIBLE);
         binding.cadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,15 +57,18 @@ public class FirstFragment extends Fragment {
                 num_passoTut = num_passoTut + 1;
                 if (num_passoTut == 1) {
                     textoTutorial.setText("O nosso objetivo é fornecer aos usuários informações precisas e confiáveis sobre nutrição e alimentação saudável.");
+                    imagem.setImageResource(R.drawable.img_tut1);
                     binding.btnAnteriorTutorial.setColorFilter(ContextCompat.getColor(getContext(), R.color.white), PorterDuff.Mode.SRC_ATOP);
                 }
                 if (num_passoTut == 2) {
-                    textoTutorial.setText("Seguidas por Treinadores que possuem CREF(Conselho Regional de Educação Física) para desenvolvimento de Videoaulas.");
+                    textoTutorial.setText("Seguidas por Treinadores que possuem CREF(Conselho Regional de Educação Física) para aplicamento de Videoaulas.");
+                    imagem.setImageResource(R.drawable.img_tut2);
                 }
                 if (num_passoTut == 3) {
                     textoTutorial.setText("Uma forma fácil e eficiente de treinar. Cadastre-se agora no botão abaixo.");
                     binding.btnProximoTutorial.setColorFilter(ContextCompat.getColor(getContext(), R.color.iconGrey), PorterDuff.Mode.SRC_ATOP);
                     binding.cadastro.setVisibility(View.VISIBLE);
+                    imagem.setImageResource(R.drawable.logo);
                 }
                 // caso dê pra fugir pro 4, retrocede -1 para voltar ao 3.
                 if (num_passoTut == 4) {
@@ -83,16 +86,16 @@ public class FirstFragment extends Fragment {
                 }
                 if (num_passoTut == 0) {
                     textoTutorial.setText("Bem Vindo(a) ao Vitalusus+ o aplicativo que irá te deixar estruturado(a) saudávelmente de verdade.");
-                    imagem.setImageResource(R.drawable.logo);
+                    imagem.setImageResource(R.drawable.img_tut0);
                     binding.btnAnteriorTutorial.setColorFilter(ContextCompat.getColor(getContext(), R.color.iconGrey), PorterDuff.Mode.SRC_ATOP);
                 }
                 if (num_passoTut == 1) {
                     textoTutorial.setText("O nosso objetivo é fornecer aos usuários informações precisas e confiáveis sobre nutrição e alimentação saudável.");
-//                    imagem.setImageResource(R.drawable.img_tut1);
+                    imagem.setImageResource(R.drawable.img_tut1);
                 }
                 if (num_passoTut == 2) {
-                    textoTutorial.setText("Seguidas por Treinadores que possuem CREF(Conselho Regional de Educação Física) para desenvolvimento de Videoaulas.");
-                    imagem.setImageResource(R.drawable.logo);
+                    textoTutorial.setText("Seguidas por Treinadores que possuem CREF(Conselho Regional de Educação Física) para aplicamento de Videoaulas.");
+                    imagem.setImageResource(R.drawable.img_tut2);
                     binding.btnProximoTutorial.setColorFilter(ContextCompat.getColor(getContext(), R.color.white), PorterDuff.Mode.SRC_ATOP);
                 }
             }

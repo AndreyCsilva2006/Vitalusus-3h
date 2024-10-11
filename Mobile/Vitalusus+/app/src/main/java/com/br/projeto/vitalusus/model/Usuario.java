@@ -6,7 +6,12 @@ import com.google.gson.annotations.SerializedName;
 
 import net.sourceforge.jtds.jdbc.DateTime;
 
-public class Usuario {
+import java.io.Serializable;
+import java.util.Date;
+
+public class Usuario implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @SerializedName("id")
     private Integer id;
@@ -20,11 +25,14 @@ public class Usuario {
     @SerializedName("senha")
     private String senha;
 
+    @SerializedName("dataNasc")
+    private Date dataNasc;
+
     @SerializedName("nivelAcesso")
     private String nivelAcesso;
 
     @SerializedName("foto")
-    private Bitmap foto;
+    private byte[] foto;
 
     @SerializedName("dataCadastro")
     private String dataCadastro;
@@ -36,13 +44,15 @@ public class Usuario {
     private String tipoUsuario;
 
     @SerializedName("chaveSegurancaId")
-    private String chaveSegurancaId;
+    private int chaveSegurancaId;
 
     @SerializedName("nivelPrivacidade")
     private String nivelPrivacidade;
 
-    public Usuario(Integer id, String nome, String email, String senha, String nivelAcesso, Bitmap foto, String dataCadastro, String statusUsuario, String tipoUsuario, String chaveSegurancaId, String nivelPrivacidade) {
-        this.id = id;
+    @SerializedName("idade")
+    private int idade;
+
+    public Usuario(String nome, String email, String senha, String nivelAcesso, byte[] foto, String dataCadastro, String statusUsuario, String tipoUsuario, String nivelPrivacidade, int idade, Date dataNasc) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -51,8 +61,9 @@ public class Usuario {
         this.dataCadastro = dataCadastro;
         this.statusUsuario = statusUsuario;
         this.tipoUsuario = tipoUsuario;
-        this.chaveSegurancaId = chaveSegurancaId;
         this.nivelPrivacidade = nivelPrivacidade;
+        this.idade = idade;
+        this.dataNasc = dataNasc;
     }
 
     //    Getter e Setter
@@ -113,11 +124,11 @@ public class Usuario {
         this.statusUsuario = statusUsuario;
     }
 
-    public Bitmap getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
-    public void setFoto(Bitmap foto) {
+    public void setFoto(byte[] foto) {
         this.foto = foto;
     }
 
@@ -129,11 +140,11 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
-    public String getChaveSegurancaId() {
+    public int getChaveSegurancaId() {
         return chaveSegurancaId;
     }
 
-    public void setChaveSegurancaId(String chaveSegurancaId) {
+    public void setChaveSegurancaId(int chaveSegurancaId) {
         this.chaveSegurancaId = chaveSegurancaId;
     }
 
@@ -143,5 +154,40 @@ public class Usuario {
 
     public void setNivelPrivacidade(String nivelPrivacidade) {
         this.nivelPrivacidade = nivelPrivacidade;
+    }
+
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
+    public Date getDataNasc() {
+        return dataNasc;
+    }
+
+    public void setDataNasc(Date dataNasc) {
+        this.dataNasc = dataNasc;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", email=" + email +
+                ", senha=" + senha +
+                ", nivelAcesso=" + nivelAcesso +
+                ", foto=" + foto +
+                ", dataCadastro=" + dataCadastro +
+                ", statusUsuario=" + statusUsuario +
+                ", tipoUsuario=" + tipoUsuario +
+                ", chaveSegurancaId=" + chaveSegurancaId +
+                ", nivelPrivacidade=" + nivelPrivacidade +
+                ", dataNasc=" + dataNasc +
+                ", idade=" + idade +
+                '}';
     }
 }

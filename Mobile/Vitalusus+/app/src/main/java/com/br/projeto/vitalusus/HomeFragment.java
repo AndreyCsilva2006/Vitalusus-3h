@@ -3,6 +3,7 @@ package com.br.projeto.vitalusus;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,20 +11,31 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import com.br.projeto.vitalusus.model.Canal;
-import com.br.projeto.vitalusus.model.Video;
 
+import com.br.projeto.vitalusus.model.Canal;
+import com.br.projeto.vitalusus.model.Usuario;
+import com.br.projeto.vitalusus.model.Video;
+import com.br.projeto.vitalusus.network.ApiService;
+import com.br.projeto.vitalusus.network.RetrofitClient;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class HomeFragment extends Fragment {
 
     private GridLayout videoGrid;
+    private ApiService apiService;
+    private List<Video> videoList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -33,6 +45,11 @@ public class HomeFragment extends Fragment {
 
         // Inicia as views
         videoGrid = view.findViewById(R.id.video_grid);
+
+        // Inicializa Retrofit
+        apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+
+        getActivity().setTitle("Home");
 
         // Inicia os botões de categoria
         Button categoryHigh = view.findViewById(R.id.categoria_videosalta);
@@ -47,30 +64,63 @@ public class HomeFragment extends Fragment {
         categoryDiet.setOnClickListener(v -> filterVideos("dieta"));
 
         // Inicia o video grid com todas as categorias
-        filterVideos("all");
+//        filterVideos("all");
+        fetchVideos();
 
         return view;
     }
 
-    private void filterVideos(String category) {
-        // Limpa o video grid atual
-        videoGrid.removeAllViews();
+    private void fetchVideos() {
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        ApiService apiService = retrofit.create(ApiService.class);
 
-        // Exemplo da lista de videos (isso normalmente viria de um banco de dados ou API)
-        List<Video> videos = getMockVideos();
-
-        // Filtrar videos baseados na categoria
-        List<Video> filteredVideos = new ArrayList<>();
-        for (Video video : videos) {
-            if ("all".equals(category) || video.getCanal().getNome().equals(category)) {
-                filteredVideos.add(video);
+        apiService.findAllVideo().enqueue(new Callback<List<Video>>() {
+            @Override
+            public void onResponse(Call<List<Video>> call, Response<List<Video>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    videoList.clear();
+                    videoList.addAll(response.body());
+                    Log.d("Sucesso", "Videos carregados: " + videoList.size());
+                } else {
+                    Log.d("NovoUsuario", "Usuário: " + videoList.toString()); // log para verificar os valores
+                }
             }
-        }
 
-        // Popular a grid com os videos filtrados
-        populateVideoGrid(filteredVideos);
+            @Override
+            public void onFailure(Call<List<Video>> call, Throwable t) {
+
+            }
+        });
     }
 
+    // Método para filtrar vídeos com base na categoria
+    private void filterVideos(String category) {
+        // Limpa o grid de vídeos atual
+        videoGrid.removeAllViews();
+
+        // Chama a API para buscar vídeos com Retrofit
+        apiService.searchVideos(category).enqueue(new Callback<List<Video>>() {
+            @Override
+            public void onResponse(Call<List<Video>> call, Response<List<Video>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Video> videos = response.body();
+                    populateVideoGrid(videos);
+                } else {
+                    Toast.makeText(getContext(), "Nenhum vídeo encontrado", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Video>> call, Throwable t) {
+                // Verifica se o Fragment ainda está associado a um Context antes de exibir o Toast
+                if (getContext() != null) {
+                    Toast.makeText(getContext(), "Falha ao carregar os vídeos", Toast.LENGTH_SHORT).show();
+                }
+                // Outras ações de falha
+            }
+
+
+    // Método para preencher o grid de vídeos
     private void populateVideoGrid(List<Video> videos) {
         for (Video video : videos) {
             // Verifica se o contexto está disponível
@@ -79,39 +129,30 @@ public class HomeFragment extends Fragment {
             View videoItemView = LayoutInflater.from(getContext()).inflate(R.layout.item_video, videoGrid, false);
 
             // Configura a miniatura do vídeo
-            ImageView videoThumbnail = videoItemView.findViewById(R.id.video_thumbnail);
+            ImageView videoThumbnail = videoItemView.findViewById(R.id.videoThumbnail);
             if (video.getThumbnail() != null) {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(video.getThumbnail(), 0, video.getThumbnail().length);
                 videoThumbnail.setImageBitmap(bitmap);
             }
 
             // Configura o título do vídeo
-            TextView videoTitle = videoItemView.findViewById(R.id.video_title);
+            TextView videoTitle = videoItemView.findViewById(R.id.tituloVideo);
             videoTitle.setText(video.getTitulo() != null ? video.getTitulo() : "Título não disponível");
 
-            // Configura o nome do canal e a data de postagem
-            TextView channelName = videoItemView.findViewById(R.id.channel_name);
-            channelName.setText(video.getCanal() != null && video.getCanal().getNome() != null ? video.getCanal().getNome() : "Canal não disponível");
+            // Configura o nome do canal
+            TextView channelName = videoItemView.findViewById(R.id.nomeCanal);
+//            channelName.setText(canal.getNome() != null && video.getCanal().getNome() != null ? video.getCanal().getNome() : "Canal não disponível");
 
-            TextView videoDate = videoItemView.findViewById(R.id.video_date);
-            videoDate.setText(video.getDataPostagem() != null ? video.getDataPostagem() : "Data não disponível");
+            // Configura a data de postagem do vídeo
+            TextView videoDate = videoItemView.findViewById(R.id.DataPubliVideo);
+            videoDate.setText(video.getDataPubli() != null ? video.getDataPubli() : "Data não disponível");
 
             // Adiciona a view do item ao GridLayout
             videoGrid.addView(videoItemView);
         }
     }
 
-    // Lista simulada de vídeos, devemos substituir isso pela nossa fonte de dados real
-    private List<Video> getMockVideos() {
-        List<Video> videos = new ArrayList<>();
-        // Use thumbnails reais no formato de byte array e outros dados reais
-        videos.add(new Video(1, "Título do Vídeo 1", "01/09/2024", new Canal("Canal 1"), getMockThumbnail()));
-        videos.add(new Video(2, "Título do Vídeo 2", "02/09/2024", new Canal("Canal 2"), getMockThumbnail()));
-        videos.add(new Video(3, "Título do Vídeo 3", "03/09/2024", new Canal("Canal 3"), getMockThumbnail()));
-        // Adicione mais vídeos conforme necessário
-        return videos;
-    }
-
+    // Método auxiliar para gerar uma thumbnail mock
     private byte[] getMockThumbnail() {
         // Simule uma thumbnail para testes usando uma imagem existente
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
@@ -119,4 +160,5 @@ public class HomeFragment extends Fragment {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         return stream.toByteArray();
     }
-}
+});
+    }}

@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,7 +19,23 @@ import android.widget.TextView;
 //import com.br.projeto.vitalusus.dao.UsuarioDAO;
 import com.br.projeto.vitalusus.model.Aluno;
 import com.br.projeto.vitalusus.model.Usuario;
+import com.br.projeto.vitalusus.network.ApiService;
+import com.br.projeto.vitalusus.network.RetrofitClient;
 import com.br.projeto.vitalusus.util.MensagemUtil;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.UUID;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 // código copiado e adaptador da ActivityAluno (com.br.projeto.vitalusus.view.ActivityAluno).
 public class FormCadastro extends AppCompatActivity {
@@ -256,14 +273,13 @@ public class FormCadastro extends AppCompatActivity {
             editDataNasc.requestFocus();
             return false;
         }
-        // validação data nascimento correta
-//        if (editDataNasc.getText().toString().trim().isEmpty()) {
-//            editRSeguranca.setBackground(redBorder);
-//
-//            MensagemUtil.exibir(this, "Digite uma Data de Nascimento.");
-//            editDataNasc.requestFocus();
-//            return false;
-//        }
+        if (editDataNasc.getText().toString().trim().isEmpty()) {
+            editRSeguranca.setBackground(redBorder);
+
+            MensagemUtil.exibir(this, "Digite uma Data de Nascimento.");
+            editDataNasc.requestFocus();
+            return false;
+        }
         editDataNasc.setBackground(blackBorder);
 
         if (editAltura.getText().toString().trim().isEmpty()) {
@@ -273,7 +289,7 @@ public class FormCadastro extends AppCompatActivity {
             editAltura.requestFocus();
             return false;
         }
-        if (editAltura.getText().toString().trim().length() < 1 ) {
+        if (editAltura.getText().toString().trim().length() < 1) {
             editAltura.setBackground(redBorder);
 
             MensagemUtil.exibir(this, "Digite sua Altura.");
@@ -285,34 +301,116 @@ public class FormCadastro extends AppCompatActivity {
         return true;
     }
 
+    private String getCurrentDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        return sdf.format(new Date());
+    }
+
+    // Método de calcular Idade para cadastro, Infelizmente grande porque a API mínima do projeto é 24.
+    private int calcularIdade(String dataNasc) {
+        // Supondo que a dataNasc esteja no formato "yyyy-MM-dd"
+        String[] dataParts = dataNasc.split("-");
+        int anoNasc = Integer.parseInt(dataParts[0]);
+        int mesNasc = Integer.parseInt(dataParts[1]);
+        int diaNasc = Integer.parseInt(dataParts[2]);
+
+        Calendar hoje = Calendar.getInstance();
+        int anoAtual = hoje.get(Calendar.YEAR);
+        int mesAtual = hoje.get(Calendar.MONTH) + 1; // Janeiro é 0, então somamos 1
+        int diaAtual = hoje.get(Calendar.DAY_OF_MONTH);
+
+        int idade = anoAtual - anoNasc;
+
+        // Verifica se ainda não fez aniversário neste ano
+        if (mesAtual < mesNasc || (mesAtual == mesNasc && diaAtual < diaNasc)) {
+            idade--;
+        }
+
+        return idade;
+    }
+
     private void salvar() {
-        // se ele o método validar() não for verdadeiro...
+        // se ele o método validar() não for verdadeiro.
         if (!validar()) {
-            // retorne tudo novamente.
             return;
         }
-//        Aluno a = new Aluno();
-//        Usuario u = new Usuario();
 
-//        if (alunoEditando != null) {
-//            a = alunoEditando;
-//        }
-//        u.setNome(editNome.getText().toString());
-//        u.setEmail(editEmail.getText().toString());
-//        u.setSenha(editSenha.getText().toString());
-//        u.setpSeguranca(editPSeguranca.getText().toString());
-//        u.setrSeguranca(editRSeguranca.getText().toString());
-//        a.setDataNasc(editDataNasc.getText().toString());
-//        a.setAltura(editAltura.getTextSize());
-//        a.setPeso(editPeso.getTextSize());
-//
-//        AlunoDAO daoAlu = new AlunoDAO();
-//        UsuarioDAO daoUsu = new UsuarioDAO();
-//        if (alunoEditando != null) {
-////            daoAlu.alterar(a);
-//        } else {
-//            daoAlu.cadastrarAluno(a, u);
-//        }
+        // Coletar os dados do formulário
+        String nome = editNome.getText().toString();
+        String email = editEmail.getText().toString();
+        String senha = editSenha.getText().toString();
+        String nivelAcesso = "USER";
+        byte[] foto = null;
+        String dataCadastro = getCurrentDate();
+        String statusUsuario = "ATIVO";
+        String tipoUsuario = "ALUNO";
+        String nivelPrivacidade = "PUBLICO";
+
+        Date dataNasc;
+        try {
+            dataNasc = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(editDataNasc.getText().toString());
+        } catch (Exception e) {
+            MensagemUtil.exibir(this, "Data de nascimento inválida.");
+            return;
+        }
+//        Double altura = editAltura.getText().toString().isEmpty() ? null : Double.parseDouble(editAltura.getText().toString());
+//        Double peso = editPeso.getText().toString().isEmpty() ? null : Double.parseDouble(editPeso.getText().toString());
+
+        // Calcular a idade com base na data de nascimento
+        int idade = calcularIdade(editDataNasc.getText().toString());
+
+        // Retrofit para a criação do usuário
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        // Criar novo Usuario (sem chave de segurança)
+        Usuario novoUsuario = new Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, idade, dataNasc);
+        Log.d("NovoUsuario", "Usuário: " + novoUsuario.toString()); // log para verificar os valores
+
+        // Chamar o endpoint para criar o usuário
+        Call<Usuario> callUsuario = apiService.createUsuario(novoUsuario);
+        callUsuario.enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                if (response.isSuccessful()) {
+//                    Usuario usuarioCriado = response.body();
+//                    int usuarioId = usuarioCriado.getId();
+
+//                    // Criar o Aluno associado ao usuário
+                    Aluno novoAluno = new Aluno();
+//                    Log.d("NovoAluno", "Aluno: " + novoAluno.toString()); // log para verificar os valores
+
+                    Call<Aluno> callAluno = apiService.createAluno(novoAluno);
+                    callAluno.enqueue(new Callback<Aluno>() {
+                        @Override
+                        public void onResponse(Call<Aluno> call, Response<Aluno> response) {
+                            if (response.isSuccessful()) {
+                                MensagemUtil.exibir(FormCadastro.this, "Cadastro realizado com sucesso!");
+                                Intent intent = new Intent(FormCadastro.this, FormLogin.class);
+                                startActivity(intent);
+                            } else {
+                                MensagemUtil.exibir(FormCadastro.this, "Erro ao cadastrar aluno");
+                                Log.e("CadastroAluno", "Erro ao cadastrar aluno: " + response.code() + " - " + response.message());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Aluno> call, Throwable t) {
+                            MensagemUtil.exibir(FormCadastro.this, "Erro ao comunicar com o servidor");
+                            Log.e("CadastroAluno", "Falha na requisição: ", t);
+                        }
+                    });
+                } else {
+                    MensagemUtil.exibir(FormCadastro.this, "Erro ao cadastrar usuário");
+                    Log.e("CadastroUsuario", "Erro ao cadastrar usuário: " + response.code() + " - " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                MensagemUtil.exibir(FormCadastro.this, "Erro ao comunicar com o servidor");
+            }
+        });
 
         Intent intent = new Intent(FormCadastro.this, FormLogin.class);
         startActivity(intent);
