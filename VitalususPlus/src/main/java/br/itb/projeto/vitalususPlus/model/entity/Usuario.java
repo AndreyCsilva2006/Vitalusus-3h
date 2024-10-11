@@ -61,6 +61,10 @@ public class Usuario {
 
 	private int idade;
 	
+	public Usuario() {
+        this.chaveSeguranca = UUID.randomUUID();
+    }
+	
 	public Long getId() {
 		return id;
 	}
