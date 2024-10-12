@@ -193,13 +193,15 @@ CREATE TABLE Videoaula(
 	dataPubli		SMALLDATETIME	NOT NULL,
 	categoria		VARCHAR(100)	NOT NULL,
 	tags			VARCHAR(MAX)	NOT NULL,
-	equipamento		VARCHAR(100)	NOT NULL,	
+	equipamento		VARCHAR(100)	NOT NULL,
+	statusVideo		VARCHAR(50)		NOT NULL, --ATIVO ou BANIDO
+	privacidadeVideo	VARCHAR(50)		NOT NULL, --PÚBLICO ou PRIVADO
 
 	FOREIGN KEY (canal_id) REFERENCES Canal(id),
 	PRIMARY KEY(id)
 )
 GO
-INSERT Videoaula(descricao, titulo, likes, deslikes, canal_id, visualizacoes, dataPubli, categoria, tags, equipamento)
+INSERT Videoaula(descricao, titulo, likes, deslikes, canal_id, visualizacoes, dataPubli, categoria, tags, equipamento, statusVideo, privacidadeVideo)
 VALUES(
 	'Um vídeo sobre como fazer belas flexões',
 	'Como Fazer Flexões',
@@ -210,7 +212,9 @@ VALUES(
 	GETDATE(),
 	'Musculação',
 	'Flexões',
-	'Esteira'
+	'Esteira',
+	'ATIVO',
+	'PÚBLICO'
 )
 GO
 
