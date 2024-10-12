@@ -68,6 +68,10 @@ public class Videoaula {
 	private String tags;
 	
 	private String equipamento;
+
+	private String statusVideo;
+
+	private String privacidadeVideo;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "videoaula", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
@@ -209,6 +213,20 @@ public class Videoaula {
 	public void setEquipamento(String equipamento) {
 		this.equipamento = equipamento;
 	}
-	
-	
+
+	public String getStatusVideo() {
+		return statusVideo;
+	}
+
+	public void setStatusVideo(String statusVideo) {
+		this.statusVideo = statusVideo;
+	}
+
+	public String getPrivacidadeVideo() {
+		return privacidadeVideo;
+	}
+
+	public void setPrivacidadeVideo(String privacidadeVideo) {
+		this.privacidadeVideo = privacidadeVideo;
+	}
 }
