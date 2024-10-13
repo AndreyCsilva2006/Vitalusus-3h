@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name="Comentario")
 @AllArgsConstructor
@@ -28,6 +30,8 @@ public class Comentario {
     @ManyToOne
     @JoinColumn(name="videoaula_id")
     private Videoaula videoaula;
+
+	private LocalDateTime dataPubli;
 
 	public Long getId() {
 		return id;
@@ -60,6 +64,12 @@ public class Comentario {
 	public void setVideoaula(Videoaula videoaula) {
 		this.videoaula = videoaula;
 	}
-    
 
+	public LocalDateTime getDataPubli() {
+		return dataPubli;
+	}
+
+	public void setDataPubli(LocalDateTime dataPubli) {
+		this.dataPubli = dataPubli;
+	}
 }
