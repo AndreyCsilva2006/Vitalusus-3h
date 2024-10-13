@@ -254,17 +254,19 @@ CREATE TABLE Comentario(
 	texto			VARCHAR(255)	NOT NULL,
 	aluno_id		INT				NOT NULL,
 	videoaula_id	INT				NOT NULL,
+	dataPubli		SMALLDATETIME	NOT NULL,
 
 	PRIMARY KEY (id),
 	FOREIGN KEY(aluno_id) REFERENCES Aluno(id),
 	FOREIGN KEY(videoaula_id) REFERENCES Videoaula(id)
 )
 GO
-INSERT Comentario(texto, aluno_id, videoaula_id)
+INSERT Comentario(texto, aluno_id, videoaula_id, dataPubli)
 VALUES(
 	'Uau, que aula daora! Segui as suas instru��es por 6 meses e agora eu t� sheipado!',
 	1,
-	1
+	1,
+	GETDATE()
 )
 GO
 -- Tabela Aluno_segue_canal
