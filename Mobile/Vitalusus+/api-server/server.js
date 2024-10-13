@@ -2,11 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const sql = require('mssql');
 
-const dayjs = require('dayjs');
-const relativeTime = require('dayjs/plugin/relativeTime');
-
-// Ativa o plugin de tempo relativo
-dayjs.extend(relativeTime);
 const app = express();
 app.use(bodyParser.json());
 
@@ -84,40 +79,50 @@ sql.connect(dbConfig).then(pool => {
             }
         });
 
-   app.get('/videos/com-detalhes', async (req, res) => {
-       try {
-           const result = await pool.request().query(`
-               SELECT V.titulo, V.descricao, V.visualizacoes, V.dataPubli,
-                      C.nome AS nomeCanal, U.foto AS fotoUsuario, U.nome AS nomeTreinador
-               FROM Videoaula V
-               JOIN Canal C ON V.canal_id = C.id
-               JOIN Treinador T ON C.treinador_id = T.id
-               JOIN Usuario U ON T.usuario_id = U.id
-           `);
+  app.get('/videos/com-detalhes', async (req, res) => {
+      try {
+          const result = await pool.request().query(`
+              SELECT
+                  V.titulo,
+                  V.descricao,
+                  V.visualizacoes,
+                  V.dataPubli,
+                  C.nome AS nomeCanal,
+                  U.foto AS fotoUsuario,
+                  U.nome AS nomeTreinador
+              FROM Videoaula V
+              JOIN Canal C ON V.canal_id = C.id
+              JOIN Treinador T ON C.treinador_id = T.id
+              JOIN Usuario U ON T.usuario_id = U.id
+          `);
 
-           // Reformata a resposta para incluir objetos aninhados
-           const response = result.recordset.map(row => ({
-               video: {
-                   titulo: row.titulo,
-                   descricao: row.descricao,
-                   visualizacoes: row.visualizacoes,
-                   dataPubli: dayjs(row.dataPubli).fromNow()  // Exibe o tempo relativo
-               },
-               canal: {
-                   nome: row.nomeCanal
-               },
-               usuario: {
-                   foto: row.fotoUsuario,
-                   nome: row.nomeTreinador
-               }
-           }));
+          const videosComDetalhes = result.recordset.map(video => ({
+              video: {
+                  titulo: video.titulo,
+                  descricao: video.descricao,
+                  visualizacoes: video.visualizacoes,
+                  dataPubli: new Date(video.dataPubli).toISOString() // Corrigindo o formato da data para ISO 8601
+              },
+              canal: {
+                  nome: video.nomeCanal
+              },
+              usuario: {
+                  foto: video.fotoUsuario,
+                  nome: video.nomeTreinador
+              }
+          }));
 
-           res.json(response);
-       } catch (err) {
-           console.error('Erro ao buscar vídeos com detalhes:', err.message);
-           res.status(500).send('Erro ao buscar vídeos com detalhes');
-       }
-   })
+          // Certifique-se de que a resposta seja enviada apenas uma vez
+          res.json(videosComDetalhes);
+      } catch (err) {
+          console.error('Erro ao buscar vídeos com detalhes:', err.message);
+
+          // O envio de erro acontece apenas se `res.json` não tiver sido chamado antes
+          if (!res.headersSent) {
+              res.status(500).send('Erro ao buscar vídeos com detalhes');
+          }
+      }
+  });
 
     // Rota para buscar usuário pelo ID
     app.get('/usuarios/:id', async (req, res) => {

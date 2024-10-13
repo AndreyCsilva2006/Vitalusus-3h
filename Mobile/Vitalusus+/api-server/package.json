@@ -9,8 +9,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "dayjs": "^1.11.13"
-  }
+  "description": ""
 }

@@ -27,7 +27,10 @@ import com.br.projeto.vitalusus.network.ApiService;
 import com.br.projeto.vitalusus.network.RetrofitClient;
 
 import java.io.ByteArrayOutputStream;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -86,29 +89,26 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<VideoResponse>> call, Response<List<VideoResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     videoList.clear();
-                    List<VideoResponse> videoResponses = response.body();
+                    videoGrid.removeAllViews();
 
+                    List<VideoResponse> videoResponses = response.body();
                     for (VideoResponse videoResponse : videoResponses) {
                         Video video = videoResponse.getVideo();
                         Canal canal = videoResponse.getCanal();
                         Usuario usuario = videoResponse.getUsuario();
 
-                        if (video == null) {
-                            Log.e("Erro", "O objeto 'video' é nulo.");
-                        }
-                        if (canal == null) {
-                            Log.e("Erro", "O objeto 'canal' é nulo.");
-                        }
-                        if (usuario == null) {
-                            Log.e("Erro", "O objeto 'usuario' é nulo.");
-                        }
-
+                        // Só adiciona ao grid se os três objetos forem não-nulos
                         if (video != null && canal != null && usuario != null) {
                             addVideoToGrid(video, canal, usuario);
+                            Log.d("Sucesso", "Vídeos carregados com sucesso");
                         } else {
                             Log.e("Erro", "Algum dado está nulo: video, canal ou usuario.");
                         }
+                        Log.d("Debug", "Video: " + video);
+                        Log.d("Debug", "Canal: " + canal);
+                        Log.d("Debug", "Usuario: " + usuario);
                     }
+
                 } else {
                     Log.d("Erro", "Erro ao carregar vídeos");
                     mostrarErro("Falha ao carregar usuários treinadores", response.code());
@@ -234,23 +234,31 @@ public class HomeFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private String getRelativeTime(String dataPubli) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-        LocalDateTime videoDate = LocalDateTime.parse(dataPubli, formatter);
-        LocalDateTime now = LocalDateTime.now();
+        try {
+            // Parse da data de publicação (considera o 'Z' que indica UTC)
+            Instant videoDateInstant = Instant.parse(dataPubli);
+            // Converte o instante para a data no fuso horário local
+            ZonedDateTime videoDate = videoDateInstant.atZone(ZoneId.systemDefault());
+            // Data/hora atual no fuso horário local
+            ZonedDateTime now = ZonedDateTime.now();
 
-        long seconds = ChronoUnit.SECONDS.between(videoDate, now);
+            long seconds = ChronoUnit.SECONDS.between(videoDate, now);
 
-        if (seconds < 60) {
-            return seconds + " segundos atrás";
-        } else if (seconds < 3600) {
-            long minutes = seconds / 60;
-            return minutes + (minutes == 1 ? " minuto atrás" : " minutos atrás");
-        } else if (seconds < 86400) {
-            long hours = seconds / 3600;
-            return hours + (hours == 1 ? " hora atrás" : " horas atrás");
-        } else {
-            long days = seconds / 86400;
-            return days + (days == 1 ? " dia atrás" : " dias atrás");
+            if (seconds < 60) {
+                return seconds + " segundos atrás";
+            } else if (seconds < 3600) {
+                long minutes = seconds / 60;
+                return minutes + (minutes == 1 ? " minuto atrás" : " minutos atrás");
+            } else if (seconds < 86400) {
+                long hours = seconds / 3600;
+                return hours + (hours == 1 ? " hora atrás" : " horas atrás");
+            } else {
+                long days = seconds / 86400;
+                return days + (days == 1 ? " dia atrás" : " dias atrás");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Data inválida";
         }
     }
 
