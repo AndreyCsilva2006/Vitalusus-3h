@@ -24,11 +24,12 @@ CREATE TABLE Usuario
    nivelPrivacidade VARCHAR(50)NOT NULL, -- PUBLICO ou PRIVADO
    dataNasc	DATE			NOT NULL,
    idade		INT				NOT NULL,
+   genero		VARCHAR(30)		NOT NULL,
 
    PRIMARY KEY (id),
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade, dataNasc) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade, dataNasc, genero) 
 VALUES(
 	'Fulano fulanoide',
 	'fulano@gmail.com',
@@ -40,10 +41,11 @@ VALUES(
 	'ALUNO',
 	'PUBLICO',
 	28,	
-	'1996-02-12'
+	'1996-02-12',
+	'Masculino'
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade, dataNasc) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade, dataNasc, genero) 
 VALUES(
 	'Seranilda de Assis',
 	'sera@gmail.com',
@@ -55,10 +57,11 @@ VALUES(
 	'TREINADOR',
 	'PUBLICO',
 	26,
-	'1998-02-27'
+	'1998-02-27',
+	'Feminino'
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade, dataNasc) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade, dataNasc, genero) 
 VALUES(
 	'Don Corleone',
 	'corleoneDon@gmail.com',
@@ -70,7 +73,8 @@ VALUES(
 	'ADMINISTRADOR',
 	'PUBLICO',
 	42, 
-	'1982-05-23'
+	'1982-05-23',
+	'Masculino'
 )
 GO
 CREATE TABLE Denuncia
@@ -80,18 +84,20 @@ CREATE TABLE Denuncia
 	usuario_id	INT				NOT NULL,
 	usuarioDenunciado_id	INT	NOT NULL,
 	dataDenuncia SMALLDATETIME  NOT NULL,
+	categoria	VARCHAR(100)	NOT NULL,
 	
 	PRIMARY KEY (id),
 	FOREIGN KEY (usuario_id) REFERENCES Usuario(id),
 	FOREIGN KEY (usuarioDenunciado_id)	REFERENCES Usuario(id)
 )
 GO
-INSERT Denuncia(mensagem, usuario_id, usuarioDenunciado_id, dataDenuncia) 
+INSERT Denuncia(mensagem, usuario_id, usuarioDenunciado_id, dataDenuncia, categoria) 
 VALUES(
 	'Estou denunciando essa treinadora vagabunda que me mandou nudes do marido dela sem minha permissão!!',
 	1,
 	2,
-	GETDATE()
+	GETDATE(),
+	'Assédio sexual'
 )
 GO
 -- Tabela admin

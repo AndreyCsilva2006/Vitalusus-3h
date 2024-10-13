@@ -21,6 +21,9 @@ public class ComentarioService {
         List<Comentario> listaComentarios = comentarioRepository.findAll();
         return listaComentarios;
     }
+    public List<Comentario> findAllByVideoaula(Videoaula videoaula){
+        return comentarioRepository.findAllByVideoaula(videoaula);
+    }
     public Comentario findById(long id) {
         Optional<Comentario> comentario = this.comentarioRepository.findById(id);
         return comentario.orElseThrow(() -> new RuntimeException(

@@ -59,6 +59,8 @@ public class Usuario {
 	private Date dataNasc;
 
 	private int idade;
+
+	private String genero;
 	
 	public Usuario() {
         this.chaveSeguranca = UUID.randomUUID();
@@ -166,6 +168,14 @@ public class Usuario {
 
 	public void setDataNasc(Date dataNasc) {
 		this.dataNasc = dataNasc;
+	}
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
 	}
 }
 
