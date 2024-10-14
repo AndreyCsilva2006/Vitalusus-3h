@@ -184,7 +184,68 @@ GO
 INSERT Banco(numeroCartao, treinador_id)
 VALUES('1232334523123', 1)
 GO
+-- Tabela Patrocinador
+CREATE TABLE Patrocinador(
+	id					INT				IDENTITY,
+	nome				VARCHAR(255)	NOT NULL,
+	link				VARCHAR(MAX)	NOT NULL,
+	foto				VARBINARY(MAX)	NULL,
+	statusPatrocinador	VARCHAR(50)		NOT NULL,
 
+	PRIMARY KEY(id)
+)
+GO
+INSERT Patrocinador(nome, link, statusPatrocinador) VALUES('Kikos Fitness', 'https://www.kikos.com.br/', 'ATIVO' )
+GO
+-- Tabela Equipamento
+CREATE TABLE Equipamento(
+	id					INT				IDENTITY,
+	nome				VARCHAR(255)	NOT NULL,
+	link				VARCHAR(MAX)	NOT NULL,
+	patrocinador_id		INT				NULL,
+	
+	PRIMARY KEY(id),
+	FOREIGN KEY(patrocinador_id) REFERENCES Patrocinador(id)
+)
+GO
+INSERT Equipamento (nome, link) VALUES('Nenhuma das opções', 'null')
+GO
+INSERT Equipamento(nome, link, patrocinador_id) VALUES(
+'Bicicleta Ergométrica Kikos KR9.1 Eletromagnética',
+'https://www.kikos.com.br/bicicleta-ergometrica-kikos-kr9-1-eletromagnetica.html',
+1
+)
+GO
+INSERT Equipamento(nome, link, patrocinador_id) VALUES(
+'Esteira Ergométrica Kikos E800Ix 2.3 HP 12 Km/H',
+'https://www.kikos.com.br/esteira-ergometrica-kikos-e800ix-2-3-hp-12km-h.html',
+1
+)
+GO
+INSERT Equipamento(nome, link, patrocinador_id) VALUES(
+'Plataforma Vibratória Kikos P201Ix',
+'https://www.kikos.com.br/plataforma-vibratoria-kikos-p201ix.html',
+1
+)
+GO
+INSERT Equipamento(nome, link, patrocinador_id) VALUES(
+'Estação De Musculação Kikos Gx2I Torre 65kg',
+'https://www.kikos.com.br/estac-o-de-musculac-o-kikos-gx2i-torre-65kg.html',
+1
+)
+INSERT Equipamento(nome, link, patrocinador_id) VALUES(
+'Colchonete Dobrável Kikos',
+'https://www.kikos.com.br/colchonete-dobravel-md9013a-kikos.html',
+1
+)
+GO
+INSERT Equipamento(nome, link, patrocinador_id) VALUES(
+'Roda De Exercícios Abdominais Kikos',
+'https://www.kikos.com.br/roda-de-exercicios-abdominais-kikos.html',
+1
+)
+GO
+GO
 -- Tabela Videoaula
 CREATE TABLE Videoaula(
 	id				INT				IDENTITY,
@@ -199,15 +260,16 @@ CREATE TABLE Videoaula(
 	dataPubli		SMALLDATETIME	NOT NULL,
 	categoria		VARCHAR(100)	NOT NULL,
 	tags			VARCHAR(MAX)	NOT NULL,
-	equipamento		VARCHAR(100)	NOT NULL,
+	equipamento_id	INT				NOT NULL,
 	statusVideo		VARCHAR(50)		NOT NULL, --ATIVO ou BANIDO
 	privacidadeVideo	VARCHAR(50)		NOT NULL, --PÚBLICO ou PRIVADO
 
 	FOREIGN KEY (canal_id) REFERENCES Canal(id),
+	FOREIGN KEY(equipamento_id) REFERENCES Equipamento(id),
 	PRIMARY KEY(id)
 )
 GO
-INSERT Videoaula(descricao, titulo, likes, deslikes, canal_id, visualizacoes, dataPubli, categoria, tags, equipamento, statusVideo, privacidadeVideo)
+INSERT Videoaula(descricao, titulo, likes, deslikes, canal_id, visualizacoes, dataPubli, categoria, tags, equipamento_id, statusVideo, privacidadeVideo)
 VALUES(
 	'Um vídeo sobre como fazer belas flexões',
 	'Como Fazer Flexões',
@@ -218,12 +280,10 @@ VALUES(
 	GETDATE(),
 	'Musculação',
 	'Flexões',
-	'Esteira',
+	1,
 	'ATIVO',
 	'PÚBLICO'
 )
-GO
-
 GO
 -- Tabela Evolucao
 CREATE TABLE Evolucao(
@@ -347,8 +407,6 @@ CREATE TABLE Deslikes(
 )
 GO
 
-
-
 SELECT * FROM Usuario
 SELECT * FROM Canal
 SELECT * FROM Videoaula
@@ -356,7 +414,7 @@ SELECT * FROM Aluno
 SELECT * FROM Banco
 SELECT * FROM Administrador
 SELECT * FROM Treinador
-SELECT * FROM Evolucao
+SELECT * FROM Equipamento
 SELECT * FROM Comentario
 SELECT * FROM Aluno_segue_canal
 SELECT * FROM Aluno_videoaula
@@ -364,12 +422,13 @@ SELECT * FROM Admin_usuario
 SELECT * FROM Deslikes
 SELECT * FROM Likes
 SELECT * FROM Denuncia
+SELECT * FROM Patrocinador
 
 /*
 UPDATE Usuario SET nome = 'Maria Joana' WHERE id = 1
 
 DELETE FROM Admin_usuario WHERE id = 1
-DELETE FROM Evolucao WHERE id = 1
+DELETE FROM Equipamento WHERE id = 1
 DELETE FROM Aluno_segue_canal WHERE id = 1
 DELETE FROM Aluno_videoaula WHERE id = 1
 DELETE FROM Aluno WHERE id = 1

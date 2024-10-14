@@ -21,13 +21,15 @@ public class VideoaulaService {
     private final DeslikesRepository deslikesRepository;
     private final AlunoService alunoService;
     private final ComentarioService comentarioService;
+    private final EquipamentoService equipamentoService;
 
-    public VideoaulaService(VideoaulaRepository videoaulaRepository, LikesRepository likesRepository, DeslikesRepository deslikesRepository, AlunoService alunoService, ComentarioService comentarioService) {
+    public VideoaulaService(VideoaulaRepository videoaulaRepository, LikesRepository likesRepository, DeslikesRepository deslikesRepository, AlunoService alunoService, ComentarioService comentarioService, EquipamentoService equipamentoService) {
         this.videoaulaRepository = videoaulaRepository;
         this.likesRepository = likesRepository;
         this.deslikesRepository = deslikesRepository;
         this.alunoService = alunoService;
         this.comentarioService = comentarioService;
+        this.equipamentoService = equipamentoService;
     }
 
     @Transactional
@@ -67,9 +69,6 @@ public class VideoaulaService {
         videoaula.setDeslikes(videoaula.getAlunosDeslikes().size());
         videoaula.setPrivacidadeVideo("PÚBLICO");
         videoaula.setStatusVideo("ATIVO");
-        if (videoaula.getEquipamento() == null) {
-        	videoaula.setEquipamento("Nenhum");
-        }
         return videoaulaRepository.save(videoaula);
     }
     public Videoaula postId(long id) {
@@ -147,7 +146,7 @@ public class VideoaulaService {
         }
         return null;
     }
-    public Videoaula updateGeral(long id, Videoaula videoaula){
+    public Videoaula updateGeral(long id, Videoaula videoaula, long equipamentoId){
         Optional<Videoaula> videoaulaOptional = videoaulaRepository.findById(id);
         if(videoaulaOptional.isPresent()) {
             Videoaula _videoaula = videoaulaOptional.get();
@@ -156,7 +155,8 @@ public class VideoaulaService {
             _videoaula.setThumbnail(videoaula.getThumbnail());
             _videoaula.setCategoria(videoaula.getCategoria());
             _videoaula.setTags(videoaula.getTags());
-            _videoaula.setEquipamento(videoaula.getEquipamento());
+            Equipamento equipamento = equipamentoService.findById(equipamentoId);
+            _videoaula.setEquipamento(equipamento);
             _videoaula = updateFix(_videoaula.getId());
             return videoaulaRepository.save(_videoaula);
         }

@@ -66,8 +66,10 @@ public class Videoaula {
 	private String categoria;
 	
 	private String tags;
-	
-	private String equipamento;
+
+	@ManyToOne
+	@JoinColumn(name = "equipamento_id")
+	private Equipamento equipamento;
 
 	private String statusVideo;
 
@@ -206,11 +208,11 @@ public class Videoaula {
 		this.comentarios = comentarios;
 	}
 
-	public String getEquipamento() {
+	public Equipamento getEquipamento() {
 		return equipamento;
 	}
 
-	public void setEquipamento(String equipamento) {
+	public void setEquipamento(Equipamento equipamento) {
 		this.equipamento = equipamento;
 	}
 

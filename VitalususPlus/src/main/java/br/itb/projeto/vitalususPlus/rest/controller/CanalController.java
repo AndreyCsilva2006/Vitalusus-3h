@@ -95,9 +95,9 @@ public class CanalController {
 			Canal canalUpdatado = this.canalService.updateSenha(id, canal);
 			return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
 		}
-		@PutMapping("addVideoaula/{id}")
-		public ResponseEntity<Canal> addVideoaula(@PathVariable long id, @RequestBody Videoaula videoaula){
-			Canal canalUpdatado = this.canalService.addVideoaula(id, videoaula);
+		@PutMapping("addVideoaula/{id}/{equipamentoId}")
+		public ResponseEntity<Canal> addVideoaula(@PathVariable long id, @RequestBody Videoaula videoaula, @PathVariable long equipamentoId){
+			Canal canalUpdatado = this.canalService.addVideoaula(id, videoaula, equipamentoId);
 			return new ResponseEntity<Canal>(canalUpdatado, HttpStatus.OK);
 		}
 		@PutMapping("removeVideoaula/{id}/{videoaulaId}")
