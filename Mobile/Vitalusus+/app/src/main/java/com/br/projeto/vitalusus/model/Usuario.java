@@ -8,6 +8,7 @@ import net.sourceforge.jtds.jdbc.DateTime;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Usuario implements Serializable {
 
@@ -25,14 +26,24 @@ public class Usuario implements Serializable {
     @SerializedName("senha")
     private String senha;
 
-    @SerializedName("dataNasc")
-    private Date dataNasc;
-
     @SerializedName("nivelAcesso")
     private String nivelAcesso;
 
+    public class Foto {
+        @SerializedName("data")
+        private List<String> data; // Mudando de String para List<String>
+
+        public List<String> getData() {
+            return data;
+        }
+
+        public void setData(List<String> data) {
+            this.data = data;
+        }
+    }
+
     @SerializedName("foto")
-    private byte[] foto;
+    private Foto foto; // objeto Foto
 
     @SerializedName("dataCadastro")
     private String dataCadastro;
@@ -49,10 +60,16 @@ public class Usuario implements Serializable {
     @SerializedName("nivelPrivacidade")
     private String nivelPrivacidade;
 
+    @SerializedName("dataNasc")
+    private Date dataNasc;
+
     @SerializedName("idade")
     private int idade;
 
-    public Usuario(String nome, String email, String senha, String nivelAcesso, byte[] foto, String dataCadastro, String statusUsuario, String tipoUsuario, String nivelPrivacidade, int idade, Date dataNasc) {
+    @SerializedName("genero")
+    private String genero;
+
+    public Usuario(String nome, String email, String senha, String nivelAcesso, Foto foto, String dataCadastro, String statusUsuario, String tipoUsuario, String nivelPrivacidade, int idade, Date dataNasc, String genero) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -64,6 +81,7 @@ public class Usuario implements Serializable {
         this.nivelPrivacidade = nivelPrivacidade;
         this.idade = idade;
         this.dataNasc = dataNasc;
+        this.genero = genero;
     }
 
     //    Getter e Setter
@@ -124,11 +142,11 @@ public class Usuario implements Serializable {
         this.statusUsuario = statusUsuario;
     }
 
-    public byte[] getFoto() {
+    public Foto getFoto() {
         return foto;
     }
 
-    public void setFoto(byte[] foto) {
+    public void setFoto(Foto foto) {
         this.foto = foto;
     }
 
@@ -172,6 +190,14 @@ public class Usuario implements Serializable {
         this.dataNasc = dataNasc;
     }
 
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
@@ -188,6 +214,7 @@ public class Usuario implements Serializable {
                 ", nivelPrivacidade=" + nivelPrivacidade +
                 ", dataNasc=" + dataNasc +
                 ", idade=" + idade +
+                ", genero=" + genero +
                 '}';
     }
 }

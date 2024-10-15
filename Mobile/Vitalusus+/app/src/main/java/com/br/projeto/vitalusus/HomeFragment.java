@@ -1,5 +1,6 @@
 package com.br.projeto.vitalusus;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -27,9 +28,13 @@ import com.br.projeto.vitalusus.network.ApiService;
 import com.br.projeto.vitalusus.network.RetrofitClient;
 
 import java.io.ByteArrayOutputStream;
+import java.math.BigInteger;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -216,16 +221,22 @@ public class HomeFragment extends Fragment {
         TextView channelName = videoItemView.findViewById(R.id.nomeCanal);
         channelName.setText(canal.getNome() != null ? canal.getNome() : "Canal não disponível");
 
+        TextView videoVisualizacoes = videoItemView.findViewById(R.id.visualizacoesVideo);
+//        videoVisualizacoes.setText(video.getVisualizacoes() != null ? video.getVisualizacoes() : "visualizacoes não disponível");
+
+        TextView canalSeguidores = videoItemView.findViewById(R.id.seguidoresCanal);
+//        canalSeguidores.setText(canal.getSeguidores() != null ? canal.getSeguidores() : "visualizacoes não disponível");
+
         // Configura a foto de perfil do usuário (treinador)
         ImageView userFoto = videoItemView.findViewById(R.id.fotoCanal);
         if (usuario.getFoto() != null) {
-            Bitmap userBitmap = BitmapFactory.decodeByteArray(usuario.getFoto(), 0, usuario.getFoto().length);
-            userFoto.setImageBitmap(userBitmap);
+//            Bitmap userBitmap = BitmapFactory.decodeByteArray(usuario.getFoto(), 0, usuario.getFoto().is);
+//            userFoto.setImageBitmap(userBitmap);
         }
 
         // Configura a data de postagem do vídeo
         TextView videoData = videoItemView.findViewById(R.id.DataPubliVideo);
-        String relativeDate = getRelativeTime(video.getDataPubli());
+        @SuppressLint({"NewApi", "LocalSuppress"}) String relativeDate = getRelativeTime(video.getDataPubli());
         videoData.setText(relativeDate);
 
         // Adiciona a view do item ao GridLayout
@@ -235,29 +246,63 @@ public class HomeFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private String getRelativeTime(String dataPubli) {
         try {
-            // Parse da data de publicação (considera o 'Z' que indica UTC)
-            Instant videoDateInstant = Instant.parse(dataPubli);
-            // Converte o instante para a data no fuso horário local
-            ZonedDateTime videoDate = videoDateInstant.atZone(ZoneId.systemDefault());
-            // Data/hora atual no fuso horário local
-            ZonedDateTime now = ZonedDateTime.now();
+            // Obtemos a data atual em milissegundos no fuso horário local
+            ZonedDateTime now = ZonedDateTime.now(ZoneId.systemDefault());
+            long dataAtual = now.toInstant().toEpochMilli();
+            Log.d("TimeDifference", "Data atual (milissegundos): " + dataAtual);
 
-            long seconds = ChronoUnit.SECONDS.between(videoDate, now);
+            // Interpreta a data de publicação como um Instant (UTC) e converte para milissegundos
+            long dataVideo = Instant.parse(dataPubli).toEpochMilli();
+            Log.d("TimeDifference", "Data do vídeo (milissegundos): " + dataVideo);
 
-            if (seconds < 60) {
-                return seconds + " segundos atrás";
-            } else if (seconds < 3600) {
-                long minutes = seconds / 60;
-                return minutes + (minutes == 1 ? " minuto atrás" : " minutos atrás");
-            } else if (seconds < 86400) {
-                long hours = seconds / 3600;
-                return hours + (hours == 1 ? " hora atrás" : " horas atrás");
+            // Calculamos as diferenças em milissegundos
+            long diferencaMillis = dataAtual - dataVideo;
+            Log.d("TimeDifference", "Diferença em milissegundos: " + diferencaMillis);
+
+            // Cálculos em várias unidades de tempo
+            long dataEmSegundos = diferencaMillis / 1000;
+            long dataEmMinutos = diferencaMillis / (1000 * 60);
+            long dataEmHoras = diferencaMillis / (1000 * 60 * 60);
+            long dataEmDias = diferencaMillis / (1000 * 60 * 60 * 24);
+            long dataEmSemanas = diferencaMillis / (1000 * 60 * 60 * 24 * 7);
+            long dataEmMeses = diferencaMillis / (1000 * 60 * 60 * 24 * 30); // Aproximado
+            long dataEmAnos = diferencaMillis / (1000 * 60 * 60 * 24 * 365); // Aproximado
+
+            // Logs das diferenças
+            Log.d("TimeDifference", "Diferença em segundos: " + dataEmSegundos);
+            Log.d("TimeDifference", "Diferença em minutos: " + dataEmMinutos);
+            Log.d("TimeDifference", "Diferença em horas: " + dataEmHoras);
+            Log.d("TimeDifference", "Diferença em dias: " + dataEmDias);
+            Log.d("TimeDifference", "Diferença em semanas: " + dataEmSemanas);
+            Log.d("TimeDifference", "Diferença em meses: " + dataEmMeses);
+            Log.d("TimeDifference", "Diferença em anos: " + dataEmAnos);
+
+            // Variáveis para armazenar o resultado
+            long dataContada = 0;
+            String diaString = "";
+
+            // Lógica para determinar o formato da string de saída
+            if (dataEmDias >= 1) {
+                dataContada = Math.round(dataEmDias);
+                diaString = (dataContada != 1) ? "dias" : "dia";
+            } else if (dataEmHoras >= 1) {
+                dataContada = Math.round(dataEmHoras);
+                diaString = (dataContada != 1) ? "horas" : "hora";
+            } else if (dataEmMinutos >= 1) {
+                dataContada = Math.round(dataEmMinutos);
+                diaString = (dataContada != 1) ? "minutos" : "minuto";
             } else {
-                long days = seconds / 86400;
-                return days + (days == 1 ? " dia atrás" : " dias atrás");
+                dataContada = Math.round(dataEmSegundos);
+                diaString = (dataContada >= 0) ? ((dataContada != 1) ? "segundos" : "segundo") : "agora";
             }
+
+            // Log do resultado final
+            String resultado = dataContada + " " + diaString + " atrás";
+            Log.d("TimeDifference", "Resultado: " + resultado);
+            return resultado;
         } catch (Exception e) {
             e.printStackTrace();
+            Log.e("TimeDifference", "Erro ao processar a data: " + e.getMessage());
             return "Data inválida";
         }
     }

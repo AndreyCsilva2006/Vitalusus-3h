@@ -53,10 +53,12 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
 
         // Define os outros detalhes do vídeo
         holder.videoTitulo.setText(video.getTitulo());
-        holder.canalNome.setText(canal.getNome());
+        holder.videoVisualizacoes.setText((CharSequence) video.getVisualizacoes());
         holder.videoDataPubli.setText(video.getDataPubli());
-//        holder.canalFoto.setImageBitmap(usuario.getFoto());
 //        holder.videoThumbnail.setImageBitmap(video.getThumbnail());
+        holder.canalNome.setText(canal.getNome());
+        holder.canalSeguidores.setText((int) canal.getSeguidores());
+//        holder.canalFoto.setImageBitmap(usuario.getFoto());
     }
 
     @Override
@@ -68,16 +70,20 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
 
         ImageView videoThumbnail;
         TextView videoTitulo;
-        TextView canalNome;
+        TextView videoVisualizacoes;
         TextView videoDataPubli;
+        TextView canalNome;
+        TextView canalSeguidores;
         CircleImageView canalFoto;
 
         public VideoViewHolder(@NonNull View itemView) {
             super(itemView);
             videoThumbnail = itemView.findViewById(R.id.videoThumbnail);
             videoTitulo = itemView.findViewById(R.id.tituloVideo);
-            canalNome = itemView.findViewById(R.id.nomeCanal);
             videoDataPubli = itemView.findViewById(R.id.DataPubliVideo);
+            videoVisualizacoes = itemView.findViewById(R.id.visualizacoesVideo);
+            canalNome = itemView.findViewById(R.id.nomeCanal);
+            canalSeguidores = itemView.findViewById(R.id.seguidoresCanal);
             canalFoto = itemView.findViewById(R.id.fotoCanal);
         }
     }

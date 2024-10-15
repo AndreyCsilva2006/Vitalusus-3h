@@ -52,6 +52,9 @@ public interface ApiService {
     @GET("/canais/{id}")
     Call<Canal> getCanalById(@Path("id") int id);
 
+    @GET("/usuarios/{idade}")
+    Call<Usuario> getIdade(@Path("idade") int idade);
+
     // POST
     @POST("/usuarios")
     Call<Usuario> createUsuario(@Body Usuario usuario);
@@ -65,6 +68,7 @@ public interface ApiService {
             @Field("email") String email,
             @Field("senha") String senha
     );
+
 }
 
 

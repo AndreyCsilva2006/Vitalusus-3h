@@ -25,7 +25,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class VideoFragment extends Fragment {
+public class VideoPlayerFragment extends Fragment {
 
     private PlayerView playerView;
     private ExoPlayer exoPlayer;
@@ -76,13 +76,13 @@ public class VideoFragment extends Fragment {
                     // Carregar e reproduzir o vídeo
 //                    playVideoFromBytes(video.getThumbnail());
                 } else {
-                    Log.e("VideoFragment", "Erro ao buscar o vídeo");
+                    Log.e("VideoPlayerFragment", "Erro ao buscar o vídeo");
                 }
             }
 
             @Override
             public void onFailure(Call<Video> call, Throwable t) {
-                Log.e("VideoFragment", "Falha na conexão: " + t.getMessage());
+                Log.e("VideoPlayerFragment", "Falha na conexão: " + t.getMessage());
             }
         });
     }
@@ -98,7 +98,7 @@ public class VideoFragment extends Fragment {
             exoPlayer.prepare();
             exoPlayer.play();
         } catch (IOException e) {
-            Log.e("VideoFragment", "Erro ao salvar o vídeo temporariamente", e);
+            Log.e("VideoPlayerFragment", "Erro ao salvar o vídeo temporariamente", e);
         }
     }
 
