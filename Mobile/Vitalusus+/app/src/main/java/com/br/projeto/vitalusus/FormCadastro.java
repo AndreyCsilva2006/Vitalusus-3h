@@ -340,11 +340,12 @@ public class FormCadastro extends AppCompatActivity {
         String email = editEmail.getText().toString();
         String senha = editSenha.getText().toString();
         String nivelAcesso = "USER";
-        byte[] foto = null;
+        Usuario.Foto foto = null;
         String dataCadastro = getCurrentDate();
         String statusUsuario = "ATIVO";
         String tipoUsuario = "ALUNO";
         String nivelPrivacidade = "PUBLICO";
+        String genero = "";
 
         Date dataNasc;
         try {
@@ -364,7 +365,7 @@ public class FormCadastro extends AppCompatActivity {
         ApiService apiService = retrofit.create(ApiService.class);
 
         // Criar novo Usuario (sem chave de segurança)
-        Usuario novoUsuario = new Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, idade, dataNasc);
+        Usuario novoUsuario = new Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, idade, dataNasc, genero);
         Log.d("NovoUsuario", "Usuário: " + novoUsuario.toString()); // log para verificar os valores
 
         // Chamar o endpoint para criar o usuário

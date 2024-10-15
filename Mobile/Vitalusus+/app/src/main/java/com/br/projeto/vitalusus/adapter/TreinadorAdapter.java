@@ -1,5 +1,8 @@
 package com.br.projeto.vitalusus.adapter;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,14 +85,23 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
                 // Se o nível de privacidade for público, exibe o canal normalmente
                 holder.itemView.setVisibility(View.VISIBLE);
                 holder.nomeCanalTextView.setText(canal.getNome());
-
                 holder.seguidoresTextView.setText(formatarNumeroAbreviado((int) canal.getSeguidores()));
 
-                // Carregar a imagem (caso use Glide)
-                // Glide.with(holder.itemView.getContext())
-                //     .load(usuario.getFoto()) // Substitua pelo campo real de URL de foto do treinador
-                //     .placeholder(R.drawable.perfil) // Placeholder enquanto carrega a imagem
-                //     .into(holder.fotoImageView);
+                if (usuario.getFoto() != null && usuario.getFoto().getData() != null && !usuario.getFoto().getData().isEmpty()) {
+                    // Combina todas as partes do array em uma única string
+                    StringBuilder base64StringBuilder = new StringBuilder();
+                    for (String part : usuario.getFoto().getData()) {
+                        base64StringBuilder.append(part);
+                    }
+
+                    // Decodifica a string final concatenada
+                    byte[] decodedString = Base64.decode(base64StringBuilder.toString(), Base64.DEFAULT);
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    holder.fotoImageView.setImageBitmap(bitmap);
+                } else {
+                    holder.fotoImageView.setImageResource(R.drawable.perfil);
+                }
+
 
                 holder.itemView.setOnClickListener(v -> listener.onItemClick(usuario, treinador, canal));
             }
