@@ -203,46 +203,53 @@ CREATE TABLE Equipamento(
 	nome				VARCHAR(255)	NOT NULL,
 	link				VARCHAR(MAX)	NOT NULL,
 	patrocinador_id		INT				NULL,
+	statusEquipamento	VARCHAR(100)	NOT NULL,
 	
 	PRIMARY KEY(id),
 	FOREIGN KEY(patrocinador_id) REFERENCES Patrocinador(id)
 )
 GO
-INSERT Equipamento (nome, link) VALUES('Nenhuma das opções', 'null')
+INSERT Equipamento (nome, link, statusEquipamento) VALUES('Nenhuma das opções', 'null', 'ATIVO')
 GO
-INSERT Equipamento(nome, link, patrocinador_id) VALUES(
+INSERT Equipamento(nome, link, patrocinador_id, statusEquipamento) VALUES(
 'Bicicleta Ergométrica Kikos KR9.1 Eletromagnética',
 'https://www.kikos.com.br/bicicleta-ergometrica-kikos-kr9-1-eletromagnetica.html',
-1
+1,
+'ATIVO'
 )
 GO
-INSERT Equipamento(nome, link, patrocinador_id) VALUES(
+INSERT Equipamento(nome, link, patrocinador_id, statusEquipamento) VALUES(
 'Esteira Ergométrica Kikos E800Ix 2.3 HP 12 Km/H',
 'https://www.kikos.com.br/esteira-ergometrica-kikos-e800ix-2-3-hp-12km-h.html',
-1
+1,
+'ATIVO'
 )
 GO
-INSERT Equipamento(nome, link, patrocinador_id) VALUES(
+INSERT Equipamento(nome, link, patrocinador_id, statusEquipamento) VALUES(
 'Plataforma Vibratória Kikos P201Ix',
 'https://www.kikos.com.br/plataforma-vibratoria-kikos-p201ix.html',
-1
+1,
+'ATIVO'
 )
 GO
-INSERT Equipamento(nome, link, patrocinador_id) VALUES(
+INSERT Equipamento(nome, link, patrocinador_id, statusEquipamento) VALUES(
 'Estação De Musculação Kikos Gx2I Torre 65kg',
 'https://www.kikos.com.br/estac-o-de-musculac-o-kikos-gx2i-torre-65kg.html',
-1
+1,
+'ATIVO'
 )
-INSERT Equipamento(nome, link, patrocinador_id) VALUES(
+INSERT Equipamento(nome, link, patrocinador_id, statusEquipamento) VALUES(
 'Colchonete Dobrável Kikos',
 'https://www.kikos.com.br/colchonete-dobravel-md9013a-kikos.html',
-1
+1,
+'ATIVO'
 )
 GO
-INSERT Equipamento(nome, link, patrocinador_id) VALUES(
+INSERT Equipamento(nome, link, patrocinador_id, statusEquipamento) VALUES(
 'Roda De Exercícios Abdominais Kikos',
 'https://www.kikos.com.br/roda-de-exercicios-abdominais-kikos.html',
-1
+1,
+'ATIVO'
 )
 GO
 GO

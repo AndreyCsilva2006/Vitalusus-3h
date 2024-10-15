@@ -30,12 +30,37 @@ public class EquipamentoService {
                 "Aluno não encontrado"
         ));
     }
-    public Equipamento save(Equipamento equipamento){
+    public Equipamento save(Equipamento equipamento, long id){
         equipamento.setId(null);
+        Patrocinador patrocinador = patrocinadorService.findById(id);
+        equipamento.setPatrocinador(patrocinador);
+        equipamento.setStatusEquipamento("ATIVO");
         return equipamentoRepository.save(equipamento);
     }
     public List<Equipamento> findAllByPatrocinador(long patrocinadorId){
         Patrocinador patrocinador = patrocinadorService.findById(patrocinadorId);
         return equipamentoRepository.findAllByPatrocinador(patrocinador);
+    }
+    public Equipamento deletar(long id){
+        Optional<Equipamento> equipamento= equipamentoRepository.findById(id);
+        if(equipamento.isPresent()){
+            Equipamento _equipamento = equipamento.get();
+            _equipamento.setStatusEquipamento("DELETADO");
+            return equipamentoRepository.save(_equipamento);
+        }
+        throw new RuntimeException("Não foi possível encontrar este equipamento");
+    }
+    public Equipamento update(long id, long patrocinadorId, Equipamento equipamento){
+        Optional<Equipamento> _equipamento= equipamentoRepository.findById(id);
+        if(_equipamento.isPresent()){
+            Equipamento equipamentoUpdatado = _equipamento.get();
+            equipamentoUpdatado.setNome(equipamento.getNome());
+            equipamentoUpdatado.setLink(equipamento.getLink());
+            Patrocinador patrocinador = patrocinadorService.findById(patrocinadorId);
+            equipamentoUpdatado.setPatrocinador(patrocinador);
+            equipamentoUpdatado.setStatusEquipamento("ATIVO");
+            return equipamentoRepository.save(equipamentoUpdatado);
+        }
+        throw new RuntimeException("Não foi possível encontrar este equipamento");
     }
 }

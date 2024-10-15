@@ -23,6 +23,8 @@ public class Equipamento {
 
     private String link;
 
+    private String statusEquipamento;
+
     public Long getId() {
         return id;
     }
@@ -53,5 +55,13 @@ public class Equipamento {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public String getStatusEquipamento() {
+        return statusEquipamento;
+    }
+
+    public void setStatusEquipamento(String statusEquipamento) {
+        this.statusEquipamento = statusEquipamento;
     }
 }
