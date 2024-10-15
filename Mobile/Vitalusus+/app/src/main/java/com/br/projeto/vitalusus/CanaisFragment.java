@@ -24,7 +24,8 @@ import com.br.projeto.vitalusus.network.RetrofitClient;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,6 +39,7 @@ public class CanaisFragment extends Fragment {
     private List<Treinador> treinadorList = new ArrayList<>();
     private List<Usuario> usuarioList = new ArrayList<>();
     private List<Canal> canalList = new ArrayList<>();
+    private Map<Integer, Usuario> treinadorUsuarioMap = new HashMap<>();
 
     @Nullable
     @Override
@@ -79,6 +81,11 @@ public class CanaisFragment extends Fragment {
                     usuarioList.addAll(response.body());
                     Log.d("Sucesso", "Usuários treinadores carregados: " + usuarioList.size());
 
+                    // Log para cada usuário e sua foto
+                    for (Usuario usuario : usuarioList) {
+                        Log.d("UsuarioFoto", "ID: " + usuario.getId() + ", Nome: " + usuario.getNome() + ", Foto: " + usuario.getFoto());
+                    }
+
                     // Após carregar os usuários, busca treinadores
                     fetchTreinadoresData(apiService);
                 } else {
@@ -101,6 +108,14 @@ public class CanaisFragment extends Fragment {
                     treinadorList.clear();
                     treinadorList.addAll(response.body());
                     Log.d("Sucesso", "Treinadores carregados: " + treinadorList.size());
+
+                    // Mapeia os treinadores ao respectivo usuário via `usuario_id`
+                    for (Treinador treinador : treinadorList) {
+                        Usuario usuario = treinadorUsuarioMap.get(treinador.getUsuarioId());
+                        if (usuario != null) {
+                            Log.d("TreinadorUsuario", "Treinador: " + treinador.getId() + " está associado ao Usuario: " + usuario.getNome());
+                        }
+                    }
 
                     // Após carregar os treinadores, busca canais
                     fetchCanaisData(apiService);
