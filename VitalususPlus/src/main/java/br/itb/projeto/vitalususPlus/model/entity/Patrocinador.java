@@ -22,7 +22,7 @@ public class Patrocinador {
     private String statusPatrocinador;
 
     @Lob
-    private Byte[] foto;
+    private byte[] foto;
 
     public Long getId() {
         return id;
@@ -48,11 +48,11 @@ public class Patrocinador {
         this.link = link;
     }
 
-    public Byte[] getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
-    public void setFoto(Byte[] foto) {
+    public void setFoto(byte[] foto) {
         this.foto = foto;
     }
 

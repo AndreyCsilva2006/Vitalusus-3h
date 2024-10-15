@@ -21,8 +21,13 @@ public class EquipamentoController {
     }
     @GetMapping("findAll")
     public ResponseEntity<List<Equipamento>> findAll(){
-        List<Equipamento> evolucoes = this.equipamentoService.findAll();
-        return new ResponseEntity<List<Equipamento>>(evolucoes, HttpStatus.OK);
+        List<Equipamento> equipamentos = this.equipamentoService.findAll();
+        return new ResponseEntity<List<Equipamento>>(equipamentos, HttpStatus.OK);
+    }
+    @GetMapping("findAllByPatrocinador/{patrocinadorId}")
+    public ResponseEntity<List<Equipamento>> findAllByPatrocinador(@PathVariable long patrocinadorId){
+        List<Equipamento> equipamentos= this.equipamentoService.findAllByPatrocinador(patrocinadorId);
+        return new ResponseEntity<List<Equipamento>>(equipamentos, HttpStatus.OK);
     }
     @PostMapping("findById/")
     public ResponseEntity<Equipamento> findById(@RequestParam long id){

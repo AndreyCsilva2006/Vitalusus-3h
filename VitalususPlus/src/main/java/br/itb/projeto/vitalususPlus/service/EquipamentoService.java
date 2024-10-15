@@ -2,6 +2,7 @@ package br.itb.projeto.vitalususPlus.service;
 
 import br.itb.projeto.vitalususPlus.model.entity.Equipamento;
 import br.itb.projeto.vitalususPlus.model.entity.Equipamento;
+import br.itb.projeto.vitalususPlus.model.entity.Patrocinador;
 import br.itb.projeto.vitalususPlus.model.repository.EquipamentoRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +13,11 @@ import java.util.Optional;
 public class EquipamentoService {
     
     private EquipamentoRepository equipamentoRepository;
+    private PatrocinadorService patrocinadorService;
 
-    public EquipamentoService(EquipamentoRepository equipamentoRepository) {
+    public EquipamentoService(EquipamentoRepository equipamentoRepository, PatrocinadorService patrocinadorService) {
         this.equipamentoRepository = equipamentoRepository;
+        this.patrocinadorService = patrocinadorService;
     }
 
     public List<Equipamento> findAll(){
@@ -30,5 +33,9 @@ public class EquipamentoService {
     public Equipamento save(Equipamento equipamento){
         equipamento.setId(null);
         return equipamentoRepository.save(equipamento);
+    }
+    public List<Equipamento> findAllByPatrocinador(long patrocinadorId){
+        Patrocinador patrocinador = patrocinadorService.findById(patrocinadorId);
+        return equipamentoRepository.findAllByPatrocinador(patrocinador);
     }
 }

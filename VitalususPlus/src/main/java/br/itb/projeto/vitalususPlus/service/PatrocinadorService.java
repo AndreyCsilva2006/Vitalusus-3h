@@ -11,6 +11,7 @@ import java.util.Optional;
 public class PatrocinadorService {
 
     private PatrocinadorRepository patrocinadorRepository;
+    private EquipamentoService equipamentoService;
 
     public PatrocinadorService(PatrocinadorRepository patrocinadorRepository) {
         this.patrocinadorRepository = patrocinadorRepository;
