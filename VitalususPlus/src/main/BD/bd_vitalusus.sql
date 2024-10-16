@@ -24,12 +24,11 @@ CREATE TABLE Usuario
    nivelPrivacidade VARCHAR(50)NOT NULL, -- PUBLICO ou PRIVADO
    dataNasc	DATE			NOT NULL,
    idade		INT				NOT NULL,
-   genero		VARCHAR(30)		NOT NULL,
 
    PRIMARY KEY (id),
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade, dataNasc, genero) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade, dataNasc) 
 VALUES(
 	'Fulano fulanoide',
 	'fulano@gmail.com',
@@ -41,11 +40,10 @@ VALUES(
 	'ALUNO',
 	'PUBLICO',
 	28,	
-	'1996-02-12',
-	'Masculino'
+	'1996-02-12'
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade, dataNasc, genero) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade, dataNasc) 
 VALUES(
 	'Seranilda de Assis',
 	'sera@gmail.com',
@@ -57,11 +55,10 @@ VALUES(
 	'TREINADOR',
 	'PUBLICO',
 	26,
-	'1998-02-27',
-	'Feminino'
+	'1998-02-27'
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade, dataNasc, genero) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade, dataNasc) 
 VALUES(
 	'Don Corleone',
 	'corleoneDon@gmail.com',
@@ -73,8 +70,7 @@ VALUES(
 	'ADMINISTRADOR',
 	'PUBLICO',
 	42, 
-	'1982-05-23',
-	'Masculino'
+	'1982-05-23'
 )
 GO
 CREATE TABLE Denuncia
@@ -120,16 +116,18 @@ CREATE TABLE Aluno
 	altura		DECIMAL(10,2)		NULL,
 	peso		DECIMAL(10,2)		NULL,
 	usuario_id	INT					NOT NULL,
+	sexo		VARCHAR(8)			NOT NULL,
 
 	FOREIGN KEY(usuario_id) REFERENCES Usuario (id),
 	PRIMARY KEY(id)
 )
 GO
-INSERT Aluno(altura, peso, usuario_id)
+INSERT Aluno(altura, peso, usuario_id, sexo)
 VALUES(
 	1.78,
 	98.5,
-	1
+	1,
+	'Feminino'
 )
 GO
 -- Tabela Treinador
@@ -138,15 +136,17 @@ CREATE TABLE Treinador
 	id	            INT			  IDENTITY,
 	cref			VARCHAR(21)	  UNIQUE NOT NULL,
 	usuario_id		INT			  NOT NULL,
+	genero			VARCHAR(255)   NOT NULL,
 
 	FOREIGN KEY (usuario_id) REFERENCES Usuario(id),
 	PRIMARY KEY (id)
 )
 GO
-INSERT Treinador(cref, usuario_id)
+INSERT Treinador(cref, usuario_id, genero)
 VALUES(
 	'324321-G/SP',
-	2
+	2,
+	'Feminino'
 )
 GO
 
