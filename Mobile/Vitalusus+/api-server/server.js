@@ -260,10 +260,11 @@ sql.connect(dbConfig).then(pool => {
                         .input('nivelPrivacidade', sql.VarChar, nivelPrivacidade)
                         .input('dataNasc', sql.Date, dataNasc)
                         .input('idade', sql.Int, idade)
+                        .input('genero', sql.VarChar, genero)
                         .query(`
-                            INSERT INTO Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, dataNasc, idade)
+                            INSERT INTO Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, dataNasc, idade, genero)
                             OUTPUT INSERTED.id
-                            VALUES (@nome, @email, @senha, @nivelAcesso, @foto, @dataCadastro, @statusUsuario, @tipoUsuario, @nivelPrivacidade, @dataNasc, @idade);
+                            VALUES (@nome, @email, @senha, @nivelAcesso, @foto, @dataCadastro, @statusUsuario, @tipoUsuario, @nivelPrivacidade, @dataNasc, @idade, @genero);
                         `);
 
                         const usuarioId = result.recordset[0].id; // Para pegar o ID gerado

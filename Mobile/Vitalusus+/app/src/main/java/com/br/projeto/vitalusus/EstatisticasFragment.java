@@ -1,7 +1,5 @@
 package com.br.projeto.vitalusus;
 
-import com.br.projeto.vitalusus.api.ApiClient;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 
 import com.br.projeto.vitalusus.model.Usuario;
@@ -56,7 +52,8 @@ public class EstatisticasFragment extends Fragment {
         btnCalcular = view.findViewById(R.id.btn_calcular);
 
         // Chamar o método para obter a idade do servidor
-//        obterIdadeDoServidor();
+
+        //obterIdadeDoServidor(null);
 
         btnCalcular.setOnClickListener(v -> calcularIMCTMBNDC());
 
@@ -89,6 +86,10 @@ public class EstatisticasFragment extends Fragment {
             public void onFailure(Call<Usuario> call, Throwable t) {
                 // Tratar erro de conexão ou falha
                 Toast.makeText(getContext(), "Falha ao obter a idade: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+
+
+
+
             }
         });
     }

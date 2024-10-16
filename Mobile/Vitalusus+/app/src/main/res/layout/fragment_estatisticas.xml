@@ -62,14 +62,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Masculino"
-                android:theme="@style/RadioButtonStyle" />
+                android:theme="@style/CustomRadioButton.Dark" />
 
             <RadioButton
                 android:id="@+id/rb_feminino"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Feminino"
-                android:theme="@style/RadioButtonStyle" />
+                android:theme="@style/CustomRadioButton.Dark" />
         </RadioGroup>
 
         <!-- Nível de atividade física -->
@@ -92,14 +92,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Atividade física moderada (meia hora de exercício, 4x por semana)"
-                android:theme="@style/RadioButtonStyle" />
+                android:theme="@style/CustomRadioButton.Dark" />
 
             <RadioButton
                 android:id="@+id/rb_intenso"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Atividade física intensa (1h de exercício, 4x por semana)"
-                android:theme="@style/RadioButtonStyle" />
+                android:theme="@style/CustomRadioButton.Dark" />
         </RadioGroup>
 
         <!-- Botão para calcular -->
@@ -110,7 +110,7 @@
             android:layout_marginBottom="16dp"
             android:backgroundTint="?attr/colorPrimary"
             android:text="Calcular IMC, TMB e NDC"
-            android:textColor="?attr/colorOnPrimary" />
+            android:textColor="@color/white" />
 
         <!-- Resultado do IMC, TMB e NDC -->
         <TextView
@@ -119,6 +119,6 @@
             android:layout_height="252dp"
             android:text="Resultado aparecerá aqui"
             android:textSize="18sp"
-            android:textColor="?attr/colorOnBackground" />
+            android:textColor="@color/white" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
