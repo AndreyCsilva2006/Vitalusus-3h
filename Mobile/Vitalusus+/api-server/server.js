@@ -270,7 +270,6 @@ sql.connect(dbConfig).then(pool => {
 
                     // Inserir aluno, agora sem a data de nascimento
                     await pool.request()
-
                         .input('usuario_id', sql.Int, usuarioId)
                         .query(`
                             INSERT INTO Aluno ( usuario_id)
