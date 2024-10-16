@@ -31,7 +31,8 @@ public class Treinador{
 	@OneToOne
 	@JoinColumn(name = "usuario_id",nullable=false)
 	private Usuario usuario;
-
+	
+	private String genero;
 
 	public Long getId() {
 		return id;
@@ -56,5 +57,15 @@ public class Treinador{
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+	
+	
 	
 }
