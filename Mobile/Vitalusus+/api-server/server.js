@@ -198,6 +198,24 @@ sql.connect(dbConfig).then(pool => {
                 }
             });
 
+            // Rota para obter todos os alunos
+            app.get('/alunos', async (req, res) => {
+                try {
+                    const result = await pool.request()
+                        .input('tipoUsuario', sql.VarChar, 'ALUNO')
+                        .query('SELECT * FROM Usuario, Aluno WHERE tipoUsuario = @tipoUsuario');
+
+                    res.json(alunos);
+                } catch (err) {
+                    console.error('Erro ao buscar alunos:', err.message);
+                    res.status(500).send('Erro ao buscar alunos');
+                }
+            });
+
+
+
+
+
     // Rota para buscar vídeos
     app.get('/search', async (req, res) => {
         const busca = req.query.q;
@@ -252,19 +270,19 @@ sql.connect(dbConfig).then(pool => {
                         .input('nome', sql.VarChar, nome)
                         .input('email', sql.VarChar, email)
                         .input('senha', sql.VarChar, senha)
-                        .input('nivelAcesso', sql.VarChar, nivelAcesso || 'ALUNO')
+                        .input('nivelAcesso', sql.VarChar, nivelAcesso || 'USER')
                         .input('foto', sql.VarBinary, foto || null)
                         .input('dataCadastro', sql.DateTime, dataCadastro || new Date())
                         .input('statusUsuario', sql.VarChar, statusUsuario || 'ATIVO')
-                        .input('tipoUsuario', sql.VarChar, tipoUsuario)
+                        .input('tipoUsuario', sql.VarChar, 'ALUNO')
                         .input('nivelPrivacidade', sql.VarChar, nivelPrivacidade)
                         .input('dataNasc', sql.Date, dataNasc)
                         .input('idade', sql.Int, idade)
-                        .input('genero', sql.VarChar, genero)
+
                         .query(`
-                            INSERT INTO Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, dataNasc, idade, genero)
+                            INSERT INTO Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, dataNasc, idade, )
                             OUTPUT INSERTED.id
-                            VALUES (@nome, @email, @senha, @nivelAcesso, @foto, @dataCadastro, @statusUsuario, @tipoUsuario, @nivelPrivacidade, @dataNasc, @idade, @genero);
+                            VALUES (@nome, @email, @senha, @nivelAcesso, @foto, @dataCadastro, @statusUsuario, @tipoUsuario, @nivelPrivacidade, @dataNasc, @idade,);
                         `);
 
                         const usuarioId = result.recordset[0].id; // Para pegar o ID gerado
