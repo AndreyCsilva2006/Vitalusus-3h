@@ -23,15 +23,26 @@ sql.connect(dbConfig).then(pool => {
     }
 
     // Rota para obter todos os usuários
+    // Rota para obter todos os usuários
     app.get('/usuarios', async (req, res) => {
         try {
             const result = await pool.request().query('SELECT * FROM Usuario');
-            res.json(result.recordset);
+
+            // Mapeia os usuários para incluir a foto como base64
+            const usuarios = result.recordset.map(usuario => {
+                if (usuario.foto) {
+                    usuario.foto = Buffer.from(usuario.foto).toString('base64');
+                }
+                return usuario;
+            });
+
+            res.json(usuarios);
         } catch (err) {
             console.error('Erro ao buscar usuários:', err.message);
             res.status(500).send(err.message);
         }
     });
+
 
     // Rota para obter treinadores
     app.get('/treinadores', async (req, res) => {
@@ -107,7 +118,7 @@ sql.connect(dbConfig).then(pool => {
                   nome: video.nomeCanal
               },
               usuario: {
-                  foto: video.fotoUsuario,
+                  foto: video.fotoUsuario ? Buffer.from(video.fotoUsuario).toString('base64') : null,
                   nome: video.nomeTreinador
               }
           }));

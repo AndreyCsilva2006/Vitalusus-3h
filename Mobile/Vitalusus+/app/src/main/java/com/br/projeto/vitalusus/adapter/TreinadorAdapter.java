@@ -3,11 +3,13 @@ package com.br.projeto.vitalusus.adapter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +21,7 @@ import com.br.projeto.vitalusus.model.Usuario;
 //import com.bumptech.glide.Glide;
 
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -69,39 +72,47 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
         return new TreinadorViewHolder(view);
     }
 
+    public Bitmap decodeBase64(String encodedImage) {
+        try {
+            byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        } catch (IllegalArgumentException e) {
+            Log.e("DecodeBase64", "Erro ao decodificar imagem Base64", e);
+            return null;
+        }
+    }
+
     @Override
     public void onBindViewHolder(@NonNull TreinadorViewHolder holder, int position) {
-        // Verifica se a posição é válida para todas as listas
         if (position < usuarios.size() && position < treinadores.size() && position < canais.size()) {
             Usuario usuario = usuarios.get(position);
             Treinador treinador = treinadores.get(position);
             Canal canal = canais.get(position);
 
-            // Verifica se o nível de privacidade é "PRIVADO"
+            Log.d("UsuarioFoto", "Foto do usuário: " + usuario.getFoto());
+
             if ("PRIVADO".equals(usuario.getNivelPrivacidade())) {
                 holder.itemView.setVisibility(View.GONE);
-                holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0)); // Remove o espaço do item
+                holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
             } else {
-                // Se o nível de privacidade for público, exibe o canal normalmente
                 holder.itemView.setVisibility(View.VISIBLE);
                 holder.nomeCanalTextView.setText(canal.getNome());
                 holder.seguidoresTextView.setText(formatarNumeroAbreviado((int) canal.getSeguidores()));
+                Log.d("UsuarioFoto", "ID: " + usuario.getId() + ", Nome: " + usuario.getNome() + ", Foto: " + usuario.getFoto());
 
-                if (usuario.getFoto() != null && usuario.getFoto().getData() != null && !usuario.getFoto().getData().isEmpty()) {
-                    // Combina todas as partes do array em uma única string
-                    StringBuilder base64StringBuilder = new StringBuilder();
-                    for (String part : usuario.getFoto().getData()) {
-                        base64StringBuilder.append(part);
+                // Decodificando a foto e exibindo no CircleImageView
+                if (usuario.getFoto() != null && !usuario.getFoto().isEmpty()) {
+                    Bitmap bitmap = decodeBase64(usuario.getFoto());
+                    if (bitmap != null) {
+                        Log.d("UsuarioFoto", "Imagem decodificada com sucesso para o usuário: " + usuario.getNome());
+                        holder.fotoImageView.setImageBitmap(bitmap);
+                    } else {
+                        Log.e("UsuarioFoto", "Erro ao decodificar a imagem para o usuário: " + usuario.getNome());
+                        holder.fotoImageView.setImageResource(R.drawable.ic_defaultuser);
                     }
-
-                    // Decodifica a string final concatenada
-                    byte[] decodedString = Base64.decode(base64StringBuilder.toString(), Base64.DEFAULT);
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                    holder.fotoImageView.setImageBitmap(bitmap);
                 } else {
-                    holder.fotoImageView.setImageResource(R.drawable.perfil);
+                    holder.fotoImageView.setImageResource(R.drawable.ic_defaultuser); // Exibe imagem padrão se não houver foto
                 }
-
 
                 holder.itemView.setOnClickListener(v -> listener.onItemClick(usuario, treinador, canal));
             }

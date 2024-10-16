@@ -56,7 +56,7 @@ public class EstatisticasFragment extends Fragment {
         btnCalcular = view.findViewById(R.id.btn_calcular);
 
         // Chamar o método para obter a idade do servidor
-        obterIdadeDoServidor();
+//        obterIdadeDoServidor();
 
         btnCalcular.setOnClickListener(v -> calcularIMCTMBNDC());
 

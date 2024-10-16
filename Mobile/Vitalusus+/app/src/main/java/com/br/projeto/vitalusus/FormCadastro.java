@@ -340,7 +340,7 @@ public class FormCadastro extends AppCompatActivity {
         String email = editEmail.getText().toString();
         String senha = editSenha.getText().toString();
         String nivelAcesso = "USER";
-        Usuario.Foto foto = null;
+        String foto = null;
         String dataCadastro = getCurrentDate();
         String statusUsuario = "ATIVO";
         String tipoUsuario = "ALUNO";

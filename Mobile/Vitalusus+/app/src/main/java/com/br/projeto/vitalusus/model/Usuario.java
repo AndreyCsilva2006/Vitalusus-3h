@@ -29,21 +29,8 @@ public class Usuario implements Serializable {
     @SerializedName("nivelAcesso")
     private String nivelAcesso;
 
-    public class Foto {
-        @SerializedName("data")
-        private List<String> data; // Mudando de String para List<String>
-
-        public List<String> getData() {
-            return data;
-        }
-
-        public void setData(List<String> data) {
-            this.data = data;
-        }
-    }
-
     @SerializedName("foto")
-    private Foto foto; // objeto Foto
+    private String foto;
 
     @SerializedName("dataCadastro")
     private String dataCadastro;
@@ -69,7 +56,7 @@ public class Usuario implements Serializable {
     @SerializedName("genero")
     private String genero;
 
-    public Usuario(String nome, String email, String senha, String nivelAcesso, Foto foto, String dataCadastro, String statusUsuario, String tipoUsuario, String nivelPrivacidade, int idade, Date dataNasc, String genero) {
+    public Usuario(String nome, String email, String senha, String nivelAcesso, String foto, String dataCadastro, String statusUsuario, String tipoUsuario, String nivelPrivacidade, int idade, Date dataNasc, String genero) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -142,11 +129,11 @@ public class Usuario implements Serializable {
         this.statusUsuario = statusUsuario;
     }
 
-    public Foto getFoto() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setFoto(Foto foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 
