@@ -24,7 +24,6 @@ CREATE TABLE Usuario
    nivelPrivacidade VARCHAR(50)NOT NULL, -- PUBLICO ou PRIVADO
    dataNasc	DATE			NOT NULL,
    idade		INT				NOT NULL,
-   genero		VARCHAR(30)		NOT NULL,
 
    PRIMARY KEY (id),
 )
@@ -120,6 +119,7 @@ CREATE TABLE Aluno
 	altura		DECIMAL(10,2)		NULL,
 	peso		DECIMAL(10,2)		NULL,
 	usuario_id	INT					NOT NULL,
+	sexo
 
 	FOREIGN KEY(usuario_id) REFERENCES Usuario (id),
 	PRIMARY KEY(id)
