@@ -138,6 +138,37 @@ public class CanaisFragment extends Fragment {
                     canalList.clear();
                     canalList.addAll(response.body());
 
+                    // Após carregar os canais, vamos associar cada canal ao treinador e ao respectivo usuário
+                    for (Canal canal : canalList) {
+                        Treinador treinador = null;
+                        Usuario usuario = null;
+
+                        // Encontrar o treinador correspondente ao canal
+                        for (Treinador t : treinadorList) {
+                            if (t.getId() == canal.getTreinadorId()) {
+                                treinador = t;
+                                break;
+                            }
+                        }
+
+                        // Se encontramos o treinador, buscar o usuário correspondente
+                        if (treinador != null) {
+                            for (Usuario u : usuarioList) {
+                                if (u.getId() == treinador.getUsuarioId()) {
+                                    usuario = u;
+                                    break;
+                                }
+                            }
+                        }
+
+                        // Adicionar log de associação correta para depuração
+                        if (usuario != null) {
+                            Log.d("TreinadorUsuario", "Canal: " + canal.getNome() + " está associado ao Treinador: " + treinador.getId() + " e Usuario: " + usuario.getNome());
+                        } else {
+                            Log.e("TreinadorUsuario", "Erro: Não foi possível associar um Treinador ou Usuário ao canal: " + canal.getNome());
+                        }
+                    }
+
                     // Atualiza o adapter depois de carregar todos os dados
                     treinadorAdapter.notifyDataSetChanged();
                 } else {

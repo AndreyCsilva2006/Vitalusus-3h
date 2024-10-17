@@ -84,45 +84,91 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
 
     @Override
     public void onBindViewHolder(@NonNull TreinadorViewHolder holder, int position) {
-        if (position < usuarios.size() && position < treinadores.size() && position < canais.size()) {
-            Usuario usuario = usuarios.get(position);
-            Treinador treinador = treinadores.get(position);
-            Canal canal = canais.get(position);
+//        if (position < usuarios.size() && position < treinadores.size() && position < canais.size()) {
+//            Usuario usuario = usuarios.get(position);
+//            Treinador treinador = treinadores.get(position);
+        Canal canal = canais.get(position);
 
-            Log.d("UsuarioFoto", "Foto do usuário: " + usuario.getFoto());
+        // Obter o treinador correspondente ao canal (caso exista)
+        Treinador treinador = (position < treinadores.size()) ? treinadores.get(position) : null;
+        Usuario usuario = usuarios.get(position);
 
-            if ("PRIVADO".equals(usuario.getNivelPrivacidade())) {
-                holder.itemView.setVisibility(View.GONE);
-                holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
-            } else {
-                holder.itemView.setVisibility(View.VISIBLE);
-                holder.nomeCanalTextView.setText(canal.getNome());
-                holder.seguidoresTextView.setText(formatarNumeroAbreviado((int) canal.getSeguidores()));
-                Log.d("UsuarioFoto", "ID: " + usuario.getId() + ", Nome: " + usuario.getNome() + ", Foto: " + usuario.getFoto());
-
-                // Decodificando a foto e exibindo no CircleImageView
-                if (usuario.getFoto() != null && !usuario.getFoto().isEmpty()) {
-                    Bitmap bitmap = decodeBase64(usuario.getFoto());
-                    if (bitmap != null) {
-                        Log.d("UsuarioFoto", "Imagem decodificada com sucesso para o usuário: " + usuario.getNome());
-                        holder.fotoImageView.setImageBitmap(bitmap);
-                    } else {
-                        Log.e("UsuarioFoto", "Erro ao decodificar a imagem para o usuário: " + usuario.getNome());
-                        holder.fotoImageView.setImageResource(R.drawable.ic_defaultuser);
-                    }
-                } else {
-                    holder.fotoImageView.setImageResource(R.drawable.ic_defaultuser); // Exibe imagem padrão se não houver foto
+        // Se o treinador for válido, buscar o usuário pelo ID do treinador
+        if (treinador != null) {
+            int usuarioId = treinador.getUsuarioId();
+            // Procurar o usuário correto pelo ID
+            for (Usuario u : usuarios) {
+                if (u.getId() == usuarioId) {
+                    usuario = u;
+                    break;
                 }
-
-                holder.itemView.setOnClickListener(v -> listener.onItemClick(usuario, treinador, canal));
             }
         }
+
+        // Lógica de exibição do canal
+        if (canal != null) {
+            holder.nomeCanalTextView.setText(canal.getNome());
+            holder.seguidoresTextView.setText(formatarNumeroAbreviado((int) canal.getSeguidores()));
+        }
+
+        // Decodificar e exibir a foto do usuário correto
+        if (usuario != null && usuario.getFoto() != null && !usuario.getFoto().isEmpty()) {
+            Bitmap bitmap = decodeBase64(usuario.getFoto());
+            if (bitmap != null) {
+                holder.fotoImageView.setImageBitmap(bitmap);
+            } else {
+                holder.fotoImageView.setImageResource(R.drawable.ic_defaultuser);
+            }
+        } else {
+            holder.fotoImageView.setImageResource(R.drawable.ic_defaultuser);
+        }
+
+        // Verificar se usuario e treinador não são nulos antes de definir o clique
+        if (usuario != null && treinador != null && canal != null) {
+            Usuario finalUsuario = usuario;
+            holder.itemView.setOnClickListener(v -> listener.onItemClick(finalUsuario, treinador, canal));
+        } else {
+            // Remover o listener para itens nulos
+            holder.itemView.setOnClickListener(null);
+        }
+
+//            if ("PRIVADO".equals(usuario.getNivelPrivacidade())) {
+//                holder.itemView.setVisibility(View.GONE);
+//                holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+//            } else {
+//                holder.itemView.setVisibility(View.VISIBLE);
+//                holder.nomeCanalTextView.setText(canal.getNome());
+//                holder.seguidoresTextView.setText(formatarNumeroAbreviado((int) canal.getSeguidores()));
+//                Log.d("UsuarioFoto", "ID: " + usuario.getId() + ", Nome: " + usuario.getNome() + ", Foto: " + usuario.getFoto());
+//
+//                // Decodificando a foto e exibindo no CircleImageView
+//                if (usuario.getFoto() != null && !usuario.getFoto().isEmpty()) {
+//                    Bitmap bitmap = decodeBase64(usuario.getFoto());
+//                    if (bitmap != null) {
+//                        Log.d("UsuarioFoto", "Imagem decodificada com sucesso para o usuário: " + usuario.getNome());
+//                        holder.fotoImageView.setImageBitmap(bitmap);
+//                    } else {
+//                        Log.e("UsuarioFoto", "Erro ao decodificar a imagem para o usuário: " + usuario.getNome());
+//                        holder.fotoImageView.setImageResource(R.drawable.ic_defaultuser);
+//                    }
+//                } else {
+//                    holder.fotoImageView.setImageResource(R.drawable.ic_defaultuser); // Exibe imagem padrão se não houver foto
+//                }
+//
+//                holder.itemView.setOnClickListener(v -> listener.onItemClick(usuario, treinador, canal));
+
     }
+
+//    @Override
+//    public int getItemCount() {
+//        // Retorna o tamanho da menor lista para evitar IndexOutOfBoundsException
+//        return Math.min(usuarios.size(), Math.min(treinadores.size(), canais.size()));
+//    }
 
     @Override
     public int getItemCount() {
-        // Retorna o tamanho da menor lista para evitar IndexOutOfBoundsException
-        return Math.min(usuarios.size(), Math.min(treinadores.size(), canais.size()));
+        // Retorna o tamanho da lista de canais, já que é o dado principal
+        return canais != null ? canais.size() : 0;
     }
 
     public static class TreinadorViewHolder extends RecyclerView.ViewHolder {
