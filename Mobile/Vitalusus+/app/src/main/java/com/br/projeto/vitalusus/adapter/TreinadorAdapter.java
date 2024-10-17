@@ -125,8 +125,6 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
         return Math.min(usuarios.size(), Math.min(treinadores.size(), canais.size()));
     }
 
-
-
     public static class TreinadorViewHolder extends RecyclerView.ViewHolder {
         TextView nomeCanalTextView;
         TextView seguidoresTextView;
