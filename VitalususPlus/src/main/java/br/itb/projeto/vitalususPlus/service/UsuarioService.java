@@ -214,7 +214,7 @@ public class UsuarioService {
 	public Usuario sigin(String email, String senha) {
 		Usuario usuario = usuarioRepository.findByEmail(email);
 		if (usuario != null) {
-			if (!usuario.getStatusUsuario().equals("BANIDO") || !usuario.getStatusUsuario().equals("DELETADO")){
+			if (!usuario.getStatusUsuario().equals("BANIDO") && !usuario.getStatusUsuario().equals("DELETADO")){
 				byte[] decodedPass = Base64.getDecoder().decode(usuario.getSenha());
 				if (new String(decodedPass).equals(senha)) {
 					return usuario;
@@ -223,7 +223,7 @@ public class UsuarioService {
 			}
 			else throw new RuntimeException("Este usuário está banido ou deletado, não pode fazer login");
 		}
-		return null;
+		else throw new RuntimeException("Dados incorretos");
 	} 
 	
 	@Transactional

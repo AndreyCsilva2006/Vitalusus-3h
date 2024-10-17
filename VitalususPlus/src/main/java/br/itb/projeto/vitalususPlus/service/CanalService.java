@@ -232,7 +232,7 @@ public class CanalService {
 		}
 		return null;
 	}
-	
+
 	@Transactional
 	public Canal updateBio(Long id, Canal canal) {
 		Optional<Canal> _canal = canalRepository.findById(id);

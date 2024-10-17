@@ -201,7 +201,7 @@ GO
 CREATE TABLE Equipamento(
 	id					INT				IDENTITY,
 	nome				VARCHAR(255)	NOT NULL,
-	link				VARCHAR(500)	UNIQUE NOT NULL,
+	link				VARCHAR(500)	NOT NULL,
 	patrocinador_id		INT				NULL,
 	statusEquipamento	VARCHAR(100)	NOT NULL,
 	
