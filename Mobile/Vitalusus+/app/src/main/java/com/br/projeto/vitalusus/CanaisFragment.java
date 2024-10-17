@@ -23,8 +23,8 @@ import com.br.projeto.vitalusus.network.ApiService;
 import com.br.projeto.vitalusus.network.RetrofitClient;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -39,6 +39,7 @@ public class CanaisFragment extends Fragment {
     private List<Treinador> treinadorList = new ArrayList<>();
     private List<Usuario> usuarioList = new ArrayList<>();
     private List<Canal> canalList = new ArrayList<>();
+
     private Map<Integer, Usuario> treinadorUsuarioMap = new HashMap<>();
 
     @Nullable
@@ -79,11 +80,10 @@ public class CanaisFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     usuarioList.clear();
                     usuarioList.addAll(response.body());
-                    Log.d("Sucesso", "Usuários treinadores carregados: " + usuarioList.size());
 
-                    // Log para cada usuário e sua foto
+                    // Criar um mapa de usuarioId -> Usuario para fácil referência
                     for (Usuario usuario : usuarioList) {
-                        Log.d("UsuarioFoto", "ID: " + usuario.getId() + ", Nome: " + usuario.getNome() + ", Foto: " + usuario.getFoto());
+                        treinadorUsuarioMap.put(usuario.getId(), usuario);
                     }
 
                     // Após carregar os usuários, busca treinadores
@@ -107,7 +107,6 @@ public class CanaisFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     treinadorList.clear();
                     treinadorList.addAll(response.body());
-                    Log.d("Sucesso", "Treinadores carregados: " + treinadorList.size());
 
                     // Mapeia os treinadores ao respectivo usuário via `usuario_id`
                     for (Treinador treinador : treinadorList) {
@@ -138,8 +137,9 @@ public class CanaisFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     canalList.clear();
                     canalList.addAll(response.body());
+
+                    // Atualiza o adapter depois de carregar todos os dados
                     treinadorAdapter.notifyDataSetChanged();
-                    Log.d("Sucesso", "Canais carregados: " + canalList.size());
                 } else {
                     mostrarErro("Falha ao carregar canais", response.code());
                 }

@@ -28,7 +28,10 @@ public class Aluno{
 	@OneToOne
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
-
+	
+	
+	private String sexo;
+	
 	public Long getId() {
 		return id;
 	}
@@ -59,6 +62,14 @@ public class Aluno{
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 
 }

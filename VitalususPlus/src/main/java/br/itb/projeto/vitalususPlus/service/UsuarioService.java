@@ -55,10 +55,13 @@ public class UsuarioService {
 				.atZone(ZoneId.systemDefault())
 				.toLocalDate();
 		usuario.setIdade(Period.between(dataNascimento, dataAtual).getYears());
-		if(usuario.getIdade() >=13) {
+		if(usuario.getNivelAcesso().equals("USER") && usuario.getIdade() >=13) {
 			return usuarioRepository.save(usuario);
 		}
-		else throw new RuntimeException("O usuário possui menos de 13 anos");
+		else if(usuario.getNivelAcesso().equals("ADMIN")&&usuario.getIdade()>=18) {
+			return usuarioRepository.save(usuario);
+		}
+		else throw new RuntimeException("O usuário possui menos de 13 anos ou o admin possui menos de 18 anos");
 	}
 	@Transactional
 	public Usuario corrigirBugSenha(long id) {
