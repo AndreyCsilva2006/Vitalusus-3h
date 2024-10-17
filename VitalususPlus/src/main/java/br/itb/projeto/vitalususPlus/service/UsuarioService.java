@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.itb.projeto.vitalususPlus.model.entity.Usuario;
@@ -56,10 +57,20 @@ public class UsuarioService {
 				.toLocalDate();
 		usuario.setIdade(Period.between(dataNascimento, dataAtual).getYears());
 		if(usuario.getNivelAcesso().equals("USER") && usuario.getIdade() >=13) {
+			try {
 			return usuarioRepository.save(usuario);
+			}
+			catch(DataIntegrityViolationException e) {
+	            throw new RuntimeException("O e-mail fornecido já está em uso. Por favor, escolha um e-mail diferente.");
+			}
 		}
 		else if(usuario.getNivelAcesso().equals("ADMIN")&&usuario.getIdade()>=18) {
-			return usuarioRepository.save(usuario);
+			try {
+				return usuarioRepository.save(usuario);
+				}
+				catch(DataIntegrityViolationException e) {
+		            throw new RuntimeException("O e-mail fornecido já está em uso. Por favor, escolha um e-mail diferente.");
+				}
 		}
 		else throw new RuntimeException("O usuário possui menos de 13 anos ou o admin possui menos de 18 anos");
 	}

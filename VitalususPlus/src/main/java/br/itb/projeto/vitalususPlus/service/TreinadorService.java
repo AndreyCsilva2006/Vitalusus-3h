@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.tomcat.util.buf.UEncoder;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -89,6 +90,12 @@ public class TreinadorService {
         usuario.setTipoUsuario("TREINADOR");
         usuario.setNivelAcesso("USER");
         usuarioService.save(usuario);
-        return treinadorRepository.save(treinador);
+        
+        try {
+			return treinadorRepository.save(treinador);
+			}
+			catch(DataIntegrityViolationException e) {
+	            throw new RuntimeException("O CREF fornecido já está em uso. Por favor, escolha um CREF diferente.");
+			}
     }
 }
