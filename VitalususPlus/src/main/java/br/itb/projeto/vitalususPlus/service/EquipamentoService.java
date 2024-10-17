@@ -4,6 +4,8 @@ import br.itb.projeto.vitalususPlus.model.entity.Equipamento;
 import br.itb.projeto.vitalususPlus.model.entity.Equipamento;
 import br.itb.projeto.vitalususPlus.model.entity.Patrocinador;
 import br.itb.projeto.vitalususPlus.model.repository.EquipamentoRepository;
+
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,7 +37,12 @@ public class EquipamentoService {
         Patrocinador patrocinador = patrocinadorService.findById(id);
         equipamento.setPatrocinador(patrocinador);
         equipamento.setStatusEquipamento("ATIVO");
-        return equipamentoRepository.save(equipamento);
+        try {
+			return equipamentoRepository.save(equipamento);
+			}
+			catch(DataIntegrityViolationException e) {
+	            throw new RuntimeException("O link fornecido já está em uso. Por favor, escolha um link diferente.");
+			}
     }
     public List<Equipamento> findAllByPatrocinador(long patrocinadorId){
         Patrocinador patrocinador = patrocinadorService.findById(patrocinadorId);

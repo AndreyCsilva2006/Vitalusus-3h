@@ -2,6 +2,8 @@ package br.itb.projeto.vitalususPlus.service;
 
 import br.itb.projeto.vitalususPlus.model.entity.Patrocinador;
 import br.itb.projeto.vitalususPlus.model.repository.PatrocinadorRepository;
+
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +36,12 @@ public class PatrocinadorService {
     public Patrocinador save(Patrocinador patrocinador){
         patrocinador.setId(null);
         patrocinador.setStatusPatrocinador("ATIVO");
-        return patrocinadorRepository.save(patrocinador);
+        try {
+			return patrocinadorRepository.save(patrocinador);
+			}
+			catch(DataIntegrityViolationException e) {
+	            throw new RuntimeException("O e-mail fornecido já está em uso. Por favor, escolha um e-mail diferente.");
+			}
     }
     public Patrocinador deletar(long id){
         Optional<Patrocinador> patrocinador= patrocinadorRepository.findById(id);
