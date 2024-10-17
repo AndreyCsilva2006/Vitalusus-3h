@@ -23,7 +23,6 @@ sql.connect(dbConfig).then(pool => {
     }
 
     // Rota para obter todos os usuários
-    // Rota para obter todos os usuários
     app.get('/usuarios', async (req, res) => {
         try {
             const result = await pool.request().query('SELECT * FROM Usuario');

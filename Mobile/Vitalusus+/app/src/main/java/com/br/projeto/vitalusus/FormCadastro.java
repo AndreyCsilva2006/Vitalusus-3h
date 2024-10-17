@@ -42,7 +42,7 @@ import retrofit2.Retrofit;
 public class FormCadastro extends AppCompatActivity {
 
     View containerComponents;
-    EditText editNome, editEmail, editSenha, editPSeguranca, editRSeguranca, editAltura, editPeso, editDataNasc ;
+    EditText editNome, editEmail, editSenha, editDataNasc ;
     Button btnFormCadastroSalvar, btnFormCadastroAvancarPasso, btnFormCadastroOlharSenha;
     ImageView ic_seta;
     TextView text_tela_principal;
@@ -98,8 +98,6 @@ public class FormCadastro extends AppCompatActivity {
         editEmail.setVisibility(View.VISIBLE);
         editSenha.setVisibility(View.VISIBLE);
         rdggroupSexo.setVisibility(View.VISIBLE);
-        editPSeguranca.setVisibility(View.VISIBLE);
-        editRSeguranca.setVisibility(View.VISIBLE);
         btnFormCadastroAvancarPasso.setVisibility(View.VISIBLE);
         btnFormCadastroOlharSenha.setVisibility(View.VISIBLE);
 
@@ -107,8 +105,6 @@ public class FormCadastro extends AppCompatActivity {
         editDataNasc = findViewById(R.id.editFormCadastroDataNascimento);
         btnFormCadastroSalvar = findViewById(R.id.btnCadastroSalvar);
         editDataNasc.setVisibility(View.GONE);
-        editAltura.setVisibility(View.GONE);
-        editPeso.setVisibility(View.GONE);
         btnFormCadastroSalvar.setVisibility(View.GONE);
 
 
@@ -213,51 +209,17 @@ public class FormCadastro extends AppCompatActivity {
             editSenha.requestFocus();
             return false;
         }
-        editSenha.setBackground(blackBorder);
 
-        if (editPSeguranca.getText().toString().trim().isEmpty()) {
-            editPSeguranca.setBackground(redBorder);
-
-            MensagemUtil.exibir(this, "Digite uma Pergunta de Segurança caso perca sua Senha para poder recuperar.");
-            editPSeguranca.requestFocus();
-            return false;
-        }
-        if (editPSeguranca.getText().toString().trim().length() < 4) {
-            editPSeguranca.setBackground(redBorder);
-
-            MensagemUtil.exibir(this, "Digite uma Pergunta que pelo menos 4 caracteres");
-            editPSeguranca.requestFocus();
-            return false;
-        }
-        editPSeguranca.setBackground(blackBorder);
-
-        if (editRSeguranca.getText().toString().trim().isEmpty()) {
-            editRSeguranca.setBackground(redBorder);
-
-            MensagemUtil.exibir(this, "Digite uma Resposta para a Pergunta de Segurança.");
-            editRSeguranca.requestFocus();
-            return false;
-        }
-        if (editRSeguranca.getText().toString().trim().length() < 4) {
-            editRSeguranca.setBackground(redBorder);
-
-            MensagemUtil.exibir(this, "Digite uma Resposta para a Pergunta de Segurança que tenha pelo menos 4 caracteres");
-            editRSeguranca.requestFocus();
-            return false;
-        } else {
+        else {
             // Some
             editNome.setVisibility(View.GONE);
             editEmail.setVisibility(View.GONE);
             editSenha.setVisibility(View.GONE);
-            editPSeguranca.setVisibility(View.GONE);
-            editRSeguranca.setVisibility(View.GONE);
             btnFormCadastroAvancarPasso.setVisibility(View.GONE);
             btnFormCadastroOlharSenha.setVisibility(View.GONE);
 
             // Aparece
             editDataNasc.setVisibility(View.VISIBLE);
-            editAltura.setVisibility(View.VISIBLE);
-            editPeso.setVisibility(View.VISIBLE);
             btnFormCadastroSalvar.setVisibility(View.VISIBLE);
             ic_seta.setVisibility(View.VISIBLE);
 
@@ -265,7 +227,8 @@ public class FormCadastro extends AppCompatActivity {
             ViewGroup.LayoutParams layoutParams = containerComponents.getLayoutParams();
             layoutParams.height = 660;
         }
-        editRSeguranca.setBackground(blackBorder);
+        editSenha.setBackground(blackBorder);
+
 
         // passo 2
         if (editDataNasc.getText().toString().trim().isEmpty()) {
@@ -276,29 +239,12 @@ public class FormCadastro extends AppCompatActivity {
             return false;
         }
         if (editDataNasc.getText().toString().trim().isEmpty()) {
-            editRSeguranca.setBackground(redBorder);
 
             MensagemUtil.exibir(this, "Digite uma Data de Nascimento.");
             editDataNasc.requestFocus();
             return false;
         }
         editDataNasc.setBackground(blackBorder);
-
-        if (editAltura.getText().toString().trim().isEmpty()) {
-            editAltura.setBackground(redBorder);
-
-            MensagemUtil.exibir(this, "Digite sua Altura.");
-            editAltura.requestFocus();
-            return false;
-        }
-        if (editAltura.getText().toString().trim().length() < 1) {
-            editAltura.setBackground(redBorder);
-
-            MensagemUtil.exibir(this, "Digite sua Altura.");
-            editAltura.requestFocus();
-            return false;
-        }
-        editAltura.setBackground(blackBorder);
 
         return true;
     }
