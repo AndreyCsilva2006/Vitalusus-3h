@@ -53,10 +53,11 @@ public class Usuario implements Serializable {
     @SerializedName("idade")
     private int idade;
 
-    @SerializedName("genero")
-    private String genero;
 
-    public Usuario(String nome, String email, String senha, String nivelAcesso, String foto, String dataCadastro, String statusUsuario, String tipoUsuario, String nivelPrivacidade, int idade, Date dataNasc, String genero) {
+    @SerializedName("sexo")
+    private String sexo;
+
+    public Usuario(String nome, String email, String senha, String nivelAcesso, String foto, String dataCadastro, String statusUsuario, String tipoUsuario, String nivelPrivacidade, int idade, Date dataNasc, String sexo) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -68,7 +69,7 @@ public class Usuario implements Serializable {
         this.nivelPrivacidade = nivelPrivacidade;
         this.idade = idade;
         this.dataNasc = dataNasc;
-        this.genero = genero;
+        this.sexo = sexo;
     }
 
     //    Getter e Setter
@@ -177,12 +178,12 @@ public class Usuario implements Serializable {
         this.dataNasc = dataNasc;
     }
 
-    public String getGenero() {
-        return genero;
+    public String getSexo() {
+        return sexo;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 
     @Override
@@ -201,7 +202,7 @@ public class Usuario implements Serializable {
                 ", nivelPrivacidade=" + nivelPrivacidade +
                 ", dataNasc=" + dataNasc +
                 ", idade=" + idade +
-                ", genero=" + genero +
+                ", sexo=" + sexo +
                 '}';
     }
 }

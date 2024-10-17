@@ -6,7 +6,9 @@ import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.model.Video;
 import com.br.projeto.vitalusus.model.VideoResponse;
 import com.br.projeto.vitalusus.network.ApiService;
+import com.br.projeto.vitalusus.response.AlunoResponse;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -55,6 +57,9 @@ public interface ApiService {
     @GET("/usuarios/{idade}")
     Call<Usuario> getIdade(@Path("idade") int idade);
 
+    @POST("usuarios")
+    Call<ResponseBody> cadastrarUsuario(@Body Usuario usuario);
+
     // POST
     @POST("/usuarios")
     Call<Usuario> createUsuario(@Body Usuario usuario);
@@ -64,7 +69,7 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("/usuarios")
-    Call<Usuario> loginUser(
+    Call<AlunoResponse> loginUser(
             @Field("email") String email,
             @Field("senha") String senha
     );

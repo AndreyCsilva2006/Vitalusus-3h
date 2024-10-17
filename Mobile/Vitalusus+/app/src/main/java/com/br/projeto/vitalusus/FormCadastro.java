@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 //import com.br.projeto.vitalusus.dao.AlunoDAO;
@@ -41,10 +42,12 @@ import retrofit2.Retrofit;
 public class FormCadastro extends AppCompatActivity {
 
     View containerComponents;
-    EditText editNome, editEmail, editSenha, editPSeguranca, editRSeguranca, editAltura, editPeso, editDataNasc;
+    EditText editNome, editEmail, editSenha, editPSeguranca, editRSeguranca, editAltura, editPeso, editDataNasc ;
     Button btnFormCadastroSalvar, btnFormCadastroAvancarPasso, btnFormCadastroOlharSenha;
     ImageView ic_seta;
     TextView text_tela_principal;
+
+    RadioGroup rdggroupSexo;
 
     Aluno alunoEditando = null;
 
@@ -88,27 +91,26 @@ public class FormCadastro extends AppCompatActivity {
         editNome = findViewById(R.id.editFormCadastroLoginNome);
         editEmail = findViewById(R.id.editFormCadastroLoginEmail);
         editSenha = findViewById(R.id.editFormCadastroLoginSenha);
-        editPSeguranca = findViewById(R.id.editFormCadastroPergSeguranca);
-        editRSeguranca = findViewById(R.id.editFormCadastroRespSeguranca);
+        rdggroupSexo = findViewById(R.id.rgSexo);
         btnFormCadastroAvancarPasso = findViewById(R.id.btnCadastroAvancarPasso);
         btnFormCadastroOlharSenha = findViewById(R.id.btnFormCadastroOlharSenha);
         editNome.setVisibility(View.VISIBLE);
         editEmail.setVisibility(View.VISIBLE);
         editSenha.setVisibility(View.VISIBLE);
+        rdggroupSexo.setVisibility(View.VISIBLE);
         editPSeguranca.setVisibility(View.VISIBLE);
         editRSeguranca.setVisibility(View.VISIBLE);
         btnFormCadastroAvancarPasso.setVisibility(View.VISIBLE);
         btnFormCadastroOlharSenha.setVisibility(View.VISIBLE);
 
         // passo 2
-        editAltura = findViewById(R.id.editFormCadastroAltura);
-        editPeso = findViewById(R.id.editFormCadastroPeso);
         editDataNasc = findViewById(R.id.editFormCadastroDataNascimento);
         btnFormCadastroSalvar = findViewById(R.id.btnCadastroSalvar);
         editDataNasc.setVisibility(View.GONE);
         editAltura.setVisibility(View.GONE);
         editPeso.setVisibility(View.GONE);
         btnFormCadastroSalvar.setVisibility(View.GONE);
+
 
         // extra
         text_tela_principal = findViewById(R.id.text_tela_principal);
@@ -345,7 +347,7 @@ public class FormCadastro extends AppCompatActivity {
         String statusUsuario = "ATIVO";
         String tipoUsuario = "ALUNO";
         String nivelPrivacidade = "PUBLICO";
-        String genero = "";
+        String sexo = "";
 
         Date dataNasc;
         try {
@@ -365,7 +367,7 @@ public class FormCadastro extends AppCompatActivity {
         ApiService apiService = retrofit.create(ApiService.class);
 
         // Criar novo Usuario (sem chave de segurança)
-        Usuario novoUsuario = new Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, idade, dataNasc, genero);
+        Usuario novoUsuario = new Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, idade, dataNasc, sexo);
         Log.d("NovoUsuario", "Usuário: " + novoUsuario.toString()); // log para verificar os valores
 
         // Chamar o endpoint para criar o usuário

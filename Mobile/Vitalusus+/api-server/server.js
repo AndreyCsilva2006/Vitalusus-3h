@@ -198,20 +198,35 @@ sql.connect(dbConfig).then(pool => {
                 }
             });
 
-            // Rota para obter todos os alunos
-            app.get('/alunos', async (req, res) => {
-                try {
-                    const result = await pool.request()
-                        .input('tipoUsuario', sql.VarChar, 'ALUNO')
-                        .query('SELECT * FROM Usuario, Aluno WHERE tipoUsuario = @tipoUsuario');
+           // Rota para obter todos os alunos
+           app.get('/alunos', async (req, res) => {
+               try {
+                   const result = await pool.request()
+                       .input('tipoUsuario', sql.VarChar, 'ALUNO')
+                       .query(`
+                           SELECT A.altura, A.peso, A.usuario_id, A.sexo, U.nome, U.email, U.senha
+                           FROM Aluno A
+                           JOIN Usuario U ON A.usuario_id = U.id
+                           WHERE U.tipoUsuario = @tipoUsuario
+                       `);
 
-                    res.json(alunos);
-                } catch (err) {
-                    console.error('Erro ao buscar alunos:', err.message);
-                    res.status(500).send('Erro ao buscar alunos');
-                }
-            });
+                   // Mapeia os resultados para retornar uma lista de alunos
+                   const alunos = result.recordset.map(aluno => ({
+                       altura: aluno.altura,
+                       peso: aluno.peso,
+                       usuario_id: aluno.usuario_id,
+                       sexo: aluno.sexo,
+                       nome: aluno.nome,
+                       email: aluno.email,
+                       senha: aluno.senha
+                   }));
 
+                   res.json(alunos);
+               } catch (err) {
+                   console.error('Erro ao buscar alunos:', err.message);
+                   res.status(500).send('Erro ao buscar alunos');
+               }
+           });
 
 
 
@@ -278,11 +293,11 @@ sql.connect(dbConfig).then(pool => {
                         .input('nivelPrivacidade', sql.VarChar, nivelPrivacidade)
                         .input('dataNasc', sql.Date, dataNasc)
                         .input('idade', sql.Int, idade)
-
+                        .input('sexo', sql.VarChar, sexo)
                         .query(`
-                            INSERT INTO Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, dataNasc, idade, )
+                            INSERT INTO Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, dataNasc, idade, sexo )
                             OUTPUT INSERTED.id
-                            VALUES (@nome, @email, @senha, @nivelAcesso, @foto, @dataCadastro, @statusUsuario, @tipoUsuario, @nivelPrivacidade, @dataNasc, @idade,);
+                            VALUES (@nome, @email, @senha, @nivelAcesso, @foto, @dataCadastro, @statusUsuario, @tipoUsuario, @nivelPrivacidade, @dataNasc, @idade, @sexo );
                         `);
 
                         const usuarioId = result.recordset[0].id; // Para pegar o ID gerado

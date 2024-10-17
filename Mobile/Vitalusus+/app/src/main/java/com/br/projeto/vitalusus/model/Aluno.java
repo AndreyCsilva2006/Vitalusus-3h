@@ -19,12 +19,23 @@ public class Aluno implements Serializable {
     @SerializedName("usuario_id")
     private int usuario_id;
 
+    @SerializedName("sexo")
+    private int sexo;
+
 //    public Aluno(Integer id) {
 //        this.id = id;
 //    }
 
     public Integer getId() {
         return id;
+    }
+
+    public int getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(int sexo) {
+        this.sexo = sexo;
     }
 
     public void setId(Integer id) {
