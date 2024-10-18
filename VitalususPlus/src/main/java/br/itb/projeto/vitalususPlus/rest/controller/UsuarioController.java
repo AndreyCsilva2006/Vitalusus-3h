@@ -133,7 +133,10 @@ public class UsuarioController {
 		Usuario usuarioUpdatado = usuarioService.tornarPublico(id);
 		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
 	}
-	
+	@PostMapping("enviarMail/")
+	public void enviarMail(@RequestParam String email){
+		usuarioService.enviarMail(email);
+	}
 	@PutMapping("tornarPrivado/{id}")
 	public ResponseEntity<Usuario> tornarPrivado(@PathVariable long id){
 		Usuario usuarioUpdatado = usuarioService.tornarPrivado(id);
