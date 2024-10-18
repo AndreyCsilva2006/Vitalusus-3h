@@ -15,7 +15,7 @@
 
     <!-- Informações do vídeo -->
     <TextView
-        android:id="@+id/tv_video_title"
+        android:id="@+id/txtTituloVideoPlayer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
@@ -23,15 +23,26 @@
         android:padding="8dp"/>
 
     <TextView
-        android:id="@+id/tv_channel_name"
+        android:id="@+id/txtNomeCanalVideoPlayer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"/>
 
     <TextView
-        android:id="@+id/tv_date_posted"
+        android:id="@+id/txtDataPubliVideoPlayer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"/>
+
+    <TextView
+        android:id="@+id/txtSeguidoresCanalVideoPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgFotoCanalVideoPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

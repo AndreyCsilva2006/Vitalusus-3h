@@ -70,15 +70,15 @@
         </HorizontalScrollView>
 
         <!-- Grid de Vídeos -->
-        <GridLayout
-            android:id="@+id/video_grid"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:columnCount="1"
             android:layout_gravity="center"
             android:layout_marginBottom="70dp"
             android:orientation="vertical">
-        </GridLayout>
+        </androidx.recyclerview.widget.RecyclerView>
 
 
 

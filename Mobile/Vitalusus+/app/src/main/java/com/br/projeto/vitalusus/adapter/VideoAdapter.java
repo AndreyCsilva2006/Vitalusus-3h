@@ -29,14 +29,20 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     private final List<Video> videoList;
     private final List<Usuario> usuarioList;
     private final List<Treinador> treinadores;
+    private final OnItemClickListener listener;
     private final Context context;
 
-    public VideoAdapter(List<Video> videoList, List<Canal> canalList, List<Usuario> usuarioList, List<Treinador> treinadores, Context context) {
+    public VideoAdapter(List<Video> videoList, List<Canal> canalList, List<Usuario> usuarioList, List<Treinador> treinadores, OnItemClickListener listener, Context context) {
         this.videoList = videoList;
         this.canalList = canalList;
         this.usuarioList = usuarioList;
         this.treinadores = treinadores;
+        this.listener = listener;
         this.context = context;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Video video, Canal canal, Usuario usuario);
     }
 
     @NonNull
@@ -60,32 +66,21 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
         Video video = videoList.get(position);
         Canal canal = canalList.get(position);
-        Treinador treinador = (position < treinadores.size()) ? treinadores.get(position) : null;
         Usuario usuario = usuarioList.get(position);
 
         // Define os outros detalhes do vídeo
         holder.videoTitulo.setText(video.getTitulo());
-        holder.videoVisualizacoes.setText((CharSequence) video.getVisualizacoes());
+//        holder.videoVisualizacoes.setText((CharSequence) video.getVisualizacoes());
+        holder.videoVisualizacoes.setText(video.getVisualizacoes().toString());
         holder.videoDataPubli.setText(video.getDataPubli());
 //        holder.videoThumbnail.setImageBitmap(video.getThumbnail());
         holder.canalNome.setText(canal.getNome());
-        holder.canalSeguidores.setText((int) canal.getSeguidores());
+//        holder.canalSeguidores.setText((int) canal.getSeguidores());
+        holder.canalSeguidores.setText(String.valueOf(canal.getSeguidores()));
 //        holder.canalFoto.setImageBitmap(usuario.getFoto());
 
-        // Se o treinador for válido, buscar o usuário pelo ID do treinador
-        if (treinador != null) {
-            int usuarioId = treinador.getUsuarioId();
-            // Procurar o usuário correto pelo ID
-            for (Usuario u : usuarioList) {
-                if (u.getId() == usuarioId) {
-                    usuario = u;
-                    break;
-                }
-            }
-        }
-
-        // Decodificar e exibir a foto do usuário correto
-        if (video != null && video.getThumbnail() != null && !video.getThumbnail().isEmpty()) {
+        // Decodificar imagem de thumbnail do vídeo
+        if (video.getThumbnail() != null && !video.getThumbnail().isEmpty()) {
             Bitmap bitmap = decodeBase64(video.getThumbnail());
             if (bitmap != null) {
                 holder.videoThumbnail.setImageBitmap(bitmap);
@@ -96,8 +91,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
             holder.videoThumbnail.setImageResource(R.drawable.ic_defaultuser);
         }
 
-        // Decodificar e exibir a foto do usuário correto
-        if (usuario != null && usuario.getFoto() != null && !usuario.getFoto().isEmpty()) {
+        // Decodificar imagem de perfil do canal/usuário
+        if (usuario.getFoto() != null && !usuario.getFoto().isEmpty()) {
             Bitmap bitmap = decodeBase64(usuario.getFoto());
             if (bitmap != null) {
                 holder.canalFoto.setImageBitmap(bitmap);
@@ -108,6 +103,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
             holder.canalFoto.setImageResource(R.drawable.ic_defaultuser);
         }
 
+        holder.itemView.setOnClickListener(v -> listener.onItemClick(video, canal, usuario));
     }
 
     @Override

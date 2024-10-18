@@ -19,7 +19,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.br.projeto.vitalusus.adapter.VideoAdapter;
 import com.br.projeto.vitalusus.model.Canal;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.model.Video;
@@ -50,21 +54,41 @@ public class HomeFragment extends Fragment {
 
     private GridLayout videoGrid;
     private ApiService apiService;
+
+    private RecyclerView recyclerView;
+    private VideoAdapter videoAdapter;
     private List<Video> videoList = new ArrayList<>();
+    private List<Canal> canalList = new ArrayList<>();
+    private List<Usuario> usuarioList = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Infla o layout para esse fragmento
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // Inicia as views
-        videoGrid = view.findViewById(R.id.video_grid);
-
-        // Inicializa Retrofit
-        apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
-
         getActivity().setTitle("Home");
+
+        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        videoAdapter = new VideoAdapter(videoList, canalList, usuarioList, new ArrayList<>(), (video, canal, usuario) -> {
+            Log.d("HomeFragment", "Tentando abrir Video Player Fragment com IDs: Canal=" + canal.getId() + ", Usuario=" + usuario.getId() + ", Video=" + video.getId());
+            if (canal != null && usuario != null && video != null) {
+                Integer canalId = canal.getId();
+                Integer usuarioId = usuario.getId();
+                Integer videoId = video.getId();
+
+                if (canalId != null && usuarioId != null && videoId != null) {
+                    openVideoPlayerFragment(canalId, usuarioId, videoId);
+                } else {
+                    mostrarErro("IDs do canal, usuário ou vídeo estão nulos.");
+                }
+            } else {
+                mostrarErro("Dados incompletos para abrir o vídeo. Verifique se o vídeo, canal e usuário estão corretos.");
+            }
+        }, getContext());
+
+        recyclerView.setAdapter(videoAdapter);
 
         // Inicia os botões de categoria
         Button categoryHigh = view.findViewById(R.id.categoria_videosalta);
@@ -81,8 +105,15 @@ public class HomeFragment extends Fragment {
         // Inicia o video grid com todas as categorias
 //        filterVideos("all");
         fetchVideos();
-
         return view;
+    }
+
+    private void openVideoPlayerFragment(int canalId, int usuarioId, int videoId) {
+        VideoPlayerFragment videoPlayerFragment = VideoPlayerFragment.newInstance(canalId, usuarioId, videoId);
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, videoPlayerFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     private void fetchVideos() {
@@ -94,7 +125,8 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<VideoResponse>> call, Response<List<VideoResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     videoList.clear();
-                    videoGrid.removeAllViews();
+                    canalList.clear();
+                    usuarioList.clear();
 
                     List<VideoResponse> videoResponses = response.body();
                     for (VideoResponse videoResponse : videoResponses) {
@@ -102,30 +134,29 @@ public class HomeFragment extends Fragment {
                         Canal canal = videoResponse.getCanal();
                         Usuario usuario = videoResponse.getUsuario();
 
-                        // Só adiciona ao grid se os três objetos forem não-nulos
+                        // Adicione logs para verificar se os objetos estão sendo preenchidos
+                        Log.d("HomeFragment", "Video: " + video);
+                        Log.d("HomeFragment", "Canal: " + canal);
+                        Log.d("HomeFragment", "Usuario: " + usuario);
+
                         if (video != null && canal != null && usuario != null) {
-                            addVideoToGrid(video, canal, usuario);
-                            Log.d("Sucesso", "Vídeos carregados com sucesso");
+                            videoList.add(video);
+                            canalList.add(canal);
+                            usuarioList.add(usuario);
                         } else {
-                            Log.e("Erro", "Algum dado está nulo: video, canal ou usuario.");
+                            Log.e("HomeFragment", "Algum dos objetos é nulo.");
                         }
-                        Log.d("Debug", "Video: " + video);
-                        Log.d("Debug", "Canal: " + canal);
-                        Log.d("Debug", "Usuario: " + usuario);
                     }
 
+                    videoAdapter.notifyDataSetChanged();
                 } else {
-                    Log.d("Erro", "Erro ao carregar vídeos");
-                    mostrarErro("Falha ao carregar usuários treinadores", response.code());
+                    mostrarErro("Falha ao carregar vídeos", response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<List<VideoResponse>> call, Throwable t) {
-                // Verifica se o Fragment ainda está associado a um Context antes de exibir o Toast
-                if (getContext() != null) {
-                    Toast.makeText(getContext(), "Falha ao carregar os vídeos", Toast.LENGTH_SHORT).show();
-                }
+                mostrarErro("Erro ao carregar vídeos: " + t.getMessage());
             }
         });
 
