@@ -84,9 +84,6 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
 
     @Override
     public void onBindViewHolder(@NonNull TreinadorViewHolder holder, int position) {
-//        if (position < usuarios.size() && position < treinadores.size() && position < canais.size()) {
-//            Usuario usuario = usuarios.get(position);
-//            Treinador treinador = treinadores.get(position);
         Canal canal = canais.get(position);
 
         // Obter o treinador correspondente ao canal (caso exista)
@@ -136,14 +133,8 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
             holder.itemView.setVisibility(View.GONE);
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
         }
-        // Log.d("UsuarioFoto", "ID: " + usuario.getId() + ", Nome: " + usuario.getNome() + ", Foto: " + usuario.getFoto());
+         Log.d("UsuarioFoto", "ID: " + usuario.getId() + ", Nome: " + usuario.getNome() + ", Foto: " + usuario.getFoto());
     }
-
-//    @Override
-//    public int getItemCount() {
-//        // Retorna o tamanho da menor lista para evitar IndexOutOfBoundsException
-//        return Math.min(usuarios.size(), Math.min(treinadores.size(), canais.size()));
-//    }
 
     @Override
     public int getItemCount() {

@@ -53,7 +53,6 @@ public class Usuario implements Serializable {
     @SerializedName("idade")
     private int idade;
 
-
     @SerializedName("sexo")
     private String sexo;
 

@@ -32,7 +32,7 @@ public class Video implements Serializable {
     private byte[] video;
 
     @SerializedName("thumbnail")
-    private byte[] thumbnail;
+    private String thumbnail;
 
     @SerializedName("dataPubli")
     private String dataPubli;
@@ -43,12 +43,18 @@ public class Video implements Serializable {
     @SerializedName("tags")
     private String tags;
 
-    @SerializedName("equipamento")
-    private byte[] equipamento;
+    @SerializedName("equipamento_id")
+    private Integer equipamento_id;
+
+    @SerializedName("statusVideo")
+    private String statusVideo;
+
+    @SerializedName("privacidadeVideo")
+    private String privacidadeVideo;
 
     // construtor
 
-    public Video(int id, String descricao, String titulo, int likes, int deslikes, int canal_id, BigInteger visualizacoes, byte[] video, byte[] thumbnail, String dataPubli, String categoria, String tags, byte[] equipamento) {
+    public Video(int id, String descricao, String titulo, int likes, int deslikes, int canal_id, BigInteger visualizacoes, byte[] video, String thumbnail, String dataPubli, String categoria, String tags, Integer equipamento_id, String statusVideo, String privacidadeVideo) {
         this.id = id;
         this.descricao = descricao;
         this.titulo = titulo;
@@ -61,7 +67,9 @@ public class Video implements Serializable {
         this.dataPubli = dataPubli;
         this.categoria = categoria;
         this.tags = tags;
-        this.equipamento = equipamento;
+        this.equipamento_id = equipamento_id;
+        this.statusVideo = statusVideo;
+        this.privacidadeVideo = privacidadeVideo;
     }
 
     // Getters e setters
@@ -130,11 +138,11 @@ public class Video implements Serializable {
         this.video = video;
     }
 
-    public byte[] getThumbnail() {
+    public String getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(byte[] thumbnail) {
+    public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
 
@@ -162,11 +170,27 @@ public class Video implements Serializable {
         this.tags = tags;
     }
 
-    public byte[] getEquipamento() {
-        return equipamento;
+    public Integer getEquipamento_id() {
+        return equipamento_id;
     }
 
-    public void setEquipamento(byte[] equipamento) {
-        this.equipamento = equipamento;
+    public void setEquipamento_id(Integer equipamento_id) {
+        this.equipamento_id = equipamento_id;
+    }
+
+    public String getStatusVideo() {
+        return statusVideo;
+    }
+
+    public void setStatusVideo(String statusVideo) {
+        this.statusVideo = statusVideo;
+    }
+
+    public String getPrivacidadeVideo() {
+        return privacidadeVideo;
+    }
+
+    public void setPrivacidadeVideo(String privacidadeVideo) {
+        this.privacidadeVideo = privacidadeVideo;
     }
 }

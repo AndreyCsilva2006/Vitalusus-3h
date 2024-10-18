@@ -188,16 +188,7 @@ public class HomeFragment extends Fragment {
 //                    }
 //                });
 
-        // Método auxiliar para gerar uma thumbnail mock
-//                private byte[] getMockThumbnail() {
-//                    // Simule uma thumbnail para testes usando uma imagem existente
-//                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
-//                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//                    return stream.toByteArray();
-//                }
-//            });
-//        }
+
     }
 
     private void addVideoToGrid(Video video, Canal canal, Usuario usuario) {
@@ -209,10 +200,10 @@ public class HomeFragment extends Fragment {
 
         // configura thumbnail do vídeo
         ImageView videoThumbnail = videoItemView.findViewById(R.id.videoThumbnail);
-        if (video.getThumbnail() != null) {
-            Bitmap bitmap = BitmapFactory.decodeByteArray(video.getThumbnail(), 0, video.getThumbnail().length);
-            videoThumbnail.setImageBitmap(bitmap);
-        }
+//        if (video.getThumbnail() != null) {
+//            Bitmap bitmap = BitmapFactory.decodeByteArray(video.getThumbnail(), 0, video.getThumbnail().length);
+//            videoThumbnail.setImageBitmap(bitmap);
+//        }
 
         TextView videoTitle = videoItemView.findViewById(R.id.tituloVideo);
         videoTitle.setText(video.getTitulo() != null ? video.getTitulo() : "Título não disponível");
