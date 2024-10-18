@@ -137,25 +137,18 @@ sql.connect(dbConfig).then(pool => {
     // Rota para buscar usuário pelo ID
     app.get('/usuarios/:id', async (req, res) => {
         const usuarioId = req.params.id;
-
-//        // Verificar se a foto está em formato binário e convertê-la para Base64
-//            if (usuario.foto) {
-//                usuario.foto = usuario.foto.toString('base64'); // Converte para string base64
-//            }
-
-
         try {
             const result = await pool.request()
                 .input('id', sql.Int, usuarioId)
                 .query('SELECT * FROM Usuario WHERE id = @id');
 
                 // Mapeia os usuários para incluir a foto como base64
-                                     const usuarios = result.recordset.map(usuario => {
-                                         if (usuario.foto) {
-                                             usuario.foto = Buffer.from(usuario.foto).toString('base64');
-                                         }
-                                         return usuario;
-                                     });
+                const usuarios = result.recordset.map(usuario => {
+                    if (usuario.foto) {
+                          usuario.foto = Buffer.from(usuario.foto).toString('base64');
+                    }
+                    return usuario;
+                });
 
             if (result.recordset.length > 0) {
                 res.json(result.recordset[0]);
