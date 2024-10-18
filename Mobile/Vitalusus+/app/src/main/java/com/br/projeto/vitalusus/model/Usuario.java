@@ -15,7 +15,7 @@ public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @SerializedName("id")
-    private Integer id;
+    private int id;
 
     @SerializedName("nome")
     private String nome;
@@ -53,7 +53,6 @@ public class Usuario implements Serializable {
     @SerializedName("idade")
     private int idade;
 
-
     @SerializedName("sexo")
     private String sexo;
 
@@ -74,11 +73,11 @@ public class Usuario implements Serializable {
 
     //    Getter e Setter
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

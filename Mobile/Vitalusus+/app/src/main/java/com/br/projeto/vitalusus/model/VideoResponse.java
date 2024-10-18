@@ -18,6 +18,13 @@ public class VideoResponse implements Serializable {
     @SerializedName("usuario")
     private Usuario usuario;
 
+    public VideoResponse(Video video, Canal canal, Treinador treinador, Usuario usuario) {
+        this.video = video;
+        this.canal = canal;
+        this.treinador = treinador;
+        this.usuario = usuario;
+    }
+
     public Video getVideo() {
         return video;
     }

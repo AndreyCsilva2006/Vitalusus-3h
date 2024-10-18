@@ -53,7 +53,7 @@ public class CanaisFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         treinadorAdapter = new TreinadorAdapter(usuarioList, treinadorList, canalList, (usuario, treinador, canal) -> {
-            openDetailFragment(canal.getId());
+            openDetailFragment(canal.getId(), usuario.getId());
         });
         recyclerView.setAdapter(treinadorAdapter);
 
@@ -61,8 +61,8 @@ public class CanaisFragment extends Fragment {
         return view;
     }
 
-    private void openDetailFragment(int canalId) {
-        DetailFragment detailFragment = DetailFragment.newInstance(canalId);
+    private void openDetailFragment(int canalId, int usuarioId) {
+        DetailFragment detailFragment = DetailFragment.newInstance(canalId, usuarioId);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, detailFragment);
         transaction.addToBackStack(null);

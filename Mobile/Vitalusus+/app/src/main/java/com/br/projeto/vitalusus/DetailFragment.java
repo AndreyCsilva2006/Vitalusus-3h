@@ -1,9 +1,14 @@
 package com.br.projeto.vitalusus;
 
+import static okio.ByteString.decodeBase64;
+
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +27,7 @@ import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.network.ApiService;
 import com.br.projeto.vitalusus.network.RetrofitClient;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,7 +36,10 @@ import retrofit2.Retrofit;
 public class DetailFragment extends Fragment {
 
     private static final String ARG_CANAL_ID = "canal_id";
+    private static final String ARG_USUARIO_ID = "usuario_id";
+
     private int canalId;
+    private int usuarioId;
 
     private String formatarNumeroAbreviado(int numero) {
         if (numero < 1_000) {
@@ -52,10 +61,11 @@ public class DetailFragment extends Fragment {
         }
     }
 
-    public static DetailFragment newInstance(int canalId) {
+    public static DetailFragment newInstance(int canalId, int usuarioId) {
         DetailFragment fragment = new DetailFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_CANAL_ID, canalId);
+        args.putInt(ARG_USUARIO_ID, usuarioId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -65,6 +75,7 @@ public class DetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             canalId = getArguments().getInt(ARG_CANAL_ID);
+            usuarioId = getArguments().getInt(ARG_USUARIO_ID);
         }
     }
 
@@ -80,13 +91,16 @@ public class DetailFragment extends Fragment {
         TextView visualizacoesTextView = view.findViewById(R.id.tv_VisualizacoesCanalDetail);
         TextView biografiaTextView = view.findViewById(R.id.tv_BiografiaCanalDetail);
 
-        // Inicie o fetch de detalhes do canal
-        fetchCanalDetails(canalId, nomeTextView, seguidoresTextView, visualizacoesTextView, biografiaTextView);
+        CircleImageView fotoUsuarioImageView = view.findViewById(R.id.imgFotoCanalDetail); // Aqui a ImageView é inicializada
+
+        // Inicie o fetch de detalhes do canal e do usuário
+        fetchCanalDetails(canalId, nomeTextView, seguidoresTextView, visualizacoesTextView, biografiaTextView, fotoUsuarioImageView);
+        fetchUsuarioDetails(usuarioId, fotoUsuarioImageView); // Carrega os detalhes do usuário e a foto
 
         return view;
     }
 
-    private void fetchCanalDetails(int canalId, TextView nomeTextView, TextView seguidoresTextView, TextView visualizacoesTextView, TextView biografiaTextView) {
+    private void fetchCanalDetails(int canalId, TextView nomeTextView, TextView seguidoresTextView, TextView visualizacoesTextView, TextView biografiaTextView, CircleImageView fotoUsuarioImageView) {
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         ApiService apiService = retrofit.create(ApiService.class);
 
@@ -109,7 +123,7 @@ public class DetailFragment extends Fragment {
                     // Verifica se o treinador_id não é nulo
                     Integer treinadorId = canal.getTreinadorId();
                     if (treinadorId != null) {
-                        fetchTreinadorDetails(treinadorId); // Chamada para buscar as informações do treinador
+                        fetchTreinadorDetails(treinadorId, fotoUsuarioImageView); // Passar a ImageView
                     } else {
                         Log.e("Erro", "TreinadorId é nulo.");
                         Toast.makeText(getContext(), "Treinador não encontrado.", Toast.LENGTH_SHORT).show();
@@ -129,7 +143,7 @@ public class DetailFragment extends Fragment {
     }
 
 
-    private void fetchTreinadorDetails(int treinadorId) {
+    private void fetchTreinadorDetails(int treinadorId, CircleImageView fotoUsuarioImageView) {
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         ApiService apiService = retrofit.create(ApiService.class);
 
@@ -143,10 +157,10 @@ public class DetailFragment extends Fragment {
                     Log.d("RespostaTreinador", "Treinador: " + treinador.toString());
                     Log.d("RespostaJSON", response.raw().toString());  // Loga a resposta bruta da API
 
-                    // Verifica se o usuario_id não é nulo
-                    Integer usuarioId = treinador.getUsuarioId();
-                    if (usuarioId != null) {
-                        fetchUsuarioDetails(usuarioId);
+                    // Verifica se o usuarioIdTreinador não é nulo
+                    Integer usuarioIdTreinador = treinador.getUsuarioId();
+                    if (usuarioIdTreinador != null) {
+                        fetchUsuarioDetails(usuarioIdTreinador, fotoUsuarioImageView); // Passa a ImageView corretamente
                     } else {
                         Log.e("Erro", "Treinador ou UsuarioId é nulo.");
                         Toast.makeText(getContext(), "Usuário do treinador não encontrado.", Toast.LENGTH_SHORT).show();
@@ -165,11 +179,10 @@ public class DetailFragment extends Fragment {
         });
     }
 
-    private void fetchUsuarioDetails(int usuarioId) {
+    private void fetchUsuarioDetails(int usuarioId, CircleImageView fotoUsuarioImageView) {
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         ApiService apiService = retrofit.create(ApiService.class);
 
-        // Busca as informações do usuário (treinador) pelo ID
         Call<Usuario> callUsuario = apiService.getUsuarioById(usuarioId);
         callUsuario.enqueue(new Callback<Usuario>() {
             @Override
@@ -177,27 +190,59 @@ public class DetailFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     Usuario usuario = response.body();
 
-                    // Atualizar a UI com as informações do treinador/usuário
-                    updateUIDetails(usuario);
+                    // Log para verificar o que a API está retornando
+                    Log.d("Usuario", "Nome: " + usuario.getNome() + ", Foto: " + usuario.getFoto());
+
+                    // Atualizar a UI com os detalhes do usuário
+                    updateUIDetails(usuario, fotoUsuarioImageView);
                 } else {
                     Log.e("Erro", "Erro ao carregar usuário: " + response.code());
+                    Log.e("ErroResposta", "Mensagem de erro: " + response.message());
                     Toast.makeText(getContext(), "Erro ao carregar usuário.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
-                Log.e("Erro", "Erro: " + t.getMessage());
+                Log.e("Erro", "Erro na requisição do usuário: " + t.getMessage());
                 Toast.makeText(getContext(), "Erro na requisição do usuário.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void updateUIDetails(Usuario usuario) {
-        // Atualiza os TextViews, ImageViews, etc. com os dados do usuário
-        TextView nomeTreinadorTextView = getView().findViewById(R.id.txtNomeTreinadorCanalDetail);
-        nomeTreinadorTextView.setText(usuario.getNome());
 
-        // Continue atualizando a UI com os detalhes do usuário e do canal
+    private void updateUIDetails(Usuario usuario, CircleImageView fotoUsuarioImageView) {
+        TextView nomeTreinadorTextView = getView().findViewById(R.id.txtNomeTreinadorCanalDetail);
+
+        if (nomeTreinadorTextView != null) {
+            nomeTreinadorTextView.setText(usuario.getNome());
+        } else {
+            Log.e("Erro", "NomeTreinadorTextView não foi encontrado");
+        }
+
+        // Decodificar e exibir a foto, caso exista
+        if (usuario.getFoto() != null && !usuario.getFoto().isEmpty()) {
+            Bitmap bitmap = decodeBase64(usuario.getFoto());
+            if (bitmap != null) {
+                fotoUsuarioImageView.setImageBitmap(bitmap);
+            } else {
+                fotoUsuarioImageView.setImageResource(R.drawable.ic_defaultuser); // Imagem padrão
+                Log.e("Erro", "Falha ao decodificar imagem");
+            }
+        } else {
+            fotoUsuarioImageView.setImageResource(R.drawable.ic_defaultuser); // Imagem padrão
+            Log.e("Erro", "Campo foto do usuário está vazio");
+        }
+    }
+
+
+    public Bitmap decodeBase64(String encodedImage) {
+        try {
+            byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        } catch (IllegalArgumentException e) {
+            Log.e("DecodeBase64", "Erro ao decodificar imagem Base64", e);
+            return null;
+        }
     }
 }

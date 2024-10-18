@@ -23,7 +23,6 @@ sql.connect(dbConfig).then(pool => {
     }
 
     // Rota para obter todos os usuários
-    // Rota para obter todos os usuários
     app.get('/usuarios', async (req, res) => {
         try {
             const result = await pool.request().query('SELECT * FROM Usuario');
@@ -142,6 +141,14 @@ sql.connect(dbConfig).then(pool => {
             const result = await pool.request()
                 .input('id', sql.Int, usuarioId)
                 .query('SELECT * FROM Usuario WHERE id = @id');
+
+                // Mapeia os usuários para incluir a foto como base64
+                const usuarios = result.recordset.map(usuario => {
+                    if (usuario.foto) {
+                          usuario.foto = Buffer.from(usuario.foto).toString('base64');
+                    }
+                    return usuario;
+                });
 
             if (result.recordset.length > 0) {
                 res.json(result.recordset[0]);
