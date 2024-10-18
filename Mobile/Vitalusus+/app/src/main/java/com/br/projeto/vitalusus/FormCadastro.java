@@ -97,7 +97,7 @@ public class FormCadastro extends AppCompatActivity {
         editNome.setVisibility(View.VISIBLE);
         editEmail.setVisibility(View.VISIBLE);
         editSenha.setVisibility(View.VISIBLE);
-        rdggroupSexo.setVisibility(View.VISIBLE);
+
         btnFormCadastroAvancarPasso.setVisibility(View.VISIBLE);
         btnFormCadastroOlharSenha.setVisibility(View.VISIBLE);
 
@@ -106,6 +106,7 @@ public class FormCadastro extends AppCompatActivity {
         btnFormCadastroSalvar = findViewById(R.id.btnCadastroSalvar);
         editDataNasc.setVisibility(View.GONE);
         btnFormCadastroSalvar.setVisibility(View.GONE);
+        rdggroupSexo.setVisibility(View.GONE);
 
 
         // extra
@@ -221,6 +222,7 @@ public class FormCadastro extends AppCompatActivity {
             // Aparece
             editDataNasc.setVisibility(View.VISIBLE);
             btnFormCadastroSalvar.setVisibility(View.VISIBLE);
+            rdggroupSexo.setVisibility(View.VISIBLE);
             ic_seta.setVisibility(View.VISIBLE);
 
             // tamanho passo 2 em pixel
