@@ -143,35 +143,30 @@
             android:id="@+id/rgSexo"
             android:layout_width="293dp"
             android:layout_height="59dp"
-            android:layout_marginTop="304dp"
+            android:layout_marginTop="96dp"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/FormCadastroSeta">
+            app:layout_constraintEnd_toEndOf="@id/containerComponents"
+            app:layout_constraintHorizontal_bias="0.397"
+            app:layout_constraintStart_toStartOf="@id/containerComponents"
+            app:layout_constraintTop_toTopOf="@id/containerComponents">
 
 
             <RadioButton
                 android:id="@+id/rbMasculino"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="404dp"
+                android:layout_marginStart="16dp"
                 android:text="Masculino"
-                android:textColor="#050505"
-                android:textColorHint="#000000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textColor="#050505" />
 
             <RadioButton
                 android:id="@+id/rbFeminino"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="160dp"
-                android:layout_marginTop="404dp"
+                android:layout_marginStart="32dp"
                 android:text="Feminino"
-                android:textColor="#000000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textColor="#000000" />
+
         </RadioGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
