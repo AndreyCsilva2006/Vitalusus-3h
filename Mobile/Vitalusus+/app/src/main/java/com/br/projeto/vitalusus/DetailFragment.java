@@ -41,8 +41,6 @@ public class DetailFragment extends Fragment {
     private int canalId;
     private int usuarioId;
 
-
-
     private String formatarNumeroAbreviado(int numero) {
         if (numero < 1_000) {
             return String.valueOf(numero); // Menos de mil, retorna o número normal

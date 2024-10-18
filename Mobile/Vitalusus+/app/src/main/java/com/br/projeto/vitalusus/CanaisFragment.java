@@ -69,7 +69,6 @@ public class CanaisFragment extends Fragment {
         transaction.commit();
     }
 
-
     private void fetchTreinadores() {
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         ApiService apiService = retrofit.create(ApiService.class);
