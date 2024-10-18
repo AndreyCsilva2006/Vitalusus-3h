@@ -132,31 +132,11 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
             holder.itemView.setOnClickListener(null);
         }
 
-//            if ("PRIVADO".equals(usuario.getNivelPrivacidade())) {
-//                holder.itemView.setVisibility(View.GONE);
-//                holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
-//            } else {
-//                holder.itemView.setVisibility(View.VISIBLE);
-//                holder.nomeCanalTextView.setText(canal.getNome());
-//                holder.seguidoresTextView.setText(formatarNumeroAbreviado((int) canal.getSeguidores()));
-//                Log.d("UsuarioFoto", "ID: " + usuario.getId() + ", Nome: " + usuario.getNome() + ", Foto: " + usuario.getFoto());
-//
-//                // Decodificando a foto e exibindo no CircleImageView
-//                if (usuario.getFoto() != null && !usuario.getFoto().isEmpty()) {
-//                    Bitmap bitmap = decodeBase64(usuario.getFoto());
-//                    if (bitmap != null) {
-//                        Log.d("UsuarioFoto", "Imagem decodificada com sucesso para o usuário: " + usuario.getNome());
-//                        holder.fotoImageView.setImageBitmap(bitmap);
-//                    } else {
-//                        Log.e("UsuarioFoto", "Erro ao decodificar a imagem para o usuário: " + usuario.getNome());
-//                        holder.fotoImageView.setImageResource(R.drawable.ic_defaultuser);
-//                    }
-//                } else {
-//                    holder.fotoImageView.setImageResource(R.drawable.ic_defaultuser); // Exibe imagem padrão se não houver foto
-//                }
-//
-//                holder.itemView.setOnClickListener(v -> listener.onItemClick(usuario, treinador, canal));
-
+        if ("PRIVADO".equals(usuario.getNivelPrivacidade()) || "DELETADO".equals(usuario.getStatusUsuario()) || "INATIVO".equals(usuario.getStatusUsuario())) {
+            holder.itemView.setVisibility(View.GONE);
+            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+        }
+        // Log.d("UsuarioFoto", "ID: " + usuario.getId() + ", Nome: " + usuario.getNome() + ", Foto: " + usuario.getFoto());
     }
 
 //    @Override
