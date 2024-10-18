@@ -9,8 +9,11 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.stereotype.Service;
 
 import br.itb.projeto.vitalususPlus.model.entity.Usuario;
@@ -19,10 +22,12 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class UsuarioService {
+	@Autowired
+	private JavaMailSender mailSender;
 	private final UsuarioRepository usuarioRepository;
 	public UsuarioService(UsuarioRepository usuarioRepository) {
 		super();
-		this.usuarioRepository = usuarioRepository;
+		this.usuarioRepository = usuarioRepository;;
 	}
 	@Transactional
 	public List<Usuario> findAll() {
@@ -84,6 +89,19 @@ public class UsuarioService {
 		return usuarioRepository.save(usuario);
 		}
 		return null;
+	}
+
+	public void enviarMail(String email) {
+		Usuario usuario = usuarioRepository.findByEmail(email);
+		String link = "https://start.spring.io/";
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setFrom("vitalususplusoficial@hotmail.com");
+		message.setTo(email);
+		message.setSubject("Recuperação de Senha");
+		message.setText("Clique no link para redefinir sua senha (link)" );
+		
+		mailSender.send(message);
+		
 	}
 	@Transactional
 	public Usuario tornarPrivado (long id) {
