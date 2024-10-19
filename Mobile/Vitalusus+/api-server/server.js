@@ -99,6 +99,7 @@ sql.connect(dbConfig).then(pool => {
                   V.dataPubli,
                   V.thumbnail,
                   C.nome AS nomeCanal,
+                  T.id AS treinadorId,
                   U.foto AS fotoUsuario,
                   U.nome AS nomeTreinador
               FROM Videoaula V
@@ -121,6 +122,9 @@ sql.connect(dbConfig).then(pool => {
               usuario: {
                   foto: video.fotoUsuario ? Buffer.from(video.fotoUsuario).toString('base64') : null,
                   nome: video.nomeTreinador
+              },
+              treinador:{
+                  id: video.treinadorId
               }
           }));
 

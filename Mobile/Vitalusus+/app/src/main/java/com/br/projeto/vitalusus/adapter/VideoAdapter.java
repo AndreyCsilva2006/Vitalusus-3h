@@ -119,7 +119,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         } else {
             holder.canalFoto.setImageResource(R.drawable.ic_defaultuser);
         }
-        if (usuario != null && treinador != null && canal != null) {
+        if (usuario != null && canal != null) {
             Usuario finalUsuario = usuario;
             holder.itemView.setOnClickListener(v -> listener.onItemClick(video, canal, finalUsuario, treinador));
         } else {
