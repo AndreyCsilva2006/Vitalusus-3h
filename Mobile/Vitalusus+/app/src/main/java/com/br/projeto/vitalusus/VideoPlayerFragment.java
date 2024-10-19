@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 import com.br.projeto.vitalusus.model.Canal;
@@ -26,8 +27,15 @@ import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.ui.PlayerView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -39,6 +47,7 @@ public class VideoPlayerFragment extends Fragment {
 
     private PlayerView playerView;
     private ExoPlayer exoPlayer;
+    private SearchView searchView;
 
     private static final String ARG_CANAL_ID = "canal_id";
     private static final String ARG_USUARIO_ID = "usuario_id";
@@ -68,13 +77,17 @@ public class VideoPlayerFragment extends Fragment {
         }
     }
 
+    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_video, container, false);
 
-        getActivity().setTitle("Player de Video");
+        getActivity().setTitle("Player de Vídeo");
 
-        playerView = view.findViewById(R.id.player_view);
+        // Inicializar o ExoPlayer
+        ExoPlayer exoPlayer = new ExoPlayer.Builder(requireContext()).build();
+        PlayerView playerView = view.findViewById(R.id.player_view);
+        playerView.setPlayer(exoPlayer);
 
         TextView tvTituloVideo = view.findViewById(R.id.txtTituloVideoPlayer);
         TextView tvNomeCanal = view.findViewById(R.id.txtNomeCanalVideoPlayer);
@@ -85,18 +98,8 @@ public class VideoPlayerFragment extends Fragment {
         CircleImageView fotoUsuarioImageView = view.findViewById(R.id.imgFotoCanalVideoPlayer); // Aqui a ImageView é inicializada
 
         fetchCanalDetails(canalId, tvNomeCanal, tvSeguidoresCanal, tvTituloVideo, tvDataPublic, fotoUsuarioImageView);
-        fetchVideo(videoId, tvTituloVideo, tvDataPublic, tvVisualizacoesVideo);
+        fetchVideo(videoId, tvTituloVideo, tvDataPublic, tvVisualizacoesVideo, exoPlayer);
         fetchUsuarioDetails(usuarioId, fotoUsuarioImageView);
-
-        // Inicializar o ExoPlayer
-        exoPlayer = new ExoPlayer.Builder(requireContext()).build();
-        playerView.setPlayer(exoPlayer);
-
-        // Obter o ID do vídeo (você pode obter isso dos argumentos do fragmento)
-//        long videoId = getArguments().getLong("videoId");
-
-        // Buscar vídeo do banco de dados usando Retrofit
-//        fetchVideoFromDatabase(videoId);
 
         return view;
     }
@@ -137,7 +140,7 @@ public class VideoPlayerFragment extends Fragment {
         });
     }
 
-    private void fetchVideo(int videoId, TextView tvTituloVideo, TextView tvDataPublic, TextView tvVisualizacoesVideo) {
+    private void fetchVideo(int videoId, TextView tvTituloVideo, TextView tvDataPublic, TextView tvVisualizacoesVideo, ExoPlayer exoPlayer) {
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         ApiService apiService = retrofit.create(ApiService.class);
 
@@ -148,9 +151,28 @@ public class VideoPlayerFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     Video video = response.body();
 
+//                    String encodedVideo = jsonResponse.getString("video");
+
                     tvTituloVideo.setText(video.getTitulo());
                     tvDataPublic.setText(video.getDataPubli());
                     tvVisualizacoesVideo.setText(video.getVisualizacoes().toString());
+
+                    // Decodificar e exibir a foto, caso exista
+                    if (video.getVideo() != null && !video.getVideo().isEmpty()) {
+                        MediaItem mediaItem = decodeBase64Video(video.getVideo());
+                        // Reproduza o vídeo
+                        if (mediaItem != null) {
+                            exoPlayer.setMediaItem(mediaItem);
+                            exoPlayer.prepare();
+                            exoPlayer.play();
+                        } else {
+//                            exoPlayer.setMediaItem(R.raw.video); // Imagem padrão
+                            Log.e("Erro", "Falha ao decodificar Video");
+                        }
+                    } else {
+//                        fotoUsuarioImageView.setImageResource(R.drawable.ic_defaultuser); // Imagem padrão
+                        Log.e("Erro", "Campo Video do usuário está vazio");
+                    }
 
                 } else {
                     Log.e("Erro", "Erro ao carregar Video: " + response.code());
@@ -165,6 +187,30 @@ public class VideoPlayerFragment extends Fragment {
             }
         });
     }
+
+    public MediaItem decodeBase64Video(String encodedVideo) {
+        try {
+            // Decodificar a string Base64
+            byte[] decodedBytes = Base64.decode(encodedVideo, Base64.DEFAULT);
+
+            // Criar um arquivo temporário para salvar o vídeo decodificado
+            File videoFile = new File(getContext().getCacheDir(), "video_temp.mp4");
+
+            // Escrever o conteúdo decodificado no arquivo
+            try (FileOutputStream fos = new FileOutputStream(videoFile)) {
+                fos.write(decodedBytes);
+            }
+
+            // Criar um MediaItem a partir do arquivo
+            Uri videoUri = Uri.fromFile(videoFile);
+            return MediaItem.fromUri(videoUri);
+
+        } catch (IOException e) {
+            Log.e("DecodeBase64", "Erro ao salvar o vídeo decodificado", e);
+            return null;
+        }
+    }
+
 
     private void fetchTreinadorDetails(int treinadorId, CircleImageView fotoUsuarioImageView) {
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
@@ -243,15 +289,22 @@ public class VideoPlayerFragment extends Fragment {
         }
     }
 
+
+    // Método auxiliar para salvar os bytes em um arquivo temporário
+    private File saveVideoToFile(byte[] videoBytes) throws IOException {
+        // Cria um arquivo temporário no cache do aplicativo
+        File videoFile = new File(requireContext().getCacheDir(), "video_temp.mp4");
+        FileOutputStream fos = new FileOutputStream(videoFile);
+
+        // Escreve os bytes no arquivo
+        fos.write(videoBytes);
+        fos.flush();
+        fos.close();
+
+        return videoFile;
+    }
+
     private void updateUIDetails(Usuario usuario, CircleImageView fotoUsuarioImageView) {
-        TextView nomeTreinadorTextView = getView().findViewById(R.id.txtNomeTreinadorCanalDetail);
-
-        if (nomeTreinadorTextView != null) {
-            nomeTreinadorTextView.setText(usuario.getNome());
-        } else {
-            Log.e("Erro", "NomeTreinadorTextView não foi encontrado");
-        }
-
         // Decodificar e exibir a foto, caso exista
         if (usuario.getFoto() != null && !usuario.getFoto().isEmpty()) {
             Bitmap bitmap = decodeBase64(usuario.getFoto());

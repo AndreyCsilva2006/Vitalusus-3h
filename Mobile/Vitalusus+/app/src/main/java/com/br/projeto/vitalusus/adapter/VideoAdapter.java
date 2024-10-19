@@ -130,7 +130,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
         }
         Log.d("UsuarioFoto", "ID: " + usuario.getId() + ", Nome: " + usuario.getNome() + ", Foto: " + usuario.getFoto());
-        Log.d("thumbnail", "ID: " + video.getId() + ", título: " + video.getTitulo() + ", Foto: " + video.getThumbnail());
+        Log.d("video", "ID: " + video.getId() + ", título: " + video.getTitulo() + ", thumbnail: " + video.getThumbnail());
     }
 
     @Override

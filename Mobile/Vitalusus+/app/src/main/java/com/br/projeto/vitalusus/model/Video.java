@@ -29,7 +29,7 @@ public class Video implements Serializable {
     private BigInteger visualizacoes;
 
     @SerializedName("video")
-    private byte[] video;
+    private String video;
 
     @SerializedName("thumbnail")
     private String thumbnail;
@@ -54,7 +54,7 @@ public class Video implements Serializable {
 
     // construtor
 
-    public Video(int id, String descricao, String titulo, int likes, int deslikes, int canal_id, BigInteger visualizacoes, byte[] video, String thumbnail, String dataPubli, String categoria, String tags, Integer equipamento_id, String statusVideo, String privacidadeVideo) {
+    public Video(int id, String descricao, String titulo, int likes, int deslikes, int canal_id, BigInteger visualizacoes, String video, String thumbnail, String dataPubli, String categoria, String tags, Integer equipamento_id, String statusVideo, String privacidadeVideo) {
         this.id = id;
         this.descricao = descricao;
         this.titulo = titulo;
@@ -130,11 +130,11 @@ public class Video implements Serializable {
         this.visualizacoes = visualizacoes;
     }
 
-    public byte[] getVideo() {
+    public String getVideo() {
         return video;
     }
 
-    public void setVideo(byte[] video) {
+    public void setVideo(String video) {
         this.video = video;
     }
 
