@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.br.projeto.vitalusus.adapter.VideoAdapter;
 import com.br.projeto.vitalusus.model.Canal;
+import com.br.projeto.vitalusus.model.Treinador;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.model.Video;
 import com.br.projeto.vitalusus.model.VideoResponse;
@@ -43,7 +44,9 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,14 +55,14 @@ import retrofit2.Retrofit;
 
 public class HomeFragment extends Fragment {
 
-    private GridLayout videoGrid;
-    private ApiService apiService;
-
     private RecyclerView recyclerView;
     private VideoAdapter videoAdapter;
     private List<Video> videoList = new ArrayList<>();
     private List<Canal> canalList = new ArrayList<>();
+    private List<Treinador> treinadorList = new ArrayList<>();
     private List<Usuario> usuarioList = new ArrayList<>();
+
+    private Map<Integer, Usuario> treinadorUsuarioMap = new HashMap<>();
 
     @Nullable
     @Override
@@ -71,22 +74,26 @@ public class HomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        videoAdapter = new VideoAdapter(videoList, canalList, usuarioList, new ArrayList<>(), (video, canal, usuario) -> {
-            Log.d("HomeFragment", "Tentando abrir Video Player Fragment com IDs: Canal=" + canal.getId() + ", Usuario=" + usuario.getId() + ", Video=" + video.getId());
-            if (canal != null && usuario != null && video != null) {
-                Integer canalId = canal.getId();
-                Integer usuarioId = usuario.getId();
-                Integer videoId = video.getId();
+        videoAdapter = new VideoAdapter(usuarioList, canalList, treinadorList, videoList, (video, canal, usuario, treinador) -> {
+            openVideoPlayerFragment(video.getId(), canal.getId(), usuario.getId());
+        });
 
-                if (canalId != null && usuarioId != null && videoId != null) {
-                    openVideoPlayerFragment(canalId, usuarioId, videoId);
-                } else {
-                    mostrarErro("IDs do canal, usuário ou vídeo estão nulos.");
-                }
-            } else {
-                mostrarErro("Dados incompletos para abrir o vídeo. Verifique se o vídeo, canal e usuário estão corretos.");
-            }
-        }, getContext());
+//        videoAdapter = new VideoAdapter(videoList, canalList, usuarioList, new ArrayList<>(), (video, canal, usuario) -> {
+//            Log.d("HomeFragment", "Tentando abrir Video Player Fragment com IDs: Canal=" + canal.getId() + ", Usuario=" + usuario.getId() + ", Video=" + video.getId());
+//            if (canal != null && usuario != null && video != null) {
+//                Integer canalId = canal.getId();
+//                Integer usuarioId = usuario.getId();
+//                Integer videoId = video.getId();
+//
+//                if (canalId != null && usuarioId != null && videoId != null) {
+//                    openVideoPlayerFragment(canalId, usuarioId, videoId);
+//                } else {
+//                    mostrarErro("IDs do canal, usuário ou vídeo estão nulos.");
+//                }
+//            } else {
+//                mostrarErro("Dados incompletos para abrir o vídeo. Verifique se o vídeo, canal e usuário estão corretos.");
+//            }
+//        }, getContext());
 
         recyclerView.setAdapter(videoAdapter);
 
@@ -108,7 +115,7 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private void openVideoPlayerFragment(int canalId, int usuarioId, int videoId) {
+    private void openVideoPlayerFragment(int videoId, int canalId, int usuarioId) {
         VideoPlayerFragment videoPlayerFragment = VideoPlayerFragment.newInstance(canalId, usuarioId, videoId);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, videoPlayerFragment);
@@ -220,49 +227,6 @@ public class HomeFragment extends Fragment {
 //                });
 
 
-    }
-
-    private void addVideoToGrid(Video video, Canal canal, Usuario usuario) {
-        if (video == null) {
-            Log.e("Erro", "O objeto video é null, não será adicionado ao grid.");
-            return;
-        }
-        View videoItemView = LayoutInflater.from(getContext()).inflate(R.layout.item_video, videoGrid, false);
-
-        // configura thumbnail do vídeo
-        ImageView videoThumbnail = videoItemView.findViewById(R.id.videoThumbnail);
-//        if (video.getThumbnail() != null) {
-//            Bitmap bitmap = BitmapFactory.decodeByteArray(video.getThumbnail(), 0, video.getThumbnail().length);
-//            videoThumbnail.setImageBitmap(bitmap);
-//        }
-
-        TextView videoTitle = videoItemView.findViewById(R.id.tituloVideo);
-        videoTitle.setText(video.getTitulo() != null ? video.getTitulo() : "Título não disponível");
-
-        // Configura o nome do canal
-        TextView channelName = videoItemView.findViewById(R.id.nomeCanal);
-        channelName.setText(canal.getNome() != null ? canal.getNome() : "Canal não disponível");
-
-        TextView videoVisualizacoes = videoItemView.findViewById(R.id.visualizacoesVideo);
-//        videoVisualizacoes.setText(video.getVisualizacoes() != null ? video.getVisualizacoes() : "visualizacoes não disponível");
-
-        TextView canalSeguidores = videoItemView.findViewById(R.id.seguidoresCanal);
-//        canalSeguidores.setText(canal.getSeguidores() != null ? canal.getSeguidores() : "visualizacoes não disponível");
-
-        // Configura a foto de perfil do usuário (treinador)
-        ImageView userFoto = videoItemView.findViewById(R.id.fotoCanal);
-        if (usuario.getFoto() != null) {
-//            Bitmap userBitmap = BitmapFactory.decodeByteArray(usuario.getFoto(), 0, usuario.getFoto().is);
-//            userFoto.setImageBitmap(userBitmap);
-        }
-
-        // Configura a data de postagem do vídeo
-        TextView videoData = videoItemView.findViewById(R.id.DataPubliVideo);
-        @SuppressLint({"NewApi", "LocalSuppress"}) String relativeDate = getRelativeTime(video.getDataPubli());
-        videoData.setText(relativeDate);
-
-        // Adiciona a view do item ao GridLayout
-        videoGrid.addView(videoItemView);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

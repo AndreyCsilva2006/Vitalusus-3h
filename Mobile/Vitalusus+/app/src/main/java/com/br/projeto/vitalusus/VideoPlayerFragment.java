@@ -50,7 +50,15 @@ public class VideoPlayerFragment extends Fragment {
     private int usuarioId;
     private int video_id;
 
-    TextView tvTituloVideo, tvNomeCanal, tvDataPublic, tvSeguidoresCanal;
+    public static VideoPlayerFragment newInstance(int canalId, int usuarioId, int videoId) {
+        VideoPlayerFragment fragment = new VideoPlayerFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_CANAL_ID, canalId);
+        args.putInt(ARG_USUARIO_ID, usuarioId);
+        args.putInt(ARG_VIDEO_ID, videoId);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,12 +74,14 @@ public class VideoPlayerFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_video, container, false);
 
+        getActivity().setTitle("Player de Video");
+
         playerView = view.findViewById(R.id.player_view);
 
-        tvTituloVideo = view.findViewById(R.id.txtTituloVideoPlayer);
-        tvNomeCanal = view.findViewById(R.id.txtNomeCanalVideoPlayer);
-        tvDataPublic = view.findViewById(R.id.txtDataPubliVideoPlayer);
-        tvSeguidoresCanal = view.findViewById(R.id.txtSeguidoresCanalVideoPlayer);
+        TextView tvTituloVideo = view.findViewById(R.id.txtTituloVideoPlayer);
+        TextView tvNomeCanal = view.findViewById(R.id.txtNomeCanalVideoPlayer);
+        TextView tvDataPublic = view.findViewById(R.id.txtDataPubliVideoPlayer);
+        TextView tvSeguidoresCanal = view.findViewById(R.id.txtSeguidoresCanalVideoPlayer);
 
         CircleImageView fotoUsuarioImageView = view.findViewById(R.id.imgFotoCanalVideoPlayer); // Aqui a ImageView é inicializada
 
@@ -83,22 +93,12 @@ public class VideoPlayerFragment extends Fragment {
         playerView.setPlayer(exoPlayer);
 
         // Obter o ID do vídeo (você pode obter isso dos argumentos do fragmento)
-        long videoId = getArguments().getLong("videoId");
+//        long videoId = getArguments().getLong("videoId");
 
         // Buscar vídeo do banco de dados usando Retrofit
-        fetchVideoFromDatabase(videoId);
+//        fetchVideoFromDatabase(videoId);
 
         return view;
-    }
-
-    public static VideoPlayerFragment newInstance(int canalId, int usuarioId, int videoId) {
-        VideoPlayerFragment fragment = new VideoPlayerFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_CANAL_ID, canalId);
-        args.putInt(ARG_USUARIO_ID, usuarioId);
-        args.putInt(ARG_VIDEO_ID, videoId);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     private void fetchCanalDetails(int canalId, TextView tvNomeCanal, TextView tvSeguidoresCanal, CircleImageView fotoUsuarioImageView) {
@@ -261,39 +261,39 @@ public class VideoPlayerFragment extends Fragment {
         }
     }
 
-    private void fetchVideoFromDatabase(long videoId) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:3030/") // Insira a URL correta do servidor
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        VideoApi videoApi = retrofit.create(VideoApi.class);
-        Call<Video> call = videoApi.getVideoById(videoId);
-
-        call.enqueue(new Callback<Video>() {
-            @Override
-            public void onResponse(Call<Video> call, Response<Video> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    Video video = response.body();
-
-                    // Exibir informações do vídeo
-                    tvTituloVideo.setText(video.getTitulo());
-//                    tvChannelName.setText(video.getCanal().getNome());
-//                    tvDatePosted.setText(video.getCanal().getBio());
+//    private void fetchVideoFromDatabase(long videoId) {
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("http://10.0.2.2:3030/") // Insira a URL correta do servidor
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
 //
-                    // Carregar e reproduzir o vídeo
-//                    playVideoFromBytes(video.getThumbnail());
-                } else {
-                    Log.e("VideoPlayerFragment", "Erro ao buscar o vídeo");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Video> call, Throwable t) {
-                Log.e("VideoPlayerFragment", "Falha na conexão: " + t.getMessage());
-            }
-        });
-    }
+//        VideoApi videoApi = retrofit.create(VideoApi.class);
+//        Call<Video> call = videoApi.getVideoById(videoId);
+//
+//        call.enqueue(new Callback<Video>() {
+//            @Override
+//            public void onResponse(Call<Video> call, Response<Video> response) {
+//                if (response.isSuccessful() && response.body() != null) {
+//                    Video video = response.body();
+//
+//                    // Exibir informações do vídeo
+////                    tvTituloVideo.setText(video.getTitulo());
+////                    tvChannelName.setText(video.getCanal().getNome());
+////                    tvDatePosted.setText(video.getCanal().getBio());
+////
+//                    // Carregar e reproduzir o vídeo
+////                    playVideoFromBytes(video.getThumbnail());
+//                } else {
+//                    Log.e("VideoPlayerFragment", "Erro ao buscar o vídeo");
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Video> call, Throwable t) {
+//                Log.e("VideoPlayerFragment", "Falha na conexão: " + t.getMessage());
+//            }
+//        });
+//    }
 
     private void playVideoFromBytes(byte[] videoBytes) {
         try {

@@ -41,26 +41,6 @@ public class DetailFragment extends Fragment {
     private int canalId;
     private int usuarioId;
 
-    private String formatarNumeroAbreviado(int numero) {
-        if (numero < 1_000) {
-            return String.valueOf(numero); // Menos de mil, retorna o número normal
-        } else if (numero < 1_000_000) {
-            // Para milhares
-            if (numero % 1_000 == 0) {
-                return String.format(Locale.US, "%.0f mil", numero / 1_000.0).replace('.', ',');
-            } else {
-                return String.format(Locale.US, "%.1f mil", numero / 1_000.0).replace('.', ',');
-            }
-        } else {
-            // Para milhões
-            if (numero % 1_000_000 == 0) {
-                return String.format(Locale.US, "%.0f mi", numero / 1_000_000.0).replace('.', ',');
-            } else {
-                return String.format(Locale.US, "%.1f mi", numero / 1_000_000.0).replace('.', ',');
-            }
-        }
-    }
-
     public static DetailFragment newInstance(int canalId, int usuarioId) {
         DetailFragment fragment = new DetailFragment();
         Bundle args = new Bundle();
@@ -243,6 +223,26 @@ public class DetailFragment extends Fragment {
         } catch (IllegalArgumentException e) {
             Log.e("DecodeBase64", "Erro ao decodificar imagem Base64", e);
             return null;
+        }
+    }
+
+    private String formatarNumeroAbreviado(int numero) {
+        if (numero < 1_000) {
+            return String.valueOf(numero); // Menos de mil, retorna o número normal
+        } else if (numero < 1_000_000) {
+            // Para milhares
+            if (numero % 1_000 == 0) {
+                return String.format(Locale.US, "%.0f mil", numero / 1_000.0).replace('.', ',');
+            } else {
+                return String.format(Locale.US, "%.1f mil", numero / 1_000.0).replace('.', ',');
+            }
+        } else {
+            // Para milhões
+            if (numero % 1_000_000 == 0) {
+                return String.format(Locale.US, "%.0f mi", numero / 1_000_000.0).replace('.', ',');
+            } else {
+                return String.format(Locale.US, "%.1f mi", numero / 1_000_000.0).replace('.', ',');
+            }
         }
     }
 }

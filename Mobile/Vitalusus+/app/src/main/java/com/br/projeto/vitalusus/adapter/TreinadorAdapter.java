@@ -45,25 +45,7 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
         void onItemClick(Usuario usuario, Treinador treinador, Canal canal);
     }
 
-    private String formatarNumeroAbreviado(int numero) {
-        if (numero < 1_000) {
-            return String.valueOf(numero); // Menos de mil, retorna o número normal
-        } else if (numero < 1_000_000) {
-            // Para milhares
-            if (numero % 1_000 == 0) {
-                return String.format(Locale.US, "%.0f mil", numero / 1_000.0).replace('.', ',');
-            } else {
-                return String.format(Locale.US, "%.1f mil", numero / 1_000.0).replace('.', ',');
-            }
-        } else {
-            // Para milhões
-            if (numero % 1_000_000 == 0) {
-                return String.format(Locale.US, "%.0f mi", numero / 1_000_000.0).replace('.', ',');
-            } else {
-                return String.format(Locale.US, "%.1f mi", numero / 1_000_000.0).replace('.', ',');
-            }
-        }
-    }
+
 
     @NonNull
     @Override
@@ -152,6 +134,25 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
             nomeCanalTextView = itemView.findViewById(R.id.txtNomeCanal); // Referência ao TextView para o nome do treinador
             seguidoresTextView = itemView.findViewById(R.id.tv_SeguidoresCanal);//Referência ao TextView para os seguidores do treinador
             fotoImageView = itemView.findViewById(R.id.imgFotoCanal); // Referência ao ImageView para a foto do treinador
+        }
+    }
+    private String formatarNumeroAbreviado(int numero) {
+        if (numero < 1_000) {
+            return String.valueOf(numero); // Menos de mil, retorna o número normal
+        } else if (numero < 1_000_000) {
+            // Para milhares
+            if (numero % 1_000 == 0) {
+                return String.format(Locale.US, "%.0f mil", numero / 1_000.0).replace('.', ',');
+            } else {
+                return String.format(Locale.US, "%.1f mil", numero / 1_000.0).replace('.', ',');
+            }
+        } else {
+            // Para milhões
+            if (numero % 1_000_000 == 0) {
+                return String.format(Locale.US, "%.0f mi", numero / 1_000_000.0).replace('.', ',');
+            } else {
+                return String.format(Locale.US, "%.1f mi", numero / 1_000_000.0).replace('.', ',');
+            }
         }
     }
 }

@@ -97,6 +97,7 @@ sql.connect(dbConfig).then(pool => {
                   V.descricao,
                   V.visualizacoes,
                   V.dataPubli,
+                  V.thumbnail,
                   C.nome AS nomeCanal,
                   U.foto AS fotoUsuario,
                   U.nome AS nomeTreinador
@@ -111,7 +112,8 @@ sql.connect(dbConfig).then(pool => {
                   titulo: video.titulo,
                   descricao: video.descricao,
                   visualizacoes: video.visualizacoes,
-                  dataPubli: new Date(video.dataPubli).toISOString() // Corrigindo o formato da data para ISO 8601
+                  dataPubli: new Date(video.dataPubli).toISOString(), // Corrigindo o formato da data para ISO 8601
+                  thumbnail: video.thumbnail ? Buffer.from(video.thumbnail).toString('base64') : null
               },
               canal: {
                   nome: video.nomeCanal

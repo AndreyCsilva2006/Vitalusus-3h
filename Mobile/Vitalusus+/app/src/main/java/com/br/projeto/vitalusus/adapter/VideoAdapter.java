@@ -28,21 +28,19 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     private final List<Canal> canalList;
     private final List<Video> videoList;
     private final List<Usuario> usuarioList;
-    private final List<Treinador> treinadores;
+    private final List<Treinador> treinadorList;
     private final OnItemClickListener listener;
-    private final Context context;
 
-    public VideoAdapter(List<Video> videoList, List<Canal> canalList, List<Usuario> usuarioList, List<Treinador> treinadores, OnItemClickListener listener, Context context) {
+    public VideoAdapter(List<Usuario> usuarioList, List<Canal> canalList, List<Treinador> treinadorList, List<Video> videoList, OnItemClickListener listener) {
         this.videoList = videoList;
         this.canalList = canalList;
         this.usuarioList = usuarioList;
-        this.treinadores = treinadores;
+        this.treinadorList = treinadorList;
         this.listener = listener;
-        this.context = context;
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Video video, Canal canal, Usuario usuario);
+        void onItemClick(Video video, Canal canal, Usuario usuario, Treinador treinador);
     }
 
     @NonNull
@@ -66,17 +64,36 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
         Video video = videoList.get(position);
         Canal canal = canalList.get(position);
+
+        Treinador treinador = (position < treinadorList.size()) ? treinadorList.get(position) : null;
         Usuario usuario = usuarioList.get(position);
 
+        if (treinador != null) {
+            int usuarioId = treinador.getUsuarioId();
+            // Procurar o usuário correto pelo ID
+            for (Usuario u : usuarioList) {
+                if (u.getId() == usuarioId) {
+                    usuario = u;
+                    break;
+                }
+            }
+        }
+
+        if (canal != null) {
+            holder.canalNome.setText(canal.getNome());
+            holder.canalSeguidores.setText(String.valueOf(canal.getSeguidores()));
+        }
+
+        if (video != null){
+            holder.videoTitulo.setText(video.getTitulo());
+            holder.videoVisualizacoes.setText(video.getVisualizacoes().toString());
+            holder.videoDataPubli.setText(video.getDataPubli());
+        }
+
         // Define os outros detalhes do vídeo
-        holder.videoTitulo.setText(video.getTitulo());
 //        holder.videoVisualizacoes.setText((CharSequence) video.getVisualizacoes());
-        holder.videoVisualizacoes.setText(video.getVisualizacoes().toString());
-        holder.videoDataPubli.setText(video.getDataPubli());
 //        holder.videoThumbnail.setImageBitmap(video.getThumbnail());
-        holder.canalNome.setText(canal.getNome());
 //        holder.canalSeguidores.setText((int) canal.getSeguidores());
-        holder.canalSeguidores.setText(String.valueOf(canal.getSeguidores()));
 //        holder.canalFoto.setImageBitmap(usuario.getFoto());
 
         // Decodificar imagem de thumbnail do vídeo
@@ -102,8 +119,18 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         } else {
             holder.canalFoto.setImageResource(R.drawable.ic_defaultuser);
         }
-
-        holder.itemView.setOnClickListener(v -> listener.onItemClick(video, canal, usuario));
+        if (usuario != null && treinador != null && canal != null) {
+            Usuario finalUsuario = usuario;
+            holder.itemView.setOnClickListener(v -> listener.onItemClick(video, canal, finalUsuario, treinador));
+        } else {
+            holder.itemView.setOnClickListener(null);
+        }
+        if ("PRIVADO".equals(usuario.getNivelPrivacidade()) || "DELETADO".equals(usuario.getStatusUsuario()) || "INATIVO".equals(usuario.getStatusUsuario())) {
+            holder.itemView.setVisibility(View.GONE);
+            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+        }
+        Log.d("UsuarioFoto", "ID: " + usuario.getId() + ", Nome: " + usuario.getNome() + ", Foto: " + usuario.getFoto());
+        Log.d("thumbnail", "ID: " + video.getId() + ", título: " + video.getTitulo() + ", Foto: " + video.getThumbnail());
     }
 
     @Override
