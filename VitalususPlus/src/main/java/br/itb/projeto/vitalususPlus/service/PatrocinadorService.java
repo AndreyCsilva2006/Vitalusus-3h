@@ -1,5 +1,6 @@
 package br.itb.projeto.vitalususPlus.service;
 
+import br.itb.projeto.vitalususPlus.model.entity.Canal;
 import br.itb.projeto.vitalususPlus.model.entity.Patrocinador;
 import br.itb.projeto.vitalususPlus.model.repository.PatrocinadorRepository;
 
@@ -51,5 +52,16 @@ public class PatrocinadorService {
             return patrocinadorRepository.save(_patrocinador);
         }
         else throw new RuntimeException("Não foi possível encontrar o patrocinador");
+    }
+    public Patrocinador update(long id, Patrocinador patrocinador){
+        Optional<Patrocinador> patrocinadorOptional = patrocinadorRepository.findById(id);
+        if(patrocinadorOptional.isPresent()) {
+            Patrocinador _patrocinador = patrocinadorOptional.get();
+            _patrocinador.setNome(patrocinador.getNome());
+            _patrocinador.setLink(patrocinador.getLink());
+            _patrocinador.setFoto(patrocinador.getFoto());
+            return patrocinadorRepository.save(_patrocinador);
+        }
+        return null;
     }
 }
