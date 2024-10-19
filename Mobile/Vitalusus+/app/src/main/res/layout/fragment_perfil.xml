@@ -20,7 +20,7 @@
             android:layout_marginTop="128dp"
             app:civ_border_width="5dp"
             app:civ_border_color="@color/black"
-            android:src="@drawable/ic_defaultuser"
+            android:src="@drawable/ic_defaultuseraluno"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
