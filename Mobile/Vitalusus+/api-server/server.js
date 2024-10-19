@@ -87,6 +87,34 @@ sql.connect(dbConfig).then(pool => {
                 console.error('Erro ao buscar canais:', err.message);
                 res.status(500).send(err.message);
             }
+    });
+
+    app.get('/likes', async (req, res) => {
+            try {
+                const result = await pool.request().query('SELECT * FROM Likes');
+                res.json(result.recordset);
+            } catch (err) {
+                console.error('Erro ao buscar tabela Likes:', err.message);
+                res.status(500).send(err.message);
+            }
+    });
+
+    app.get('/likes/:id', async (req, res) => {
+            const likeId = req.params.id;
+            try {
+                const result = await pool.request()
+                    .input('id', sql.Int, likeId)
+                    .query('SELECT * FROM Likes WHERE id = @id');
+
+                if (result.recordset.length > 0) {
+                    res.json(result.recordset[0]);
+                } else {
+                    res.status(404).send('Like não encontrado');
+                }
+            } catch (err) {
+                console.error('Erro ao buscar Like pelo ID:', err.message);
+                res.status(500).send(err.message);
+            }
         });
 
   app.get('/videos/com-detalhes', async (req, res) => {
