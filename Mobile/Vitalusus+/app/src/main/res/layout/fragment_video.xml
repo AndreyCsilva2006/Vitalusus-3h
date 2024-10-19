@@ -41,21 +41,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"/>
-    <!--    botar um linear layout depois pra a foto do canal e os seguidores ficar um do lado do outro-->
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgFotoCanalVideoPlayer"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="8dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_defaultuser" />
-
-    <TextView
-        android:id="@+id/txtSeguidoresCanalVideoPlayer"
-        android:layout_width="match_parent"
+    <!--    lado a lado -->
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"/>
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgFotoCanalVideoPlayer"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_defaultuser" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seguidores: "/>
+
+        <TextView
+            android:id="@+id/txtSeguidoresCanalVideoPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"/>
+
+    </LinearLayout>
+
 
 
 
