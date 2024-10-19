@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.br.projeto.vitalusus.api.VideoApi;
 import com.br.projeto.vitalusus.model.Canal;
 import com.br.projeto.vitalusus.model.Treinador;
 import com.br.projeto.vitalusus.model.Usuario;
@@ -35,7 +34,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class VideoPlayerFragment extends Fragment {
 
@@ -48,7 +46,7 @@ public class VideoPlayerFragment extends Fragment {
 
     private int canalId;
     private int usuarioId;
-    private int video_id;
+    private int videoId;
 
     public static VideoPlayerFragment newInstance(int canalId, int usuarioId, int videoId) {
         VideoPlayerFragment fragment = new VideoPlayerFragment();
@@ -66,7 +64,7 @@ public class VideoPlayerFragment extends Fragment {
         if (getArguments() != null) {
             canalId = getArguments().getInt(ARG_CANAL_ID);
             usuarioId = getArguments().getInt(ARG_USUARIO_ID);
-            video_id = getArguments().getInt(ARG_VIDEO_ID);
+            videoId = getArguments().getInt(ARG_VIDEO_ID);
         }
     }
 
@@ -82,10 +80,12 @@ public class VideoPlayerFragment extends Fragment {
         TextView tvNomeCanal = view.findViewById(R.id.txtNomeCanalVideoPlayer);
         TextView tvDataPublic = view.findViewById(R.id.txtDataPubliVideoPlayer);
         TextView tvSeguidoresCanal = view.findViewById(R.id.txtSeguidoresCanalVideoPlayer);
+        TextView tvVisualizacoesVideo = view.findViewById(R.id.txtVisualizacoesVideoPlayer);
 
         CircleImageView fotoUsuarioImageView = view.findViewById(R.id.imgFotoCanalVideoPlayer); // Aqui a ImageView é inicializada
 
-        fetchCanalDetails(canalId, tvNomeCanal, tvSeguidoresCanal, fotoUsuarioImageView);
+        fetchCanalDetails(canalId, tvNomeCanal, tvSeguidoresCanal, tvTituloVideo, tvDataPublic, fotoUsuarioImageView);
+        fetchVideo(videoId, tvTituloVideo, tvDataPublic, tvVisualizacoesVideo);
         fetchUsuarioDetails(usuarioId, fotoUsuarioImageView);
 
         // Inicializar o ExoPlayer
@@ -101,7 +101,7 @@ public class VideoPlayerFragment extends Fragment {
         return view;
     }
 
-    private void fetchCanalDetails(int canalId, TextView tvNomeCanal, TextView tvSeguidoresCanal, CircleImageView fotoUsuarioImageView) {
+    private void fetchCanalDetails(int canalId, TextView tvNomeCanal, TextView tvSeguidoresCanal, TextView tvTituloVideo, TextView tvDataPublic, CircleImageView fotoUsuarioImageView) {
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         ApiService apiService = retrofit.create(ApiService.class);
 
@@ -112,10 +112,7 @@ public class VideoPlayerFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     Canal canal = response.body();
 
-                    // Atualiza a UI com as informações do canal
                     tvNomeCanal.setText(canal.getNome());
-
-                    // Formata o número de seguidores e visualizações
                     tvSeguidoresCanal.setText(formatarNumeroAbreviado((int) canal.getSeguidores()));
 
                     // Verifica se o treinador_id não é nulo
@@ -136,6 +133,35 @@ public class VideoPlayerFragment extends Fragment {
             public void onFailure(Call<Canal> call, Throwable t) {
                 Log.e("Erro", "Erro: " + t.getMessage());
                 Toast.makeText(getContext(), "Erro na requisição do canal.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void fetchVideo(int videoId, TextView tvTituloVideo, TextView tvDataPublic, TextView tvVisualizacoesVideo) {
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Video> callVideo = apiService.getVideolById(videoId);
+        callVideo.enqueue(new Callback<Video>() {
+            @Override
+            public void onResponse(Call<Video> call, Response<Video> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Video video = response.body();
+
+                    tvTituloVideo.setText(video.getTitulo());
+                    tvDataPublic.setText(video.getDataPubli());
+                    tvVisualizacoesVideo.setText(video.getVisualizacoes().toString());
+
+                } else {
+                    Log.e("Erro", "Erro ao carregar Video: " + response.code());
+                    Toast.makeText(getContext(), "Erro ao carregar video.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Video> call, Throwable t) {
+                Log.e("Erro", "Erro: " + t.getMessage());
+                Toast.makeText(getContext(), "Erro na requisição do Video.", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -93,13 +93,18 @@ sql.connect(dbConfig).then(pool => {
       try {
           const result = await pool.request().query(`
               SELECT
+                  V.id,
                   V.titulo,
                   V.descricao,
                   V.visualizacoes,
                   V.dataPubli,
                   V.thumbnail,
+
+                  C.id AS canalId,
                   C.nome AS nomeCanal,
+                  C.seguidores AS seguidoresCanal,
                   T.id AS treinadorId,
+                  U.id AS usuarioId,
                   U.foto AS fotoUsuario,
                   U.nome AS nomeTreinador
               FROM Videoaula V
@@ -110,6 +115,7 @@ sql.connect(dbConfig).then(pool => {
 
           const videosComDetalhes = result.recordset.map(video => ({
               video: {
+                  id: video.id,
                   titulo: video.titulo,
                   descricao: video.descricao,
                   visualizacoes: video.visualizacoes,
@@ -117,9 +123,12 @@ sql.connect(dbConfig).then(pool => {
                   thumbnail: video.thumbnail ? Buffer.from(video.thumbnail).toString('base64') : null
               },
               canal: {
-                  nome: video.nomeCanal
+                  id: video.canalId,
+                  nome: video.nomeCanal,
+                  seguidores: video.seguidoresCanal
               },
               usuario: {
+                  id: video.usuarioId,
                   foto: video.fotoUsuario ? Buffer.from(video.fotoUsuario).toString('base64') : null,
                   nome: video.nomeTreinador
               },
@@ -127,6 +136,10 @@ sql.connect(dbConfig).then(pool => {
                   id: video.treinadorId
               }
           }));
+          // Para puxar o vídeo.
+          // V.video,
+          // video: video.video ? Buffer.from(video.video).toString('base64') : null
+
 
           // Certifique-se de que a resposta seja enviada apenas uma vez
           res.json(videosComDetalhes);
@@ -210,6 +223,23 @@ sql.connect(dbConfig).then(pool => {
                     res.status(500).send(err.message);
                 }
             });
+             app.get('/videos/:id', async (req, res) => {
+                 const videoId = req.params.id;
+                 try {
+                     const result = await pool.request()
+                         .input('id', sql.Int, videoId)
+                         .query('SELECT * FROM Videoaula WHERE id = @id');
+
+                     if (result.recordset.length > 0) {
+                         res.json(result.recordset[0]);
+                     } else {
+                         res.status(404).send('Video não encontrado');
+                     }
+                 } catch (err) {
+                     console.error('Erro ao buscar canal pelo ID:', err.message);
+                     res.status(500).send(err.message);
+                 }
+             });
 
            // Rota para obter todos os alunos
            app.get('/alunos', async (req, res) => {

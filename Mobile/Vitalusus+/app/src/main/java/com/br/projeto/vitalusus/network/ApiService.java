@@ -54,6 +54,9 @@ public interface ApiService {
     @GET("/canais/{id}")
     Call<Canal> getCanalById(@Path("id") int id);
 
+    @GET("/videos/{id}")
+    Call<Video> getVideolById(@Path("id") int id);
+
     @GET("/usuarios/{idade}")
     Call<Usuario> getIdade(@Path("idade") int idade);
 
