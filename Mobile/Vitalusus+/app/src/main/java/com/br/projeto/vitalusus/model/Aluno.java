@@ -18,7 +18,7 @@ public class Aluno implements Serializable {
     private int usuario_id;
 
     @SerializedName("sexo")
-    private int sexo;
+    private String sexo;
 
     public Integer getId() {
         return id;
@@ -28,11 +28,11 @@ public class Aluno implements Serializable {
         this.id = id;
     }
 
-    public int getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(int sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 
@@ -67,6 +67,7 @@ public class Aluno implements Serializable {
                 ", altura=" + altura +
                 ", peso=" + peso +
                 ", usuario_id=" + usuario_id +
+                ", sexo" + sexo +
                 '}';
     }
 }

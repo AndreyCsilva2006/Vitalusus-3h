@@ -55,7 +55,10 @@ public class Usuario implements Serializable {
         this.tipoUsuario = tipoUsuario;
         this.nivelPrivacidade = nivelPrivacidade;
         this.idade = idade;
-        this.dataNasc = dataNasc; // Mudei para String
+        this.dataNasc = dataNasc;
+    }
+
+    public Usuario() {
     }
 
     // Getters e Setters

@@ -8,22 +8,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import com.br.projeto.vitalusus.dao.AlunoDAO;
 import com.br.projeto.vitalusus.model.Aluno;
 import com.br.projeto.vitalusus.model.Usuario;
-import com.br.projeto.vitalusus.network.ApiService;
-import com.br.projeto.vitalusus.network.RetrofitClient;
 import com.br.projeto.vitalusus.util.MensagemUtil;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class FormCadastro extends AppCompatActivity {
 
@@ -44,16 +38,12 @@ public class FormCadastro extends AppCompatActivity {
 
         // Configurando o botão de salvar
         Button btnSalvar = findViewById(R.id.btnCadastroSalvar);
-        btnSalvar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                salvar(v);
-            }
-        });
+        btnSalvar.setOnClickListener(this::salvar);
     }
 
     public void salvar(View view) {
         if (!validar()) {
+            Log.e("FormCadastro", "Validação falhou.");
             return;
         }
 
@@ -62,24 +52,28 @@ public class FormCadastro extends AppCompatActivity {
         String senha = editSenha.getText().toString().trim();
         String dataNasc = editDataNasc.getText().toString().trim();
 
-        // Capturando o sexo do Aluno
-        int sexo;
+        // Capturando o sexo do Aluno como String ("M" ou "F")
+        String sexo;
         if (rdggroupSexo.getCheckedRadioButtonId() == R.id.rbMasculino) {
-            sexo = 0; // Masculino
+            sexo = "M"; // Masculino
         } else if (rdggroupSexo.getCheckedRadioButtonId() == R.id.rbFeminino) {
-            sexo = 1; // Feminino
+            sexo = "F"; // Feminino
         } else {
-            sexo = -1; // Indefinido ou não selecionado
+            sexo = null; // Não selecionado ou indefinido
         }
 
-        if (calcularIdade(dataNasc) < 18) {
-            MensagemUtil.exibir(this, "É necessário ter 18 anos ou mais para se cadastrar.");
+        if (sexo == null) {
+            Log.e("FormCadastro", "Sexo não selecionado.");
+            MensagemUtil.exibir(this, "Por favor, selecione o sexo.");
             return;
         }
 
-        // Instanciando o Retrofit
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
-        ApiService apiService = retrofit.create(ApiService.class);
+        int idade = calcularIdade(dataNasc);
+        if (idade < 18) {
+            Log.e("FormCadastro", "Idade menor que 18 anos: " + idade);
+            MensagemUtil.exibir(this, "É necessário ter 18 anos ou mais para se cadastrar.");
+            return;
+        }
 
         // Definindo valores padrão
         String nivelAcesso = "USER"; // Pode ser ADMIN ou USER
@@ -87,87 +81,75 @@ public class FormCadastro extends AppCompatActivity {
         String statusUsuario = "ATIVO"; // Status inicial do usuário
         String tipoUsuario = "ALUNO"; // Tipo de usuário
         String nivelPrivacidade = "PUBLICO"; // Nível de privacidade
-        int idade = calcularIdade(dataNasc); // Calculando a idade com base na data de nascimento
         Date dataCadastro = new Date(); // Data atual
 
-        Date dataNascDate = null;
+        java.sql.Date dataNascDate = null; // Usando java.sql.Date
         try {
-            // Convertendo a data de nascimento para Date
-            dataNascDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(dataNasc);
+            // Convertendo a data de nascimento para java.sql.Date
+            dataNascDate = new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(dataNasc).getTime());
+            Log.d("FormCadastro", "Data de nascimento convertida com sucesso: " + dataNascDate);
         } catch (ParseException e) {
+            Log.e("FormCadastro", "Erro ao converter a data de nascimento: " + dataNasc, e);
             MensagemUtil.exibir(this, "Formato de data inválido. Use o formato YYYY-MM-DD.");
             return; // Sai do método se a data estiver em formato inválido
         }
 
         // Criando objeto Usuario com todos os campos necessários
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String dataCadastroString = sdf.format(dataCadastro);
+        Usuario usuario = new Usuario(nome, email, senha, nivelAcesso, foto, new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(dataCadastro),
+                statusUsuario, tipoUsuario, nivelPrivacidade, idade, dataNascDate);
 
-        Usuario usuario = new Usuario(nome, email, senha, nivelAcesso, foto, dataCadastroString, statusUsuario, tipoUsuario, nivelPrivacidade, idade, dataNascDate);
+        // Instanciando o AlunoDAO
+        AlunoDAO alunoDAO = new AlunoDAO();
+        Aluno aluno = new Aluno();
+        aluno.setSexo(sexo); // Setando o sexo como string ("M" ou "F")
 
-        // Chame a API para criar o usuário
-        Call<Usuario> callUsuario = apiService.createUsuario(usuario);
-        callUsuario.enqueue(new Callback<Usuario>() {
-            @Override
-            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    int usuarioId = response.body().getId();
-
-                    // Criando objeto Aluno
-                    Aluno aluno = new Aluno();
-                    aluno.setSexo(sexo);
-                    aluno.setUsuario_id(usuarioId);
-                    aluno.setAltura(0); // Defina a altura
-                    aluno.setPeso(0);   // Defina o peso
-
-                    // Chame a API para criar o aluno
-                    Call<Aluno> callAluno = apiService.createAluno(aluno);
-                    callAluno.enqueue(new Callback<Aluno>() {
-                        @Override
-                        public void onResponse(Call<Aluno> call, Response<Aluno> response) {
-                            if (response.isSuccessful()) {
-                                MensagemUtil.exibir(FormCadastro.this, "Cadastro realizado com sucesso.");
-                                startActivity(new Intent(FormCadastro.this, FormLogin.class));
-                                finish();
-                            } else {
-                                Log.e("CadastroAluno", "Erro: " + response.code() + " - " + response.message());
-                                MensagemUtil.exibir(FormCadastro.this, "Falha no cadastro do aluno. Verifique as informações.");
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Aluno> call, Throwable t) {
-                            Log.e("Erro", t.getMessage());
-                            MensagemUtil.exibir(FormCadastro.this, "Erro na comunicação com o servidor.");
-                        }
-                    });
-                } else {
-                    Log.e("CadastroUsuario", "Erro: " + response.code() + " - " + response.message());
-                    if (response.errorBody() != null) {
-                        try {
-                            String errorResponse = response.errorBody().string();
-                            Log.e("CadastroUsuario", "Erro detalhado: " + errorResponse);
-                        } catch (IOException e) {
-                            Log.e("CadastroUsuario", "Erro ao ler o corpo da resposta de erro", e);
-                        }
-                    }
-                    MensagemUtil.exibir(FormCadastro.this, "Falha no cadastro do usuário. Verifique as informações.");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Usuario> call, Throwable t) {
-                Log.e("Erro", t.getMessage());
-                MensagemUtil.exibir(FormCadastro.this, "Erro na comunicação com o servidor.");
-            }
-        });
+        // Chama o método para cadastrar o aluno
+        try {
+            alunoDAO.cadastrarAluno(aluno, usuario);
+            MensagemUtil.exibir(this, "Cadastro realizado com sucesso.");
+            startActivity(new Intent(FormCadastro.this, FormLogin.class));
+            finish();
+        } catch (Exception e) {
+            Log.e("FormCadastro", "Erro ao cadastrar aluno.", e);
+            MensagemUtil.exibir(this, "Falha no cadastro do aluno. Verifique as informações.");
+        }
     }
 
+    // Método validar
     private boolean validar() {
-        // Implementar validações necessárias para os campos
-        return true; // Retornar true se a validação for bem-sucedida
+        String nome = editNome.getText().toString().trim();
+        String email = editEmail.getText().toString().trim();
+        String senha = editSenha.getText().toString().trim();
+        String dataNasc = editDataNasc.getText().toString().trim();
+
+        if (nome.isEmpty()) {
+            Log.e("FormCadastro", "Nome não preenchido.");
+            MensagemUtil.exibir(this, "O nome é obrigatório.");
+            return false;
+        }
+
+        if (email.isEmpty()) {
+            Log.e("FormCadastro", "Email não preenchido.");
+            MensagemUtil.exibir(this, "O email é obrigatório.");
+            return false;
+        }
+
+        if (senha.isEmpty()) {
+            Log.e("FormCadastro", "Senha não preenchida.");
+            MensagemUtil.exibir(this, "A senha é obrigatória.");
+            return false;
+        }
+
+        if (dataNasc.isEmpty()) {
+            Log.e("FormCadastro", "Data de nascimento não preenchida.");
+            MensagemUtil.exibir(this, "A data de nascimento é obrigatória.");
+            return false;
+        }
+
+        return true;
     }
 
+    // Método calcularIdade
     private int calcularIdade(String dataNasc) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         try {
@@ -183,9 +165,11 @@ public class FormCadastro extends AppCompatActivity {
                 idade--;
             }
 
+            Log.d("FormCadastro", "Idade calculada: " + idade);
             return idade;
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.e("FormCadastro", "Erro ao calcular idade", e);
+            MensagemUtil.exibir(this, "Formato de data inválido. Use o formato YYYY-MM-DD.");
             return 0; // Retorna 0 caso haja erro no formato da data
         }
     }
