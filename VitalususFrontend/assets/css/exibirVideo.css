@@ -1,0 +1,298 @@
+.comentarioContainer {
+  background-color: #181818;
+}
+
+#comentariosSection {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+
+.comentarioDataPubli {
+  font-size: 9px;
+  color: #d3d3d3;
+}
+
+.nomeAluno {
+  color: rgb(255,17,17);
+  margin-bottom: 0px;
+}
+
+.btn-novv {
+  background-color: var(--cor-cinza1);
+  color: var(--absolut-dark);
+}
+
+.btn-novv {
+  background-color: var(--cor-cinza1);
+}
+
+.main1 {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin-bottom: 10vh;
+}
+
+.section {
+  padding: 20px;
+  min-width: auto;
+  width: 100%;
+  max-width: 100%;
+  min-height: 60vw!important;
+  height: auto;
+  max-height: 56.25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 400px) {
+  .section {
+    padding: 2px;
+  }
+}
+
+.section2 {
+  min-height: 10vh;
+  height: auto;
+  max-height: none;
+  min-width: auto;
+  width: 100vw;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+@media (max-width: 400px) {
+  .section2 {
+    padding: 2px;
+  }
+}
+
+/* Video */
+
+.tamanho-video2 {
+  width: 65%;
+  height: 30%;
+  min-width: 65vw;
+  min-height: 30vw;
+  max-width: 65%;
+  max-height: 650px;
+}
+
+@media (max-width: 800px) {
+  .tamanho-video2 {
+    width: 65%;
+    height: 30%;
+    min-width: 65vw;
+    min-height: 30vw;
+    max-width: 650px;
+    max-height: 500px;
+  }
+}
+
+@media (max-width: 400px) {
+  .tamanho-video2 {
+    min-width: 90vw;
+    width: 100%;
+    height: 30%;
+    max-height: 30%;
+  }
+}
+
+/* Descrição do video */
+
+.txt-area {
+  width: 100%;
+  min-height: 50vh;
+  height: auto;
+  padding: 10px;
+  border-radius: 0.8vw;
+  border: none;
+  resize: none;
+  line-height: 1.6;
+  font-family: monospace;
+  font-weight: 500;
+}
+
+.txt-area:focus {
+  border: none;
+  outline: none;
+}
+
+.txt-area::placeholder {
+  font-family: sans-serif;
+  font-style: italic;
+  font-weight: 650;
+}
+
+@media (max-width: 800px) {
+  .txt-area {
+    min-height: 35vh;
+    height: auto;
+    border-radius: 0.7rem;
+  }
+}
+
+.txt-area {
+}
+
+/* Imagem do perfil */
+
+.img-pf {
+  border-radius: 100%;
+  height: 8vw!important;
+  width: 8vw!important;
+}
+
+@media (max-width: 600px) {
+  .img-pf {
+    height: 12vw!important;
+    width: 12vw!important;
+  }
+}
+
+@media (max-width: 360px) {
+  .img-pf {
+    min-width: 30px!important;
+    min-height: 30px!important;
+    width: 14vw!important;
+    height: 14vw!important;
+  }
+}
+
+/* fim da imagem do perfil */
+
+/* fontes para os textos */
+
+.fnt-1 {
+  max-width: 100%;
+  flex-grow: 1;
+  overflow: hidden;
+  display: block!important;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
+  font-weight: 700;
+}
+
+.fnt-2 {
+  font-weight: 360;
+  color: var(--cor-cinza1);
+}
+
+/* Fim das fnts */
+
+/* Aqui vai ser as divs que irão compor o video */
+
+/* PAI */
+
+.div-pai {
+  max-width: 65%;
+  min-width: 65vw;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Filhote 1, foto do perfil; seguidores; nome do canal./ */
+
+.Filhote1 {
+  width: 65%;
+  min-width: 65vw;
+  max-width: 65%;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding: 10px;
+  align-items: center;
+}
+
+/* Filho1 */
+
+/* Fim do Filho 1, Nome do canal; Seguidores. */
+
+.Filho1 {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  margin: 0;
+  padding: 0;
+  flex-grow: 1;
+  max-width: calc(100% - 8vw);
+}
+
+/* Fim Filhote 1 */
+
+/* Filhote 2, Seguir; Like; Deslike; */
+
+.Filhote2 {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 10px;
+}
+
+/* Fim Filhote 2 */
+
+/* FIM div que compõe os videos */
+
+/* MODAL */
+
+/* Div modal */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  min-height: 50vh;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Fim Div Modal */
+
+/* div descricao2 */
+
+.div-descricao2 {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fim div descricao2 */
+
+/* textarea */
+
+.textarea2 {
+  margin: 0 auto;
+  max-width: 65%;
+  min-width: 65vw;
+  height: 30vh;
+  resize: none;
+  border: none;
+  background-color: #f0f0f0;
+  color: var(--absolut-dark);
+  padding: 10px;
+  border-radius: 1vw;
+  resize: none;
+  border: none;
+}
+
+.textarea2:focus {
+  border: none;
+  outline: none;
+}
+
+/* end textarea */
+
+/* Fim do MODAL */
+

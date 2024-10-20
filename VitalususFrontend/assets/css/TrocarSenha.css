@@ -1,0 +1,62 @@
+.main-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.flexx {
+  display: flex;
+  justify-content: center;
+}
+
+.sla-4 {
+  display: flex;
+  height: fit-content;
+  flex-direction: column;
+}
+
+.element {
+  text-align: right;
+  max-width: 80%;
+  align-self: end;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: right;
+  cursor: help;
+  color: #b7b7b7;
+}
+
+.element:hover {
+  opacity: 0.9;
+}
+
+.link-voltar {
+  text-decoration: none;
+  letter-spacing: 2px;
+  transition: color 0.3s;
+  transition: 0.3s;
+  transition-duration: 0.5s;
+}
+
+.link-voltar:hover {
+  transition: color 0.4s ease;
+  transition: 0.4s ease;
+  color: var(--padrao);
+  letter-spacing: 1px;
+}
+
+/* input */
+
+.inputG {
+  border: none;
+  outline: none;
+  background-color: var(--light-color);
+  color: var(--absolut-dark);
+  border-radius: 2px;
+  padding-inline: 10px;
+  text-decoration: blink;
+}
+
+.inputG:focus {
+  outline: 1px solid var(--padrao);
+}
+

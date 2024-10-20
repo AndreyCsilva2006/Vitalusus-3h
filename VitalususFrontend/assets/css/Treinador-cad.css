@@ -1,0 +1,327 @@
+/* texto */
+
+#texto-alert {
+  color: var(--padrao);
+}
+
+.hidden {
+  display: none!important;
+}
+
+.div-button-login {
+  max-width: none;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 400px) {
+  .div-button-login {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  .filhote-1-flex {
+    flex-grow: 1;
+  }
+}
+
+.background {
+  background-color: #000000;
+}
+
+.main-Cad {
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.font-ArchivoBlack-1 {
+  font-family: 'Archivo Black', sans-serifv;
+  font-size: calc(1.375rem + 1.5vw);
+  color: black;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.div-background {
+  background-color: var(--background-cinzento);
+}
+
+/* button formart2 */
+
+.button-format2 {
+  transition: 0.3s ease;
+  z-index: 5;
+  width: 200px;
+  background-color: var(--absolut-dark);
+  color: var(--padrao);
+  min-width: auto;
+  min-height: auto;
+  border-radius: 10px;
+  font-family: 'Inter';
+  border: 1px solid var(--cor-cinza3);
+}
+
+.button-format2:hover {
+  transform: scale(1.1);
+  text-transform: uppercase;
+  transition: 0.5s ease;
+  font-weight: 500;
+  color: var(--padrao);
+  border: 1px solid var(--light-color);
+  background-color: var(--light-color);
+}
+
+/* butão formatado com cores diferentes */
+
+.button-format {
+  transition: 0.3s ease;
+  z-index: 5;
+  width: 200px;
+  background-color: var(--padrao);
+  color: var(--absolut-light);
+  min-width: auto;
+  min-height: auto;
+  border-radius: 10px;
+  border: 1px solid var(--bs-btn-active-color) ;
+}
+
+.button-format:hover {
+  transform: scale(1.1);
+  text-transform: uppercase;
+  transition: 0.5s ease;
+  font-weight: 500;
+  color: var(--padrao);
+  border: 1px solid var(--light-color);
+  background-color: var(--absolut-dark);
+}
+
+/* texto do inicio do cadastro */
+
+.blog-slider__title {
+  color: var(--color-dark-1);
+}
+
+.blog-slider__text {
+  color: #7ba1a6;
+}
+
+.blog-slider__code {
+  color: var(--background-ligth);
+}
+
+/* Formulário 1 */
+
+/* Generalização */
+
+/* container */
+
+.cad-1 {
+  width: 100%;
+  min-height: auto;
+  height: 100%;
+}
+
+@media (min-width:100px) and (max-width:1199px) {
+  .header-cad {
+    margin-bottom: 120px;
+  }
+}
+
+.cad-2 {
+  width: 100%;
+  margin-top: 0px;
+  max-width: none;
+  min-height: auto;
+  width: 100%;
+  padding: 0px;
+  padding-right: 0px;
+}
+
+@media (min-width: 1200px) {
+  .cad-2 {
+    margin-top: 35px;
+  }
+}
+
+.cad-inicio-container {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 574px) {
+  .cad-inicio-container {
+    border: none;
+    border: 0px;
+  }
+}
+
+.form-1-cad {
+  min-width: 30vw;
+  width: auto;
+  max-width: 100%;
+  min-height: auto;
+  height: 100%;
+  max-height: none;
+}
+
+@media (min-width: 576px) and (max-width:991px) {
+  .form-1-cad {
+    align-items: start;
+    gap: 55px;
+  }
+}
+
+@media (min-width: 576px) and (max-width:991px) {
+  .divImg-user {
+    margin-bottom: -20px;
+  }
+}
+
+.div-generalizada-form {
+  max-width: none;
+  min-width: auto;
+  width: 100%;
+  height: auto;
+  gap: 20px;
+}
+
+.section-form {
+  min-width: auto;
+  width: 100%;
+  max-width: none;
+}
+
+/* inputs */
+
+.input {
+  background-color: var(--light-color);
+  padding-inline: 1vw;
+  color: initial;
+  border-radius: 7px;
+  min-height: 40px;
+  height: 2.5vw;
+  max-height: none;
+  min-width: auto;
+  width: 100%;
+  max-width: none;
+  border: none;
+}
+
+.input:focus {
+  border-radius: 10px;
+  background-color: var(--absolut-dark);
+  color: var(--light-color);
+  border: none;
+  outline: 1px solid var(--padrao);
+}
+
+.input:focus::placeholder {
+  text-transform: lowercase;
+  color: var(--cor-cinza3);
+}
+
+.input::placeholder {
+  color: initial;
+}
+
+@media (max-width: 700px) {
+  .input {
+    font-size: 1rem!important;
+  }
+}
+
+@media (min-width:231px) and (max-width: 310px) {
+  .input {
+    width: 90%;
+    height: 6vh;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 230px) {
+  .input {
+    width: 90%;
+    min-width: 100px;
+    height: 6vh;
+    font-size: 1rem;
+  }
+}
+
+.section-duplo {
+  gap: 20px;
+  min-width: auto;
+  width: 100%;
+}
+
+.div-form {
+  min-width: 200px;
+  max-width: none;
+  width: 100%;
+}
+
+/* Únicos */
+
+.nav-gap {
+  gap: 35px;
+  flex-wrap: wrap;
+}
+
+.Nome-form {
+}
+
+.btn-cad {
+  min-width: 60%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  transition: 0.2s;
+  color: var(--light-color);
+  background-color: var(--padrao);
+  border-radius: 15px;
+}
+
+@media (min-width: 1200px) {
+  .btn-cad {
+    min-height: 50px;
+    height: 2vw;
+  }
+}
+
+.btn-cad:hover {
+  text-transform: uppercase;
+  font-family: 'Inter Tight';
+  font-size: 95%;
+  transition: 0.6s ease;
+  background-color: var(--light-color);
+  color: var(--padrao);
+}
+
+/* arrumando header */
+
+.arrum-header {
+  height: auto!important;
+  min-height: 39.7812px;
+  max-height: none;
+  display: flex;
+  flex-grow: 1;
+  width: auto;
+  max-width: none;
+}
+
+/* arrumando a logo e o titulo vitalusus */
+
+.arrum-header2 {
+  width: auto;
+  display: flex;
+  flex-grow: 0;
+}
+

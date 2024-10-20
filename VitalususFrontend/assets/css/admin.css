@@ -1,0 +1,205 @@
+/* Reset básico */
+
+#bodyTableTreinador td {
+  color: black;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos Globais */
+
+main {
+  max-width: none;
+  height: auto;
+  margin: 0 auto;
+  padding: 0 26px;
+}
+
+h2 {
+  margin-bottom: 15px;
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: var(--cor-cinza1);
+}
+
+/* Seção do formulário */
+
+.form-section {
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(210,13,13,0.67);
+  margin-bottom: 30px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  color: var(--cor-cinza1);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+input:focus, select:focus {
+  border-color: var(--danger-color);
+  outline: none;
+}
+
+.btn-submit {
+  background-color: var(--danger-color);
+  color: white;
+  border: none;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+.btn-submit:hover {
+  color: var(--light-color);
+  background-color: var(--bs-red);
+}
+
+/* Seção de busca */
+
+.search-section {
+  text-align: center;
+}
+
+.search-group {
+  display: inline-block;
+}
+
+.search-input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 200px;
+}
+
+.btn-search {
+  padding: 10px 20px;
+  background-color: var(--danger-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+  font-size: 1rem;
+  border-radius: 4px;
+}
+
+.btn-search:hover {
+  background-color: var(--bs-red);
+}
+
+/* Tabela */
+
+.table-section {
+  margin: 0 auto;
+  min-width: 70%;
+  width: auto;
+  max-width: none;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(210,13,13,0.67);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table thead th {
+  background-color: #f4f4f4;
+  padding: 10px;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+}
+
+table tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+table tbody tr {
+  background-color: #f1f1f1;
+}
+
+.actions button {
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  padding: 8px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.actions button:hover {
+  background-color: #f44336;
+}
+
+.actions .delete-btn {
+  background-color: #F44336;
+}
+
+.actions .delete-btn:hover {
+  background-color: #D32F2F;
+}
+
+/* Footer */
+
+/* MUDAR FUNÇAO */
+
+.mudar-usuario-treinador {
+  display: flex;
+  gap: 20px;
+}
+
+/* FIM MUDAR FUNÇAO */
+
+html, body {
+  background-color: var(--absolut-dark);
+  width: 100%;
+  min-width: auto;
+  max-width: 100%;
+  height: auto;
+  min-height: 100vh;
+  --bs-dark: #212121;
+  --bs-dark-rgb: 33,33,33;
+}
+
+.h1-branco {
+  color: var(--light-color);
+  font-size: xx-large;
+}
+
+.button-crud {
+  display: flex;
+  gap: 20px;
+  height: auto;
+  justify-content: center;
+}
+

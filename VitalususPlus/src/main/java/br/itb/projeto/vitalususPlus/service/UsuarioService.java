@@ -92,15 +92,17 @@ public class UsuarioService {
 
 	public void enviarMail(String email) {
 		Usuario usuario = usuarioRepository.findByEmail(email);
-		String link = "https://start.spring.io/";
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom("vitalususplusoficial@hotmail.com");
-		message.setTo(email);
-		message.setSubject("Recuperação de Senha");
-		message.setText("Clique no link para redefinir sua senha (link)" );
-		
-		mailSender.send(message);
-		
+		String link = "link da página de recuperar senha";
+		if(usuario !=null) {
+			SimpleMailMessage message = new SimpleMailMessage();
+			message.setFrom("vitalususplusoficial@gmail.com");
+			message.setTo(email);
+			message.setSubject("Recuperação de Senha");
+			message.setText("Clique no link para redefinir sua senha http://localhost:5173/TrocarSenha.html?id="+usuario.getId());
+
+			mailSender.send(message);
+		}
+		else throw new RuntimeException("Este usuário não existe");
 	}
 	@Transactional
 	public Usuario tornarPrivado (long id) {

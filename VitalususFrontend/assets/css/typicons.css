@@ -1,0 +1,11 @@
+@font-face {
+	font-family: 'typicons';
+	src: url(../../assets/fonts/typicons-23ae5002726b677303fd57b8a5e15c26.eot) format('embedded-opentype'),
+	url(../../assets/fonts/typicons-23ae5002726b677303fd57b8a5e15c26.eot) format('embedded-opentype'),
+	url(../../assets/fonts/typicons-d12f03177bafebba732b470eb9fbdb78.woff) format('woff'),
+	url(../../assets/fonts/typicons-5372f904427aa2fa4ee1ba06c37c8281.ttf) format('truetype'),
+	url(../../assets/fonts/typicons-4c0ff74df1b268c5dd0f087614f2ecaf.svg) format('svg');
+	font-weight: normal;
+	font-style: normal;
+	font-display: auto;
+}

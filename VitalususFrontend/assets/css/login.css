@@ -1,0 +1,371 @@
+.tamanho-container {
+  width: 100px;
+  height: auto;
+}
+
+@media (min-width: 768px) and (max-width:1400px) {
+  .tamanho-container {
+    width: 400px;
+    height: 350px;
+    min-width: auto;
+    max-width: none;
+  }
+}
+
+@media (min-width: 1400px) {
+  .tamanho-container {
+    width: 500px;
+    min-width: auto;
+    height: auto;
+  }
+}
+
+.main-f {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  min-height: 84vh;
+  height: auto;
+  margin-top: 0;
+  max-height: none;
+  padding: 10px;
+}
+
+/* form para fazer o login */
+
+/* ELEMENTO FORM */
+
+@media (min-width: 1500px) {
+  .response-cont {
+    min-height: 80vh!important;
+    height: auto;
+    max-height: none;
+    min-width: 500px;
+    width: 40%!important;
+    max-width: none;
+  }
+}
+
+.form {
+  min-height: 450px;
+  height: auto;
+  max-height: none;
+  min-width: auto;
+  width: 500px;
+  max-width: none;
+  border-radius: 5px;
+  background-color: var(--background-cinzento-2);
+  color: var(--light-color);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+  .form {
+    width: 70%;
+    max-width: 420px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .form {
+    width: 90%;
+    max-width: 400px !important;
+  }
+}
+
+/* FIM ELEMENTO FORM */
+
+/* text-h1 tamanhos */
+
+.h1-f {
+  font-weight: 570;
+}
+
+/* text h1 tamanhos fim */
+
+.text-form {
+  font-family: 'Alatsi';
+  margin: 20px;
+  top: 0;
+}
+
+/* tamanho dos label */
+
+/* fim tamanho dos label */
+
+@media (max-width: 340px) {
+  .link-btn {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 341px) and (max-width:768px) {
+  .link-btn {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 768px) and (max-width:1000) {
+  .link-btn {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .link-btn {
+    font-size: 18px;
+  }
+}
+
+/* responsividade dos inputs */
+
+.column-e-row {
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* media query */
+
+@media (min-width: 1400px) {
+  .column-e-row {
+  }
+}
+
+/* fim da rspn do input */
+
+/* inputs email e senha */
+
+.tmh-input {
+  outline: none;
+  border: none;
+  min-width: 90%;
+  width: 25vw;
+  max-width: 100%;
+  min-height: 3vh!important;
+  height: auto;
+  max-height: none;
+  border-radius: 8px;
+  background-color: var(--light-color);
+  color: var(--absolut-dark);
+  padding: 5px;
+  padding-left: 10px;
+}
+
+@media (max-width: 100px) {
+  .tmh-input {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    height: 30px;
+  }
+}
+
+@media (min-width: 100px) and (max-width:768px) {
+  .tmh-input {
+    width: 90%;
+    max-width: none;
+    height: 40px;
+  }
+}
+
+.tmh-input:active {
+}
+
+.tmh-input:focus {
+  transition: 0.2s ease;
+  background-color: var(--light-color);
+  color: var(--absolut-dark);
+  outline: 2px solid red;
+  border: none;
+  box-shadow: none;
+}
+
+/* fim form */
+
+.container-1 {
+  background-color: var(--cor-cinza1);
+  box-shadow: 2px var(--light-color);
+  color: var(--absolut-dark);
+  max-width: none;
+  min-height: 450px;
+  height: auto;
+  max-height: none;
+  min-width: auto;
+  width: 500px;
+  max-width: none;
+  padding: 10px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* media quert container */
+
+@media (min-width: 576px) and (max-width: 768px) {
+  .container-1 {
+    width: 70%;
+    max-width: 420px;
+  }
+}
+
+@media (max-width: 576px) {
+  .container-1 {
+    width: 90%;
+    max-width: 400px;
+  }
+}
+
+/* fim md cnt */
+
+.row-e-column {
+  display: flex;
+  flex-direction: row;
+}
+
+/* MEDIA QUERY DOS CONTAINER */
+
+@media (max-width: 768px) {
+  .row-e-column {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Fim rw e cln */
+
+/* parte do button e esqueci a senha */
+
+@media (max-width: 100px) {
+  .button-form {
+    width: 100%!important;
+    min-width: 100%;
+    max-width: 100%;
+  }
+}
+
+.button-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  width: 300px;
+  min-width: 100px;
+  border-radius: 8px;
+}
+
+@media (min-width:360px) and (max-width: 768px) {
+  .button-form {
+    width: auto;
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 360px) {
+  .button-form {
+    width: 100%;
+    max-width: 120px;
+    min-width: auto;
+  }
+}
+
+/* fim midia query button-form */
+
+@media (max-width: 100px) {
+  .div-button-entrar {
+    width: 100%!important;
+    min-width: 100%;
+    max-width: 100%!important;
+  }
+}
+
+.div-button-entrar {
+  width: auto;
+  min-width: 0;
+  max-width: fit-content;
+  justify-content: start;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .div-button-entrar {
+    margin: auto;
+    max-width: none!important;
+    width: auto;
+    min-width: auto!important;
+  }
+}
+
+/* transformação do button-form */
+
+.button-form:hover {
+  transition: 0.3s ease;
+  letter-spacing: 1px;
+}
+
+/* fim btn frm */
+
+.link-esqueci {
+  color: var(--bs-secondary);
+  text-decoration: underline;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  display: inline;
+  width: auto;
+  min-width: 100px;
+  max-width: fit-content;
+  padding: 5px;
+  transition: 0.2s cubic-bezier(0.5,2,0.1,2);
+}
+
+.link-esqueci:hover {
+  transition: scale 0.3s ease;
+  transform: scale(1.1);
+  letter-spacing: 0.1px;
+  color: var(--link-color2);
+  letter-spacing: 0.4px;
+  text-decoration: none;
+}
+
+@media (max-width: 360px) {
+  .link-esqueci:hover {
+    transition: scale 0.3s;
+    transform: scale(1.1);
+  }
+}
+
+/* fim prt btn e esq snh */
+
+/* CONTAINER-1 */
+
+.button-padrao3 {
+  transition: 0.1s ease;
+  text-transform: none;
+  border-radius: 10px;
+  font-weight: 600;
+  color: var(--light-color);
+  opacity: 0.9;
+}
+
+.button-padrao3:hover {
+  opacity: 1;
+  transition: 0.3s ease;
+  letter-spacing: 2px;
+  word-spacing: 5px;
+  color: var(--light-color);
+  background-color: var(--padrao);
+}
+
+.div-input3 {
+  display: flex;
+  flex-direction: column;
+}
+

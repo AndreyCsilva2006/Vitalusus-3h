@@ -1,0 +1,218 @@
+.imagem-tema {
+  width: 3vw;
+  height: 3vw;
+}
+
+@media (max-width: 400px) {
+  .imagem-tema {
+    min-width: 30px;
+    min-height: 30px;
+  }
+}
+
+.imagem-tema {
+}
+
+/* DIV */
+
+.div-conf {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  width: 100%;
+}
+
+/* SECTION */
+
+.form-atualizar {
+  min-height: auto;
+  height: auto;
+  max-height: none;
+  min-width: auto;
+  width: 70%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  margin: auto;
+  gap: 20px;
+  background-color: var(--cor-cinza5);
+  color: var(--light-color);
+  padding: 25px;
+  border-radius: 10px;
+  margin-top: 25vh;
+}
+
+/* ICONS */
+
+.tmnh-icon {
+  font-size: 1.5rem;
+  min-width: 1.5vw;
+  width: auto!important;
+  height: auto;
+}
+
+/* BUTTON */
+
+.button-conf {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  min-width: 40vw;
+  width: auto!important;
+  height: auto!important;
+  min-height: 9vh;
+  max-height: fit-content;
+  border-radius: 20px;
+  border: none;
+  padding: 0.7rem;
+  padding-inline: 0.5rem;
+}
+
+@media (min-width: 600px) {
+  .button-conf {
+    min-width: 20vw;
+    width: auto!important;
+    max-width: 25%;
+    min-height: 8vh;
+    height: auto!important;
+    max-height: none;
+    padding: 0.5rem;
+    padding-inline: 0.2rem;
+  }
+}
+
+.button-submit {
+  min-width: auto;
+  width: 200px;
+  height: 40px;
+  padding: 5px;
+}
+
+/* 1° Navegação com background */
+
+.back-enfeite {
+  position: relative;
+  margin: auto;
+  height: 100px;
+  width: 90%;
+  border-radius: 15px;
+  background-color: var(--cor-cinza3);
+  margin-bottom: 100px;
+}
+
+.nav-conteudos {
+  top: 80%;
+  position: absolute;
+  min-width: auto;
+  width: 100%;
+  min-width: auto;
+  max-width: none;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: start;
+}
+
+/* fim da 1° Navegação com background */
+
+/* Caso eu queria colocar algumas navs no código */
+
+.navs {
+  border-radius: 15px;
+  padding: 10px;
+  min-width: 10vw;
+  width: auto!important;
+  min-height: 8vh;
+  height: auto!important;
+  background-color: var(--padrao);
+  border: none;
+  color: var(--cor-anti-destaque);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.navs:hover {
+  background: var(--cor-cinza-transparent-1);
+  color: var(--light-color);
+  box-shadow: 2px 2px 2px var(--absolut-dark);
+  transition: 0.4s ease;
+}
+
+.navs > a {
+  text-transform: capitalize;
+  color: var(--cor-anti-destaque);
+  transition: 0.3s ease;
+}
+
+.navs:hover > a {
+  transition: 0.4s ease;
+  text-transform: uppercase;
+  color: var(--light-color);
+}
+
+/* se o link estiver ativado */
+
+.ativado {
+  background-color: var(--font-padrao-dark);
+  color: var(--cor-anti-destaque);
+}
+
+.ativado a {
+  cursor: initial;
+  color: var(--cor-anti-destaque);
+}
+
+.ativado:hover {
+  background-color: var(--font-padrao-dark);
+  color: var(--cor-anti-destaque);
+  box-shadow: 0 0 0;
+  cursor: initial;
+}
+
+.ativado:hover > a {
+  color: var(--cor-anti-destaque);
+}
+
+/* fim link ativado */
+
+/* links com efeito */
+
+.efeito {
+  text-decoration: none;
+  position: relative;
+  transition: 0.6s ease;
+}
+
+.efeito::after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0px;
+  height: 2px;
+  background: var(--light-color);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s ease;
+}
+
+.efeito:hover::after {
+  transform-origin: left;
+  transform: scaleX(1);
+}
+
+/* fim caso das NAVS */
+
