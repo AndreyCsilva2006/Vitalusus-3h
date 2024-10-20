@@ -6,7 +6,7 @@ import android.os.Bundle;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.network.RetrofitClient;
 import com.br.projeto.vitalusus.network.ApiService;
-import com.br.projeto.vitalusus.view.ListarAlunos;
+//import com.br.projeto.vitalusus.view.ListarAlunos;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.Nullable;

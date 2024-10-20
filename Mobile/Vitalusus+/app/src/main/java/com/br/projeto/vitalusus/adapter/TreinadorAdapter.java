@@ -45,8 +45,6 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
         void onItemClick(Usuario usuario, Treinador treinador, Canal canal);
     }
 
-
-
     @NonNull
     @Override
     public TreinadorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

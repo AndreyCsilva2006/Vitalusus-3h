@@ -1,6 +1,7 @@
 package com.br.projeto.vitalusus.network;
 import com.br.projeto.vitalusus.model.Aluno;
 import com.br.projeto.vitalusus.model.Canal;
+import com.br.projeto.vitalusus.model.Comentario;
 import com.br.projeto.vitalusus.model.Treinador;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.model.Video;
@@ -56,6 +57,9 @@ public interface ApiService {
 
     @GET("/videos/{id}")
     Call<Video> getVideolById(@Path("id") int id);
+
+    @GET("/videos/comentarios/{videoId}")
+    Call<Comentario> getComentariosByVideoId(@Path("videoId") int videoId);
 
     @GET("/usuarios/{idade}")
     Call<Usuario> getIdade(@Path("idade") int idade);

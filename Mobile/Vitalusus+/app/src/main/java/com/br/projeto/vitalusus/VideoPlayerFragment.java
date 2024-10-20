@@ -16,8 +16,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.br.projeto.vitalusus.adapter.ComentarioAdapter;
+import com.br.projeto.vitalusus.adapter.TreinadorAdapter;
+import com.br.projeto.vitalusus.model.Aluno;
 import com.br.projeto.vitalusus.model.Canal;
+import com.br.projeto.vitalusus.model.Comentario;
 import com.br.projeto.vitalusus.model.Treinador;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.model.Video;
@@ -34,6 +40,8 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -47,7 +55,11 @@ public class VideoPlayerFragment extends Fragment {
 
     private PlayerView playerView;
     private ExoPlayer exoPlayer;
-    private SearchView searchView;
+    private ComentarioAdapter comentarioAdapter;
+
+    private List<Comentario> comentarioList = new ArrayList<>();
+    private List<Aluno> alunoList = new ArrayList<>();
+    private List<Usuario> usuarioList = new ArrayList<>();
 
     private static final String ARG_CANAL_ID = "canal_id";
     private static final String ARG_USUARIO_ID = "usuario_id";
@@ -89,6 +101,12 @@ public class VideoPlayerFragment extends Fragment {
         PlayerView playerView = view.findViewById(R.id.player_view);
         playerView.setPlayer(exoPlayer);
 
+
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewComentariosVideoPlayer) ;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        comentarioAdapter = new ComentarioAdapter(comentarioList, usuarioList, alunoList);
+        recyclerView.setAdapter(comentarioAdapter);
+
         TextView tvTituloVideo = view.findViewById(R.id.txtTituloVideoPlayer);
         TextView tvNomeCanal = view.findViewById(R.id.txtNomeCanalVideoPlayer);
         TextView tvDataPublic = view.findViewById(R.id.txtDataPubliVideoPlayer);
@@ -101,7 +119,34 @@ public class VideoPlayerFragment extends Fragment {
         fetchVideo(videoId, tvTituloVideo, tvDataPublic, tvVisualizacoesVideo, exoPlayer);
         fetchUsuarioDetails(usuarioId, fotoUsuarioImageView);
 
+//        fetchComentarios(videoId);
+
         return view;
+    }
+
+    // Método para buscar os comentários via Retrofit
+    private void fetchComentarios(int videoId) {
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Comentario> callComentarios = apiService.getComentariosByVideoId(videoId);
+        callComentarios.enqueue(new Callback<Comentario>() {
+            @Override
+            public void onResponse(Call<Comentario> call, Response<Comentario> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    comentarioList.clear();
+//                    comentarioList.addAll(response.body());
+                    comentarioAdapter.notifyDataSetChanged(); // Atualiza a RecyclerView
+                } else {
+                    Log.e("Erro", "Erro ao carregar comentários: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Comentario> call, Throwable t) {
+                Log.e("Erro", "Erro: " + t.getMessage());
+            }
+        });
     }
 
     private void fetchCanalDetails(int canalId, TextView tvNomeCanal, TextView tvSeguidoresCanal, TextView tvTituloVideo, TextView tvDataPublic, CircleImageView fotoUsuarioImageView) {
