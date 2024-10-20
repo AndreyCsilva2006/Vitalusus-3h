@@ -57,14 +57,14 @@ public class ListaCanalAdapter extends RecyclerView.Adapter<ListaCanalAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtNomeTreinador;
         TextView txtDescricaoTreinador;
-        TextView txtSeguidores;
+//        TextView txtSeguidores;
         ImageView imgFoto;
 
         public ViewHolder(View itemView) {
             super(itemView);
             txtNomeTreinador = itemView.findViewById(R.id.txtNomeCanal);
             txtDescricaoTreinador = itemView.findViewById(R.id.tv_descricao);
-            txtSeguidores = itemView.findViewById(R.id.txtSeguidoresCanal);
+//            txtSeguidores = itemView.findViewById(R.id.txtSeguidoresCanal);
             imgFoto = itemView.findViewById(R.id.imgFotoCanal);
         }
     }

@@ -85,7 +85,12 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
         // Lógica de exibição do canal
         if (canal != null) {
             holder.nomeCanalTextView.setText(canal.getNome());
-            holder.seguidoresTextView.setText(formatarNumeroAbreviado((int) canal.getSeguidores()));
+            if (canal.getBio() != null){
+                holder.bioCanalTextView.setText(canal.getBio());
+            } else {
+                holder.bioCanalTextView.setText("Canal Sem Descrição");
+            }
+//            holder.seguidoresTextView.setText(formatarNumeroAbreviado((int) canal.getSeguidores()));
         }
 
         // Decodificar e exibir a foto do usuário correto
@@ -124,13 +129,15 @@ public class TreinadorAdapter extends RecyclerView.Adapter<TreinadorAdapter.Trei
 
     public static class TreinadorViewHolder extends RecyclerView.ViewHolder {
         TextView nomeCanalTextView;
-        TextView seguidoresTextView;
+        TextView bioCanalTextView;
+//        TextView seguidoresTextView;
         CircleImageView fotoImageView;
 
         public TreinadorViewHolder(View itemView) {
             super(itemView);
             nomeCanalTextView = itemView.findViewById(R.id.txtNomeCanal); // Referência ao TextView para o nome do treinador
-            seguidoresTextView = itemView.findViewById(R.id.tv_SeguidoresCanal);//Referência ao TextView para os seguidores do treinador
+//            seguidoresTextView = itemView.findViewById(R.id.tv_SeguidoresCanal);//Referência ao TextView para os seguidores do treinador
+            bioCanalTextView = itemView.findViewById(R.id.tv_descricao);
             fotoImageView = itemView.findViewById(R.id.imgFotoCanal); // Referência ao ImageView para a foto do treinador
         }
     }

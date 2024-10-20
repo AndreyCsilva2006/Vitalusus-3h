@@ -1,12 +1,11 @@
 package com.br.projeto.vitalusus.network;
 import com.br.projeto.vitalusus.model.Aluno;
 import com.br.projeto.vitalusus.model.Canal;
-import com.br.projeto.vitalusus.model.Comentario;
+import com.br.projeto.vitalusus.model.Equipamento;
 import com.br.projeto.vitalusus.model.Treinador;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.model.Video;
 import com.br.projeto.vitalusus.model.VideoResponse;
-import com.br.projeto.vitalusus.network.ApiService;
 import com.br.projeto.vitalusus.response.AlunoResponse;
 
 import okhttp3.ResponseBody;
@@ -58,8 +57,8 @@ public interface ApiService {
     @GET("/videos/{id}")
     Call<Video> getVideolById(@Path("id") int id);
 
-    @GET("/videos/comentarios/{videoId}")
-    Call<Comentario> getComentariosByVideoId(@Path("videoId") int videoId);
+    @GET("videos/com-detalhes/canal/{canalId}")
+    Call<List<VideoResponse>> getVideosByCanalId(@Path("canalId") int canalId);
 
     @GET("/usuarios/{idade}")
     Call<Usuario> getIdade(@Path("idade") int idade);

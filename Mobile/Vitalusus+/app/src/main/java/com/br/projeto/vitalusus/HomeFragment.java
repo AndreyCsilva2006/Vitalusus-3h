@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.br.projeto.vitalusus.adapter.VideoAdapter;
 import com.br.projeto.vitalusus.model.Canal;
+import com.br.projeto.vitalusus.model.Equipamento;
 import com.br.projeto.vitalusus.model.Treinador;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.model.Video;
@@ -61,6 +62,7 @@ public class HomeFragment extends Fragment {
     private List<Canal> canalList = new ArrayList<>();
     private List<Treinador> treinadorList = new ArrayList<>();
     private List<Usuario> usuarioList = new ArrayList<>();
+//    private List<Equipamento> equipamentoList = new ArrayList<>();
 
     private Map<Integer, Usuario> treinadorUsuarioMap = new HashMap<>();
 
@@ -74,26 +76,11 @@ public class HomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        videoAdapter = new VideoAdapter(usuarioList, canalList, treinadorList, videoList, (video, canal, usuario, treinador) -> {
-            openVideoPlayerFragment(video.getId(), canal.getId(), usuario.getId());
-        });
-
-//        videoAdapter = new VideoAdapter(videoList, canalList, usuarioList, new ArrayList<>(), (video, canal, usuario) -> {
-//            Log.d("HomeFragment", "Tentando abrir Video Player Fragment com IDs: Canal=" + canal.getId() + ", Usuario=" + usuario.getId() + ", Video=" + video.getId());
-//            if (canal != null && usuario != null && video != null) {
-//                Integer canalId = canal.getId();
-//                Integer usuarioId = usuario.getId();
-//                Integer videoId = video.getId();
-//
-//                if (canalId != null && usuarioId != null && videoId != null) {
-//                    openVideoPlayerFragment(canalId, usuarioId, videoId);
-//                } else {
-//                    mostrarErro("IDs do canal, usuário ou vídeo estão nulos.");
-//                }
-//            } else {
-//                mostrarErro("Dados incompletos para abrir o vídeo. Verifique se o vídeo, canal e usuário estão corretos.");
-//            }
-//        }, getContext());
+        videoAdapter = new VideoAdapter(usuarioList, canalList, treinadorList, videoList,
+                (video, canal, usuario, treinador) -> {
+                    openVideoPlayerFragment(video.getId(), canal.getId(), usuario.getId());
+                }
+        );
 
         recyclerView.setAdapter(videoAdapter);
 

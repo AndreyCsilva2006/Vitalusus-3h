@@ -89,34 +89,6 @@ sql.connect(dbConfig).then(pool => {
             }
     });
 
-    app.get('/likes', async (req, res) => {
-            try {
-                const result = await pool.request().query('SELECT * FROM Likes');
-                res.json(result.recordset);
-            } catch (err) {
-                console.error('Erro ao buscar tabela Likes:', err.message);
-                res.status(500).send(err.message);
-            }
-    });
-
-    app.get('/likes/:id', async (req, res) => {
-            const likeId = req.params.id;
-            try {
-                const result = await pool.request()
-                    .input('id', sql.Int, likeId)
-                    .query('SELECT * FROM Likes WHERE id = @id');
-
-                if (result.recordset.length > 0) {
-                    res.json(result.recordset[0]);
-                } else {
-                    res.status(404).send('Like não encontrado');
-                }
-            } catch (err) {
-                console.error('Erro ao buscar Like pelo ID:', err.message);
-                res.status(500).send(err.message);
-            }
-        });
-
   app.get('/videos/com-detalhes', async (req, res) => {
       try {
           const result = await pool.request().query(`
@@ -133,17 +105,11 @@ sql.connect(dbConfig).then(pool => {
                   T.id AS treinadorId,
                   U.id AS usuarioId,
                   U.foto AS fotoUsuario,
-                  U.nome AS nomeTreinador,
-                  Coment.id AS comentarioId,
-                  Coment.texto AS comentarioTexto,
-                  Coment.aluno_id AS aluno_id,
-                  Coment.videoaula_id AS videoaula_id,
-                  Coment.dataPubli AS dataPubliComentario
+                  U.nome AS nomeTreinador
               FROM Videoaula V
               JOIN Canal C ON V.canal_id = C.id
               JOIN Treinador T ON C.treinador_id = T.id
               JOIN Usuario U ON T.usuario_id = U.id
-              JOIN Comentario Coment ON Coment.videoaula_id = V.id
           `);
 
           const videosComDetalhes = result.recordset.map(video => ({
@@ -152,6 +118,7 @@ sql.connect(dbConfig).then(pool => {
                   titulo: video.titulo,
                   descricao: video.descricao,
                   visualizacoes: video.visualizacoes,
+                  equipamento: video.equipamento,
                   dataPubli: new Date(video.dataPubli).toISOString(), // Corrigindo o formato da data para ISO 8601
                   thumbnail: video.thumbnail ? Buffer.from(video.thumbnail).toString('base64') : null
               },
@@ -167,15 +134,68 @@ sql.connect(dbConfig).then(pool => {
               },
               treinador:{
                   id: video.treinadorId
-              },
-              comentario:{
-                  id: video.comentarioId,
-                  texto: video.comentarioTexto,
-                  aluno_id: video.aluno_id,
-                  videoaula_id: video.comentario_id,
-                  dataPubli: video.dataPubliComentario
               }
           }));
+
+          // Rota para buscar vídeos com detalhes filtrados pelo canal_id
+          app.get('/videos/com-detalhes/canal/:canalId', async (req, res) => {
+              const canalId = req.params.canalId;
+
+              try {
+                  const result = await pool.request()
+                      .input('canalId', sql.Int, canalId)
+                      .query(`
+                          SELECT
+                              V.id,
+                              V.titulo,
+                              V.descricao,
+                              V.visualizacoes,
+                              V.dataPubli,
+                              V.thumbnail,
+                              C.id AS canalId,
+                              C.nome AS nomeCanal,
+                              C.seguidores AS seguidoresCanal,
+                              T.id AS treinadorId,
+                              U.id AS usuarioId,
+                              U.foto AS fotoUsuario,
+                              U.nome AS nomeTreinador
+                          FROM Videoaula V
+                          JOIN Canal C ON V.canal_id = C.id
+                          JOIN Treinador T ON C.treinador_id = T.id
+                          JOIN Usuario U ON T.usuario_id = U.id
+                          WHERE C.id = @canalId
+                      `);
+
+                  const videosComDetalhes = result.recordset.map(video => ({
+                      video: {
+                          id: video.id,
+                          titulo: video.titulo,
+                          descricao: video.descricao,
+                          visualizacoes: video.visualizacoes,
+                          dataPubli: new Date(video.dataPubli).toISOString(),
+                          thumbnail: video.thumbnail ? Buffer.from(video.thumbnail).toString('base64') : null
+                      },
+                      canal: {
+                          id: video.canalId,
+                          nome: video.nomeCanal,
+                          seguidores: video.seguidoresCanal
+                      },
+                      usuario: {
+                          id: video.usuarioId,
+                          foto: video.fotoUsuario ? Buffer.from(video.fotoUsuario).toString('base64') : null,
+                          nome: video.nomeTreinador
+                      },
+                      treinador: {
+                          id: video.treinadorId
+                      }
+                  }));
+
+                  res.json(videosComDetalhes);
+              } catch (err) {
+                  console.error('Erro ao buscar vídeos com detalhes:', err.message);
+                  res.status(500).send('Erro ao buscar vídeos com detalhes');
+              }
+          });
 
           // Certifique-se de que a resposta seja enviada apenas uma vez
           res.json(videosComDetalhes);
@@ -260,57 +280,6 @@ sql.connect(dbConfig).then(pool => {
             }
         });
 
-        app.get('/videos/comentarios/:videoId', async (req, res) => {
-            const id = req.params.id;
-               try {
-                   const result = await pool.request()
-                       .input('id', sql.Int, id)
-                       .query(`SELECT
-                          V.id,
-                          V.titulo,
-                          V.descricao,
-                          V.visualizacoes,
-                          V.dataPubli,
-                          V.video,
-                          Coment.id AS comentarioId,
-                          Coment.texto AS comentarioTexto,
-                          Coment.aluno_id AS aluno_id,
-                          Coment.videoaula_id AS videoaula_id,
-                          Coment.dataPubli AS dataPubliComentario
-                       FROM Videoaula V
-                       JOIN Comentario Coment ON Coment.videoaula_id = V.id
-                       WHERE V.id = @id
-                   `);
-
-                   // Verifica se o resultado contém algum vídeo
-                   if (result.recordset.length > 0) {
-                       const video = result.recordset[0]; // Pega o primeiro vídeo
-                       const videoComDetalhes = {
-
-                               id: video.id,
-                               titulo: video.titulo,
-                               descricao: video.descricao,
-                               visualizacoes: video.visualizacoes,
-                               dataPubli: new Date(video.dataPubli).toISOString(), // Corrigindo o formato da data para ISO 8601
-                               video: video.video ? Buffer.from(video.video).toString('base64') : null,
-                               ComentarioId: video.comentarioId,
-                               comentarioTexto: video.comentarioTexto,
-                               aluno_id: video.aluno_id,
-                               videoaula_id: video.comentario_id,
-                               dataPubliComentario: video.dataPubliComentario
-                       };
-
-                       res.json(videoComDetalhes); // Retorna o objeto em vez de um array
-                   } else {
-                       res.status(404).json({ message: "Vídeo não encontrado." });
-                   }
-
-               } catch (err) {
-                   console.error('Erro ao buscar Video pelo ID:', err.message);
-                   res.status(500).send(err.message);
-               }
-        });
-
         app.get('/videos/:id', async (req, res) => {
             const id = req.params.id;
             try {
@@ -323,13 +292,12 @@ sql.connect(dbConfig).then(pool => {
                        V.visualizacoes,
                        V.dataPubli,
                        V.video,
-                       Coment.id AS comentarioId,
-                       Coment.texto AS comentarioTexto,
-                       Coment.aluno_id AS aluno_id,
-                       Coment.videoaula_id AS videoaula_id,
-                       Coment.dataPubli AS dataPubliComentario
+                       E.id AS equipamentoId,
+                       E.nome AS equipamentoNome,
+                       E.link AS equipamentoLink,
+                       E.statusEquipamento AS equipamentoStatus
                     FROM Videoaula V
-                    JOIN Comentario Coment ON Coment.videoaula_id = V.id
+                    JOIN Equipamento E ON V.equipamento_id = E.id
                     WHERE V.id = @id
                 `);
 
@@ -337,21 +305,20 @@ sql.connect(dbConfig).then(pool => {
                 if (result.recordset.length > 0) {
                     const video = result.recordset[0]; // Pega o primeiro vídeo
                     const videoComDetalhes = {
+                        id: video.id,
+                        titulo: video.titulo,
+                        descricao: video.descricao,
+                        visualizacoes: video.visualizacoes,
+                        dataPubli: new Date(video.dataPubli).toISOString(), // Corrigindo o formato da data para ISO 8601
+                        video: video.video ? Buffer.from(video.video).toString('base64') : null,
+                        equipamentoId: video.equipamentoId,
+                        nomeEquipamento: video.equipamentoNome,
+                        linkEquipamento: video.equipamentoLink,
+                        statusEquipamento: video.statusEquipamento
 
-                            id: video.id,
-                            titulo: video.titulo,
-                            descricao: video.descricao,
-                            visualizacoes: video.visualizacoes,
-                            dataPubli: new Date(video.dataPubli).toISOString(), // Corrigindo o formato da data para ISO 8601
-                            video: video.video ? Buffer.from(video.video).toString('base64') : null,
-                            ComentarioId: video.comentarioId,
-                            comentarioTexto: video.comentarioTexto,
-                            aluno_id: video.aluno_id,
-                            videoaula_id: video.comentario_id,
-                            dataPubliComentario: video.dataPubliComentario
                     };
 
-                    res.json(videoComDetalhes); // Retorna o objeto em vez de um array
+                    res.json(videoComDetalhes); // Retorna o objeto com detalhes de equipamento
                 } else {
                     res.status(404).json({ message: "Vídeo não encontrado." });
                 }
@@ -362,6 +329,40 @@ sql.connect(dbConfig).then(pool => {
             }
         });
 
+    app.get('/equipamentos/:id', async (req, res) => {
+            const id = req.params.id;
+            try {
+                const result = await pool.request()
+                    .input('id', sql.Int, id)
+                    .query(`SELECT
+                       id AS equipamentoId,
+                       nome AS equipamentoNome,
+                       link AS equipamentoLink,
+                       statusEquipamento AS equipamentoStatus
+                    FROM Equipamento WHERE id = @id
+                `);
+
+                // Verifica se o resultado contém algum vídeo
+                if (result.recordset.length > 0) {
+                    const video = result.recordset[0]; // Pega o primeiro vídeo
+                    const equipamentosComDetalhes = {
+                        equipamentoId: video.equipamentoId,
+                        nomeEquipamento: video.equipamentoNome,
+                        linkEquipamento: video.equipamentoLink,
+                        statusEquipamento: video.statusEquipamento
+
+                    };
+
+                    res.json(equipamentosComDetalhes); // Retorna o objeto com detalhes de equipamento
+                } else {
+                    res.status(404).json({ message: "equipamentosComDetalhes não encontrado." });
+                }
+
+            } catch (err) {
+                console.error('Erro ao buscar equipamentosComDetalhes pelo ID:', err.message);
+                res.status(500).send(err.message);
+            }
+    });
 
            // Rota para obter todos os alunos
     app.get('/alunos', async (req, res) => {

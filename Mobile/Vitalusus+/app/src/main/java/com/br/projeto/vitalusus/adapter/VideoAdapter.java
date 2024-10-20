@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.br.projeto.vitalusus.R;
 import com.br.projeto.vitalusus.model.Canal;
+import com.br.projeto.vitalusus.model.Equipamento;
 import com.br.projeto.vitalusus.model.Treinador;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.model.Video;
@@ -29,12 +30,14 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     private final List<Video> videoList;
     private final List<Usuario> usuarioList;
     private final List<Treinador> treinadorList;
+//    private final List<Equipamento> equipamentoList;
     private final OnItemClickListener listener;
 
     public VideoAdapter(List<Usuario> usuarioList, List<Canal> canalList, List<Treinador> treinadorList, List<Video> videoList, OnItemClickListener listener) {
         this.videoList = videoList;
         this.canalList = canalList;
         this.usuarioList = usuarioList;
+//        this.equipamentoList = equipamentoList;
         this.treinadorList = treinadorList;
         this.listener = listener;
     }
@@ -64,6 +67,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
         Video video = videoList.get(position);
         Canal canal = canalList.get(position);
+//        Equipamento equipamento = (position < equipamentoList.size()) ? equipamentoList.get(position) : null;
 
         Treinador treinador = (position < treinadorList.size()) ? treinadorList.get(position) : null;
         Usuario usuario = usuarioList.get(position);
@@ -81,7 +85,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
 
         if (canal != null) {
             holder.canalNome.setText(canal.getNome());
-            holder.canalSeguidores.setText(String.valueOf(canal.getSeguidores()));
+//            holder.canalSeguidores.setText(String.valueOf(canal.getSeguidores()));
         }
 
         if (video != null){
@@ -89,12 +93,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
             holder.videoVisualizacoes.setText(video.getVisualizacoes().toString());
             holder.videoDataPubli.setText(video.getDataPubli());
         }
-
-        // Define os outros detalhes do vídeo
-//        holder.videoVisualizacoes.setText((CharSequence) video.getVisualizacoes());
-//        holder.videoThumbnail.setImageBitmap(video.getThumbnail());
-//        holder.canalSeguidores.setText((int) canal.getSeguidores());
-//        holder.canalFoto.setImageBitmap(usuario.getFoto());
 
         // Decodificar imagem de thumbnail do vídeo
         if (video.getThumbnail() != null && !video.getThumbnail().isEmpty()) {
@@ -131,6 +129,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         }
         Log.d("UsuarioFoto", "ID: " + usuario.getId() + ", Nome: " + usuario.getNome() + ", Foto: " + usuario.getFoto());
         Log.d("video", "ID: " + video.getId() + ", título: " + video.getTitulo() + ", thumbnail: " + video.getThumbnail());
+//        Log.d("equipamento", "ID: " + equipamento.getId());
     }
 
     @Override
@@ -145,7 +144,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         TextView videoVisualizacoes;
         TextView videoDataPubli;
         TextView canalNome;
-        TextView canalSeguidores;
+//        TextView canalSeguidores;
         CircleImageView canalFoto;
 
         public VideoViewHolder(@NonNull View itemView) {
@@ -155,7 +154,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
             videoDataPubli = itemView.findViewById(R.id.DataPubliVideo);
             videoVisualizacoes = itemView.findViewById(R.id.visualizacoesVideo);
             canalNome = itemView.findViewById(R.id.nomeCanal);
-            canalSeguidores = itemView.findViewById(R.id.seguidoresCanal);
+//            canalSeguidores = itemView.findViewById(R.id.seguidoresCanal);
             canalFoto = itemView.findViewById(R.id.fotoCanal);
         }
     }

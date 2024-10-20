@@ -34,20 +34,20 @@
             android:orientation="horizontal"
             android:layout_marginTop="8dp">
 
-            <TextView
-                android:id="@+id/txtSeguidoresCanal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Seguidores"
-                android:textSize="14sp" />
+<!--            <TextView-->
+<!--                android:id="@+id/txtSeguidoresCanal"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Seguidores"-->
+<!--                android:textSize="14sp" />-->
 
-            <TextView
-                android:id="@+id/tv_SeguidoresCanal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="valor de seguidores"
-                android:textSize="14sp"
-                android:layout_marginStart="8dp" />
+<!--            <TextView-->
+<!--                android:id="@+id/tv_SeguidoresCanal"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="valor de seguidores"-->
+<!--                android:textSize="14sp"-->
+<!--                android:layout_marginStart="8dp" />-->
         </LinearLayout>
 
         <TextView
@@ -59,17 +59,17 @@
 
 <!--        Isso aqui é um botão, é uma TextView porém vai ser usada como botão para quando ser aplicada na
             recycleView não temos problemas de conflito quando o Usuário clicar no item(canal) desejado-->
-        <Button
-            android:id="@+id/btn_seguir"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#FF0000"
-            android:clickable="false"
-            android:text="Seguir"
-            android:textColor="#FFFFFF"
-            android:textColorLink="#FFFFFF"
-            android:textSize="14sp"
-            app:strokeColor="#000000"
-            app:strokeWidth="2dp" />
+<!--        <Button-->
+<!--            android:id="@+id/btn_seguir"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:backgroundTint="#FF0000"-->
+<!--            android:clickable="false"-->
+<!--            android:text="Seguir"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:textColorLink="#FFFFFF"-->
+<!--            android:textSize="14sp"-->
+<!--            app:strokeColor="#000000"-->
+<!--            app:strokeWidth="2dp" />-->
     </LinearLayout>
 </LinearLayout>

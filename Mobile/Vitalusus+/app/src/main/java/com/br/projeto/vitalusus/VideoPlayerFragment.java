@@ -14,16 +14,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.br.projeto.vitalusus.adapter.ComentarioAdapter;
-import com.br.projeto.vitalusus.adapter.TreinadorAdapter;
 import com.br.projeto.vitalusus.model.Aluno;
 import com.br.projeto.vitalusus.model.Canal;
-import com.br.projeto.vitalusus.model.Comentario;
+import com.br.projeto.vitalusus.model.Equipamento;
 import com.br.projeto.vitalusus.model.Treinador;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.model.Video;
@@ -33,17 +28,12 @@ import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.ui.PlayerView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -55,19 +45,20 @@ public class VideoPlayerFragment extends Fragment {
 
     private PlayerView playerView;
     private ExoPlayer exoPlayer;
-    private ComentarioAdapter comentarioAdapter;
 
-    private List<Comentario> comentarioList = new ArrayList<>();
     private List<Aluno> alunoList = new ArrayList<>();
     private List<Usuario> usuarioList = new ArrayList<>();
+//    private List<Equipamento> equipamentoList = new ArrayList<>();
 
     private static final String ARG_CANAL_ID = "canal_id";
     private static final String ARG_USUARIO_ID = "usuario_id";
     private static final String ARG_VIDEO_ID = "video_id";
+//    private static final String ARG_EQUIPAMENTO_ID = "equipamento_id";
 
     private int canalId;
     private int usuarioId;
     private int videoId;
+//    private int equipamentoId;
 
     public static VideoPlayerFragment newInstance(int canalId, int usuarioId, int videoId) {
         VideoPlayerFragment fragment = new VideoPlayerFragment();
@@ -75,6 +66,7 @@ public class VideoPlayerFragment extends Fragment {
         args.putInt(ARG_CANAL_ID, canalId);
         args.putInt(ARG_USUARIO_ID, usuarioId);
         args.putInt(ARG_VIDEO_ID, videoId);
+//        args.putInt(ARG_EQUIPAMENTO_ID, equipamentoId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -86,6 +78,7 @@ public class VideoPlayerFragment extends Fragment {
             canalId = getArguments().getInt(ARG_CANAL_ID);
             usuarioId = getArguments().getInt(ARG_USUARIO_ID);
             videoId = getArguments().getInt(ARG_VIDEO_ID);
+//            equipamentoId = getArguments().getInt(ARG_EQUIPAMENTO_ID);
         }
     }
 
@@ -101,55 +94,25 @@ public class VideoPlayerFragment extends Fragment {
         PlayerView playerView = view.findViewById(R.id.player_view);
         playerView.setPlayer(exoPlayer);
 
-
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewComentariosVideoPlayer) ;
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        comentarioAdapter = new ComentarioAdapter(comentarioList, usuarioList, alunoList);
-        recyclerView.setAdapter(comentarioAdapter);
-
         TextView tvTituloVideo = view.findViewById(R.id.txtTituloVideoPlayer);
         TextView tvNomeCanal = view.findViewById(R.id.txtNomeCanalVideoPlayer);
         TextView tvDataPublic = view.findViewById(R.id.txtDataPubliVideoPlayer);
-        TextView tvSeguidoresCanal = view.findViewById(R.id.txtSeguidoresCanalVideoPlayer);
+//        TextView tvSeguidoresCanal = view.findViewById(R.id.txtSeguidoresCanalVideoPlayer);
         TextView tvVisualizacoesVideo = view.findViewById(R.id.txtVisualizacoesVideoPlayer);
+        TextView tvDescricaoVideo = view.findViewById(R.id.txtDescriçãoVideoVideoPlayer);
+        TextView tvEquipamentoVideo = view.findViewById(R.id.txtEqueipamentoVideoPlayer);
 
         CircleImageView fotoUsuarioImageView = view.findViewById(R.id.imgFotoCanalVideoPlayer); // Aqui a ImageView é inicializada
 
-        fetchCanalDetails(canalId, tvNomeCanal, tvSeguidoresCanal, tvTituloVideo, tvDataPublic, fotoUsuarioImageView);
-        fetchVideo(videoId, tvTituloVideo, tvDataPublic, tvVisualizacoesVideo, exoPlayer);
+        fetchCanalDetails(canalId, tvNomeCanal, fotoUsuarioImageView);
+        fetchVideo(videoId, tvTituloVideo, tvDataPublic, tvVisualizacoesVideo, tvDescricaoVideo, exoPlayer);
+//        fetchEquipamento(videoId, tvEquipamentoVideo);
         fetchUsuarioDetails(usuarioId, fotoUsuarioImageView);
-
-//        fetchComentarios(videoId);
 
         return view;
     }
 
-    // Método para buscar os comentários via Retrofit
-    private void fetchComentarios(int videoId) {
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
-        ApiService apiService = retrofit.create(ApiService.class);
-
-        Call<Comentario> callComentarios = apiService.getComentariosByVideoId(videoId);
-        callComentarios.enqueue(new Callback<Comentario>() {
-            @Override
-            public void onResponse(Call<Comentario> call, Response<Comentario> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    comentarioList.clear();
-//                    comentarioList.addAll(response.body());
-                    comentarioAdapter.notifyDataSetChanged(); // Atualiza a RecyclerView
-                } else {
-                    Log.e("Erro", "Erro ao carregar comentários: " + response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Comentario> call, Throwable t) {
-                Log.e("Erro", "Erro: " + t.getMessage());
-            }
-        });
-    }
-
-    private void fetchCanalDetails(int canalId, TextView tvNomeCanal, TextView tvSeguidoresCanal, TextView tvTituloVideo, TextView tvDataPublic, CircleImageView fotoUsuarioImageView) {
+    private void fetchCanalDetails(int canalId, TextView tvNomeCanal, CircleImageView fotoUsuarioImageView) {
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         ApiService apiService = retrofit.create(ApiService.class);
 
@@ -161,7 +124,7 @@ public class VideoPlayerFragment extends Fragment {
                     Canal canal = response.body();
 
                     tvNomeCanal.setText(canal.getNome());
-                    tvSeguidoresCanal.setText(formatarNumeroAbreviado((int) canal.getSeguidores()));
+//                    tvSeguidoresCanal.setText(formatarNumeroAbreviado((int) canal.getSeguidores()));
 
                     // Verifica se o treinador_id não é nulo
                     Integer treinadorId = canal.getTreinadorId();
@@ -185,7 +148,37 @@ public class VideoPlayerFragment extends Fragment {
         });
     }
 
-    private void fetchVideo(int videoId, TextView tvTituloVideo, TextView tvDataPublic, TextView tvVisualizacoesVideo, ExoPlayer exoPlayer) {
+//    private void fetchEquipamento(int equipamentoId, TextView tvEquipamentoVideo) {
+//        if (equipamentoId <= 0) {
+//            Toast.makeText(getContext(), "ID de equipamento inválido.", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+//        ApiService apiService = retrofit.create(ApiService.class);
+//
+//        Call<Equipamento> callEquipamento = apiService.getEquipamentoById(equipamentoId);
+//        callEquipamento.enqueue(new Callback<Equipamento>() {
+//            @Override
+//            public void onResponse(Call<Equipamento> call, Response<Equipamento> response) {
+//                if (response.isSuccessful() && response.body() != null) {
+//                    Equipamento equipamento = response.body();
+//                    tvEquipamentoVideo.setText(equipamento.getNome());
+//                } else {
+//                    Log.e("Erro", "Erro ao carregar equipamento: " + response.code());
+//                    Toast.makeText(getContext(), "Erro ao carregar equipamento.", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Equipamento> call, Throwable t) {
+//                Log.e("Erro", "Erro: " + t.getMessage());
+//                Toast.makeText(getContext(), "Erro na requisição do equipamento.", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
+
+    private void fetchVideo(int videoId, TextView tvTituloVideo, TextView tvDataPublic, TextView tvVisualizacoesVideo, TextView tvDescricaoVideo, ExoPlayer exoPlayer) {
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         ApiService apiService = retrofit.create(ApiService.class);
 
@@ -196,11 +189,10 @@ public class VideoPlayerFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     Video video = response.body();
 
-//                    String encodedVideo = jsonResponse.getString("video");
-
                     tvTituloVideo.setText(video.getTitulo());
                     tvDataPublic.setText(video.getDataPubli());
                     tvVisualizacoesVideo.setText(video.getVisualizacoes().toString());
+                    tvDescricaoVideo.setText(video.getDescricao());
 
                     // Decodificar e exibir a foto, caso exista
                     if (video.getVideo() != null && !video.getVideo().isEmpty()) {
