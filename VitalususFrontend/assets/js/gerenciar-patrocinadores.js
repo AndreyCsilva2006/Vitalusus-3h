@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const patrocinadorData = response.json()
                 console.log(patrocinadorData)
                 findPatrocinadores()
-
+                document.getElementById("modalEdit").style.display = 'none'
             }
             catch(error){
                 console.error(error)
