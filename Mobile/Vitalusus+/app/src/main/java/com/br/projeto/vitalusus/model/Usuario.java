@@ -1,14 +1,8 @@
 package com.br.projeto.vitalusus.model;
 
-import android.graphics.Bitmap;
-
 import com.google.gson.annotations.SerializedName;
-
-import net.sourceforge.jtds.jdbc.DateTime;
-
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 public class Usuario implements Serializable {
 
@@ -26,37 +20,31 @@ public class Usuario implements Serializable {
     @SerializedName("senha")
     private String senha;
 
-    @SerializedName("nivelAcesso")
+    @SerializedName("nivel_acesso")
     private String nivelAcesso;
 
     @SerializedName("foto")
     private String foto;
 
-    @SerializedName("dataCadastro")
+    @SerializedName("data_cadastro")
     private String dataCadastro;
 
-    @SerializedName("statusUsuario")
+    @SerializedName("status_usuario")
     private String statusUsuario;
 
-    @SerializedName("tipoUsuario")
+    @SerializedName("tipo_usuario")
     private String tipoUsuario;
 
-    @SerializedName("chaveSegurancaId")
-    private int chaveSegurancaId;
-
-    @SerializedName("nivelPrivacidade")
+    @SerializedName("nivel_privacidade")
     private String nivelPrivacidade;
 
-    @SerializedName("dataNasc")
-    private Date dataNasc;
+    @SerializedName("data_nasc")
+    private Date dataNasc; // Mudei para String
 
     @SerializedName("idade")
     private int idade;
 
-    @SerializedName("sexo")
-    private String sexo;
-
-    public Usuario(String nome, String email, String senha, String nivelAcesso, String foto, String dataCadastro, String statusUsuario, String tipoUsuario, String nivelPrivacidade, int idade, Date dataNasc, String sexo) {
+    public Usuario(String nome, String email, String senha, String nivelAcesso, String foto, String dataCadastro, String statusUsuario, String tipoUsuario, String nivelPrivacidade, int idade, Date dataNasc) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -67,11 +55,11 @@ public class Usuario implements Serializable {
         this.tipoUsuario = tipoUsuario;
         this.nivelPrivacidade = nivelPrivacidade;
         this.idade = idade;
-        this.dataNasc = dataNasc;
-        this.sexo = sexo;
+        this.dataNasc = dataNasc; // Mudei para String
     }
 
-    //    Getter e Setter
+    // Getters e Setters
+    // ... [mesmo código dos getters e setters] ...
 
     public int getId() {
         return id;
@@ -109,8 +97,24 @@ public class Usuario implements Serializable {
         return nivelAcesso;
     }
 
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
     public void setNivelAcesso(String nivelAcesso) {
         this.nivelAcesso = nivelAcesso;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     public String getDataCadastro() {
@@ -129,28 +133,12 @@ public class Usuario implements Serializable {
         this.statusUsuario = statusUsuario;
     }
 
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
-
     public String getTipoUsuario() {
         return tipoUsuario;
     }
 
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
-    }
-
-    public int getChaveSegurancaId() {
-        return chaveSegurancaId;
-    }
-
-    public void setChaveSegurancaId(int chaveSegurancaId) {
-        this.chaveSegurancaId = chaveSegurancaId;
     }
 
     public String getNivelPrivacidade() {
@@ -161,14 +149,6 @@ public class Usuario implements Serializable {
         this.nivelPrivacidade = nivelPrivacidade;
     }
 
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
-
     public Date getDataNasc() {
         return dataNasc;
     }
@@ -177,31 +157,21 @@ public class Usuario implements Serializable {
         this.dataNasc = dataNasc;
     }
 
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-
     @Override
     public String toString() {
         return "Usuario{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
-                ", email=" + email +
-                ", senha=" + senha +
-                ", nivelAcesso=" + nivelAcesso +
-                ", foto=" + foto +
-                ", dataCadastro=" + dataCadastro +
-                ", statusUsuario=" + statusUsuario +
-                ", tipoUsuario=" + tipoUsuario +
-                ", chaveSegurancaId=" + chaveSegurancaId +
-                ", nivelPrivacidade=" + nivelPrivacidade +
-                ", dataNasc=" + dataNasc +
+                ", email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                ", nivelAcesso='" + nivelAcesso + '\'' +
+                ", foto='" + foto + '\'' +
+                ", dataCadastro='" + dataCadastro + '\'' +
+                ", statusUsuario='" + statusUsuario + '\'' +
+                ", tipoUsuario='" + tipoUsuario + '\'' +
+                ", nivelPrivacidade='" + nivelPrivacidade + '\'' +
+                ", dataNasc='" + dataNasc + '\'' +
                 ", idade=" + idade +
-                ", sexo=" + sexo +
                 '}';
     }
 }

@@ -99,9 +99,11 @@
         <EditText
             android:id="@+id/editFormCadastroDataNascimento"
             style="@style/Edit_text"
+            android:layout_marginTop="252dp"
             android:hint="Data de Nascimento"
             android:inputType="date"
             app:layout_constraintEnd_toEndOf="@id/containerComponents"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/containerComponents"
             app:layout_constraintTop_toTopOf="@id/containerComponents" />
 
@@ -143,10 +145,9 @@
             android:id="@+id/rgSexo"
             android:layout_width="293dp"
             android:layout_height="59dp"
-            android:layout_marginTop="96dp"
+            android:layout_marginTop="328dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="@id/containerComponents"
-            app:layout_constraintHorizontal_bias="0.397"
             app:layout_constraintStart_toStartOf="@id/containerComponents"
             app:layout_constraintTop_toTopOf="@id/containerComponents">
 

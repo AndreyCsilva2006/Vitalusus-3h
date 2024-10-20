@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 
 const dbConfig = {
     user: 'sa',
-    password: '@ITB123456',
+    password: 'adurite123',
     server: 'localhost',
     database: 'bd_vitalusus2h',
     options: {
@@ -312,68 +312,113 @@ sql.connect(dbConfig).then(pool => {
     });
 
         app.post('/usuarios', async (req, res) => {
-                const { nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, dataNasc } = req.body;
+            const { nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, dataNasc, sexo } = req.body;
 
-                try {
-                    // Verificar se a data de nascimento foi enviada
-                    if (!dataNasc) {
-                        return res.status(400).json({ error: 'A data de nascimento é obrigatória.' });
-                    }
-
-                    // Verificar se a idade foi calculada no cliente
-                    let idade = req.body.idade;
-                    if (!idade) {
-                        // Se a idade não veio do cliente, calculá-la no servidor
-                        const birthDate = new Date(dataNasc);
-                        const currentDate = new Date();
-                        idade = currentDate.getFullYear() - birthDate.getFullYear();
-                        const monthDifference = currentDate.getMonth() - birthDate.getMonth();
-                        if (monthDifference < 0 || (monthDifference === 0 && currentDate.getDate() < birthDate.getDate())) {
-                            idade--; // Ajuste se ainda não fez aniversário neste ano
-                        }
-                    }
-
-                    // Verifique se a idade não é nula
-                    if (!idade) {
-                        return res.status(400).json({ error: 'Não foi possível calcular a idade.' });
-                    }
-
-                    // Inserir o usuário com a data de nascimento e idade calculada
-                    const result = await pool.request()
-                        .input('nome', sql.VarChar, nome)
-                        .input('email', sql.VarChar, email)
-                        .input('senha', sql.VarChar, senha)
-                        .input('nivelAcesso', sql.VarChar, nivelAcesso || 'USER')
-                        .input('foto', sql.VarBinary, foto || null)
-                        .input('dataCadastro', sql.DateTime, dataCadastro || new Date())
-                        .input('statusUsuario', sql.VarChar, statusUsuario || 'ATIVO')
-                        .input('tipoUsuario', sql.VarChar, 'ALUNO')
-                        .input('nivelPrivacidade', sql.VarChar, nivelPrivacidade)
-                        .input('dataNasc', sql.Date, dataNasc)
-                        .input('idade', sql.Int, idade)
-                        .input('sexo', sql.VarChar, sexo)
-                        .query(`
-                            INSERT INTO Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, dataNasc, idade, sexo )
-                            OUTPUT INSERTED.id
-                            VALUES (@nome, @email, @senha, @nivelAcesso, @foto, @dataCadastro, @statusUsuario, @tipoUsuario, @nivelPrivacidade, @dataNasc, @idade, @sexo );
-                        `);
-
-                        const usuarioId = result.recordset[0].id; // Para pegar o ID gerado
-
-                    // Inserir aluno, agora sem a data de nascimento
-                    await pool.request()
-                        .input('usuario_id', sql.Int, usuarioId)
-                        .query(`
-                            INSERT INTO Aluno ( usuario_id)
-                            VALUES ( @usuario_id);
-                        `);
-
-                    res.status(201).json({ message: 'Usuário e Aluno criado com sucesso!' });
-                } catch (err) {
-                    console.error('Erro ao criar usuário e Aluno:', err.message);
-                    res.status(500).send(err.message);
+            try {
+                // Validação dos campos obrigatórios
+                if (!nome || !email || !senha || !dataNasc || !sexo) {
+                    return res.status(400).json({ error: 'Nome, email, senha, data de nascimento e sexo são obrigatórios.' });
                 }
-            });
+
+                // Calculando a idade no servidor
+                const birthDate = new Date(dataNasc);
+                const currentDate = new Date();
+                let idade = currentDate.getFullYear() - birthDate.getFullYear();
+                const monthDifference = currentDate.getMonth() - birthDate.getMonth();
+                if (monthDifference < 0 || (monthDifference === 0 && currentDate.getDate() < birthDate.getDate())) {
+                    idade--; // Ajuste se ainda não fez aniversário neste ano
+                }
+
+                if (idade <= 0) {
+                    return res.status(400).json({ error: 'A idade calculada é inválida.' });
+                }
+
+                // Inserção do usuário
+                const result = await pool.request()
+                    .input('nome', sql.VarChar, nome)
+                    .input('email', sql.VarChar, email)
+                    .input('senha', sql.VarChar, senha)
+                    .input('nivelAcesso', sql.VarChar, nivelAcesso || 'USER')
+                    .input('foto', sql.VarBinary, foto || null)
+                    .input('dataCadastro', sql.DateTime, dataCadastro || new Date())
+                    .input('statusUsuario', sql.VarChar, statusUsuario || 'ATIVO')
+                    .input('tipoUsuario', sql.VarChar, 'ALUNO')
+                    .input('nivelPrivacidade', sql.VarChar, nivelPrivacidade || 'PUBLICO')
+                    .input('dataNasc', sql.Date, dataNasc)
+                    .input('idade', sql.Int, idade)
+                    .input('sexo', sql.VarChar, sexo)
+                    .query(`
+                        INSERT INTO Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, dataNasc, idade, sexo)
+                        OUTPUT INSERTED.id
+                        VALUES (@nome, @email, @senha, @nivelAcesso, @foto, @dataCadastro, @statusUsuario, @tipoUsuario, @nivelPrivacidade, @dataNasc, @idade, @sexo);
+                    `);
+
+                const usuarioId = result.recordset[0].id; // Obtendo o ID do usuário inserido
+
+                // Inserindo o aluno associado ao usuário
+                await pool.request()
+                    .input('usuario_id', sql.Int, usuarioId)
+                    .query(`INSERT INTO Aluno (usuario_id) VALUES (@usuario_id);`);
+
+                // Resposta de sucesso
+                res.status(201).json({ message: 'Usuário e Aluno criado com sucesso!' });
+
+            } catch (err) {
+                console.error('Erro ao criar usuário e Aluno:', err.message);
+                res.status(500).json({ error: 'Erro ao criar usuário e Aluno.' });
+            }
+        });
+
+        app.put('/usuarios/:id', async (req, res) => {
+            const usuarioId = req.params.id;
+            const { nome, email, senha, foto, statusUsuario, nivelPrivacidade, tipoUsuario } = req.body;
+
+            try {
+                // Atualiza os dados do usuário
+                await pool.request()
+                    .input('id', sql.Int, usuarioId)
+                    .input('nome', sql.VarChar, nome)
+                    .input('email', sql.VarChar, email)
+                    .input('senha', sql.VarChar, senha)
+                    .input('foto', sql.VarBinary, foto || null)
+                    .input('statusUsuario', sql.VarChar, statusUsuario || 'ATIVO')
+                    .input('nivelPrivacidade', sql.VarChar, nivelPrivacidade || 'PUBLICO')
+                    .input('tipoUsuario', sql.VarChar, tipoUsuario || 'ALUNO')
+                    .query(`
+                        UPDATE Usuario
+                        SET nome = @nome,
+                            email = @email,
+                            senha = @senha,
+                            foto = @foto,
+                            statusUsuario = @statusUsuario,
+                            nivelPrivacidade = @nivelPrivacidade,
+                            tipoUsuario = @tipoUsuario
+                        WHERE id = @id
+                    `);
+
+                res.json({ message: 'Usuário atualizado com sucesso!' });
+            } catch (err) {
+                console.error('Erro ao atualizar usuário:', err.message);
+                res.status(500).send(err.message);
+            }
+        });
+
+        app.delete('/usuarios/:id', async (req, res) => {
+            const usuarioId = req.params.id;
+
+            try {
+                await pool.request()
+                    .input('id', sql.Int, usuarioId)
+                    .query('DELETE FROM Usuario WHERE id = @id');
+
+                res.json({ message: 'Usuário excluído com sucesso!' });
+            } catch (err) {
+                console.error('Erro ao excluir usuário:', err.message);
+                res.status(500).send(err.message);
+            }
+        });
+
+
 
     app.listen(3030, () => {
         console.log('Servidor rodando na porta 3030');

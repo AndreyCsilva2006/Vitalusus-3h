@@ -1,8 +1,6 @@
 package com.br.projeto.vitalusus.model;
 
-
 import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 
 public class Aluno implements Serializable {
@@ -22,12 +20,12 @@ public class Aluno implements Serializable {
     @SerializedName("sexo")
     private int sexo;
 
-//    public Aluno(Integer id) {
-//        this.id = id;
-//    }
-
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public int getSexo() {
@@ -38,10 +36,6 @@ public class Aluno implements Serializable {
         this.sexo = sexo;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    
     public double getAltura() {
         return altura;
     }
@@ -70,8 +64,8 @@ public class Aluno implements Serializable {
     public String toString() {
         return "Aluno{" +
                 "id=" + id +
-                ", altura='" + altura + '\'' +
-                ", peso='" + peso + '\'' +
+                ", altura=" + altura +
+                ", peso=" + peso +
                 ", usuario_id=" + usuario_id +
                 '}';
     }
