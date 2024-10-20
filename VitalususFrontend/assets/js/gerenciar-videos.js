@@ -85,7 +85,6 @@ function exibirVideoaulas(videoaulas) {
         <td>${video.statusVideo}</td>
         <td>${video.privacidadeVideo}</td>
         <td class = "buttonsContainer">
-            <button class="edit" onclick="findVideoToOpenModal(${video.id})"><i class="fas fa-edit"></i> Editar</button>
             <button class="delete" onclick="banVideo(${video.id})"><i class="fas fa-trash"></i> Banir</button>
             <button class="delete" onclick="deleteVideo(${video.id})"><i class="fas fa-trash"></i> Excluir</button>
         </td>
@@ -106,7 +105,6 @@ function exibirVideoaulas(videoaulas) {
         <td>${video.statusVideo}</td>
         <td>${video.privacidadeVideo}</td>
         <td class = "buttonsContainer">
-            <button class="edit" onclick="findVideoToOpenModal(${video.id})"><i class="fas fa-edit"></i> Editar</button>
             <button class="delete" onclick="unbanVideo(${video.id})"><i class="fas fa-trash"></i> Desbanir</button>
             <button class="delete" onclick="deleteVideo(${video.id})"><i class="fas fa-trash"></i> Excluir</button>
         </td>
