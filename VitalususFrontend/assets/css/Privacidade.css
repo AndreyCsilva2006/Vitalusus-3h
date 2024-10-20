@@ -1,0 +1,67 @@
+/* section das informações */
+
+.section-priv {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 20px;
+  padding: 20px;
+  width: 70%;
+  margin: 0 auto;
+}
+
+@media (max-width: 400px) {
+  .section-priv {
+    width: 100%;
+  }
+}
+
+/* fim */
+
+/* container onde fica as informações */
+
+.container-priv {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  width: 50%;
+  gap: 100px;
+}
+
+@media (max-width: 400px) {
+  .container-priv {
+    width: 100%;
+  }
+}
+
+/* div para deixar um espaço entre os textos */
+
+.div-aa {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* fim */
+
+/* div do Termos de Privacidade */
+
+.TP {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+/* texto */
+
+.h6Do {
+  margin: 0 auto;
+  padding: 20px;
+  width: 70%;
+}
+
+/* aqui é a imagem que fica no mouse ao clicar no texto */
+

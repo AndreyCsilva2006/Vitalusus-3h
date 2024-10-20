@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="pt-BR" data-bss-forced-theme="light">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Gestão de Usuários - Treinadores e Alunos</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alatsi&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo+Black&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter+Tight&amp;display=swap">
+    <link rel="stylesheet" href="assets/css/typicons.css">
+    <link rel="stylesheet" href="assets/fonts/typicons.min.css">
+    <link rel="stylesheet" href="assets/css/bs-theme-overrides.css">
+    <link rel="stylesheet" href="assets/css/Navbar-Right-Links-icons.css">
+    <link rel="stylesheet" href="assets/css/Swiper-Slider-Card-For-Blog-Or-Product-swiper.min.css">
+    <link rel="stylesheet" href="assets/css/Swiper-Slider-Card-For-Blog-Or-Product-untitled.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="stylesheet" href="assets/css/GLOBALADMIN.css">
+    <link rel="stylesheet" href="assets/css/Login-Form-Basic-icons.css">
+    <link rel="stylesheet" href="assets/css/Swiper-Slider-Card-For-Blog-Or-Product-untitled-1.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md sticky-top bg-dark d-flex flex-row justify-content-between navbar-dark navOn arrum-nav" id="mainNav">
+        <div class="container arrum-container"><img class="div-img-header-home" src="assets/img/Logo.png" width="40" height="41"><a class="navbar-brand d-flex align-items-center" href="/" style="width:auto;"><span class="tmnh-p">Vitalusus+</span></a><button data-bs-toggle="collapse" data-bs-target="#navcol-1" class="navbar-toggler" style="gap:35px;"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse text-break flex-wrap header-nav-bar" id="navcol-1" style="gap:20px;min-width:auto;width:90vw;max-width:90%;flex-wrap:wrap;">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="indexsuportes.html"></a></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"></li>
+                </ul><a class="d-xl-flex align-items-xl-center link-header2 link-a tmnh-p elementos-header" href="criar-admin.html" style="gap:5px;"><i class="typcn typcn-user-add icon-ne"></i>Adicionar Administrador</a><a class="d-xl-flex align-items-xl-center link-header2 link-a tmnh-p elementos-header" href="Gerenciar-videos.html" style="gap:5px;"><i class="typcn typcn-video icon-ne"></i>Gerenciar Videos</a><a class="d-md-flex d-xl-flex align-items-md-center align-items-xl-center link-header link-a tmnh-p elementos-header" href="gerenciar-patrocinadores.html" style="gap:5px;"><svg fill="currentColor" height="1em" viewbox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"></path></svg>Patrocinadores</a><a class="d-xl-flex align-items-xl-center link-header2 link-a tmnh-p elementos-header" href="denuncia.html" style="gap:5px;"><i class="typcn typcn-warning icon-ne"></i>Gerenciamento de denúncias</a>
+            </div>
+        </div>
+    </nav>
+    <main id="main-admin" style="display:flex;flex-direction:column;gap:6vh;margin-bottom:0px;margin-top:200px;">
+        <section class="search-section">
+            <h2 id="h2muda">Buscar Treinador</h2>
+            <div class="d-flex d-sm-flex d-md-flex d-lg-flex flex-row justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center search-group">
+                <form class="d-flex d-sm-flex d-md-flex d-lg-flex flex-row justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center search-group" id="search-form"><input type="number" class="search-input" id="searchId" min="0" placeholder="Digite o ID do treinador"><button id="searchBtn" class="btn-search">Buscar</button></form><button id="cleanBtn" class="btn-cor5 btn-search" style="display:none;">Limpar</button>
+            </div>
+        </section>
+        <section class="table-section">
+            <h2 id="h2mud">Lista de Treinadores</h2>
+            <div>
+                <table id="user-table">
+                    <thead>
+                        <tr>
+                            <th style="color: rgb(115,115,115);">ID</th>
+                            <th style="color: rgb(115,115,115);">Nome</th>
+                            <th style="color: rgb(115,115,115);">E-mail</th>
+                            <th style="color: rgb(115,115,115);">Nível</th>
+                            <th style="color: rgb(115,115,115);">Status</th>
+                            <th style="color: rgb(115,115,115);">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bodyTableTreinador"></tbody>
+                </table>
+            </div>
+        </section>
+        <div class="text-center button-crud"><a role="button" class="button-grande btn-cor1" href="gerenciar-alunos.html">ALUNO</a><button class="button-grande btn-cor5" type="button">TREINADOR</button></div>
+    </main>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/bold-and-dark.js"></script>
+    <script src="assets/js/gerenciar-treinadores.js"></script>
+    <script src="assets/js/GLOBAL.js"></script>
+    <script src="assets/js/Swiper-Slider-Card-For-Blog-Or-Product-swiper.min.js"></script>
+    <script src="assets/js/LINKS.js"></script>
+</body>
+
+</html>

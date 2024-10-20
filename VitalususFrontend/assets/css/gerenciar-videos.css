@@ -1,0 +1,162 @@
+/* Reset básico */
+
+/* Estilo geral */
+
+.buttonsContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container1 {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: var(--absolut-dark);
+  box-shadow: 0 0 10px var(--danger-color);
+  border-radius: 8px;
+}
+
+#videoTableBody {
+  color: var(--light-color);
+}
+
+h1 {
+  color: var(--light-color);
+}
+
+h2 {
+  color: var(--light-color);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background-color: var(--dark-color2);
+}
+
+table, th, td {
+}
+
+table th, table td {
+  padding: 15px;
+  text-align: center;
+}
+
+table th {
+  background-color: var(--dark-color2);
+  color: var(--link-color1);
+  box-shadow: 0 0 10px var(--danger-color);
+}
+
+table td img {
+  width: 100px;
+  height: auto;
+  border-radius: 5px;
+}
+
+button {
+  cursor: pointer;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9em;
+  transition: background-color 0.3s;
+}
+
+button.edit {
+  background-color: #007bff;
+  color: #fff;
+  margin-right: 5px;
+}
+
+button.edit:hover {
+  background-color: #0056b3;
+}
+
+button.delete {
+  background-color: #dc3545;
+  color: #fff;
+  margin-right: 5px;
+}
+
+button.delete:hover {
+  background-color: #c82333;
+}
+
+button.ban {
+  background-color: #ffc107;
+  color: #fff;
+}
+
+button.ban:hover {
+  background-color: #e0a800;
+}
+
+/* Estilo para o Modal */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: var(--dark-color2);
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid var(--danger-color);
+  width: 80%;
+  max-width: 500px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  color: var(--light-color);
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input, .form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.btn-save {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1em;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-save:hover {
+  background-color: #218838;
+}
+

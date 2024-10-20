@@ -1,0 +1,503 @@
+.dropdown-1 {
+  display: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #939393;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.link-header {
+  position: relative;
+}
+
+.link-header:hover + .dropdown-1 {
+  display: block;
+}
+
+.ab {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.kg-arrum {
+  margin-top: 3vh;
+}
+
+@media (max-width: 350px) {
+  .kg-arrum {
+    margin-top: 10px;
+  }
+}
+
+.text-h1 {
+  color: var(--padrao);
+  --bs-primary: #ffffff;
+  --bs-primary-rgb: 255,255,255;
+  font-family: Inter, sans-serif;
+  font-size: 20px;
+}
+
+.paragraf-text {
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+  color: var(--light-color);
+  width: auto;
+  min-height: 5vh;
+  height: auto;
+  font-family: Inter, sans-serif;
+  text-align: left;
+}
+
+.container-paralaxy {
+  min-width: 50vw;
+  width: auto;
+  max-width: 50%!important;
+  height: 100% !important;
+  border-width: 0px;
+  border-right: 0px solid rgb(255, 255, 255);
+}
+
+.section-tren-client {
+  background-color: var(--absolut-dark);
+  width: 100%;
+}
+
+.container-client-1 {
+  background: none;
+  --bs-primary-rgb: 4,4,4;
+}
+
+.paragraf-trein {
+  color: #ffffff;
+}
+
+.h2-trein {
+  font-family: Alatsi, sans-serif;
+}
+
+.paragraf-trein {
+  font-family: Inter, sans-serif;
+}
+
+.div-trein-1 {
+  background: none;
+}
+
+.h1-Treinador {
+  width: auto;
+  color: var(--light-color);
+}
+
+.background-alt {
+  background-color: var(--background-cinzento);
+}
+
+@media (max-width: 400px) {
+  .section-notif-home2 {
+  }
+}
+
+.section-notif-home2 {
+  max-width: 100%;
+  width: 100%;
+  min-width: 90%;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.section-notif-home {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.footer-home {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-cinzento);
+  height: auto;
+  max-height: none;
+  padding-bottom: 27px;
+  margin-bottom: -108px;
+  padding-top: 27px;
+}
+
+.row-home-1 {
+  max-width: 100%;
+  width: 100%;
+  margin-right: 0px;
+  margin-left: 0px;
+  margin-top: 0;
+  margin-bottom: 30vh;
+}
+
+/* Tratando o img-row-h */
+
+@media (min-width: 1400px) {
+  .img-row-H {
+    height: 100%;
+    max-height: none;
+  }
+}
+
+@media (min-width: 1200px) and (max-width:1399px) {
+  .img-row-H {
+    height: 100%;
+    max-height: 600px;
+  }
+}
+
+@media (min-width: 992px) and (max-width:1199px) {
+  .img-row-H {
+    min-height: auto;
+    max-height: 500px;
+    height: 100%;
+  }
+}
+
+@media (min-width: 761px) and (max-width:991px) {
+  .img-row-H {
+    max-height: 500px;
+    min-height: auto;
+    height: 100%;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 760px) {
+  .img-row-H {
+    height: 370px;
+  }
+}
+
+@media (min-width: 500px) and (max-width:600px) {
+  .img-row-H {
+    height: 400px;
+  }
+}
+
+@media (min-width: 380px) and (max-width:500px) {
+  .img-row-H {
+    height: 350px;
+  }
+}
+
+@media (min-width: 300px) and (max-width:379px) {
+  .img-row-H {
+    height: 250px;
+  }
+}
+
+@media (max-width: 300px) {
+  .img-row-H {
+    display: none!important;
+  }
+}
+
+.img-row-H {
+  min-height: 0px;
+  min-width: 100%;
+}
+
+/* a partir de 992px o card-tren diminiu a tela para não ficar estranho */
+
+@media (max-width: 600px) {
+  .card-tren {
+    min-width: 95%;
+    width: 99vw;
+    height: auto!important;
+    min-height: 100%;
+  }
+}
+
+@media (min-width: 600px) and (max-width:992px) {
+  .card-tren {
+    max-width: 610px;
+    width: 80%;
+  }
+}
+
+@media (min-width: 1400px) {
+  .card-tren {
+    width: 40vw;
+    max-width: 40%;
+  }
+}
+
+@media (min-width: 992px) and (max-width:1400px) {
+  .card-tren {
+    max-width: 50%;
+    width: 50vw;
+  }
+}
+
+/* Tratando a Column pop */
+
+@media (min-width: 992px) {
+  .column-pop {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-right: 0px;
+  }
+}
+
+.column-pop {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-right: 0px;
+}
+
+.div-btn-login {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+@media (max-width: 600px) {
+  .div-btn-login {
+    max-width: 60%;
+    width: 60vw;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 340px) {
+  .div-btn-login {
+    padding: 0;
+    margin: 0;
+    min-width: 100%;
+    width: 95vw!important;
+    max-width: 95%!important;
+    height: auto;
+  }
+}
+
+element {
+  text-decoration: none;
+}
+
+.border-login2:hover {
+  border: 2px solid var(--padrao);
+  transition: 2s ease;
+}
+
+.border-login1:hover {
+  opacity: 0.9;
+  transition: 2s ease;
+  border: 2px solid var(--light-color);
+}
+
+/* tags para arrumar bugs */
+
+.div-grow {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.arrum-row {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+}
+
+@media (max-width: 390px) {
+  .arrum-row {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column-reverse;
+  }
+}
+
+.arrum-tmnh-icons {
+  max-width: fit-content;
+  width: 70%;
+  min-width: auto;
+}
+
+@media (max-width: 880px) {
+  .arrum-tmnh-icons {
+    max-width: none;
+    width: 100%;
+  }
+}
+
+.arrum-tmnh-icons2 {
+  max-width: fit-content;
+  width: 100%;
+  min-width: auto;
+}
+
+.arrum-tmnh-icons3 {
+  max-width: fit-content;
+  width: 70%;
+  min-width: auto;
+}
+
+@media (max-width: 880px) {
+  .arrum-tmnh-icons3 {
+    width: 60%;
+  }
+}
+
+@media (max-width: 300px) {
+  .remove-img {
+    display: none;
+  }
+}
+
+.fit-cover {
+  background-size: cover;
+  object-fit: cover;
+  background-attachment: initial;
+  width: 3vw;
+  height: 3vw;
+}
+
+@media (max-width: 800px) {
+  .fit-cover {
+    width: 5vw;
+    height: 5vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .fit-cover {
+    min-width: 50px;
+    width: 8vw;
+    min-height: 50px;
+    height: 8vw;
+  }
+}
+
+@media (max-width: 340px) {
+  .fit-cover {
+    width: 10vw;
+    height: 10vw;
+  }
+}
+
+/* div onde fica o icon das informações do site como notificações  calcular peso */
+
+.div-arrum-icon {
+  width: 4.5vw!important;
+  height: 4vw!important;
+}
+
+@media (max-width: 1200px) {
+  .div-arrum-icon {
+    width: 8vw!important;
+    height: 7.5vw!important;
+  }
+}
+
+@media (max-width: 800px) {
+  .div-arrum-icon {
+    width: 12vw!important;
+    height: 11.5vw!important;
+  }
+}
+
+@media (max-width: 400px) {
+  .div-arrum-icon {
+    min-width: 25vw!important;
+    width: auto!important;
+    min-height: 24.5vw!important;
+    height: auto!important;
+  }
+}
+
+@media (max-width: 200px) {
+  .div-arrum-icon {
+    min-width: 50px!important;
+    min-height: 50px!important;
+    width: 10vw!important;
+    height: 9.5vw!important;
+  }
+}
+
+/* arrumando o column das informações, notf etc.. */
+
+.arrum-column {
+  width: 60vw;
+  max-width: 60%;
+}
+
+@media (max-width: 400px) {
+  .arrum-column {
+    width: 100vw;
+    max-width: 100%!important;
+  }
+}
+
+/* bola vermelha para o icon */
+
+.bola-vermelha {
+  display: flex!important;
+  flex-direction: row;
+  justify-content: center!important;
+  align-items: center!important;
+  background-color: var(--padrao)!important;
+  min-width: 4vw;
+  min-height: 4vw;
+  width: auto!important;
+  height: auto!important;
+  font-size: 2rem!important;
+  border-radius: 10%;
+}
+
+@media (max-width: 900px) {
+  .bola-vermelha {
+    min-width: 6vw;
+    min-height: 6vw;
+    width: auto;
+    height: auto;
+  }
+}
+
+/* 2 container */
+
+.container-dois-em-um {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+@media (max-width: 576px) {
+  .container-dois-em-um {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    width: 100%;
+  }
+}
+
+.div-padrao {
+  min-height: auto;
+}
+
+.div-nt-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  max-width: fit-content;
+}
+

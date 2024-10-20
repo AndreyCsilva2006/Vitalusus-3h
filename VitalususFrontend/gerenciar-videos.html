@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en" data-bss-forced-theme="light" style="padding-top:0px;margin-top:-24px;">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Gerenciar Vídeos</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alatsi&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo+Black&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter+Tight&amp;display=swap">
+    <link rel="stylesheet" href="assets/css/typicons.css">
+    <link rel="stylesheet" href="assets/fonts/typicons.min.css">
+    <link rel="stylesheet" href="assets/css/bs-theme-overrides.css">
+    <link rel="stylesheet" href="assets/css/Navbar-Right-Links-icons.css">
+    <link rel="stylesheet" href="assets/css/Swiper-Slider-Card-For-Blog-Or-Product-swiper.min.css">
+    <link rel="stylesheet" href="assets/css/Swiper-Slider-Card-For-Blog-Or-Product-untitled.css">
+    <link rel="stylesheet" href="assets/css/gerenciar-videos.css">
+    <link rel="stylesheet" href="assets/css/GLOBALADMIN.css">
+    <link rel="stylesheet" href="assets/css/Login-Form-Basic-icons.css">
+    <link rel="stylesheet" href="assets/css/Swiper-Slider-Card-For-Blog-Or-Product-untitled-1.css">
+</head>
+
+<body style="margin-top:100px;">
+    <nav class="navbar navbar-expand-md sticky-top bg-dark d-flex justify-content-between navbar-dark navOn arrum-nav" id="mainNav">
+        <div class="container arrum-container" style="margin:0;"><img class="div-img-header-home" src="assets/img/Logo.png" width="40" height="41"><a class="navbar-brand d-flex align-items-center" href="/" style="width:auto;"><span class="tmnh-p">Vitalusus+</span></a><button data-bs-toggle="collapse" data-bs-target="#navcol-1" class="navbar-toggler" style="gap:35px;"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse text-break flex-wrap header-nav-bar" id="navcol-1" style="gap:20px;min-width:auto;width:90vw;max-width:90%;flex-wrap:wrap;">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="indexsuportes.html"></a></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"></li>
+                </ul><a class="d-xl-flex align-items-xl-center link-header2 link-a tmnh-p elementos-header" href="criar-admin.html" style="gap:5px;"><i class="typcn typcn-user-add icon-ne"></i>Adicionar Administrador</a><a class="d-xl-flex align-items-xl-center link-header2 link-a tmnh-p elementos-header" href="gerenciar-alunos.html" style="gap:5px;"><i class="typcn typcn-user icon-ne"></i>Gerenciar Usuários</a><a class="d-md-flex d-xl-flex align-items-md-center align-items-xl-center link-header link-a tmnh-p elementos-header" href="gerenciar-patrocinadores.html" style="gap:5px;"><svg fill="currentColor" height="1em" viewbox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"></path></svg>Patrocinadores</a><a class="d-xl-flex align-items-xl-center link-header2 link-a tmnh-p elementos-header" href="denuncia.html" style="gap:5px;"><i class="typcn typcn-warning icon-ne"></i>Gerenciamento de denúncias</a>
+            </div>
+        </div>
+    </nav>
+    <main id="main-admin" class="main-max" style="margin-top:160px;">
+        <div class="container d-flex d-sm-flex d-xl-flex flex-column align-items-center align-items-sm-center justify-content-xl-center container1" style="max-width:none;">
+            <h1 class="text-center">Lista de Vídeos</h1>
+            <div>
+                <table id="videoTable">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Capa</th>
+                            <th>Título</th>
+                            <th>Descrição</th>
+                            <th>Categoria</th>
+                            <th>Canal</th>
+                            <th>Equipamento</th>
+                            <th>Tags</th>
+                            <th>Visualizações</th>
+                            <th>Status</th>
+                            <th>Nível de Privacidade</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="videoTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+        <div id="editModal" class="modal">
+            <div class="modal-content"><span class="close">×</span>
+                <h2>Editar Vídeo</h2>
+                <form id="editVideoForm">
+                    <div class="form-group"><label for="editTitle">Título:</label><input type="text" id="editTitle" required=""></div>
+                    <div class="form-hidden" style="display:none;"><input class="form-control form-control" type="hidden" id="idHiddenInput" required=""></div>
+                    <div class="form-group"><label for="editDescription">Descrição:</label><textarea id="editDescription" required="" rows="3"></textarea></div>
+                    <div class="form-group"><label for="editCategory">Categoria:</label><input type="text" id="editCategory" required=""></div><button id="submitEditar" class="btn-cor1 button-medio">Salvar Alterações</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/bold-and-dark.js"></script>
+    <script src="assets/js/GLOBAL.js"></script>
+    <script src="assets/js/Swiper-Slider-Card-For-Blog-Or-Product-swiper.min.js"></script>
+    <script src="assets/js/gerenciar-videos.js"></script>
+    <script src="assets/js/LINKS.js"></script>
+</body>
+
+</html>
