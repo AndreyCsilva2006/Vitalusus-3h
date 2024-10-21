@@ -3,6 +3,7 @@ package com.br.projeto.vitalusus;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ import java.util.Calendar;
 public class FormCadastro extends AppCompatActivity {
 
     private EditText editNome, editEmail, editSenha, editDataNasc;
+    private Button btnFormCadastroOlharSenha;
     private RadioGroup rdggroupSexo;
 
     @Override
@@ -33,10 +35,27 @@ public class FormCadastro extends AppCompatActivity {
         editEmail = findViewById(R.id.editFormCadastroLoginEmail);
         editSenha = findViewById(R.id.editFormCadastroLoginSenha);
         editDataNasc = findViewById(R.id.editFormCadastroDataNascimento);
+        btnFormCadastroOlharSenha = findViewById(R.id.btnFormCadastroOlharSenha);
         rdggroupSexo = findViewById(R.id.rgSexo);
         // Configurando o botão de salvar
         Button btnSalvar = findViewById(R.id.btnCadastroSalvar);
         btnSalvar.setOnClickListener(this::salvar);
+
+        btnFormCadastroOlharSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int tipoAtual = editSenha.getInputType();
+                boolean ehSenha = (tipoAtual & InputType.TYPE_TEXT_VARIATION_PASSWORD) == InputType.TYPE_TEXT_VARIATION_PASSWORD;
+
+                if (ehSenha) {
+                    editSenha.setInputType(InputType.TYPE_CLASS_TEXT);
+                } else {
+                    editSenha.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }
+                // Movendo o cursor para o final do texto
+                editSenha.setSelection(editSenha.getText().length());
+            }
+        });
     }
 
     public void salvar(View view) {

@@ -22,7 +22,7 @@ CREATE TABLE Usuario
    tipoUsuario	 VARCHAR(15)	NOT NULL, -- ADMINISTRADOR ou ALUNO ou TREINADOR	
    chaveSeguranca  UNIQUEIDENTIFIER DEFAULT NEWID() NOT NULL,
    nivelPrivacidade VARCHAR(50)NOT NULL, -- PUBLICO ou PRIVADO
-   dataNasc	DATE			NOT NULL,
+   dataNasc			DATE			NULL,
    idade		INT				NOT NULL,
 
    PRIMARY KEY (id),
@@ -116,7 +116,7 @@ CREATE TABLE Aluno
 	altura		DECIMAL(10,2)		NULL,
 	peso		DECIMAL(10,2)		NULL,
 	usuario_id	INT					NOT NULL,
-	sexo		VARCHAR(8)			NOT NULL,
+	sexo		VARCHAR(8)			NULL,
 
 	FOREIGN KEY(usuario_id) REFERENCES Usuario (id),
 	PRIMARY KEY(id)
@@ -252,7 +252,6 @@ INSERT Equipamento(nome, link, patrocinador_id, statusEquipamento) VALUES(
 'ATIVO'
 )
 GO
-GO
 -- Tabela Videoaula
 CREATE TABLE Videoaula(
 	id				INT				IDENTITY,
@@ -333,6 +332,14 @@ VALUES(
 	'Uau, que aula daora! Segui as suas instru��es por 6 meses e agora eu t� sheipado!',
 	1,
 	1,
+	GETDATE()
+)
+GO
+INSERT Comentario(texto, aluno_id, videoaula_id, dataPubli)
+VALUES(
+	'Teste',
+	1,
+	2,
 	GETDATE()
 )
 GO
