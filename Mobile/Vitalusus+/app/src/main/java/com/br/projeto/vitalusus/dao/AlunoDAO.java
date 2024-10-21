@@ -20,11 +20,11 @@ public class AlunoDAO {
                 String sqlAluno = "INSERT INTO Aluno (altura, peso, usuario_id, sexo) VALUES (?, ?, ?, ?)";
                 PreparedStatement stmtAluno = conn.prepareStatement(sqlAluno);
 
-                // Usa os valores de altura e peso do objeto Aluno
-                stmtAluno.setBigDecimal(1, aluno.getAltura()); // Altura
-                stmtAluno.setBigDecimal(2, aluno.getPeso());   // Peso
-                stmtAluno.setInt(3, usuarioId);                 // ID do usuário
-                stmtAluno.setString(4, aluno.getSexo());        // Sexo do aluno
+                // Insere NULL para altura e peso, e o ID do usuário e sexo fornecido
+                stmtAluno.setNull(1, java.sql.Types.DECIMAL); // Altura como NULL
+                stmtAluno.setNull(2, java.sql.Types.DECIMAL); // Peso como NULL
+                stmtAluno.setInt(3, usuarioId);               // ID do usuário
+                stmtAluno.setString(4, aluno.getSexo());      // Sexo do aluno
 
                 // Executa a inserção
                 stmtAluno.executeUpdate();

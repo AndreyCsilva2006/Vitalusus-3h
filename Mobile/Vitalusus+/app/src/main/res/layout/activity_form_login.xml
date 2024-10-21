@@ -1,115 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:fillViewport="true">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="462dp"
-        android:layout_height="744dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="14dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/bg_login" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="424dp"
+            android:layout_height="744dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/bg_cadastro" />
 
-    <!--ImageView LOGO-->
-    <ImageView
-        android:id="@+id/logoL"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/FormCadastroSeta"
+            android:layout_width="35dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="64dp"
+            android:src="@drawable/ic_seta1"
+            app:tint="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.042"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <!--View do centro com fundo branco (tipo uma div)-->
-    <View
-        android:id="@+id/containerComponents"
-        style="@style/ContainerComponents"
-        android:layout_marginTop="12dp"
-        android:layout_height="330dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logoL" />
+        <TextView
+            android:id="@+id/title_cadastre_se_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@string/title_cadastro"
+            android:textColor="@color/white"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <!--Edit Text E-Mail-->
-    <EditText
-        android:id="@+id/editFormCadastroLoginEmail"
-        style="@style/Edit_text"
-        android:hint="E-Mail"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="@id/containerComponents"
-        app:layout_constraintStart_toStartOf="@id/containerComponents"
-        app:layout_constraintTop_toTopOf="@id/containerComponents" />
+        <View
+            android:id="@+id/containerComponents"
+            style="@style/ContainerComponents"
+            android:layout_height="415dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_cadastre_se_tag" />
 
-    <!--Edit Text Senha-->
-    <EditText
-        android:id="@+id/editFormCadastroLoginSenha"
-        style="@style/Edit_text"
-        android:drawableRight="@drawable/ic_eye"
-        android:hint="Senha"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@id/containerComponents"
-        app:layout_constraintStart_toStartOf="@id/containerComponents"
-        app:layout_constraintTop_toBottomOf="@id/editFormCadastroLoginEmail" />
+        <EditText
+            android:id="@+id/editFormCadastroLoginNome"
+            style="@style/Edit_text"
+            android:hint="Nome"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="@id/containerComponents"
+            app:layout_constraintStart_toStartOf="@id/containerComponents"
+            app:layout_constraintTop_toTopOf="@id/containerComponents" />
 
-    <!--Botão Entrar-->
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnFormLoginEntrar"
-        style="@style/Button"
-        android:onClick="login"
-        android:text="@string/entrar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editFormCadastroLoginSenha" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnFormLoginEsqueciSenha"
-        style="@style/Button"
-        android:text="Esqueci a Senha"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnFormLoginEntrar" />
+        <EditText
+            android:id="@+id/editFormCadastroLoginPeso"
+            style="@style/Edit_text"
+            android:layout_width="138dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="312dp"
+            android:hint="Peso"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="@id/containerComponents"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/containerComponents"
+            app:layout_constraintTop_toTopOf="@id/containerComponents" />
 
-    <!--Barra de progresso-->
-    <!--android:visibility="invisible" pra tornar a barra invisivel-->
+        <EditText
+            android:id="@+id/editFormCadastroLoginAltura"
+            style="@style/Edit_text"
+            android:layout_width="138dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="312dp"
+            android:hint="Altura"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="@id/containerComponents"
+            app:layout_constraintHorizontal_bias="0.969"
+            app:layout_constraintStart_toStartOf="@id/containerComponents"
+            app:layout_constraintTop_toTopOf="@id/containerComponents" />
 
-    <!--Text View para a tela de cadastro-->
+        <EditText
+            android:id="@+id/editFormCadastroLoginEmail"
+            style="@style/Edit_text"
+            android:hint="E-Mail"
+            android:inputType="textEmailAddress"
+            app:layout_constraintEnd_toEndOf="@id/containerComponents"
+            app:layout_constraintStart_toStartOf="@id/containerComponents"
+            app:layout_constraintTop_toBottomOf="@id/editFormCadastroLoginNome" />
 
-    <TextView
-        android:id="@+id/text_tela_cadastro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/text_cadastro"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/containerComponents" />
 
-    <Button
-        android:id="@+id/btnFormLoginOlharSenha"
-        android:layout_width="40dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="324dp"
-        android:backgroundTint="#00EF1212"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.86"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/editFormCadastroLoginSenha"
+            style="@style/Edit_text"
+            android:layout_width="132dp"
+            android:layout_height="63dp"
+            android:layout_marginTop="4dp"
+            android:drawableRight="@drawable/ic_eye"
+            android:hint="Senha"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="@id/containerComponents"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/containerComponents"
+            app:layout_constraintTop_toBottomOf="@id/editFormCadastroLoginEmail" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCadastroAvancarPasso"
+            style="@style/Button"
+            android:text="Avançar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/containerComponents" />
+
+        <!--Passo 2-->
+
+        <EditText
+            android:id="@+id/editFormCadastroDataNascimento"
+            style="@style/Edit_text"
+            android:layout_width="132dp"
+            android:layout_height="63dp"
+            android:layout_marginTop="164dp"
+            android:hint="Data de Nascimento"
+            android:inputType="date"
+            app:layout_constraintEnd_toEndOf="@id/containerComponents"
+            app:layout_constraintHorizontal_bias="0.956"
+            app:layout_constraintStart_toStartOf="@id/containerComponents"
+            app:layout_constraintTop_toTopOf="@id/containerComponents" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCadastroSalvar"
+            style="@style/Button"
+            android:onClick="salvar"
+            android:text="Cadastrar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/containerComponents" />
+
+        <TextView
+            android:id="@+id/text_tela_principal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Se Tiver uma Conta Clique Aqui!"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnCadastroAvancarPasso" />
+
+
+        <Button
+            android:id="@+id/btnFormCadastroOlharSenha"
+            android:layout_width="35dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="300dp"
+            android:backgroundTint="#00FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.401"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/rgSexo"
+            android:layout_width="293dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="240dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@id/containerComponents"
+            app:layout_constraintHorizontal_bias="0.512"
+            app:layout_constraintStart_toStartOf="@id/containerComponents"
+            app:layout_constraintTop_toTopOf="@id/containerComponents">
+
+
+            <RadioButton
+                android:id="@+id/rbMasculino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Masculino"
+                android:textColor="#050505" />
+
+            <RadioButton
+                android:id="@+id/rbFeminino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:text="Feminino"
+                android:textColor="#000000" />
+
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

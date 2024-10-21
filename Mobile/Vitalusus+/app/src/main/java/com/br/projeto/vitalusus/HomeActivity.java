@@ -36,15 +36,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Carregar a preferência do tema ANTES de chamar super.onCreate
-        SharedPreferences sharedPreferences = getSharedPreferences("AppPreferences", MODE_PRIVATE);
-        boolean isNightMode = sharedPreferences.getBoolean("NightMode", false);
 
-        if (isNightMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
 
         // Chamando super.onCreate após definir o tema
         super.onCreate(savedInstanceState);
@@ -126,8 +118,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         int itemId = item.getItemId();
         if (itemId == R.id.nav_suporte) {
             openFragment(new RelatarProblemaFragment());
-        } else if (itemId == R.id.nav_configuracoes) {
-            openFragment(new ConfiguracoesFragment());
         } else if (itemId == R.id.nav_notificacoes) {
 //            openFragment(new com.br.projeto.vitalusus.NotificacoesFragment());
         } else if (itemId == R.id.nav_sobrenos) {
