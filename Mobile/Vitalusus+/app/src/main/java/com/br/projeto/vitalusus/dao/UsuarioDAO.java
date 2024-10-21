@@ -32,7 +32,8 @@ public class UsuarioDAO {
     }
 
     // Método para cadastrar um novo usuário
-    public void cadastrarUsuario(Usuario u) {
+    public int cadastrarUsuario(Usuario u) {
+        int usuarioId = -1; // ID padrão para o caso de falha
         try {
             conn = Conexao.conectar();
             if (conn != null) {
@@ -40,7 +41,8 @@ public class UsuarioDAO {
                 String sql = "INSERT INTO Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, chaveSeguranca, nivelPrivacidade, dataNasc, idade) " +
                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, NEWID(), ?, ?, ?)";
 
-                PreparedStatement stmt = conn.prepareStatement(sql);
+                // Usamos RETURN_GENERATED_KEYS para obter o ID gerado
+                PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 
                 // Preenche os parâmetros do SQL na ordem especificada
                 stmt.setString(1, u.getNome());
@@ -56,8 +58,6 @@ public class UsuarioDAO {
                 stmt.setString(7, u.getStatusUsuario());
                 stmt.setString(8, u.getTipoUsuario());
 
-                // NEWID() já está sendo gerado automaticamente, portanto não precisa ser setado aqui
-
                 stmt.setString(9, u.getNivelPrivacidade());
 
                 // Para a data de nascimento, use java.sql.Date
@@ -69,13 +69,20 @@ public class UsuarioDAO {
 
                 // Executa a inserção
                 stmt.executeUpdate();
+
+                // Obtém as chaves geradas (neste caso, o ID do usuário)
+                ResultSet generatedKeys = stmt.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    usuarioId = generatedKeys.getInt(1); // Captura o ID gerado
+                }
+
                 conn.close();
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+        return usuarioId; // Retorna o ID do usuário inserido
     }
-
     // Seleciona um usuário pelo email e senha
     public Usuario selecionarUsuario(String email, String senha) {
         try {
