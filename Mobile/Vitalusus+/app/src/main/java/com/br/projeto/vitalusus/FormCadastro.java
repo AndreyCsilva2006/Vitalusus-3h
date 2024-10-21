@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+
 import com.br.projeto.vitalusus.dao.AlunoDAO;
 import com.br.projeto.vitalusus.dao.UsuarioDAO;
 import com.br.projeto.vitalusus.model.Aluno;
@@ -21,6 +23,7 @@ import java.util.Calendar;
 public class FormCadastro extends AppCompatActivity {
 
     private EditText editNome, editEmail, editSenha, editDataNasc;
+    private TextView text_tela_principal;
     private RadioGroup rdggroupSexo;
 
     @Override
@@ -34,6 +37,15 @@ public class FormCadastro extends AppCompatActivity {
         editSenha = findViewById(R.id.editFormCadastroLoginSenha);
         editDataNasc = findViewById(R.id.editFormCadastroDataNascimento);
         rdggroupSexo = findViewById(R.id.rgSexo);
+        text_tela_principal = findViewById(R.id.text_tela_principal);
+
+        text_tela_principal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(FormCadastro.this, FormLogin.class);
+                startActivity(i);
+            }
+        });
 
         // Configurando o botão de salvar
         Button btnSalvar = findViewById(R.id.btnCadastroSalvar);

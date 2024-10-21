@@ -22,6 +22,8 @@ import android.widget.TextView;
  */
 public class PerfilFragment extends Fragment {
 
+    private TextView nomeTextView, emailTextView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,13 +41,14 @@ public class PerfilFragment extends Fragment {
         // Recupera os dados do Bundle
         Bundle bundle = getArguments();
         if (bundle != null) {
-            int usuarioId = bundle.getInt("usuarioId", -1);
             String usuarioNome = bundle.getString("usuarioNome");
             String usuarioEmail = bundle.getString("usuarioEmail");
 
             // Exibe os dados ou usa conforme necessário
-            TextView nomeTextView = view.findViewById(R.id.txtPerfilNomeAluno);
-            nomeTextView.setText("Bem-vindo, " + usuarioNome);
+            nomeTextView = view.findViewById(R.id.txtPerfilNomeAluno);
+            emailTextView = view.findViewById(R.id.txtPerfilEmailAluno);
+            nomeTextView.setText(usuarioNome);
+            emailTextView.setText(usuarioEmail);
 
             // Aqui você pode usar `usuarioId`, `usuarioNome`, `usuarioEmail` conforme necessário
         }

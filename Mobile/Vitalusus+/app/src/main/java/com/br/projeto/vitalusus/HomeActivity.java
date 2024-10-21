@@ -52,13 +52,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         // Recupera os dados do Intent
         Intent intent = getIntent();
-        int usuarioId = intent.getIntExtra("usuarioId", -1);
         String usuarioNome = intent.getStringExtra("usuarioNome");
         String usuarioEmail = intent.getStringExtra("usuarioEmail");
 
         // Cria um Bundle para passar os dados à Fragment
         Bundle bundle = new Bundle();
-        bundle.putInt("usuarioId", usuarioId);
         bundle.putString("usuarioNome", usuarioNome);
         bundle.putString("usuarioEmail", usuarioEmail);
 
@@ -106,7 +104,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     openFragment(new EstatisticasFragment());
                     return true;
                 } else if (itemId == R.id.bottom_perfil) {
-                    openFragment(new PerfilFragment());
+                    PerfilFragment perfilFragment = new PerfilFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("usuarioNome", usuarioNome);
+                    bundle.putString("usuarioEmail", usuarioEmail);
+                    perfilFragment.setArguments(bundle);
+                    openFragment(perfilFragment);
                     return true;
                 }
                 return false;
@@ -116,8 +119,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         fragmentManager = getSupportFragmentManager();
         openFragment(new HomeFragment()); // Abre o HomeFragment inicialmente
     }
-
-
 
     // Controla a navegação no drawer
     @Override
