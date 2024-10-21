@@ -10,12 +10,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -44,6 +49,27 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         // Chamando super.onCreate após definir o tema
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        // Recupera os dados do Intent
+        Intent intent = getIntent();
+        int usuarioId = intent.getIntExtra("usuarioId", -1);
+        String usuarioNome = intent.getStringExtra("usuarioNome");
+        String usuarioEmail = intent.getStringExtra("usuarioEmail");
+
+        // Cria um Bundle para passar os dados à Fragment
+        Bundle bundle = new Bundle();
+        bundle.putInt("usuarioId", usuarioId);
+        bundle.putString("usuarioNome", usuarioNome);
+        bundle.putString("usuarioEmail", usuarioEmail);
+
+        // Inicializa a Fragment e define os argumentos
+        PerfilFragment perfilFragment = new PerfilFragment();
+        perfilFragment.setArguments(bundle); // Passa os dados para a Fragment
+
+        // Inicia a Fragment
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, perfilFragment) // Assume que `fragment_container` é o ID do container no layout
+                .commit();
 
         // Inicializando toolbar e search view
         toolbar = findViewById(R.id.toolbar);
@@ -90,6 +116,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         fragmentManager = getSupportFragmentManager();
         openFragment(new HomeFragment()); // Abre o HomeFragment inicialmente
     }
+
+
 
     // Controla a navegação no drawer
     @Override

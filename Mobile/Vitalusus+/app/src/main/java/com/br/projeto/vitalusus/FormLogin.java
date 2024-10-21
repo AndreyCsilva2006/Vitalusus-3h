@@ -87,6 +87,9 @@ public class FormLogin extends AppCompatActivity {
         Usuario usu = new UsuarioDAO().selecionarUsuario(email, senha);
         if (usu != null){
             Intent intent = new Intent(FormLogin.this, HomeActivity.class);
+            intent.putExtra("usuarioId", usu.getId());
+            intent.putExtra("usuarioNome", usu.getNome());
+            intent.putExtra("usuarioEmail", usu.getEmail());
             startActivity(intent);
 
             finish();
