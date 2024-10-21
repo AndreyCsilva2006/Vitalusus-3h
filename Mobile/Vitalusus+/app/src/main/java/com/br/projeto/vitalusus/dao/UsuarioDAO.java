@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -38,17 +37,17 @@ public class UsuarioDAO {
             conn = Conexao.conectar();
             if (conn != null) {
                 // SQL de inserção usando PreparedStatement
-                String sql = "INSERT INTO Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, dataNasc, idade, nivelPrivacidade) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, chaveSeguranca, nivelPrivacidade, dataNasc, idade) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, NEWID(), ?, ?, ?)";
 
                 PreparedStatement stmt = conn.prepareStatement(sql);
 
-                // Preenche os parâmetros do SQL
+                // Preenche os parâmetros do SQL na ordem especificada
                 stmt.setString(1, u.getNome());
                 stmt.setString(2, u.getEmail());
                 stmt.setString(3, u.getSenha());
-                stmt.setString(4, u.getNivelAcesso());
-                stmt.setBytes(5, null); // Envia null para foto
+                stmt.setString(4, u.getNivelAcesso()); // Pode ser null, então verificações podem ser feitas no model
+                stmt.setBytes(5, null); // Envia null para foto, pois não há como enviar a imagem pelo FormCadastro
 
                 // Usa Timestamp para a data de cadastro, incluindo data e hora
                 Timestamp dataCadastroAtual = new Timestamp(System.currentTimeMillis());
@@ -57,14 +56,16 @@ public class UsuarioDAO {
                 stmt.setString(7, u.getStatusUsuario());
                 stmt.setString(8, u.getTipoUsuario());
 
+                // NEWID() já está sendo gerado automaticamente, portanto não precisa ser setado aqui
+
+                stmt.setString(9, u.getNivelPrivacidade());
+
                 // Para a data de nascimento, use java.sql.Date
-                stmt.setDate(9, new java.sql.Date(u.getDataNasc().getTime())); // Passa a data de nascimento corretamente
+                stmt.setDate(10, new java.sql.Date(u.getDataNasc().getTime())); // Passa a data de nascimento corretamente
 
                 // Calcula a idade
                 int idadeCalculada = calcularIdade(u.getDataNasc());
-                stmt.setInt(10, idadeCalculada);
-
-                stmt.setString(11, u.getNivelPrivacidade());
+                stmt.setInt(11, idadeCalculada);
 
                 // Executa a inserção
                 stmt.executeUpdate();

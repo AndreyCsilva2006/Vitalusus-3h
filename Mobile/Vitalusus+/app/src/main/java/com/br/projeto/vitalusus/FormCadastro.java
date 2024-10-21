@@ -14,9 +14,7 @@ import com.br.projeto.vitalusus.model.Aluno;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.util.MensagemUtil;
 
-import java.sql.Date; // Importa java.sql.Date
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -51,7 +49,6 @@ public class FormCadastro extends AppCompatActivity {
         String nome = editNome.getText().toString().trim();
         String email = editEmail.getText().toString().trim();
         String senha = editSenha.getText().toString().trim();
-        String dataNasc = editDataNasc.getText().toString().trim();
 
         // Capturando o sexo do Aluno como String ("M" ou "F")
         String sexo = obterSexoSelecionado();
@@ -59,6 +56,13 @@ public class FormCadastro extends AppCompatActivity {
         if (sexo == null) {
             Log.e("FormCadastro", "Sexo não selecionado.");
             MensagemUtil.exibir(this, "Por favor, selecione o sexo.");
+            return;
+        }
+
+        // Capturando a data de nascimento diretamente como Date
+        java.sql.Date dataNasc = obterDataNasc();
+        if (dataNasc == null) {
+            Log.e("FormCadastro", "Data de nascimento inválida.");
             return;
         }
 
@@ -77,14 +81,9 @@ public class FormCadastro extends AppCompatActivity {
         String nivelPrivacidade = "PUBLICO"; // Nível de privacidade
         Date dataCadastro = new Date(System.currentTimeMillis()); // Data atual
 
-        java.sql.Date dataNascDate = converterDataNasc(dataNasc);
-        if (dataNascDate == null) {
-            return; // Sai do método se a data estiver em formato inválido
-        }
-
         // Criando objeto Usuario com todos os campos necessários
         Usuario usuario = new Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro.toString(),
-                statusUsuario, tipoUsuario, nivelPrivacidade, idade, dataNascDate);
+                statusUsuario, tipoUsuario, nivelPrivacidade, idade, dataNasc);
 
         // Instanciando o AlunoDAO
         AlunoDAO alunoDAO = new AlunoDAO();
@@ -148,38 +147,29 @@ public class FormCadastro extends AppCompatActivity {
     }
 
     // Método calcularIdade
-    private int calcularIdade(String dataNasc) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        try {
-            java.util.Date dataNascimento = sdf.parse(dataNasc);
-            Calendar dataNascCal = Calendar.getInstance();
-            dataNascCal.setTime(dataNascimento);
+    private int calcularIdade(java.sql.Date dataNasc) {
+        Calendar dataNascCal = Calendar.getInstance();
+        dataNascCal.setTime(dataNasc);
 
-            Calendar hoje = Calendar.getInstance();
-            int idade = hoje.get(Calendar.YEAR) - dataNascCal.get(Calendar.YEAR);
+        Calendar hoje = Calendar.getInstance();
+        int idade = hoje.get(Calendar.YEAR) - dataNascCal.get(Calendar.YEAR);
 
-            // Verifica se o aniversário já aconteceu este ano; se não, subtrai 1 da idade
-            if (hoje.get(Calendar.DAY_OF_YEAR) < dataNascCal.get(Calendar.DAY_OF_YEAR)) {
-                idade--;
-            }
-
-            Log.d("FormCadastro", "Idade calculada: " + idade);
-            return idade;
-        } catch (ParseException e) {
-            Log.e("FormCadastro", "Erro ao calcular idade", e);
-            MensagemUtil.exibir(this, "Formato de data inválido. Use o formato YYYY-MM-DD.");
-            return 0; // Retorna 0 caso haja erro no formato da data
+        // Verifica se o aniversário já aconteceu este ano; se não, subtrai 1 da idade
+        if (hoje.get(Calendar.DAY_OF_YEAR) < dataNascCal.get(Calendar.DAY_OF_YEAR)) {
+            idade--;
         }
+
+        Log.d("FormCadastro", "Idade calculada: " + idade);
+        return idade;
     }
 
-    // Método para converter a data de nascimento
-    private java.sql.Date converterDataNasc(String dataNasc) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    // Método para obter a data de nascimento
+    private java.sql.Date obterDataNasc() {
+        String dataNascTexto = editDataNasc.getText().toString().trim();
         try {
-            java.util.Date dataNascimento = sdf.parse(dataNasc);
-            return new java.sql.Date(dataNascimento.getTime());
-        } catch (ParseException e) {
-            Log.e("FormCadastro", "Erro ao converter a data de nascimento: " + dataNasc, e);
+            return java.sql.Date.valueOf(dataNascTexto); // Usa java.sql.Date diretamente
+        } catch (IllegalArgumentException e) {
+            Log.e("FormCadastro", "Erro ao converter a data de nascimento: " + dataNascTexto, e);
             MensagemUtil.exibir(this, "Formato de data inválido. Use o formato YYYY-MM-DD.");
             return null; // Retorna null em caso de erro
         }
