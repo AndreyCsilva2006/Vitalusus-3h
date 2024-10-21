@@ -176,7 +176,8 @@ function adicionarAdmin(event){
             body: JSON.stringify(data)
         });
         if(!response.ok){
-            throw new Error('Erro na requisição: ' + response.statusText);
+            const errorData = await response.json()
+            alert(errorData.message)
             }
         admin = await response.json()
         console.log('admin criado: ', admin)
