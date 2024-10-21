@@ -34,9 +34,9 @@ public class FormCadastro extends AppCompatActivity {
         editNome = findViewById(R.id.editFormCadastroLoginNome);
         editEmail = findViewById(R.id.editFormCadastroLoginEmail);
         editSenha = findViewById(R.id.editFormCadastroLoginSenha);
-        editDataNasc = findViewById(R.id.editFormCadastroDataNascimento);
+//        editDataNasc = findViewById(R.id.editFormCadastroDataNascimento);
         btnFormCadastroOlharSenha = findViewById(R.id.btnFormCadastroOlharSenha);
-        rdggroupSexo = findViewById(R.id.rgSexo);
+//        rdggroupSexo = findViewById(R.id.rgSexo);
         // Configurando o botão de salvar
         Button btnSalvar = findViewById(R.id.btnCadastroSalvar);
         btnSalvar.setOnClickListener(this::salvar);
@@ -69,27 +69,27 @@ public class FormCadastro extends AppCompatActivity {
         String senha = editSenha.getText().toString().trim();
 
         // Capturando o sexo do Aluno como String ("M" ou "F")
-        String sexo = obterSexoSelecionado();
+//        String sexo = obterSexoSelecionado();
 
-        if (sexo == null) {
-            Log.e("FormCadastro", "Sexo não selecionado.");
-            MensagemUtil.exibir(this, "Por favor, selecione o sexo.");
-            return;
-        }
+//        if (sexo == null) {
+//            Log.e("FormCadastro", "Sexo não selecionado.");
+//            MensagemUtil.exibir(this, "Por favor, selecione o sexo.");
+//            return;
+//        }
 
         // Capturando a data de nascimento diretamente como Date
-        java.sql.Date dataNasc = obterDataNasc();
-        if (dataNasc == null) {
-            Log.e("FormCadastro", "Data de nascimento inválida.");
-            return;
-        }
+//        java.sql.Date dataNasc = obterDataNasc();
+//        if (dataNasc == null) {
+//            Log.e("FormCadastro", "Data de nascimento inválida.");
+//            return;
+//        }
 
-        int idade = calcularIdade(dataNasc);
-        if (idade < 18) {
-            Log.e("FormCadastro", "Idade menor que 18 anos: " + idade);
-            MensagemUtil.exibir(this, "É necessário ter 18 anos ou mais para se cadastrar.");
-            return;
-        }
+//        int idade = calcularIdade(dataNasc);
+//        if (idade < 18) {
+//            Log.e("FormCadastro", "Idade menor que 18 anos: " + idade);
+//            MensagemUtil.exibir(this, "É necessário ter 18 anos ou mais para se cadastrar.");
+//            return;
+//        }
 
         // Definindo valores padrão
         String nivelAcesso = "USER"; // Pode ser ADMIN ou USER
@@ -101,7 +101,7 @@ public class FormCadastro extends AppCompatActivity {
 
         // Criando objeto Usuario com todos os campos necessários
         Usuario usuario = new Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro.toString(),
-                statusUsuario, tipoUsuario, nivelPrivacidade, idade, dataNasc);
+                statusUsuario, tipoUsuario, nivelPrivacidade);
 
         // Instanciando o UsuarioDAO
         UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -111,7 +111,7 @@ public class FormCadastro extends AppCompatActivity {
             // Instanciando o AlunoDAO e criando objeto Aluno
             AlunoDAO alunoDAO = new AlunoDAO();
             Aluno aluno = new Aluno();
-            aluno.setSexo(sexo); // Setando o sexo como string ("M" ou "F")
+//            aluno.setSexo(sexo); // Setando o sexo como string ("M" ou "F")
 
             // Chama o método para cadastrar o aluno, passando o ID do usuário
             try {
@@ -129,22 +129,22 @@ public class FormCadastro extends AppCompatActivity {
         }
     }
 
-    private String obterSexoSelecionado() {
-        int id = rdggroupSexo.getCheckedRadioButtonId();
-        if (id == R.id.rbMasculino) {
-            return "Masculino"; // Masculino
-        } else if (id == R.id.rbFeminino) {
-            return "Feminino"; // Feminino
-        }
-        return null; // Não selecionado ou indefinido
-    }
+//    private String obterSexoSelecionado() {
+//        int id = rdggroupSexo.getCheckedRadioButtonId();
+//        if (id == R.id.rbMasculino) {
+//            return "Masculino"; // Masculino
+//        } else if (id == R.id.rbFeminino) {
+//            return "Feminino"; // Feminino
+//        }
+//        return null; // Não selecionado ou indefinido
+//    }
 
     // Método validar
     private boolean validar() {
         String nome = editNome.getText().toString().trim();
         String email = editEmail.getText().toString().trim();
         String senha = editSenha.getText().toString().trim();
-        String dataNasc = editDataNasc.getText().toString().trim();
+//        String dataNasc = editDataNasc.getText().toString().trim();
 
         if (TextUtils.isEmpty(nome)) {
             Log.e("FormCadastro", "Nome não preenchido.");
@@ -164,11 +164,11 @@ public class FormCadastro extends AppCompatActivity {
             return false;
         }
 
-        if (TextUtils.isEmpty(dataNasc)) {
-            Log.e("FormCadastro", "Data de nascimento não preenchida.");
-            MensagemUtil.exibir(this, "A data de nascimento é obrigatória.");
-            return false;
-        }
+//        if (TextUtils.isEmpty(dataNasc)) {
+//            Log.e("FormCadastro", "Data de nascimento não preenchida.");
+//            MensagemUtil.exibir(this, "A data de nascimento é obrigatória.");
+//            return false;
+//        }
 
         return true;
     }
@@ -191,14 +191,14 @@ public class FormCadastro extends AppCompatActivity {
     }
 
     // Método para obter a data de nascimento
-    private java.sql.Date obterDataNasc() {
-        String dataNascTexto = editDataNasc.getText().toString().trim();
-        try {
-            return java.sql.Date.valueOf(dataNascTexto); // Usa java.sql.Date diretamente
-        } catch (IllegalArgumentException e) {
-            Log.e("FormCadastro", "Erro ao converter a data de nascimento: " + dataNascTexto, e);
-            MensagemUtil.exibir(this, "Formato de data inválido. Use o formato YYYY-MM-DD.");
-            return null; // Retorna null em caso de erro
-        }
-    }
+//    private java.sql.Date obterDataNasc() {
+//        String dataNascTexto = editDataNasc.getText().toString().trim();
+//        try {
+//            return java.sql.Date.valueOf(dataNascTexto); // Usa java.sql.Date diretamente
+//        } catch (IllegalArgumentException e) {
+//            Log.e("FormCadastro", "Erro ao converter a data de nascimento: " + dataNascTexto, e);
+//            MensagemUtil.exibir(this, "Formato de data inválido. Use o formato YYYY-MM-DD.");
+//            return null; // Retorna null em caso de erro
+//        }
+//    }
 }

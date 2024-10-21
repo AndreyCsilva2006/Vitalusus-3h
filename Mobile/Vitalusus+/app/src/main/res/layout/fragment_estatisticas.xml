@@ -21,20 +21,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Peso (kg)"
+                android:backgroundTint="?attr/colorPrimary"
+                android:hint="Peso (kg) Ex: 60"
                 android:inputType="numberDecimal"
-                android:textColor="?attr/colorOnBackground"
-                android:backgroundTint="?attr/colorPrimary" />
+                android:textColor="?attr/colorOnBackground" />
 
             <EditText
                 android:id="@+id/et_altura"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Altura (cm)"
+                android:backgroundTint="?attr/colorPrimary"
+                android:hint="Altura (cm) Ex: 170"
                 android:inputType="numberDecimal"
-                android:textColor="?attr/colorOnBackground"
-                android:backgroundTint="?attr/colorPrimary" />
+                android:textColor="?attr/colorOnBackground" />
         </LinearLayout>
 
         <!-- Idade do usuário -->
@@ -42,9 +42,10 @@
             android:id="@+id/et_idade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="?attr/colorPrimary"
             android:hint="Idade"
-            android:textColor="?attr/colorOnBackground"
-            android:backgroundTint="?attr/colorPrimary" />
+            android:inputType="number|numberDecimal"
+            android:textColor="?attr/colorOnBackground" />
 
         <!-- Gênero -->
         <RadioGroup

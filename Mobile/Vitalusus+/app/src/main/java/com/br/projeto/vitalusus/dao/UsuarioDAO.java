@@ -15,22 +15,22 @@ import org.mindrot.jbcrypt.BCrypt;
 public class UsuarioDAO {
     private Connection conn = null;
 
-    // Método para calcular a idade
-    private int calcularIdade(Date dataNasc) {
-        Calendar dataNascimento = Calendar.getInstance();
-        dataNascimento.setTime(dataNasc);
-
-        Calendar hoje = Calendar.getInstance();
-        int idade = hoje.get(Calendar.YEAR) - dataNascimento.get(Calendar.YEAR);
-
-        if (hoje.get(Calendar.MONTH) < dataNascimento.get(Calendar.MONTH) ||
-                (hoje.get(Calendar.MONTH) == dataNascimento.get(Calendar.MONTH) &&
-                        hoje.get(Calendar.DAY_OF_MONTH) < dataNascimento.get(Calendar.DAY_OF_MONTH))) {
-            idade--;
-        }
-
-        return idade;
-    }
+//    // Método para calcular a idade
+//    private int calcularIdade(Date dataNasc) {
+//        Calendar dataNascimento = Calendar.getInstance();
+//        dataNascimento.setTime(dataNasc);
+//
+//        Calendar hoje = Calendar.getInstance();
+//        int idade = hoje.get(Calendar.YEAR) - dataNascimento.get(Calendar.YEAR);
+//
+//        if (hoje.get(Calendar.MONTH) < dataNascimento.get(Calendar.MONTH) ||
+//                (hoje.get(Calendar.MONTH) == dataNascimento.get(Calendar.MONTH) &&
+//                        hoje.get(Calendar.DAY_OF_MONTH) < dataNascimento.get(Calendar.DAY_OF_MONTH))) {
+//            idade--;
+//        }
+//
+//        return idade;
+//    }
 
     // Método para criptografar a senha
     private String criptografarSenha(String senha) {
@@ -49,8 +49,8 @@ public class UsuarioDAO {
             conn = Conexao.conectar();
             if (conn != null) {
                 // SQL de inserção usando PreparedStatement
-                String sql = "INSERT INTO Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, chaveSeguranca, nivelPrivacidade, dataNasc, idade) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, NEWID(), ?, ?, ?)";
+                String sql = "INSERT INTO Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, chaveSeguranca, nivelPrivacidade) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, NEWID(), ?)";
 
                 // Usamos RETURN_GENERATED_KEYS para obter o ID gerado
                 PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -76,11 +76,11 @@ public class UsuarioDAO {
                 stmt.setString(9, u.getNivelPrivacidade());
 
                 // Para a data de nascimento, use java.sql.Date
-                stmt.setDate(10, new java.sql.Date(u.getDataNasc().getTime())); // Passa a data de nascimento corretamente
+//                stmt.setDate(10, new java.sql.Date(u.getDataNasc().getTime())); // Passa a data de nascimento corretamente
 
                 // Calcula a idade
-                int idadeCalculada = calcularIdade(u.getDataNasc());
-                stmt.setInt(11, idadeCalculada);
+//                int idadeCalculada = calcularIdade(u.getDataNasc());
+//                stmt.setInt(11, idadeCalculada);
 
                 // Executa a inserção
                 stmt.executeUpdate();
@@ -120,8 +120,8 @@ public class UsuarioDAO {
                         usu.setSenha(rs.getString("senha"));
                         usu.setDataNasc(rs.getDate("dataNasc"));
 
-                        int idade = calcularIdade(usu.getDataNasc());
-                        usu.setIdade(idade);
+//                        int idade = calcularIdade(usu.getDataNasc());
+//                        usu.setIdade(idade);
 
                         conn.close();
                         return usu;
