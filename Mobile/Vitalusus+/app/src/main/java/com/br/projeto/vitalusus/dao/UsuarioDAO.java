@@ -50,9 +50,9 @@ public class UsuarioDAO {
                 stmt.setString(4, u.getNivelAcesso());
                 stmt.setBytes(5, null); // Envia null para foto
 
-                // Usa Timestamp para a data de cadastro
+                // Usa Timestamp para a data de cadastro, incluindo data e hora
                 Timestamp dataCadastroAtual = new Timestamp(System.currentTimeMillis());
-                stmt.setTimestamp(6, dataCadastroAtual);
+                stmt.setTimestamp(6, dataCadastroAtual); // Envia o Timestamp correto
 
                 stmt.setString(7, u.getStatusUsuario());
                 stmt.setString(8, u.getTipoUsuario());
@@ -74,6 +74,7 @@ public class UsuarioDAO {
             e.printStackTrace();
         }
     }
+
     // Seleciona um usuário pelo email e senha
     public Usuario selecionarUsuario(String email, String senha) {
         try {
