@@ -176,7 +176,8 @@ function adicionarAdmin(event){
             body: JSON.stringify(data)
         });
         if(!response.ok){
-            throw new Error('Erro na requisição: ' + response.statusText);
+            const errorData = await response.json()
+            alert(errorData.message)
             }
         admin = await response.json()
         console.log('admin criado: ', admin)
@@ -206,7 +207,6 @@ function adicionarAdmin(event){
                 <td>${admin.id}</td>
                 <td>${admin.usuario.nome}</td>
                 <td>${admin.usuario.email}</td>
-                <td>${admin.usuario.chaveSeguranca}</td>
                 <td>${atob(admin.usuario.senha)}</td>
                 <td>${dataNasc.toLocaleDateString('pt-BR', options)}</td>
                 <td>${admin.usuario.statusUsuario}</td>
@@ -223,7 +223,6 @@ function adicionarAdmin(event){
                 <td>${admin.id}</td>
                 <td>${admin.usuario.nome}</td>
                 <td>${admin.usuario.email}</td>
-                <td>${admin.usuario.chaveSeguranca}</td>
                 <td>${atob(admin.usuario.senha)}</td>
                 <td>${dataNasc.toLocaleDateString('pt-BR', options)}</td>
                 <td>${admin.usuario.statusUsuario}</td>
@@ -240,7 +239,6 @@ function adicionarAdmin(event){
                 <td>${admin.id}</td>
                 <td>${admin.usuario.nome}</td>
                 <td>${admin.usuario.email}</td>
-                <td>${admin.usuario.chaveSeguranca}</td>
                 <td>${atob(admin.usuario.senha)}</td>
                 <td>${dataNasc.toLocaleDateString('pt-BR', options)}</td>
                 <td>${admin.usuario.statusUsuario}</td>
