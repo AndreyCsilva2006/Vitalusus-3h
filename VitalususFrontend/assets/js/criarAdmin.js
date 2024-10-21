@@ -206,7 +206,6 @@ function adicionarAdmin(event){
                 <td>${admin.id}</td>
                 <td>${admin.usuario.nome}</td>
                 <td>${admin.usuario.email}</td>
-                <td>${admin.usuario.chaveSeguranca}</td>
                 <td>${atob(admin.usuario.senha)}</td>
                 <td>${dataNasc.toLocaleDateString('pt-BR', options)}</td>
                 <td>${admin.usuario.statusUsuario}</td>
@@ -223,7 +222,6 @@ function adicionarAdmin(event){
                 <td>${admin.id}</td>
                 <td>${admin.usuario.nome}</td>
                 <td>${admin.usuario.email}</td>
-                <td>${admin.usuario.chaveSeguranca}</td>
                 <td>${atob(admin.usuario.senha)}</td>
                 <td>${dataNasc.toLocaleDateString('pt-BR', options)}</td>
                 <td>${admin.usuario.statusUsuario}</td>
@@ -240,7 +238,6 @@ function adicionarAdmin(event){
                 <td>${admin.id}</td>
                 <td>${admin.usuario.nome}</td>
                 <td>${admin.usuario.email}</td>
-                <td>${admin.usuario.chaveSeguranca}</td>
                 <td>${atob(admin.usuario.senha)}</td>
                 <td>${dataNasc.toLocaleDateString('pt-BR', options)}</td>
                 <td>${admin.usuario.statusUsuario}</td>
