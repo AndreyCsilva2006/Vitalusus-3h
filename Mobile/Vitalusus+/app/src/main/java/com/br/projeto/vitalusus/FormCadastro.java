@@ -10,13 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import com.br.projeto.vitalusus.dao.AlunoDAO;
+import com.br.projeto.vitalusus.dao.UsuarioDAO;
 import com.br.projeto.vitalusus.model.Aluno;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.util.MensagemUtil;
 
 import java.sql.Date;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class FormCadastro extends AppCompatActivity {
 
@@ -85,30 +85,38 @@ public class FormCadastro extends AppCompatActivity {
         Usuario usuario = new Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro.toString(),
                 statusUsuario, tipoUsuario, nivelPrivacidade, idade, dataNasc);
 
-        // Instanciando o AlunoDAO
-        AlunoDAO alunoDAO = new AlunoDAO();
-        Aluno aluno = new Aluno();
-        aluno.setSexo(sexo); // Setando o sexo como string ("M" ou "F")
+        // Instanciando o UsuarioDAO
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        int usuarioId = usuarioDAO.cadastrarUsuario(usuario); // Insere o usuário e retorna o ID
 
-        // Chama o método para cadastrar o aluno
-        try {
-            alunoDAO.cadastrarAluno(aluno, usuario);
-            MensagemUtil.exibir(this, "Cadastro realizado com sucesso.");
-            startActivity(new Intent(FormCadastro.this, FormLogin.class));
-            finish();
-        } catch (Exception e) {
-            Log.e("FormCadastro", "Erro ao cadastrar aluno.", e);
-            MensagemUtil.exibir(this, "Falha no cadastro do aluno. Verifique as informações.");
+        if (usuarioId != -1) { // Verifica se o usuário foi inserido com sucesso
+            // Instanciando o AlunoDAO e criando objeto Aluno
+            AlunoDAO alunoDAO = new AlunoDAO();
+            Aluno aluno = new Aluno();
+            aluno.setSexo(sexo); // Setando o sexo como string ("M" ou "F")
+
+            // Chama o método para cadastrar o aluno, passando o ID do usuário
+            try {
+                alunoDAO.cadastrarAluno(usuarioId, aluno); // Cadastra o aluno com o ID do usuário
+                MensagemUtil.exibir(this, "Cadastro realizado com sucesso.");
+                startActivity(new Intent(FormCadastro.this, FormLogin.class));
+                finish();
+            } catch (Exception e) {
+                Log.e("FormCadastro", "Erro ao cadastrar aluno.", e);
+                MensagemUtil.exibir(this, "Falha no cadastro do aluno. Verifique as informações.");
+            }
+        } else {
+            Log.e("FormCadastro", "Erro ao cadastrar o usuário.");
+            MensagemUtil.exibir(this, "Falha no cadastro do usuário.");
         }
-
     }
 
     private String obterSexoSelecionado() {
         int id = rdggroupSexo.getCheckedRadioButtonId();
         if (id == R.id.rbMasculino) {
-            return "M"; // Masculino
+            return "Masculino"; // Masculino
         } else if (id == R.id.rbFeminino) {
-            return "F"; // Feminino
+            return "Feminino"; // Feminino
         }
         return null; // Não selecionado ou indefinido
     }

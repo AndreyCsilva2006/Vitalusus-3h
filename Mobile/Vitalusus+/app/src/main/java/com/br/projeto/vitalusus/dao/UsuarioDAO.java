@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class UsuarioDAO {
     private Connection conn = null;
@@ -31,8 +32,19 @@ public class UsuarioDAO {
         return idade;
     }
 
+    // Método para criptografar a senha
+    private String criptografarSenha(String senha) {
+        return BCrypt.hashpw(senha, BCrypt.gensalt());
+    }
+
+    // Método para verificar se a senha fornecida corresponde ao hash armazenado
+    private boolean verificarSenha(String senha, String hash) {
+        return BCrypt.checkpw(senha, hash);
+    }
+
     // Método para cadastrar um novo usuário
-    public void cadastrarUsuario(Usuario u) {
+    public int cadastrarUsuario(Usuario u) {
+        int usuarioId = -1; // ID padrão para o caso de falha
         try {
             conn = Conexao.conectar();
             if (conn != null) {
@@ -40,12 +52,17 @@ public class UsuarioDAO {
                 String sql = "INSERT INTO Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, chaveSeguranca, nivelPrivacidade, dataNasc, idade) " +
                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, NEWID(), ?, ?, ?)";
 
-                PreparedStatement stmt = conn.prepareStatement(sql);
+                // Usamos RETURN_GENERATED_KEYS para obter o ID gerado
+                PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 
                 // Preenche os parâmetros do SQL na ordem especificada
                 stmt.setString(1, u.getNome());
                 stmt.setString(2, u.getEmail());
-                stmt.setString(3, u.getSenha());
+
+                // Criptografa a senha antes de armazená-la
+                String senhaCriptografada = criptografarSenha(u.getSenha());
+                stmt.setString(3, senhaCriptografada);
+
                 stmt.setString(4, u.getNivelAcesso()); // Pode ser null, então verificações podem ser feitas no model
                 stmt.setBytes(5, null); // Envia null para foto, pois não há como enviar a imagem pelo FormCadastro
 
@@ -55,8 +72,6 @@ public class UsuarioDAO {
 
                 stmt.setString(7, u.getStatusUsuario());
                 stmt.setString(8, u.getTipoUsuario());
-
-                // NEWID() já está sendo gerado automaticamente, portanto não precisa ser setado aqui
 
                 stmt.setString(9, u.getNivelPrivacidade());
 
@@ -69,38 +84,50 @@ public class UsuarioDAO {
 
                 // Executa a inserção
                 stmt.executeUpdate();
+
+                // Obtém as chaves geradas (neste caso, o ID do usuário)
+                ResultSet generatedKeys = stmt.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    usuarioId = generatedKeys.getInt(1); // Captura o ID gerado
+                }
+
                 conn.close();
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+        return usuarioId; // Retorna o ID do usuário inserido
     }
-
     // Seleciona um usuário pelo email e senha
     public Usuario selecionarUsuario(String email, String senha) {
         try {
             conn = Conexao.conectar();
             if (conn != null) {
-                String sql = "SELECT * FROM Usuario WHERE email = ? AND senha = ?";
+                String sql = "SELECT * FROM Usuario WHERE email = ?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setString(1, email);
-                stmt.setString(2, senha);
                 ResultSet rs = stmt.executeQuery();
 
                 if (rs.next()) {
-                    Usuario usu = new Usuario();
-                    usu.setId(rs.getInt("id"));
-                    usu.setNome(rs.getString("nome"));
-                    usu.setEmail(rs.getString("email"));
-                    usu.setSenha(rs.getString("senha"));
-                    usu.setDataNasc(rs.getDate("dataNasc"));
+                    String senhaArmazenada = rs.getString("senha");
 
-                    // Calcula a idade
-                    int idade = calcularIdade(usu.getDataNasc());
-                    usu.setIdade(idade);
+                    // Verifica a senha
+                    if (verificarSenha(senha, senhaArmazenada)) {
+                        Usuario usu = new Usuario();
+                        usu.setId(rs.getInt("id"));
+                        usu.setNome(rs.getString("nome"));
+                        usu.setEmail(rs.getString("email"));
+                        usu.setSenha(rs.getString("senha"));
+                        usu.setDataNasc(rs.getDate("dataNasc"));
 
-                    conn.close();
-                    return usu;
+                        int idade = calcularIdade(usu.getDataNasc());
+                        usu.setIdade(idade);
+
+                        conn.close();
+                        return usu;
+                    } else {
+                        System.out.println("Senha incorreta.");
+                    }
                 }
             }
         } catch (ClassNotFoundException | SQLException e) {

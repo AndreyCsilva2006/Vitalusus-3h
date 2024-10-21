@@ -101,8 +101,8 @@ public class DetailFragment extends Fragment {
         CircleImageView fotoUsuarioImageView = view.findViewById(R.id.imgFotoCanalDetail); // Aqui a ImageView é inicializada
 
         // Inicie o fetch de detalhes do canal e do usuário
-        fetchCanalDetails(canalId, nomeTextView, biografiaTextView, fotoUsuarioImageView);
-        fetchUsuarioDetails(usuarioId, fotoUsuarioImageView); // Carrega os detalhes do usuário e a foto
+//        fetchCanalDetails(canalId, nomeTextView, biografiaTextView, fotoUsuarioImageView);
+//        fetchUsuarioDetails(usuarioId, fotoUsuarioImageView); // Carrega os detalhes do usuário e a foto
         fetchVideos();
 
         return view;

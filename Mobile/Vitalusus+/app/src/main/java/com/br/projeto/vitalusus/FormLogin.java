@@ -18,6 +18,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import com.br.projeto.vitalusus.dao.UsuarioDAO;
+import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.response.AlunoResponse;
 import com.br.projeto.vitalusus.network.ApiService;
 import com.br.projeto.vitalusus.util.MensagemUtil;
@@ -82,36 +84,15 @@ public class FormLogin extends AppCompatActivity {
         String email = editEmail.getText().toString();
         String senha = editSenha.getText().toString();
 
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
-        ApiService apiService = retrofit.create(ApiService.class);
-        Call<AlunoResponse> call = apiService.loginUser(email, senha);
+        Usuario usu = new UsuarioDAO().selecionarUsuario(email, senha);
+        if (usu != null){
+            Intent intent = new Intent(FormLogin.this, HomeActivity.class);
+            startActivity(intent);
 
-        call.enqueue(new Callback<AlunoResponse>() {
-            @Override
-            public void onResponse(Call<AlunoResponse> call, Response<AlunoResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    AlunoResponse aluno = response.body();
-                    MensagemUtil.exibir(FormLogin.this, "Login com Sucesso!");
-
-                    // Navegar para a próxima tela, passando o nome, email e informações adicionais do aluno
-                    Intent intent = new Intent(FormLogin.this, HomeActivity.class);
-                    intent.putExtra("nome", aluno.getNome());
-                    intent.putExtra("email", aluno.getEmail());
-                    intent.putExtra("altura", aluno.getAltura());
-                    intent.putExtra("peso", aluno.getPeso());
-                    intent.putExtra("sexo", aluno.getSexo());
-                    startActivity(intent);
-                } else {
-                    MensagemUtil.exibir(FormLogin.this, "Aluno não identificado, tente novamente.");
-                    limpar();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AlunoResponse> call, Throwable t) {
-                MensagemUtil.exibir(FormLogin.this, "Erro ao tentar realizar login: " + t.getMessage());
-            }
-        });
+            finish();
+        } else {
+            limpar();
+        }
     }
 
     private void limpar() {
