@@ -54,7 +54,6 @@ public class Usuario implements Serializable {
         this.statusUsuario = statusUsuario;
         this.tipoUsuario = tipoUsuario;
         this.nivelPrivacidade = nivelPrivacidade;
-
     }
 
     public Usuario() {

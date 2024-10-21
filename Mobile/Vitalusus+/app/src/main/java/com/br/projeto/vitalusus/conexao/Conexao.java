@@ -17,7 +17,7 @@ public class Conexao {
 
         Class.forName("net.sourceforge.jtds.jdbc.Driver");
 
-        String ip = "192.168.0.221:1433";
+        String ip = "172.17.20.102:1433";
         String db = "bd_vitalusus2h";
         String user = "sa";
         String senha = "@ITB123456";

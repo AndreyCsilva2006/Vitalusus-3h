@@ -23,7 +23,7 @@ CREATE TABLE Usuario
    chaveSeguranca  UNIQUEIDENTIFIER DEFAULT NEWID() NOT NULL,
    nivelPrivacidade VARCHAR(50)NOT NULL, -- PUBLICO ou PRIVADO
    dataNasc			DATE			NULL,
-   idade		INT				NOT NULL,
+   idade		INT				NULL,
 
    PRIMARY KEY (id),
 )
@@ -60,9 +60,9 @@ VALUES(
 GO
 INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade, dataNasc) 
 VALUES(
-	'John Doe',
-	'rm87412@estudante.fieb.edu.br',
-	'0f05ccf3-dfa4-4a69-9a9b-879b96e667ab',
+	'Don Corleone',
+	'corleoneDon@gmail.com',
+	'sdfgh$$%#D',
 	'ADMIN',
 	null,
 	GETDATE(),
