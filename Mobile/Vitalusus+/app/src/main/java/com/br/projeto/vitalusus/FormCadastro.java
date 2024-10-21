@@ -17,12 +17,13 @@ import com.br.projeto.vitalusus.model.Aluno;
 import com.br.projeto.vitalusus.model.Usuario;
 import com.br.projeto.vitalusus.util.MensagemUtil;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Calendar;
 
 public class FormCadastro extends AppCompatActivity {
 
-    private EditText editNome, editEmail, editSenha, editDataNasc;
+    private EditText editNome, editEmail, editSenha, editDataNasc, editPeso, editAltura; // Novas variáveis para peso e altura
     private TextView text_tela_principal;
     private RadioGroup rdggroupSexo;
 
@@ -36,6 +37,8 @@ public class FormCadastro extends AppCompatActivity {
         editEmail = findViewById(R.id.editFormCadastroLoginEmail);
         editSenha = findViewById(R.id.editFormCadastroLoginSenha);
         editDataNasc = findViewById(R.id.editFormCadastroDataNascimento);
+        editPeso = findViewById(R.id.editFormCadastroLoginPeso); // Inicialização do peso
+        editAltura = findViewById(R.id.editFormCadastroLoginAltura); // Inicialização da altura
         rdggroupSexo = findViewById(R.id.rgSexo);
         text_tela_principal = findViewById(R.id.text_tela_principal);
 
@@ -85,6 +88,16 @@ public class FormCadastro extends AppCompatActivity {
             return;
         }
 
+        // Capturando peso e altura
+        BigDecimal peso = obterPeso();
+        BigDecimal altura = obterAltura();
+
+        if (peso == null || altura == null) {
+            Log.e("FormCadastro", "Peso ou altura inválidos.");
+            MensagemUtil.exibir(this, "Por favor, insira valores válidos para peso e altura.");
+            return;
+        }
+
         // Definindo valores padrão
         String nivelAcesso = "USER"; // Pode ser ADMIN ou USER
         String foto = ""; // Foto não disponível no cadastro
@@ -106,6 +119,8 @@ public class FormCadastro extends AppCompatActivity {
             AlunoDAO alunoDAO = new AlunoDAO();
             Aluno aluno = new Aluno();
             aluno.setSexo(sexo); // Setando o sexo como string ("M" ou "F")
+            aluno.setPeso(peso); // Setando o peso
+            aluno.setAltura(altura); // Setando a altura
 
             // Chama o método para cadastrar o aluno, passando o ID do usuário
             try {
@@ -139,6 +154,8 @@ public class FormCadastro extends AppCompatActivity {
         String email = editEmail.getText().toString().trim();
         String senha = editSenha.getText().toString().trim();
         String dataNasc = editDataNasc.getText().toString().trim();
+        String peso = editPeso.getText().toString().trim(); // Capturando peso para validação
+        String altura = editAltura.getText().toString().trim(); // Capturando altura para validação
 
         if (TextUtils.isEmpty(nome)) {
             Log.e("FormCadastro", "Nome não preenchido.");
@@ -161,6 +178,18 @@ public class FormCadastro extends AppCompatActivity {
         if (TextUtils.isEmpty(dataNasc)) {
             Log.e("FormCadastro", "Data de nascimento não preenchida.");
             MensagemUtil.exibir(this, "A data de nascimento é obrigatória.");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(peso)) {
+            Log.e("FormCadastro", "Peso não preenchido.");
+            MensagemUtil.exibir(this, "O peso é obrigatório.");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(altura)) {
+            Log.e("FormCadastro", "Altura não preenchida.");
+            MensagemUtil.exibir(this, "A altura é obrigatória.");
             return false;
         }
 
@@ -192,6 +221,28 @@ public class FormCadastro extends AppCompatActivity {
         } catch (IllegalArgumentException e) {
             Log.e("FormCadastro", "Erro ao converter a data de nascimento: " + dataNascTexto, e);
             MensagemUtil.exibir(this, "Formato de data inválido. Use o formato YYYY-MM-DD.");
+            return null; // Retorna null em caso de erro
+        }
+    }
+
+    // Método para obter o peso como BigDecimal
+    private BigDecimal obterPeso() {
+        String pesoTexto = editPeso.getText().toString().trim();
+        try {
+            return new BigDecimal(pesoTexto); // Converte o peso para BigDecimal
+        } catch (NumberFormatException e) {
+            Log.e("FormCadastro", "Erro ao converter peso: " + pesoTexto, e);
+            return null; // Retorna null em caso de erro
+        }
+    }
+
+    // Método para obter a altura como BigDecimal
+    private BigDecimal obterAltura() {
+        String alturaTexto = editAltura.getText().toString().trim();
+        try {
+            return new BigDecimal(alturaTexto); // Converte a altura para BigDecimal
+        } catch (NumberFormatException e) {
+            Log.e("FormCadastro", "Erro ao converter altura: " + alturaTexto, e);
             return null; // Retorna null em caso de erro
         }
     }

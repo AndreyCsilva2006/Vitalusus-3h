@@ -65,6 +65,33 @@
             app:layout_constraintStart_toStartOf="@id/containerComponents"
             app:layout_constraintTop_toTopOf="@id/containerComponents" />
 
+
+        <EditText
+            android:id="@+id/editFormCadastroLoginPeso"
+            style="@style/Edit_text"
+            android:layout_width="138dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="312dp"
+            android:hint="Peso"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="@id/containerComponents"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/containerComponents"
+            app:layout_constraintTop_toTopOf="@id/containerComponents" />
+
+        <EditText
+            android:id="@+id/editFormCadastroLoginAltura"
+            style="@style/Edit_text"
+            android:layout_width="138dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="312dp"
+            android:hint="Altura"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="@id/containerComponents"
+            app:layout_constraintHorizontal_bias="0.969"
+            app:layout_constraintStart_toStartOf="@id/containerComponents"
+            app:layout_constraintTop_toTopOf="@id/containerComponents" />
+
         <EditText
             android:id="@+id/editFormCadastroLoginEmail"
             style="@style/Edit_text"
@@ -74,17 +101,20 @@
             app:layout_constraintStart_toStartOf="@id/containerComponents"
             app:layout_constraintTop_toBottomOf="@id/editFormCadastroLoginNome" />
 
+
         <EditText
             android:id="@+id/editFormCadastroLoginSenha"
             style="@style/Edit_text"
-            android:layout_marginTop="16dp"
+            android:layout_width="132dp"
+            android:layout_height="63dp"
+            android:layout_marginTop="4dp"
             android:drawableRight="@drawable/ic_eye"
             android:hint="Senha"
             android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="@id/containerComponents"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/containerComponents"
             app:layout_constraintTop_toBottomOf="@id/editFormCadastroLoginEmail" />
-
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnCadastroAvancarPasso"
@@ -99,11 +129,13 @@
         <EditText
             android:id="@+id/editFormCadastroDataNascimento"
             style="@style/Edit_text"
-            android:layout_marginTop="252dp"
+            android:layout_width="132dp"
+            android:layout_height="63dp"
+            android:layout_marginTop="164dp"
             android:hint="Data de Nascimento"
             android:inputType="date"
             app:layout_constraintEnd_toEndOf="@id/containerComponents"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.956"
             app:layout_constraintStart_toStartOf="@id/containerComponents"
             app:layout_constraintTop_toTopOf="@id/containerComponents" />
 
@@ -129,25 +161,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnCadastroAvancarPasso" />
 
+
         <Button
             android:id="@+id/btnFormCadastroOlharSenha"
             android:layout_width="35dp"
             android:layout_height="47dp"
-            android:layout_marginTop="320dp"
+            android:layout_marginTop="300dp"
             android:backgroundTint="#00FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.853"
+            app:layout_constraintHorizontal_bias="0.401"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <RadioGroup
             android:id="@+id/rgSexo"
             android:layout_width="293dp"
             android:layout_height="59dp"
-            android:layout_marginTop="328dp"
+            android:layout_marginTop="240dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="@id/containerComponents"
+            app:layout_constraintHorizontal_bias="0.512"
             app:layout_constraintStart_toStartOf="@id/containerComponents"
             app:layout_constraintTop_toTopOf="@id/containerComponents">
 

@@ -2,6 +2,7 @@ package com.br.projeto.vitalusus.model;
 
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class Aluno implements Serializable {
 
@@ -9,10 +10,10 @@ public class Aluno implements Serializable {
     private Integer id;
 
     @SerializedName("altura")
-    private double altura;
+    private BigDecimal altura;
 
     @SerializedName("peso")
-    private double peso;
+    private BigDecimal peso;
 
     @SerializedName("usuario_id")
     private int usuario_id;
@@ -36,19 +37,19 @@ public class Aluno implements Serializable {
         this.sexo = sexo;
     }
 
-    public double getAltura() {
+    public BigDecimal getAltura() {
         return altura;
     }
 
-    public void setAltura(double altura) {
+    public void setAltura(BigDecimal altura) {
         this.altura = altura;
     }
 
-    public double getPeso() {
+    public BigDecimal getPeso() {
         return peso;
     }
 
-    public void setPeso(double peso) {
+    public void setPeso(BigDecimal peso) {
         this.peso = peso;
     }
 
