@@ -1,48 +1,76 @@
 package com.br.projeto.vitalusus.dao;
 
-import android.util.Log;
 import com.br.projeto.vitalusus.conexao.Conexao;
 import com.br.projeto.vitalusus.model.Aluno;
+import com.br.projeto.vitalusus.model.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AlunoDAO {
-    private Connection conn = null;
 
-    // Método para cadastrar um aluno com base no ID do usuário
-    public void cadastrarAluno(int usuarioId, Aluno aluno) {
+    // Método para cadastrar Aluno associando ao Usuario
+    public void cadastrarAluno(Aluno aluno, Usuario usuario) throws SQLException, ClassNotFoundException {
+        Connection conn = null;
+        PreparedStatement stmtAluno = null;
+        PreparedStatement stmtUsuario = null;
+        ResultSet rsUsuario = null;
+
         try {
+            // Conecta ao banco de dados
             conn = Conexao.conectar();
-            if (conn != null) {
-                // Insere o aluno usando o ID do usuário já cadastrado
-                String sqlAluno = "INSERT INTO Aluno (altura, peso, usuario_id, sexo) VALUES (?, ?, ?, ?)";
-                PreparedStatement stmtAluno = conn.prepareStatement(sqlAluno);
 
-                // Insere NULL para altura e peso, e o ID do usuário e sexo fornecido
-                stmtAluno.setNull(1, java.sql.Types.DECIMAL); // Altura como NULL
-                stmtAluno.setNull(2, java.sql.Types.DECIMAL); // Peso como NULL
-                stmtAluno.setInt(3, usuarioId);               // ID do usuário
-                stmtAluno.setString(4, aluno.getSexo());      // Sexo do aluno
+            // Desabilita o auto-commit para transação
+            conn.setAutoCommit(false);
 
-                // Executa a inserção
+            // Inserir o usuário na tabela Usuario
+            String sqlUsuario = "INSERT INTO Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, nivelPrivacidade, dataNasc, idade) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            stmtUsuario = conn.prepareStatement(sqlUsuario, PreparedStatement.RETURN_GENERATED_KEYS);
+            stmtUsuario.setString(1, usuario.getNome());
+            stmtUsuario.setString(2, usuario.getEmail());
+            stmtUsuario.setString(3, usuario.getSenha());
+            stmtUsuario.setString(4, usuario.getNivelAcesso());
+            stmtUsuario.setBytes(5, null); // Foto como null
+            stmtUsuario.setTimestamp(6, new java.sql.Timestamp(System.currentTimeMillis())); // Data de cadastro
+            stmtUsuario.setString(7, usuario.getStatusUsuario());
+            stmtUsuario.setString(8, usuario.getTipoUsuario());
+            stmtUsuario.setString(9, usuario.getNivelPrivacidade());
+            stmtUsuario.setDate(10, new java.sql.Date(usuario.getDataNasc().getTime())); // Data de nascimento
+            stmtUsuario.setInt(11, usuario.getIdade());
+
+            // Executa a inserção de Usuario
+            stmtUsuario.executeUpdate();
+
+            // Recupera o ID do usuário recém-inserido
+            rsUsuario = stmtUsuario.getGeneratedKeys();
+            if (rsUsuario.next()) {
+                int usuarioId = rsUsuario.getInt(1); // ID gerado
+
+                // Insere o Aluno na tabela Aluno, associando ao Usuario
+                String sqlAluno = "INSERT INTO Aluno (sexo, usuario_id) VALUES (?, ?)";
+                stmtAluno = conn.prepareStatement(sqlAluno);
+                stmtAluno.setString(1, aluno.getSexo());
+                stmtAluno.setInt(2, usuarioId);
+
+                // Executa a inserção de Aluno
                 stmtAluno.executeUpdate();
             }
+
+            // Comita a transação
+            conn.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
-            Log.e("Erro no AlunoDAO", e.getMessage());
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } finally {
-            // Garantir que a conexão seja fechada
             if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                conn.rollback(); // Rollback em caso de falha
             }
+            throw e;
+        } finally {
+            if (rsUsuario != null) rsUsuario.close();
+            if (stmtAluno != null) stmtAluno.close();
+            if (stmtUsuario != null) stmtUsuario.close();
+            if (conn != null) conn.close();
         }
     }
 }
