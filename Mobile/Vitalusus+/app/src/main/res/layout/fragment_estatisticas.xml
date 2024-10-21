@@ -43,9 +43,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Idade"
-            android:inputType="none"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
             android:textColor="?attr/colorOnBackground"
             android:backgroundTint="?attr/colorPrimary" />
 

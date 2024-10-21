@@ -15,13 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import retrofit2.Call;
-import retrofit2.Retrofit;
-
 import com.br.projeto.vitalusus.model.Usuario;
-import com.br.projeto.vitalusus.network.ApiService;
-import com.br.projeto.vitalusus.network.RetrofitClient;
-
 
 public class EstatisticasFragment extends Fragment {
 
@@ -51,63 +45,24 @@ public class EstatisticasFragment extends Fragment {
         tvResultado = view.findViewById(R.id.tv_resultado);
         btnCalcular = view.findViewById(R.id.btn_calcular);
 
-        // Chamar o método para obter a idade do servidor
-
-        //obterIdadeDoServidor(null);
-
         btnCalcular.setOnClickListener(v -> calcularIMCTMBNDC());
 
         return view;
     }
 
-    private void obterIdadeDoServidor(int idade) {
-        // Obter a instância do ApiService
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
-        ApiService apiService = retrofit.create(ApiService.class);
-        // Criar a chamada com a idade
-        Call<Usuario> call = apiService.getIdade(idade);
-
-        // Enviar a chamada assíncrona
-        call.enqueue(new retrofit2.Callback<Usuario>() {
-            @Override
-            public void onResponse(Call<Usuario> call, retrofit2.Response<Usuario> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    // Obter o usuário retornado do servidor
-                    Usuario usuario = response.body();
-                    int idadeRetornada = usuario.getIdade(); // Supondo que existe um método getIdade na classe Usuario
-                    etIdade.setText(String.valueOf(idadeRetornada)); // Define a idade no EditText
-                } else {
-                    // Tratar erro de resposta
-                    Toast.makeText(getContext(), "Erro ao obter a idade", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Usuario> call, Throwable t) {
-                // Tratar erro de conexão ou falha
-                Toast.makeText(getContext(), "Falha ao obter a idade: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-
-
-
-
-            }
-        });
-    }
-
     private void calcularIMCTMBNDC() {
         String pesoStr = etPeso.getText().toString();
         String alturaStr = etAltura.getText().toString();
+        String idadeStr = etIdade.getText().toString(); // Capturando idade diretamente do EditText
         int generoSelecionadoId = rgGenero.getCheckedRadioButtonId();
         int atividadeFisicaSelecionadaId = rgAtividadeFisica.getCheckedRadioButtonId();
 
-        if (!pesoStr.isEmpty() && !alturaStr.isEmpty() && generoSelecionadoId != -1 && atividadeFisicaSelecionadaId != -1) {
+        if (!pesoStr.isEmpty() && !alturaStr.isEmpty() && !idadeStr.isEmpty() && generoSelecionadoId != -1 && atividadeFisicaSelecionadaId != -1) {
 
             try {
                 float peso = Float.parseFloat(pesoStr);
                 float altura = Float.parseFloat(alturaStr) / 100; // Convertendo de cm para metros
-
-                // Obtendo a idade do EditText, que agora é preenchido pelo servidor
-                int idade = Integer.parseInt(etIdade.getText().toString());
+                int idade = Integer.parseInt(idadeStr); // Obtendo a idade do EditText
 
                 // Calcula o IMC
                 float imc = peso / (altura * altura);
