@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+
 import com.br.projeto.vitalusus.dao.AlunoDAO;
 import com.br.projeto.vitalusus.dao.UsuarioDAO;
 import com.br.projeto.vitalusus.model.Aluno;
@@ -24,6 +26,7 @@ public class FormCadastro extends AppCompatActivity {
     private EditText editNome, editEmail, editSenha, editDataNasc;
     private Button btnFormCadastroOlharSenha;
     private RadioGroup rdggroupSexo;
+    private TextView pularCadastro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,7 @@ public class FormCadastro extends AppCompatActivity {
         editSenha = findViewById(R.id.editFormCadastroLoginSenha);
 //        editDataNasc = findViewById(R.id.editFormCadastroDataNascimento);
         btnFormCadastroOlharSenha = findViewById(R.id.btnFormCadastroOlharSenha);
+        pularCadastro = findViewById(R.id.text_tela_principal);
 //        rdggroupSexo = findViewById(R.id.rgSexo);
         // Configurando o botão de salvar
         Button btnSalvar = findViewById(R.id.btnCadastroSalvar);
@@ -54,6 +58,14 @@ public class FormCadastro extends AppCompatActivity {
                 }
                 // Movendo o cursor para o final do texto
                 editSenha.setSelection(editSenha.getText().length());
+            }
+        });
+
+        pularCadastro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(FormCadastro.this, FormLogin.class);
+                startActivity(i);
             }
         });
     }

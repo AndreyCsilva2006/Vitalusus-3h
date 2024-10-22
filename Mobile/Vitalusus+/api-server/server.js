@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const http = require('http');
 const sql = require('mssql');
 
 const app = express();
@@ -472,6 +473,51 @@ sql.connect(dbConfig).then(pool => {
                 console.error('Erro ao criar usuário e Aluno:', err.message);
                 res.status(500).json({ error: 'Erro ao criar usuário e Aluno.' });
             }
+        });
+
+        app.post('/chamarApi8080', (req, res) => {
+            const { email } = req.body;
+
+            // Configuração das opções da requisição para a API 8080
+            const options = {
+                hostname: 'localhost',  // Servidor da API 8080
+                port: 8080,              // Porta onde a API 8080 está rodando
+                path: `/vitalusus/usuario/enviarMail?email=${encodeURIComponent(email)}`, // Endpoint na API 8080 com o email como parâmetro
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Não precisamos especificar o Content-Length aqui porque não estamos enviando um corpo
+                }
+            };
+
+            // Fazer a requisição HTTP para a API 8080
+            const request = http.request(options, (response) => {
+                let data = '';
+
+                // Coletar os dados de resposta
+                response.on('data', (chunk) => {
+                    data += chunk;
+                });
+
+                // Quando a resposta for completa, enviar os dados de volta ao cliente
+                response.on('end', () => {
+                    res.json({
+                        sucesso: true,
+                        dados: JSON.parse(data)
+                    });
+                });
+            });
+
+            // Lidar com erros da requisição
+            request.on('error', (error) => {
+                res.status(500).json({
+                    sucesso: false,
+                    mensagem: 'Erro ao chamar a API 8080',
+                    detalhes: error.message
+                });
+            });
+
+            request.end();
         });
 
         app.put('/usuarios/:id', async (req, res) => {

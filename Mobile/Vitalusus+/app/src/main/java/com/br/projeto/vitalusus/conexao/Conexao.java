@@ -17,11 +17,10 @@ public class Conexao {
 
         Class.forName("net.sourceforge.jtds.jdbc.Driver");
 
-        String ip = "172.17.20.102:1433";
+        String ip = "192.168.1.110:1433";
         String db = "bd_vitalusus2h";
         String user = "sa";
         String senha = "@ITB123456";
-
         String connString = "jdbc:jtds:sqlserver://" + ip + ";databaseName=" + db + ";user=" + user + ";password=" + senha + ";";
         conn = DriverManager.getConnection(connString);
 

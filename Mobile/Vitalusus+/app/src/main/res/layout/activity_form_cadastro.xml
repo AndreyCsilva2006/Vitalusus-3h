@@ -71,6 +71,7 @@
             style="@style/Edit_text"
             android:hint="E-Mail"
             android:inputType="textEmailAddress"
+            android:maxLength="29"
             app:layout_constraintEnd_toEndOf="@id/containerComponents"
             app:layout_constraintStart_toStartOf="@id/containerComponents"
             app:layout_constraintTop_toBottomOf="@id/editFormCadastroLoginNome" />
@@ -89,16 +90,6 @@
             app:layout_constraintHorizontal_bias="0.163"
             app:layout_constraintStart_toStartOf="@id/containerComponents"
             app:layout_constraintTop_toBottomOf="@id/editFormCadastroLoginEmail" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnCadastroAvancarPasso"
-            style="@style/Button"
-            android:text="Avançar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/containerComponents" />
-
-        <!--Passo 2-->
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnCadastroSalvar"
@@ -120,17 +111,16 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnCadastroAvancarPasso" />
-
+            app:layout_constraintTop_toBottomOf="@id/btnCadastroSalvar" />
 
         <Button
             android:id="@+id/btnFormCadastroOlharSenha"
             android:layout_width="35dp"
             android:layout_height="47dp"
-            android:layout_marginTop="300dp"
+            android:layout_marginTop="320dp"
             android:backgroundTint="#00FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.401"
+            app:layout_constraintHorizontal_bias="0.861"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

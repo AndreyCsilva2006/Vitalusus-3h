@@ -23,7 +23,7 @@
     <View
         android:id="@+id/containerComponents"
         style="@style/ContainerComponents"
-        android:layout_height="570dp"
+        android:layout_height="170dp"
         android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -37,22 +37,10 @@
         android:layout_height="wrap_content"
         android:hint="Informe o seu E-Mail"
         android:inputType="text|textEmailAddress"
+        android:maxLength="29"
         app:layout_constraintEnd_toEndOf="@id/containerComponents"
         app:layout_constraintStart_toStartOf="@id/containerComponents"
         app:layout_constraintTop_toTopOf="@id/containerComponents" />
-
-    <!--TextView pergunta secreta ES = Esqueceu Senha-->
-    <TextView
-        android:id="@+id/txtESpSeguranca"
-        style="@style/TextForm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="txtperguntaSeg"
-        android:textAlignment="center"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="@id/containerComponents"
-        app:layout_constraintStart_toStartOf="@id/containerComponents"
-        app:layout_constraintTop_toBottomOf="@+id/btnVerificarEmail" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnVerificarEmail"
@@ -63,59 +51,5 @@
         app:layout_constraintEnd_toEndOf="@id/containerComponents"
         app:layout_constraintStart_toStartOf="@id/containerComponents"
         app:layout_constraintTop_toBottomOf="@id/editEsqueciSenhaEmail" />
-
-    <!--Edit Text resposta secreta ES = Esqueceu Senha-->
-    <EditText
-        android:id="@+id/editESrSeguranca"
-        style="@style/Edit_text"
-        android:hint="Resposta da Pergunta Secreta"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@id/containerComponents"
-        app:layout_constraintStart_toStartOf="@id/containerComponents"
-        app:layout_constraintTop_toBottomOf="@id/txtESpSeguranca" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnVerificarResposta"
-        style="@style/Button"
-        android:layout_marginTop="24dp"
-        android:text="Verificar Resposta"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editESrSeguranca" />
-
-    <!--Botão Entrar-->
-    <EditText
-        android:id="@+id/editESNovaSenha"
-        style="@style/Edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableRight="@drawable/ic_eye"
-        android:hint="Nova Senha"
-        android:inputType="text|textPassword"
-        app:layout_constraintEnd_toEndOf="@id/containerComponents"
-        app:layout_constraintStart_toStartOf="@id/containerComponents"
-        app:layout_constraintTop_toBottomOf="@+id/btnVerificarResposta" />
-
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnRedefinirSenha"
-        style="@style/Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Redefinir Senha"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editESNovaSenha" />
-
-    <Button
-        android:id="@+id/btnESOlharSenha"
-        android:layout_width="35dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="#00FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.853"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnVerificarResposta" />
     
 </androidx.constraintlayout.widget.ConstraintLayout>

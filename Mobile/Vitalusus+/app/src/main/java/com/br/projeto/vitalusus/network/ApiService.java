@@ -1,6 +1,7 @@
 package com.br.projeto.vitalusus.network;
 import com.br.projeto.vitalusus.model.Aluno;
 import com.br.projeto.vitalusus.model.Canal;
+import com.br.projeto.vitalusus.model.EmailMessage;
 import com.br.projeto.vitalusus.model.Equipamento;
 import com.br.projeto.vitalusus.model.Treinador;
 import com.br.projeto.vitalusus.model.Usuario;
@@ -63,22 +64,10 @@ public interface ApiService {
     @GET("/usuarios/{idade}")
     Call<Usuario> getIdade(@Path("idade") int idade);
 
-    @POST("usuarios")
-    Call<ResponseBody> cadastrarUsuario(@Body Usuario usuario);
-
     // POST
-    @POST("/usuarios")
-    Call<Usuario> createUsuario(@Body Usuario usuario);
 
-    @POST("/alunos")
-    Call<Aluno> createAluno(@Body Aluno aluno);
-
-    @FormUrlEncoded
-    @POST("/usuarios")
-    Call<AlunoResponse> loginUser(
-            @Field("email") String email,
-            @Field("senha") String senha
-    );
+    @POST("chamarApi8080")
+    Call<Void> verificarEmail(@Body EmailMessage emailMessage);
 
 }
 
