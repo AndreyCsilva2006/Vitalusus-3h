@@ -1,3 +1,4 @@
+if(document.getElementById('esqueciSenhaLink')) document.getElementById('esqueciSenhaLink').href = 'TrocarSenha.html?id='+JSON.parse(localStorage.getItem('loginData')).treinador.usuario.id
 const txtBtnPrivacidade = document.getElementById('txt-button-nivelPrivacidade')
 const nivelPrivacidadeCanal = JSON.parse(localStorage.getItem('loginData')).treinador.usuario.nivelPrivacidade
 const iconePrivacidade = document.getElementById('icon-tmnh2')
