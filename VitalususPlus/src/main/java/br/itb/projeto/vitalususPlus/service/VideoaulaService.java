@@ -157,6 +157,7 @@ public class VideoaulaService {
             _videoaula.setThumbnail(videoaula.getThumbnail());
             _videoaula.setCategoria(videoaula.getCategoria());
             _videoaula.setTags(videoaula.getTags());
+            _videoaula.setEquipamento(videoaula.getEquipamento());
             _videoaula = updateFix(_videoaula.getId());
             return videoaulaRepository.save(_videoaula);
         }
