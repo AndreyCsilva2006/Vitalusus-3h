@@ -32,6 +32,7 @@ const renderSponsors = async () => {
         sponsorDiv.id = `container-Patro-${index + 1}`; // Adiciona um ID único para cada div
 
         // Cria o conteúdo do patrocinador
+        if (sponsor.statusPatrocinador == 'ATIVO'){
         sponsorDiv.innerHTML = `
             <img class="img-patrão" alt="shoe, sports, training" src="data:image/jpeg;base64,${sponsor.foto}" />
             <h2 class="ajust">${sponsor.nome}</h2>
@@ -39,6 +40,7 @@ const renderSponsors = async () => {
         `;
 
         container.appendChild(sponsorDiv); // Adiciona o div ao container
+        }
     });
 };
 
