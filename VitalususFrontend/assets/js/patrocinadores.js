@@ -1,6 +1,8 @@
+if(document.getElementById('main-admin')){
 document.getElementById('main-admin').style.display = 'none'
 if (JSON.parse(localStorage.getItem('loginData')).usuario){
     document.getElementById('main-admin').style.display = 'block'
+}
 }
 
 document.addEventListener('DOMContentLoaded', () => {
