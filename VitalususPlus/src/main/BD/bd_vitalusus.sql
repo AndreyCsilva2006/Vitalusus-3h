@@ -167,7 +167,7 @@ GO
 INSERT Canal(visualizacoes, nome, seguidores, treinador_id, numeroVideos, bio) 
 VALUES(
 	3243254,
-	'Paradas Musculat�rias', 1, 1, 1, 'é um canal muito bom' 
+	'Paradas Musculatórias', 1, 1, 1, 'é um canal muito bom' 
 )
 
 GO
@@ -440,7 +440,7 @@ SELECT * FROM Patrocinador
 
 /*
 UPDATE Usuario SET nome = 'Maria Joana' WHERE id = 1
-
+UPDATE Canal SET nome = 'Muscle Gym Canal' WHERE id = 1
 DELETE FROM Admin_usuario WHERE id = 1
 DELETE FROM Equipamento WHERE id = 1
 DELETE FROM Aluno_segue_canal WHERE id = 1

@@ -31,11 +31,11 @@
             android:textColor="@android:color/white"
             android:layout_marginBottom="4dp" />
 
-        <TextView
-            android:id="@+id/DataPubliVideo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white" />
+<!--        <TextView-->
+<!--            android:id="@+id/DataPubliVideo"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@android:color/white" />-->
     </LinearLayout>
 
     <LinearLayout
@@ -95,18 +95,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="8dp">
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Seguidores: "-->
-<!--                    android:textColor="@android:color/white" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/seguidoresCanal"-->
-<!--                    android:layout_width="132dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textColor="@android:color/white" />-->
 
             </LinearLayout>
 

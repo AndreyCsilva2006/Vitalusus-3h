@@ -94,15 +94,13 @@ public class DetailFragment extends Fragment {
         recyclerView.setAdapter(videoAdapter);
 
         TextView nomeTextView = view.findViewById(R.id.txtNomeCanalDetail);
-//        TextView seguidoresTextView = view.findViewById(R.id.tv_SeguidoresCanalDetail);
-//        TextView visualizacoesTextView = view.findViewById(R.id.tv_VisualizacoesCanalDetail);
         TextView biografiaTextView = view.findViewById(R.id.tv_BiografiaCanalDetail);
 
         CircleImageView fotoUsuarioImageView = view.findViewById(R.id.imgFotoCanalDetail); // Aqui a ImageView é inicializada
 
         // Inicie o fetch de detalhes do canal e do usuário
-//        fetchCanalDetails(canalId, nomeTextView, biografiaTextView, fotoUsuarioImageView);
-//        fetchUsuarioDetails(usuarioId, fotoUsuarioImageView); // Carrega os detalhes do usuário e a foto
+        fetchCanalDetails(canalId, nomeTextView, biografiaTextView, fotoUsuarioImageView);
+        fetchUsuarioDetails(usuarioId, fotoUsuarioImageView); // Carrega os detalhes do usuário e a foto
         fetchVideos();
 
         return view;

@@ -91,7 +91,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         if (video != null){
             holder.videoTitulo.setText(video.getTitulo());
             holder.videoVisualizacoes.setText(video.getVisualizacoes().toString());
-            holder.videoDataPubli.setText(video.getDataPubli());
+
         }
 
         // Decodificar imagem de thumbnail do vídeo
@@ -142,19 +142,15 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         ImageView videoThumbnail;
         TextView videoTitulo;
         TextView videoVisualizacoes;
-        TextView videoDataPubli;
         TextView canalNome;
-//        TextView canalSeguidores;
         CircleImageView canalFoto;
 
         public VideoViewHolder(@NonNull View itemView) {
             super(itemView);
             videoThumbnail = itemView.findViewById(R.id.videoThumbnail);
             videoTitulo = itemView.findViewById(R.id.tituloVideo);
-            videoDataPubli = itemView.findViewById(R.id.DataPubliVideo);
             videoVisualizacoes = itemView.findViewById(R.id.visualizacoesVideo);
             canalNome = itemView.findViewById(R.id.nomeCanal);
-//            canalSeguidores = itemView.findViewById(R.id.seguidoresCanal);
             canalFoto = itemView.findViewById(R.id.fotoCanal);
         }
     }

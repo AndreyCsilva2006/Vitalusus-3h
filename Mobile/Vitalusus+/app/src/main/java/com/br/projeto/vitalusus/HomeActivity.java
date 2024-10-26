@@ -32,7 +32,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private BottomNavigationView bottomNavigationView;
     private FragmentManager fragmentManager;
     private Toolbar toolbar;
-    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +63,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         // Inicializando toolbar e search view
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        searchView = findViewById(R.id.search_view); // A SearchView que estará no toolbar
 
         // Configurando o DrawerLayout
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -116,11 +113,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == R.id.nav_suporte) {
-            openFragment(new RelatarProblemaFragment());
-        } else if (itemId == R.id.nav_notificacoes) {
-//            openFragment(new com.br.projeto.vitalusus.NotificacoesFragment());
-        } else if (itemId == R.id.nav_sobrenos) {
+        if (itemId == R.id.nav_sobrenos) {
             openFragment(new SobreNosFragment());
         }
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -142,11 +135,5 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         transaction.replace(R.id.fragment_container, fragment);
         transaction.commit();
 
-        // Controla a visibilidade da SearchView
-        if (fragment instanceof HomeFragment) {
-            searchView.setVisibility(View.VISIBLE);  // Exibe a SearchView no HomeFragment
-        } else {
-            searchView.setVisibility(View.GONE);  // Oculta a SearchView em outros fragmentos
-        }
     }
 }

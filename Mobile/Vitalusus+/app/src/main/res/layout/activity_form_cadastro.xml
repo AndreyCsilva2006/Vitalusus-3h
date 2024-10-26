@@ -23,18 +23,6 @@
             app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/bg_cadastro" />
 
-        <ImageView
-            android:id="@+id/FormCadastroSeta"
-            android:layout_width="35dp"
-            android:layout_height="39dp"
-            android:layout_marginTop="64dp"
-            android:src="@drawable/ic_seta1"
-            app:tint="#FFFFFF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.042"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/title_cadastre_se_tag"
             android:layout_width="wrap_content"
@@ -112,6 +100,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnCadastroSalvar" />
+
+        <TextView
+            android:id="@+id/text_tela_politica"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Ver nossa política de privacidade"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_tela_principal" />
 
         <Button
             android:id="@+id/btnFormCadastroOlharSenha"

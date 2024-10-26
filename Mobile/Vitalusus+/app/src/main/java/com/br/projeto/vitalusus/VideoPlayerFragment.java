@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.br.projeto.vitalusus.conexao.Conexao;
+import com.br.projeto.vitalusus.dao.VideoDao;
 import com.br.projeto.vitalusus.model.Aluno;
 import com.br.projeto.vitalusus.model.Canal;
 import com.br.projeto.vitalusus.model.Equipamento;
@@ -31,6 +33,9 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -43,22 +48,21 @@ import retrofit2.Retrofit;
 
 public class VideoPlayerFragment extends Fragment {
 
+    private VideoDao videoDao;
     private PlayerView playerView;
     private ExoPlayer exoPlayer;
 
     private List<Aluno> alunoList = new ArrayList<>();
     private List<Usuario> usuarioList = new ArrayList<>();
-//    private List<Equipamento> equipamentoList = new ArrayList<>();
 
     private static final String ARG_CANAL_ID = "canal_id";
     private static final String ARG_USUARIO_ID = "usuario_id";
     private static final String ARG_VIDEO_ID = "video_id";
-//    private static final String ARG_EQUIPAMENTO_ID = "equipamento_id";
 
     private int canalId;
     private int usuarioId;
     private int videoId;
-//    private int equipamentoId;
+    private Connection conn = null;
 
     public static VideoPlayerFragment newInstance(int canalId, int usuarioId, int videoId) {
         VideoPlayerFragment fragment = new VideoPlayerFragment();
@@ -74,11 +78,11 @@ public class VideoPlayerFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        videoDao = new VideoDao();
         if (getArguments() != null) {
             canalId = getArguments().getInt(ARG_CANAL_ID);
             usuarioId = getArguments().getInt(ARG_USUARIO_ID);
             videoId = getArguments().getInt(ARG_VIDEO_ID);
-//            equipamentoId = getArguments().getInt(ARG_EQUIPAMENTO_ID);
         }
     }
 
@@ -106,8 +110,8 @@ public class VideoPlayerFragment extends Fragment {
 
         fetchCanalDetails(canalId, tvNomeCanal, fotoUsuarioImageView);
         fetchVideo(videoId, tvTituloVideo, tvDataPublic, tvVisualizacoesVideo, tvDescricaoVideo, exoPlayer);
-//        fetchEquipamento(videoId, tvEquipamentoVideo);
         fetchUsuarioDetails(usuarioId, fotoUsuarioImageView);
+        videoDao.incrementaVisu(videoId);
 
         return view;
     }

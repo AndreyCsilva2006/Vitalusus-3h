@@ -49,7 +49,7 @@ public class VideoCanalDetailAdapter extends RecyclerView.Adapter<VideoCanalDeta
     @NonNull
     @Override
     public VideoCanalDetailViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_video2, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_video, parent, false);
         return new VideoCanalDetailViewHolder(view);
     }
 
@@ -85,13 +85,11 @@ public class VideoCanalDetailAdapter extends RecyclerView.Adapter<VideoCanalDeta
 
         if (canal != null) {
             holder.canalNome.setText(canal.getNome());
-//            holder.canalSeguidores.setText(String.valueOf(canal.getSeguidores()));
         }
 
         if (video != null){
             holder.videoTitulo.setText(video.getTitulo());
             holder.videoVisualizacoes.setText(video.getVisualizacoes().toString());
-            holder.videoDataPubli.setText(video.getDataPubli());
         }
 
         // Decodificar imagem de thumbnail do vídeo
@@ -142,19 +140,15 @@ public class VideoCanalDetailAdapter extends RecyclerView.Adapter<VideoCanalDeta
         ImageView videoThumbnail;
         TextView videoTitulo;
         TextView videoVisualizacoes;
-        TextView videoDataPubli;
         TextView canalNome;
-        //        TextView canalSeguidores;
         CircleImageView canalFoto;
 
         public VideoCanalDetailViewHolder(@NonNull View itemView) {
             super(itemView);
             videoThumbnail = itemView.findViewById(R.id.videoThumbnail);
             videoTitulo = itemView.findViewById(R.id.tituloVideo);
-            videoDataPubli = itemView.findViewById(R.id.DataPubliVideo);
             videoVisualizacoes = itemView.findViewById(R.id.visualizacoesVideo);
             canalNome = itemView.findViewById(R.id.nomeCanal);
-//            canalSeguidores = itemView.findViewById(R.id.seguidoresCanal);
             canalFoto = itemView.findViewById(R.id.fotoCanal);
         }
     }
