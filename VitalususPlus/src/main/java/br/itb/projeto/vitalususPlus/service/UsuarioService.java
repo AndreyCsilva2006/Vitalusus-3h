@@ -93,7 +93,7 @@ public class UsuarioService {
 	public void enviarMail(String email) {
 		Usuario usuario = usuarioRepository.findByEmail(email);
 		String link = "link da página de recuperar senha";
-		if(usuario !=null) {
+		if(usuario !=null && !usuario.getNivelAcesso().equals("ADMIN")) {
 			SimpleMailMessage message = new SimpleMailMessage();
 			message.setFrom("vitalususplusoficial@gmail.com");
 			message.setTo(email);
@@ -102,8 +102,19 @@ public class UsuarioService {
 
 			mailSender.send(message);
 		}
-		else throw new RuntimeException("Este usuário não existe");
+		else if(usuario == null) throw new RuntimeException("Este usuário não existe");
+		else throw new RuntimeException("Administradores devem contatar outro administrador para recuperar seu código de verificação");
 	}
+    public void contatarEmail(String email, String text) {
+        String link = "link da página de recuperar senha";
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(email);
+            message.setTo("vitalususplusoficial@gmail.com");
+            message.setSubject("Proposta de Patrocínio");
+            message.setText(text);
+
+            mailSender.send(message);
+    }
 	@Transactional
 	public Usuario tornarPrivado (long id) {
 		Optional<Usuario> _usuario = usuarioRepository.findById(id);

@@ -21,15 +21,13 @@ public class VideoaulaService {
     private final DeslikesRepository deslikesRepository;
     private final AlunoService alunoService;
     private final ComentarioService comentarioService;
-    private final EquipamentoService equipamentoService;
 
-    public VideoaulaService(VideoaulaRepository videoaulaRepository, LikesRepository likesRepository, DeslikesRepository deslikesRepository, AlunoService alunoService, ComentarioService comentarioService, EquipamentoService equipamentoService) {
+    public VideoaulaService(VideoaulaRepository videoaulaRepository, LikesRepository likesRepository, DeslikesRepository deslikesRepository, AlunoService alunoService, ComentarioService comentarioService) {
         this.videoaulaRepository = videoaulaRepository;
         this.likesRepository = likesRepository;
         this.deslikesRepository = deslikesRepository;
         this.alunoService = alunoService;
         this.comentarioService = comentarioService;
-        this.equipamentoService = equipamentoService;
     }
 
     @Transactional
@@ -42,6 +40,10 @@ public class VideoaulaService {
             return videoaulaRepository.findAllByCanal(canal);
         }
         else throw new RuntimeException("O canal que postou as videoaulas que vodê está procurando não está ativo ou sua conta foi banida ou deletada");
+    }
+    @Transactional
+    public List<Videoaula> findAllbyEquipamento(Equipamento equipamento){
+        return videoaulaRepository.findAllByEquipamento(equipamento);
     }
     @Transactional
     public Videoaula findById(long id) {
@@ -146,7 +148,7 @@ public class VideoaulaService {
         }
         return null;
     }
-    public Videoaula updateGeral(long id, Videoaula videoaula, long equipamentoId){
+    public Videoaula updateGeral(long id, Videoaula videoaula){
         Optional<Videoaula> videoaulaOptional = videoaulaRepository.findById(id);
         if(videoaulaOptional.isPresent()) {
             Videoaula _videoaula = videoaulaOptional.get();
@@ -155,8 +157,7 @@ public class VideoaulaService {
             _videoaula.setThumbnail(videoaula.getThumbnail());
             _videoaula.setCategoria(videoaula.getCategoria());
             _videoaula.setTags(videoaula.getTags());
-            Equipamento equipamento = equipamentoService.findById(equipamentoId);
-            _videoaula.setEquipamento(equipamento);
+            _videoaula.setEquipamento(videoaula.getEquipamento());
             _videoaula = updateFix(_videoaula.getId());
             return videoaulaRepository.save(_videoaula);
         }

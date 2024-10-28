@@ -137,6 +137,10 @@ public class UsuarioController {
 	public void enviarMail(@RequestParam String email){
 		usuarioService.enviarMail(email);
 	}
+	@PostMapping("contatarMail/")
+	public void contatarEmail(@RequestParam String email, @RequestParam String text){
+		usuarioService.contatarEmail(email, text);
+	}
 	@PutMapping("tornarPrivado/{id}")
 	public ResponseEntity<Usuario> tornarPrivado(@PathVariable long id){
 		Usuario usuarioUpdatado = usuarioService.tornarPrivado(id);

@@ -20,14 +20,11 @@ import java.util.Optional;
 public class AlunoService {
 	private AlunoRepository alunoRepository;
 	private UsuarioService usuarioService;
-	private EquipamentoService equipamentoService;
 
-	public AlunoService(AlunoRepository alunoRepository, UsuarioService usuarioService,
-			EquipamentoService equipamentoService) {
+	public AlunoService(AlunoRepository alunoRepository, UsuarioService usuarioService) {
 		super();
 		this.alunoRepository = alunoRepository;
 		this.usuarioService = usuarioService;
-		this.equipamentoService = equipamentoService;
 	}
 
 	public List<Aluno> findAll() {

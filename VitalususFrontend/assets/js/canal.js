@@ -1,4 +1,7 @@
 const dadosCanal = JSON.parse(localStorage.getItem('loginData'))
+if(document.getElementById('tiuloPaginaCanal')){
+document.getElementById('tiuloPaginaCanal').textContent = "Canal – "+JSON.parse(localStorage.getItem('loginData')).nome
+}
 async function updateFix() {
     try {
         const response = await fetch(`http://localhost:8080/vitalusus/canal/updateFix/${dadosCanal.id}`,{

@@ -55,7 +55,8 @@ videoaulaFindById(id)
 function loadingVideo(videoData){
     // Verifica se os dados do vídeo existem
     if (videoData) {
-               const date = new Date();
+        document.getElementById('tiuloPaginaExibirVideo').textContent =videoData.titulo
+        const date = new Date();
         var dataAtual = date.getTime();
         var dataVideo = new Date(videoData.dataPubli).getTime();
         const dataEmAnos = (dataAtual - dataVideo)/(1000*60*60*24*7*30*12)

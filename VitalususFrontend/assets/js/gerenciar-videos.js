@@ -99,7 +99,7 @@ function exibirVideoaulas(videoaulas) {
         <td>${video.descricao}</td>
         <td>${video.categoria}</td>
         <td>${video.canal.nome}</td>
-        <td>${video.equipamento}</td>
+        <td>${video.equipamento.nome}</td>
         <td>${video.tags}</td>
         <td>${video.visualizacoes}</td>
         <td>${video.statusVideo}</td>

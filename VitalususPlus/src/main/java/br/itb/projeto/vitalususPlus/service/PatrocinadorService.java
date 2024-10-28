@@ -1,7 +1,9 @@
 package br.itb.projeto.vitalususPlus.service;
 
 import br.itb.projeto.vitalususPlus.model.entity.Canal;
+import br.itb.projeto.vitalususPlus.model.entity.Equipamento;
 import br.itb.projeto.vitalususPlus.model.entity.Patrocinador;
+import br.itb.projeto.vitalususPlus.model.repository.EquipamentoRepository;
 import br.itb.projeto.vitalususPlus.model.repository.PatrocinadorRepository;
 
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,12 +18,9 @@ public class PatrocinadorService {
     private PatrocinadorRepository patrocinadorRepository;
     private EquipamentoService equipamentoService;
 
-    public PatrocinadorService(PatrocinadorRepository patrocinadorRepository) {
+    public PatrocinadorService(PatrocinadorRepository patrocinadorRepository, EquipamentoService equipamentoService) {
         this.patrocinadorRepository = patrocinadorRepository;
-    }
-
-    public void setPatrocinadorRepository(PatrocinadorRepository patrocinadorRepository) {
-        this.patrocinadorRepository = patrocinadorRepository;
+        this.equipamentoService = equipamentoService;
     }
 
     public List<Patrocinador> findAll(){
@@ -44,12 +43,15 @@ public class PatrocinadorService {
 	            throw new RuntimeException("O e-mail fornecido já está em uso. Por favor, escolha um e-mail diferente.");
 			}
     }
-    public Patrocinador deletar(long id){
+    public void deletar(long id){
         Optional<Patrocinador> patrocinador= patrocinadorRepository.findById(id);
         if(patrocinador.isPresent()){
             Patrocinador _patrocinador = patrocinador.get();
-            _patrocinador.setStatusPatrocinador("DELETADO");
-            return patrocinadorRepository.save(_patrocinador);
+            List<Equipamento> equipamentos = equipamentoService.findAllByPatrocinador(_patrocinador);
+            for (Equipamento equipamento:equipamentos){
+                equipamentoService.deletar(equipamento.getId());
+            }
+            patrocinadorRepository.delete(_patrocinador);
         }
         else throw new RuntimeException("Não foi possível encontrar o patrocinador");
     }

@@ -21,7 +21,7 @@ async function fetchSponsors() {
 // Função para renderizar os patrocinadores no DOM
 const renderSponsors = async () => {
     const sponsors = await fetchSponsors();
-       const carouselContainer = document.getElementById('.carousel-container'); // Seleciona o contêiner do carrossel
+       const carouselContainer = document.getElementById('carousel-container'); // Seleciona o contêiner do carrossel
 
     // Cria dinamicamente o div "container22" dentro de "carousel-container"
     const container = document.getElementById('container');
@@ -32,6 +32,8 @@ const renderSponsors = async () => {
         sponsorDiv.id = `container-Patro-${index + 1}`; // Adiciona um ID único para cada div
 
         // Cria o conteúdo do patrocinador
+        if (sponsor.statusPatrocinador == 'ATIVO'){
+        carouselContainer.style.display = 'block'
         sponsorDiv.innerHTML = `
             <img class="img-patrão" alt="shoe, sports, training" src="data:image/jpeg;base64,${sponsor.foto}" />
             <h2 class="ajust">${sponsor.nome}</h2>
@@ -39,6 +41,7 @@ const renderSponsors = async () => {
         `;
 
         container.appendChild(sponsorDiv); // Adiciona o div ao container
+        }
     });
 };
 

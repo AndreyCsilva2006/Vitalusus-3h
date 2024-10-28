@@ -98,11 +98,14 @@ function updateVideo() {
         categoria: categoria.value,
         thumbnail: thumbnail.src.split(',')[1],
         tags: tagsInput.value,
+        equipamento:{
+            id: equipamento.value
+        }
     };
 
     // Enviar dados atualizados para o backend
     //mexa aqui OTTO
-    fetch(`http://localhost:8080/vitalusus/videoaula/updateGeral/${idVideoEditar.value}/${equipamento.value}`, {
+    fetch(`http://localhost:8080/vitalusus/videoaula/updateGeral/${idVideoEditar.value}`, {
         method: 'PUT', // Usando PUT para atualizar
         headers: {
             'Content-Type': 'application/json'
