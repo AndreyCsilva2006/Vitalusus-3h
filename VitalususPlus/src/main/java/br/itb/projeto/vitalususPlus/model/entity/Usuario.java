@@ -22,41 +22,45 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name="nome")
+	@Column(name="nome", nullable = false)
 	@NotBlank(message = "campo não preenchido")
 	@Pattern(regexp = "^[A-Z]+(.)*", message = "nome deve inicial com letras maiúsculas")
 	private String nome;
 
 	@Email(message ="campo inválido")
 	@NotBlank(message = "campo não preenchido")
-	@Column(name="email")
+	@Column(name="email", nullable = false)
 	private String email;
 
 	@NotBlank(message = "campo não preenchido")
-	@Column(name="senha")
+	@Column(name="senha", nullable = false)
 	private String senha;
 	
-	@Column(name="nivelAcesso")
+	@Column(name="nivelAcesso", nullable = false)
 	private String nivelAcesso;
 
 	private byte[] foto;
 	
-	@Column(name="dataCadastro")
+	@Column(name="dataCadastro", nullable = false)
 	private LocalDateTime dataCadastro;
 
-	@Column(name="statusUsuario")
+	@Column(name="statusUsuario", nullable = false)
 	private String statusUsuario;
 
-	@Column(name="tipoUsuario")
+	@Column(name="tipoUsuario", nullable = false)
 	private String tipoUsuario;
 
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(nullable = false)
 	private UUID chaveSeguranca;
-	
+
+	@Column(nullable = false)
 	private String nivelPrivacidade;
 
+	@Column(nullable = false)
 	private Date dataNasc;
 
+	@Column(nullable = false)
 	private int idade;
 	
 	public Usuario() {

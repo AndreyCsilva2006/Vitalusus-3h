@@ -16,11 +16,11 @@ public class Administrado {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name="admin_id")
+    @JoinColumn(name="admin_id", nullable = false)
     private Admin admin;
 
     @OneToOne
-    @JoinColumn(name="usuario_id")
+    @JoinColumn(name="usuario_id", nullable = false)
     private Usuario usuario;
 
     public Long getId() {

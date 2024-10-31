@@ -18,17 +18,20 @@ public class Denuncia {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name="usuario_id")
+    @JoinColumn(name="usuario_id", nullable = false)
     private Usuario usuario;
 
     @OneToOne
-    @JoinColumn(name="usuarioDenunciado_id")
+    @JoinColumn(name="usuarioDenunciado_id", nullable = false)
     private Usuario usuarioDenunciado;
 
+    @Column(nullable = false)
     private String mensagem;
 
+    @Column(nullable = false)
     private String categoria;
-    
+
+    @Column(nullable = false)
     private LocalDateTime dataDenuncia;
 
     public Long getId() {

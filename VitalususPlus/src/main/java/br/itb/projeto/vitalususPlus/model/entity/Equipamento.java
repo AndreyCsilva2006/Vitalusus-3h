@@ -19,10 +19,13 @@ public class Equipamento {
     @JoinColumn(name="patrocinador_id")
     private Patrocinador patrocinador;
 
+    @Column(nullable = false)
     private String nome;
 
+    @Column(nullable = false)
     private String link;
 
+    @Column(nullable = false)
     private String statusEquipamento;
 
     public Long getId() {

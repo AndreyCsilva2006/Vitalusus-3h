@@ -22,7 +22,7 @@ public class Treinador{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name="cref")
+	@Column(name="cref", nullable = false)
 	@NotBlank(message = "campo não preenchido")
 	@CREF(message ="campo inválido")
 	private String cref;
@@ -31,7 +31,8 @@ public class Treinador{
 	@OneToOne
 	@JoinColumn(name = "usuario_id",nullable=false)
 	private Usuario usuario;
-	
+
+	@Column(nullable = false)
 	private String genero;
 
 	public Long getId() {

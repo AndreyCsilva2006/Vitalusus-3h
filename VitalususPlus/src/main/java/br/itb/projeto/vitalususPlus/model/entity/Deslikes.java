@@ -29,11 +29,11 @@ public class Deslikes {
 	private Long id;
 	
 	@OneToOne
-	@JoinColumn(name="aluno_id")
+	@JoinColumn(name="aluno_id", nullable = false)
 	private Aluno aluno;
 	
 	@OneToOne
-	@JoinColumn(name="videoaula_id")
+	@JoinColumn(name="videoaula_id", nullable = false)
 	private Videoaula videoaula;
 
 	public Aluno getAluno() {

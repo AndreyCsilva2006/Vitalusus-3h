@@ -19,17 +19,17 @@ public class Aluno{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name="altura")
+	@Column(name="altura", nullable = false)
 	private float altura;
 
-	@Column(name = "peso")
+	@Column(name = "peso", nullable = false)
 	private float peso;
 
 	@OneToOne
-	@JoinColumn(name = "usuario_id")
+	@JoinColumn(name = "usuario_id", nullable = false)
 	private Usuario usuario;
-	
-	
+
+	@Column(nullable = false)
 	private String sexo;
 	
 	public Long getId() {

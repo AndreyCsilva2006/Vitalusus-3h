@@ -21,19 +21,20 @@ public class Canal{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "visualizacoes")
+	@Column(name = "visualizacoes", nullable = false)
 	private long visualizacoes;
 
 	@NotBlank(message = "campo não preenchido")
-	@Column(name = "nome")
+	@Column(name = "nome", nullable = false)
 	private String nome;
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@ManyToMany
 	@JoinTable(name="Aluno_segue_canal", joinColumns=
-			{@JoinColumn(name="canal_id")}, inverseJoinColumns=
-			{@JoinColumn(name="seguidor_id")})
+			{@JoinColumn(name="canal_id", nullable = false)}, inverseJoinColumns=
+			{@JoinColumn(name="seguidor_id", nullable = false)})
 	private List<Aluno> alunos;
+	@Column(nullable = false)
 	private Integer seguidores;
 	
 	@ManyToOne
@@ -46,6 +47,7 @@ public class Canal{
 
 	private String bio;
 
+	@Column(nullable = false)
 	private int numeroVideos;
 	
 	public Long getId() {

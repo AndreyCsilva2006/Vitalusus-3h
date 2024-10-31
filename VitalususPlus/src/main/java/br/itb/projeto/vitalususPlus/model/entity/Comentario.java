@@ -19,18 +19,19 @@ public class Comentario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="texto")
+    @Column(name="texto", nullable = false)
     @NotBlank(message = "campo não preenchido")
     private String texto;
 
     @ManyToOne
-    @JoinColumn(name="aluno_id")
+    @JoinColumn(name="aluno_id", nullable = false)
     private Aluno aluno;
 
     @ManyToOne
-    @JoinColumn(name="videoaula_id")
+    @JoinColumn(name="videoaula_id", nullable = false)
     private Videoaula videoaula;
 
+	@Column(nullable = false)
 	private LocalDateTime dataPubli;
 
 	public Long getId() {
