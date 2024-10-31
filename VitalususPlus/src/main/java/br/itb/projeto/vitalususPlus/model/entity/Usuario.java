@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "Usuario")
@@ -38,8 +39,6 @@ public class Usuario {
 	@Column(name="nivelAcesso")
 	private String nivelAcesso;
 
-	@Lob
-	@Column(name="foto")
 	private byte[] foto;
 	
 	@Column(name="dataCadastro")

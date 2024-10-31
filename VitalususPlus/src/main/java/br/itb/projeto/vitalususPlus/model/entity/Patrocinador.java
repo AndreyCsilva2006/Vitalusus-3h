@@ -2,6 +2,7 @@ package br.itb.projeto.vitalususPlus.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "Patrocinador")
@@ -21,7 +22,6 @@ public class Patrocinador {
 
     private String statusPatrocinador;
 
-    @Lob
     private byte[] foto;
 
     public Long getId() {
