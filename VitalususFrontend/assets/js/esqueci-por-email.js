@@ -19,7 +19,7 @@
         const enviar = async()=>{
             try{
             const response = await
-            fetch(`http://localhost:8080/vitalusus/usuario/enviarMail/?email=${encodeURIComponent(email)}`,{
+            fetch(`https://vitalusus-deploy.onrender.com/vitalusus/usuario/enviarMail/?email=${encodeURIComponent(email)}`,{
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json'

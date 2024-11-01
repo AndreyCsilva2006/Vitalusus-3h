@@ -130,7 +130,7 @@ const data = {
 }
 const id = canalData.id
 
-    fetch(`http://localhost:8080/vitalusus/canal/updateFoto/${id}`, { // Substitua pela URL da sua API
+    fetch(`https://vitalusus-deploy.onrender.com/vitalusus/canal/updateFoto/${id}`, { // Substitua pela URL da sua API
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -193,7 +193,7 @@ function editarCanal(event){
     };
 
     // Envia os dados para a API
-    fetch(`http://localhost:8080/vitalusus/canal/updateInformacoes/${canalData.id}`, {
+    fetch(`https://vitalusus-deploy.onrender.com/vitalusus/canal/updateInformacoes/${canalData.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -234,7 +234,7 @@ window.onclick = function(event) {
 //código para desativar conta
 async function desativarConta(event) {
     try {
-        const response = await fetch(`http://localhost:8080/vitalusus/usuario/inativar/${canalData.treinador.usuario.id}`,{
+        const response = await fetch(`https://vitalusus-deploy.onrender.com/vitalusus/usuario/inativar/${canalData.treinador.usuario.id}`,{
             method: 'PUT',
              headers: {
             'Content-Type': 'application/json'

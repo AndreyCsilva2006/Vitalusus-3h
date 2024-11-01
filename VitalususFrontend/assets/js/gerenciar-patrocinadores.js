@@ -1,6 +1,6 @@
 async function deletarEquip(id, patrocinadorId) {
     try {
-        const response = await fetch(`http://localhost:8080/vitalusus/equipamento/deletar/${id}`, {
+        const response = await fetch(`https://vitalusus-deploy.onrender.com/vitalusus/equipamento/deletar/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -26,7 +26,7 @@ function editarEquip(id, patrocinadorId, event) {
     }
     const editar = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/vitalusus/equipamento/update/${id}`, {
+            const response = await fetch(`https://vitalusus-deploy.onrender.com/vitalusus/equipamento/update/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -112,7 +112,7 @@ function exibirModal(equipamentos) {
 async function findAllByPatrocinador(patrocinador) {
     try {
         const response = await
-            fetch(`http://localhost:8080/vitalusus/equipamento/findAllByPatrocinador`, {
+            fetch(`https://vitalusus-deploy.onrender.com/vitalusus/equipamento/findAllByPatrocinador`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -136,7 +136,7 @@ async function findAllByPatrocinador(patrocinador) {
 async function openModal(id) {
     try {
         const response = await
-            fetch(`http://localhost:8080/vitalusus/patrocinador/findById/${id}`, {
+            fetch(`https://vitalusus-deploy.onrender.com/vitalusus/patrocinador/findById/${id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -180,7 +180,7 @@ criarEquipForm.addEventListener('submit', (event) => {
     const enviar = async () => {
         try {
             const response = await
-                fetch(`http://localhost:8080/vitalusus/equipamento/post`, {
+                fetch(`https://vitalusus-deploy.onrender.com/vitalusus/equipamento/post`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -242,7 +242,7 @@ function editSponsor(id) {
     const findPatro = async () => {
         try {
             const response = await
-                fetch(`http://localhost:8080/vitalusus/patrocinador/findById/${id}`, {
+                fetch(`https://vitalusus-deploy.onrender.com/vitalusus/patrocinador/findById/${id}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -270,7 +270,7 @@ function deleteSponsor(id) {
         const deletar = async () => {
             try {
                 const response = await
-                    fetch(`http://localhost:8080/vitalusus/patrocinador/deletar/${id}`, {
+                    fetch(`https://vitalusus-deploy.onrender.com/vitalusus/patrocinador/deletar/${id}`, {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json'
@@ -317,7 +317,7 @@ function renderSponsors(patrocinadores) {
 async function findPatrocinadores() {
     try {
         const response = await
-            fetch('http://localhost:8080/vitalusus/patrocinador/findAll', {
+            fetch('https://vitalusus-deploy.onrender.com/vitalusus/patrocinador/findAll', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -369,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const enviarDados = async () => {
             try {
                 const response = await
-                    fetch('http://localhost:8080/vitalusus/patrocinador/post', {
+                    fetch('https://vitalusus-deploy.onrender.com/vitalusus/patrocinador/post', {
                         method: 'POST',
                         body: JSON.stringify(data),
                         headers: {
@@ -419,7 +419,7 @@ document.getElementById('editarPatroForm').addEventListener('submit', (event) =>
     const enviarDados = async () => {
         try {
             const response = await
-                fetch(`http://localhost:8080/vitalusus/patrocinador/update/${idPatroEditar}`, {
+                fetch(`https://vitalusus-deploy.onrender.com/vitalusus/patrocinador/update/${idPatroEditar}`, {
                     method: 'PUT',
                     body: JSON.stringify(data),
                     headers: {

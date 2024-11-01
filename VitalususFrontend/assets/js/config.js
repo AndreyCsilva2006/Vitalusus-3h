@@ -19,7 +19,7 @@ if (nivelPrivacidadeCanal == 'PRIVADO' && txtBtnPrivacidade){
 }
 async function tornarPrivado() {
     try {
-        const response = await fetch(`http://localhost:8080/vitalusus/canal/tornarPrivado/${canalData.id}`,{
+        const response = await fetch(`https://vitalusus-deploy.onrender.com/vitalusus/canal/tornarPrivado/${canalData.id}`,{
             method: 'PUT',
              headers: {
             'Content-Type': 'application/json'
@@ -39,7 +39,7 @@ async function tornarPrivado() {
 
 async function tornarPublico() {
     try {
-        const response = await fetch(`http://localhost:8080/vitalusus/canal/tornarPublico/${canalData.id}`,{
+        const response = await fetch(`https://vitalusus-deploy.onrender.com/vitalusus/canal/tornarPublico/${canalData.id}`,{
             method: 'PUT',
              headers: {
             'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ function inativar() {
     if(confirm('Tem certeza que deseja desativar sua conta?')){
     const desativar = async()=>{
     try {
-        const response = await fetch(`http://localhost:8080/vitalusus/usuario/inativar/${canalData.treinador.usuario.id}`,{
+        const response = await fetch(`https://vitalusus-deploy.onrender.com/vitalusus/usuario/inativar/${canalData.treinador.usuario.id}`,{
             method: 'PUT',
              headers: {
             'Content-Type': 'application/json'
@@ -86,7 +86,7 @@ function deletarConta() {
     if(confirm("Tem certeza que deseja deletar sua conta? Essa ação não poderá ser desfeita")){
     const deletar = async()=>{
     try {
-        const response = await fetch(`http://localhost:8080/vitalusus/usuario/deletar/${canalData.treinador.usuario.id}`,{
+        const response = await fetch(`https://vitalusus-deploy.onrender.com/vitalusus/usuario/deletar/${canalData.treinador.usuario.id}`,{
             method: 'PUT',
              headers: {
             'Content-Type': 'application/json'

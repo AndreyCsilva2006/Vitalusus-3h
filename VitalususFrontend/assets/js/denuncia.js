@@ -15,7 +15,7 @@ else{
         const fetchDeletar = async() =>{
              try{
             const response = await
-            fetch(`http://localhost:8080/vitalusus/usuario/banir/${id}`,{
+            fetch(`https://vitalusus-deploy.onrender.com/vitalusus/usuario/banir/${id}`,{
                 method:'PUT',
                  headers: {
                 'Content-Type': 'application/json'
@@ -41,7 +41,7 @@ else{
         const fetchDeletar = async() =>{
              try{
             const response = await
-            fetch(`http://localhost:8080/vitalusus/usuario/desbanir/${id}`,{
+            fetch(`https://vitalusus-deploy.onrender.com/vitalusus/usuario/desbanir/${id}`,{
                 method:'PUT',
                  headers: {
                 'Content-Type': 'application/json'
@@ -106,7 +106,7 @@ function exibirDenuncias(denuncias) {
 async function loadDenuncias(){
    try{
        const response = await
-       fetch('http://localhost:8080/vitalusus/denuncia/findAll', {
+       fetch('https://vitalusus-deploy.onrender.com/vitalusus/denuncia/findAll', {
            method: 'GET',
            headers:{
             'Content-Type': 'application/json'

@@ -16,7 +16,7 @@ function exibirEquipamentos(equipamentos){
 async function findEquipamentos(){
     try{
         const response = await
-        fetch('http://localhost:8080/vitalusus/equipamento/findAll', {
+        fetch('https://vitalusus-deploy.onrender.com/vitalusus/equipamento/findAll', {
             method:'GET',
             headers:{
                 'Content-Type': 'application/json'
@@ -46,7 +46,7 @@ const equipamento = document.getElementById('equipamentosSelect')
 const idVideoEditar = document.getElementById('id-video')
 async function videoaulaFindById(id){
     try {
-        const response = await fetch(`http://localhost:8080/vitalusus/videoaula/findById/${id}`,{
+        const response = await fetch(`https://vitalusus-deploy.onrender.com/vitalusus/videoaula/findById/${id}`,{
             method: 'GET',
              headers: {
             'Content-Type': 'application/json'
@@ -105,7 +105,7 @@ function updateVideo() {
 
     // Enviar dados atualizados para o backend
     //mexa aqui OTTO
-    fetch(`http://localhost:8080/vitalusus/videoaula/updateGeral/${idVideoEditar.value}`, {
+    fetch(`https://vitalusus-deploy.onrender.com/vitalusus/videoaula/updateGeral/${idVideoEditar.value}`, {
         method: 'PUT', // Usando PUT para atualizar
         headers: {
             'Content-Type': 'application/json'

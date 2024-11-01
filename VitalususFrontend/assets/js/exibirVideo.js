@@ -1,6 +1,6 @@
 async function comentarioFindAll(videoaula){
     try {
-        const response = await fetch('http://localhost:8080/vitalusus/comentario/findAllByVideoaula',{
+        const response = await fetch('https://vitalusus-deploy.onrender.com/vitalusus/comentario/findAllByVideoaula',{
             method: 'POST',
             body: JSON.stringify(videoaula),
              headers: {
@@ -24,7 +24,7 @@ async function comentarioFindAll(videoaula){
 
 async function videoaulaFindById(id){
     try {
-        const response = await fetch(`http://localhost:8080/vitalusus/videoaula/findById/${id}`,{
+        const response = await fetch(`https://vitalusus-deploy.onrender.com/vitalusus/videoaula/findById/${id}`,{
             method: 'GET',
              headers: {
             'Content-Type': 'application/json'

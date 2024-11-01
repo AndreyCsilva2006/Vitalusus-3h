@@ -2,7 +2,7 @@
 async function fetchSponsors() {
         try{
             const response = await
-            fetch('http://localhost:8080/vitalusus/patrocinador/findAll',{
+            fetch('https://vitalusus-deploy.onrender.com/vitalusus/patrocinador/findAll',{
                 method:'GET',
                  headers: {
                 'Content-Type': 'application/json'

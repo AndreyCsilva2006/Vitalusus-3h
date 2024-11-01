@@ -4,7 +4,7 @@ document.getElementById('tiuloPaginaCanal').textContent = "Canal – "+JSON.pars
 }
 async function updateFix() {
     try {
-        const response = await fetch(`http://localhost:8080/vitalusus/canal/updateFix/${dadosCanal.id}`,{
+        const response = await fetch(`https://vitalusus-deploy.onrender.com/vitalusus/canal/updateFix/${dadosCanal.id}`,{
             method: 'PUT',
              headers: {
             'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ function closeOptions() {
 
 async function deleteItem(id) {
     try {
-        const response = await fetch(`http://localhost:8080/vitalusus/videoaula/delete/${id}`,{
+        const response = await fetch(`https://vitalusus-deploy.onrender.com/vitalusus/videoaula/delete/${id}`,{
             method: 'DELETE',
              headers: {
             'Content-Type': 'application/json'

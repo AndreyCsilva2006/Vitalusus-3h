@@ -228,7 +228,7 @@ document.getElementById('confirmarSenha').addEventListener('input', () => limpar
     };
 
     // Envia os dados para a API
-    fetch('http://localhost:8080/vitalusus/canal/post', {
+    fetch('https://vitalusus-deploy.onrender.com/vitalusus/canal/post', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

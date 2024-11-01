@@ -17,7 +17,7 @@ function exibirEquipamentos(equipamentos){
 async function findEquipamentos(){
     try{
         const response = await
-        fetch('http://localhost:8080/vitalusus/equipamento/findAll', {
+        fetch('https://vitalusus-deploy.onrender.com/vitalusus/equipamento/findAll', {
             method:'GET',
             headers:{
                 'Content-Type': 'application/json'
@@ -106,7 +106,7 @@ function criarVideo(event) {
     console.log(videoInfo);
 
     // Envio dos dados para a API
-    fetch(`http://localhost:8080/vitalusus/canal/addVideoaula/${canalData.id}/${equipamentoId}`, {
+    fetch(`https://vitalusus-deploy.onrender.com/vitalusus/canal/addVideoaula/${canalData.id}/${equipamentoId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

@@ -15,7 +15,7 @@ else{
         const fetchDeletar = async() =>{
              try{
             const response = await
-            fetch(`http://localhost:8080/vitalusus/usuario/deletar/${id}`,{
+            fetch(`https://vitalusus-deploy.onrender.com/vitalusus/usuario/deletar/${id}`,{
                 method:'PUT',
                  headers: {
                 'Content-Type': 'application/json'
@@ -41,7 +41,7 @@ else{
         const fetchDeletar = async() =>{
              try{
             const response = await
-            fetch(`http://localhost:8080/vitalusus/usuario/reativar/${id}`,{
+            fetch(`https://vitalusus-deploy.onrender.com/vitalusus/usuario/reativar/${id}`,{
                 method:'PUT',
                  headers: {
                 'Content-Type': 'application/json'
@@ -68,7 +68,7 @@ else{
         const fetchDeletar = async() =>{
              try{
             const response = await
-            fetch(`http://localhost:8080/vitalusus/usuario/inativar/${id}`,{
+            fetch(`https://vitalusus-deploy.onrender.com/vitalusus/usuario/inativar/${id}`,{
                 method:'PUT',
                  headers: {
                 'Content-Type': 'application/json'
@@ -94,7 +94,7 @@ else{
         const fetchDeletar = async() =>{
              try{
             const response = await
-            fetch(`http://localhost:8080/vitalusus/usuario/banir/${id}`,{
+            fetch(`https://vitalusus-deploy.onrender.com/vitalusus/usuario/banir/${id}`,{
                 method:'PUT',
                  headers: {
                 'Content-Type': 'application/json'
@@ -120,7 +120,7 @@ else{
         const fetchDeletar = async() =>{
              try{
             const response = await
-            fetch(`http://localhost:8080/vitalusus/usuario/desbanir/${id}`,{
+            fetch(`https://vitalusus-deploy.onrender.com/vitalusus/usuario/desbanir/${id}`,{
                 method:'PUT',
                  headers: {
                 'Content-Type': 'application/json'
@@ -245,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function loadTreinadores() {
         try{
             const response = await
-            fetch('http://localhost:8080/vitalusus/treinador/findAll',{
+            fetch('https://vitalusus-deploy.onrender.com/vitalusus/treinador/findAll',{
                 method:'GET',
                  headers: {
                 'Content-Type': 'application/json'
@@ -283,7 +283,7 @@ cleanBtn.addEventListener('click',() =>{
    document.getElementById('search-form').addEventListener('submit', () => {
        event.preventDefault()
       const treinadorId = parseInt(document.getElementById('searchId').value);
-        fetch(`http://localhost:8080/vitalusus/treinador/findById/${treinadorId}`)
+        fetch(`https://vitalusus-deploy.onrender.com/vitalusus/treinador/findById/${treinadorId}`)
           .then(res => res.json())
           .then(treinador => {
             exibirTreinador(treinador)

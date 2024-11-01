@@ -115,7 +115,7 @@ function exibirVideoaulas(videoaulas) {
    async function loadVideos() {
         try{
             const response = await
-            fetch('http://localhost:8080/vitalusus/videoaula/findAll',{
+            fetch('https://vitalusus-deploy.onrender.com/vitalusus/videoaula/findAll',{
                 method:'GET',
                  headers: {
                 'Content-Type': 'application/json'
@@ -136,7 +136,7 @@ loadVideos()
    async function findVideoToOpenModal(id) {
         try{
             const response = await
-            fetch(`http://localhost:8080/vitalusus/videoaula/findById/${id}`,{
+            fetch(`https://vitalusus-deploy.onrender.com/vitalusus/videoaula/findById/${id}`,{
                 method:'GET',
                  headers: {
                 'Content-Type': 'application/json'
@@ -171,7 +171,7 @@ function deleteVideo(id) {
         const fetchDeletar = async() =>{
              try{
             const response = await
-            fetch(`http://localhost:8080/vitalusus/videoaula/delete/${id}`,{
+            fetch(`https://vitalusus-deploy.onrender.com/vitalusus/videoaula/delete/${id}`,{
                 method:'DELETE',
                  headers: {
                 'Content-Type': 'application/json'
@@ -194,7 +194,7 @@ function banVideo(id) {
         const fetchDeletar = async() =>{
              try{
             const response = await
-            fetch(`http://localhost:8080/vitalusus/videoaula/banir/${id}`,{
+            fetch(`https://vitalusus-deploy.onrender.com/vitalusus/videoaula/banir/${id}`,{
                 method:'PUT',
                  headers: {
                 'Content-Type': 'application/json'
@@ -217,7 +217,7 @@ function unbanVideo(id) {
         const fetchDeletar = async() =>{
              try{
             const response = await
-            fetch(`http://localhost:8080/vitalusus/videoaula/desbanir/${id}`,{
+            fetch(`https://vitalusus-deploy.onrender.com/vitalusus/videoaula/desbanir/${id}`,{
                 method:'PUT',
                  headers: {
                 'Content-Type': 'application/json'
@@ -268,7 +268,7 @@ function editarVideo(video){
     const enviarDados = async()=>{
     try{
         const response = await 
-        fetch(`http://localhost:8080/vitalusus/videoaula/updateGeral/${video.id}`,{
+        fetch(`https://vitalusus-deploy.onrender.com/vitalusus/videoaula/updateGeral/${video.id}`,{
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

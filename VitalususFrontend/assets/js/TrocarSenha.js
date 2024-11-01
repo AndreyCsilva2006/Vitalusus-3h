@@ -12,7 +12,7 @@ document.getElementById('formSenha').addEventListener('submit', (event)=> {
     try{
     const usuarioReturn = await usuarioFindById(idUsuario)
     const response = await
-    fetch(`http://localhost:8080/vitalusus/usuario/updateSenha/${usuarioReturn.id}`,{
+    fetch(`https://vitalusus-deploy.onrender.com/vitalusus/usuario/updateSenha/${usuarioReturn.id}`,{
         method:'PUT',
         headers:{
         'Content-Type':'application/json'
@@ -85,7 +85,7 @@ document.getElementById('confirmarSenha').addEventListener('input', () => {
 //Consumos de API
 async function usuarioFindById(id){
     try {
-        const response = await fetch(`http://localhost:8080/vitalusus/usuario/findById/${id}`,{
+        const response = await fetch(`https://vitalusus-deploy.onrender.com/vitalusus/usuario/findById/${id}`,{
             method: 'GET',
              headers: {
             'Content-Type': 'application/json'

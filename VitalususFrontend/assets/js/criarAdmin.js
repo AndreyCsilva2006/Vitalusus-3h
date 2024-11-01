@@ -15,7 +15,7 @@ else{
         const fetchDeletar = async() =>{
              try{
             const response = await
-            fetch(`http://localhost:8080/vitalusus/usuario/deletar/${id}`,{
+            fetch(`https://vitalusus-deploy.onrender.com/vitalusus/usuario/deletar/${id}`,{
                 method:'PUT',
                  headers: {
                 'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ else{
         const fetchDeletar = async() =>{
              try{
             const response = await
-            fetch(`http://localhost:8080/vitalusus/usuario/reativar/${id}`,{
+            fetch(`https://vitalusus-deploy.onrender.com/vitalusus/usuario/reativar/${id}`,{
                 method:'PUT',
                  headers: {
                 'Content-Type': 'application/json'
@@ -67,7 +67,7 @@ else{
         const fetchDeletar = async() =>{
              try{
             const response = await
-            fetch(`http://localhost:8080/vitalusus/usuario/inativar/${id}`,{
+            fetch(`https://vitalusus-deploy.onrender.com/vitalusus/usuario/inativar/${id}`,{
                 method:'PUT',
                  headers: {
                 'Content-Type': 'application/json'
@@ -93,7 +93,7 @@ else{
         const fetchDeletar = async() =>{
              try{
             const response = await
-            fetch(`http://localhost:8080/vitalusus/usuario/banir/${id}`,{
+            fetch(`https://vitalusus-deploy.onrender.com/vitalusus/usuario/banir/${id}`,{
                 method:'PUT',
                  headers: {
                 'Content-Type': 'application/json'
@@ -119,7 +119,7 @@ else{
         const fetchDeletar = async() =>{
              try{
             const response = await
-            fetch(`http://localhost:8080/vitalusus/usuario/desbanir/${id}`,{
+            fetch(`https://vitalusus-deploy.onrender.com/vitalusus/usuario/desbanir/${id}`,{
                 method:'PUT',
                  headers: {
                 'Content-Type': 'application/json'
@@ -168,7 +168,7 @@ function adicionarAdmin(event){
      const enviarDados = async()=>{
     try{
         const response = await 
-        fetch(`http://localhost:8080/vitalusus/admin/post`,{
+        fetch(`https://vitalusus-deploy.onrender.com/vitalusus/admin/post`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -253,7 +253,7 @@ function adicionarAdmin(event){
  async function loadAdmins() {
         try{
             const response = await
-            fetch('http://localhost:8080/vitalusus/admin/findAll',{
+            fetch('https://vitalusus-deploy.onrender.com/vitalusus/admin/findAll',{
                 method:'GET',
                  headers: {
                 'Content-Type': 'application/json'

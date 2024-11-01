@@ -1,7 +1,7 @@
 //Esse código faz com que ao clicar no button: login(event), ele busque na API, se tem algum cadastro e senha inseridos, se não emite um erro.
 async function reativarConta(id) {
     try {
-        const response = await fetch(`http://localhost:8080/vitalusus/usuario/reativar/${id}`,{
+        const response = await fetch(`https://vitalusus-deploy.onrender.com/vitalusus/usuario/reativar/${id}`,{
             method: 'PUT',
              headers: {
             'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ loginEmail = data.treinador.usuario.email
 loginSenha = data.treinador.usuario.senha
     const loginRequest = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/vitalusus/usuario/login/?email=${encodeURIComponent(loginEmail)}&senha=${encodeURIComponent(loginSenha)}`, {
+            const response = await fetch(`https://vitalusus-deploy.onrender.com/vitalusus/usuario/login/?email=${encodeURIComponent(loginEmail)}&senha=${encodeURIComponent(loginSenha)}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -116,7 +116,7 @@ if (canalData) {
 }
 async function fetchAllItems() {
     try {
-        const response = await fetch('http://localhost:8080/vitalusus/videoaula/findAllByCanal',{
+        const response = await fetch('https://vitalusus-deploy.onrender.com/vitalusus/videoaula/findAllByCanal',{
             method: 'POST',
              headers: {
             'Content-Type': 'application/json'
