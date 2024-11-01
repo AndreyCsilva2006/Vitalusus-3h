@@ -15,20 +15,20 @@ public class Evolucao{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name="imc")
+	@Column(name="imc", nullable = false)
 	private float imc;
 
-	@Column(name = "met_basal")
+	@Column(name = "met_basal", nullable = false)
 	private float metBasal;
 
-	@Column(name = "peso_atual")
+	@Column(name = "peso_atual",nullable = false)
 	private float pesoAtual;
 
-	@Column(name= "altura_atual")
+	@Column(name= "altura_atual", nullable = false)
 	private float alturaAtual;
 
 	@OneToOne
-	@JoinColumn(name = "aluno_id")
+	@JoinColumn(name = "aluno_id", nullable = false)
 	private Aluno aluno;
 
 	public Long getId() {

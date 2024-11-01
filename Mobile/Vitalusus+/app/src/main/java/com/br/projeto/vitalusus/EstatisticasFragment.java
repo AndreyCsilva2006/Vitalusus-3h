@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.br.projeto.vitalusus.model.Usuario;
+
 public class EstatisticasFragment extends Fragment {
 
     private EditText etPeso, etAltura, etIdade;
@@ -27,6 +29,8 @@ public class EstatisticasFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_estatisticas, container, false);
+
+        getActivity().setTitle("Estatísticas");
 
         etPeso = view.findViewById(R.id.et_peso);
         etAltura = view.findViewById(R.id.et_altura);
@@ -49,7 +53,7 @@ public class EstatisticasFragment extends Fragment {
     private void calcularIMCTMBNDC() {
         String pesoStr = etPeso.getText().toString();
         String alturaStr = etAltura.getText().toString();
-        String idadeStr = etIdade.getText().toString();
+        String idadeStr = etIdade.getText().toString(); // Capturando idade diretamente do EditText
         int generoSelecionadoId = rgGenero.getCheckedRadioButtonId();
         int atividadeFisicaSelecionadaId = rgAtividadeFisica.getCheckedRadioButtonId();
 
@@ -58,7 +62,7 @@ public class EstatisticasFragment extends Fragment {
             try {
                 float peso = Float.parseFloat(pesoStr);
                 float altura = Float.parseFloat(alturaStr) / 100; // Convertendo de cm para metros
-                int idade = Integer.parseInt(idadeStr);
+                int idade = Integer.parseInt(idadeStr); // Obtendo a idade do EditText
 
                 // Calcula o IMC
                 float imc = peso / (altura * altura);
@@ -87,8 +91,7 @@ public class EstatisticasFragment extends Fragment {
 
                 // Monta o resultado para exibição
                 String resultado = "Seu IMC é: " + String.format("%.2f", imc) + "\n";
-                resultado += "Sua TMB é: " + String.format("%.2f", tmb)
-                        + " kcal/dia\n";
+                resultado += "Sua TMB é: " + String.format("%.2f", tmb) + " kcal/dia\n";
                 resultado += "Sua NDC é: " + String.format("%.2f", ndc) + " kcal/dia\n";
                 resultado += "Calorias para perder peso (redução de 500 kcal): " + String.format("%.2f", caloriasPerdaPeso) + " kcal/dia\n";
                 resultado += "Calorias para manter o peso: " + String.format("%.2f", caloriasManutencaoPeso) + " kcal/dia\n";
@@ -114,4 +117,3 @@ public class EstatisticasFragment extends Fragment {
         }
     }
 }
-

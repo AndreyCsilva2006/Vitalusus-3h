@@ -21,53 +21,66 @@ public class Videoaula {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(nullable = false)
 	private String descricao;
+	@Column(nullable = false)
 	@NotBlank(message = "campo não preenchido")
 	private String titulo;
+	@Column(nullable = false)
 	private long likes;
+	@Column(nullable = false)
 	private long deslikes;
-	
-	@Lob
-	private byte[] video;
 
-	@Lob
+	private byte[] video;
 	private byte[] thumbnail;
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@ManyToMany
 	@JoinTable(name="Aluno_videoaula",
-			joinColumns = {@JoinColumn(name="videoaula_id")},
-			inverseJoinColumns = {@JoinColumn(name="aluno_id")})
+			joinColumns = {@JoinColumn(name="videoaula_id", nullable = false)},
+			inverseJoinColumns = {@JoinColumn(name="aluno_id", nullable = false)})
 	private List<Aluno> alunos;
+	@Column(nullable = false)
 	private Integer visualizacoes;
 
 	@ManyToOne
-	@JoinColumn(name = "canal_id")
+	@JoinColumn(name = "canal_id", nullable = false)
 	private Canal canal;
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@OneToMany
 	@JoinTable(name="Likes",
-			joinColumns = {@JoinColumn(name="videoaula_id")},
-			inverseJoinColumns = {@JoinColumn(name="aluno_id")}
+			joinColumns = {@JoinColumn(name="videoaula_id", nullable = false)},
+			inverseJoinColumns = {@JoinColumn(name="aluno_id", nullable = false)}
 	)
 	private List<Aluno> alunosLikes;
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@OneToMany
 	@JoinTable(name="Deslikes",
-			joinColumns = {@JoinColumn(name="videoaula_id")},
-			inverseJoinColumns = {@JoinColumn(name="aluno_id")}
+			joinColumns = {@JoinColumn(name="videoaula_id", nullable = false)},
+			inverseJoinColumns = {@JoinColumn(name="aluno_id", nullable = false)}
 	)
 	private List<Aluno> alunosDeslikes;
-	
+
+	@Column(nullable = false)
 	private LocalDateTime dataPubli;
-	
+
+	@Column(nullable = false)
 	private String categoria;
-	
+
+	@Column(nullable = false)
 	private String tags;
-	
-	private String equipamento;
+
+	@ManyToOne
+	@JoinColumn(name = "equipamento_id", nullable = false)
+	private Equipamento equipamento;
+
+	@Column(nullable = false)
+	private String statusVideo;
+
+	@Column(nullable = false)
+	private String privacidadeVideo;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "videoaula", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
@@ -202,13 +215,27 @@ public class Videoaula {
 		this.comentarios = comentarios;
 	}
 
-	public String getEquipamento() {
+	public Equipamento getEquipamento() {
 		return equipamento;
 	}
 
-	public void setEquipamento(String equipamento) {
+	public void setEquipamento(Equipamento equipamento) {
 		this.equipamento = equipamento;
 	}
-	
-	
+
+	public String getStatusVideo() {
+		return statusVideo;
+	}
+
+	public void setStatusVideo(String statusVideo) {
+		this.statusVideo = statusVideo;
+	}
+
+	public String getPrivacidadeVideo() {
+		return privacidadeVideo;
+	}
+
+	public void setPrivacidadeVideo(String privacidadeVideo) {
+		this.privacidadeVideo = privacidadeVideo;
+	}
 }

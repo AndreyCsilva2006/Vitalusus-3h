@@ -1,7 +1,7 @@
 package br.itb.projeto.vitalususPlus.service;
 
 import br.itb.projeto.vitalususPlus.model.entity.Denuncia;
-import br.itb.projeto.vitalususPlus.model.entity.Evolucao;
+import br.itb.projeto.vitalususPlus.model.entity.Equipamento;
 import br.itb.projeto.vitalususPlus.model.repository.DenunciaRepository;
 import org.springframework.stereotype.Service;
 

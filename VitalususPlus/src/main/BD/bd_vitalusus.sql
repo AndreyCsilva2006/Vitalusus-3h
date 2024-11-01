@@ -6,18 +6,7 @@ CREATE DATABASE bd_vitalusus2h
 GO
 -- ACESSAR O BANCO DE DADOS
 USE bd_vitalusus2h
-GO
 
--- Tabela ChaveSeguranca
-CREATE TABLE ChaveSeguranca(
-	id					INT			IDENTITY(1231,1),
-	chave				VARCHAR(50) 
-	PRIMARY KEY(id)
-)
-GO
-INSERT INTO ChaveSeguranca DEFAULT VALUES 
-INSERT INTO ChaveSeguranca DEFAULT VALUES 
-INSERT INTO ChaveSeguranca DEFAULT VALUES 
 GO
 -- Tabela Usuario
 CREATE TABLE Usuario
@@ -31,14 +20,15 @@ CREATE TABLE Usuario
    dataCadastro	 SMALLDATETIME	NOT NULL,
    statusUsuario VARCHAR(20)    NOT NULL, -- ATIVO ou INATIVO ou TROCAR_SENHA	
    tipoUsuario	 VARCHAR(15)	NOT NULL, -- ADMINISTRADOR ou ALUNO ou TREINADOR	
-   chaveSeguranca_id INT		NOT NULL,
+   chaveSeguranca  UNIQUEIDENTIFIER DEFAULT NEWID() NOT NULL,
    nivelPrivacidade VARCHAR(50)NOT NULL, -- PUBLICO ou PRIVADO
+   dataNasc			DATE			NULL,
+   idade		INT				NULL,
 
    PRIMARY KEY (id),
-   FOREIGN KEY (chaveSeguranca_id) REFERENCES ChaveSeguranca(id)
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id, nivelPrivacidade) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade, dataNasc) 
 VALUES(
 	'Fulano fulanoide',
 	'fulano@gmail.com',
@@ -48,11 +38,12 @@ VALUES(
 	GETDATE(),
 	'ATIVO',
 	'ALUNO',
-	1231,
-	'PUBLICO'
+	'PUBLICO',
+	28,	
+	'1996-02-12'
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id, nivelPrivacidade) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade, dataNasc) 
 VALUES(
 	'Seranilda de Assis',
 	'sera@gmail.com',
@@ -62,11 +53,12 @@ VALUES(
 	GETDATE(),
 	'ATIVO',
 	'TREINADOR',
-	1232,
-	'PUBLICO'
+	'PUBLICO',
+	26,
+	'1998-02-27'
 )
 GO
-INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, chaveSeguranca_id, nivelPrivacidade) 
+INSERT Usuario(nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario,tipoUsuario, nivelPrivacidade, idade, dataNasc) 
 VALUES(
 	'Don Corleone',
 	'corleoneDon@gmail.com',
@@ -76,8 +68,9 @@ VALUES(
 	GETDATE(),
 	'ATIVO',
 	'ADMINISTRADOR',
-	1233,
-	'PUBLICO'
+	'PUBLICO',
+	42, 
+	'1982-05-23'
 )
 GO
 CREATE TABLE Denuncia
@@ -87,18 +80,20 @@ CREATE TABLE Denuncia
 	usuario_id	INT				NOT NULL,
 	usuarioDenunciado_id	INT	NOT NULL,
 	dataDenuncia SMALLDATETIME  NOT NULL,
+	categoria	VARCHAR(100)	NOT NULL,
 	
 	PRIMARY KEY (id),
 	FOREIGN KEY (usuario_id) REFERENCES Usuario(id),
 	FOREIGN KEY (usuarioDenunciado_id)	REFERENCES Usuario(id)
 )
 GO
-INSERT Denuncia(mensagem, usuario_id, usuarioDenunciado_id, dataDenuncia) 
+INSERT Denuncia(mensagem, usuario_id, usuarioDenunciado_id, dataDenuncia, categoria) 
 VALUES(
 	'Estou denunciando essa treinadora vagabunda que me mandou nudes do marido dela sem minha permissão!!',
 	1,
 	2,
-	GETDATE()
+	GETDATE(),
+	'Assédio sexual'
 )
 GO
 -- Tabela admin
@@ -107,33 +102,32 @@ CREATE TABLE Administrador
 	id			 INT		    IDENTITY,
 	usuario_id	 INT			NOT NULL,
 	numeroUsuarios INT			NOT NULL,
-	dataNasc	DATE			NOT NULL,
 
 	FOREIGN KEY(usuario_id) REFERENCES Usuario(id),
 	PRIMARY KEY (id),
 )
 GO
-INSERT Administrador(usuario_id, numeroUsuarios, dataNasc) VALUES(3, 1, '1982-05-23')
+INSERT Administrador(usuario_id, numeroUsuarios) VALUES(3, 1)
 GO
 -- Tabela Aluno
 CREATE TABLE Aluno
 (
 	id			INT					IDENTITY,
-	dataNasc	DATE				NOT NULL,
-	altura		DECIMAL(10,2)		NOT NULL,
-	peso		DECIMAL(10,2)		NOT NULL,
+	altura		DECIMAL(10,2)		NULL,
+	peso		DECIMAL(10,2)		NULL,
 	usuario_id	INT					NOT NULL,
+	sexo		VARCHAR(8)			NULL,
 
 	FOREIGN KEY(usuario_id) REFERENCES Usuario (id),
 	PRIMARY KEY(id)
 )
 GO
-INSERT Aluno(dataNasc, altura, peso, usuario_id)
+INSERT Aluno(altura, peso, usuario_id, sexo)
 VALUES(
-	'1996-02-12',
 	1.78,
 	98.5,
-	1
+	1,
+	'Feminino'
 )
 GO
 -- Tabela Treinador
@@ -141,18 +135,18 @@ CREATE TABLE Treinador
 (
 	id	            INT			  IDENTITY,
 	cref			VARCHAR(21)	  UNIQUE NOT NULL,
-	dataNasc		DATE		  NOT NULL,
 	usuario_id		INT			  NOT NULL,
+	genero			VARCHAR(255)   NOT NULL,
 
 	FOREIGN KEY (usuario_id) REFERENCES Usuario(id),
 	PRIMARY KEY (id)
 )
 GO
-INSERT Treinador(cref, dataNasc, usuario_id)
+INSERT Treinador(cref, usuario_id, genero)
 VALUES(
 	'324321-G/SP',
-	'1998-02-27',
-	2
+	2,
+	'Feminino'
 )
 GO
 
@@ -164,7 +158,7 @@ CREATE TABLE Canal(
 	seguidores		BIGINT			NOT NULL,
 	treinador_id	INT				NOT NULL,
 	numeroVideos	INT				NOT NULL,
-	bio				VARCHAR(255)	NULL,
+	bio				VARCHAR(MAX)	NULL,
 
 	FOREIGN KEY (treinador_id) REFERENCES Treinador(id),
 	PRIMARY KEY (id)
@@ -173,7 +167,7 @@ GO
 INSERT Canal(visualizacoes, nome, seguidores, treinador_id, numeroVideos, bio) 
 VALUES(
 	3243254,
-	'Paradas Musculat�rias', 1, 1, 1, 'é um canal muito bom' 
+	'Paradas Musculatórias', 1, 1, 1, 'é um canal muito bom' 
 )
 
 GO
@@ -190,11 +184,78 @@ GO
 INSERT Banco(numeroCartao, treinador_id)
 VALUES('1232334523123', 1)
 GO
+-- Tabela Patrocinador
+CREATE TABLE Patrocinador(
+	id					INT				IDENTITY,
+	nome				VARCHAR(255)	NOT NULL,
+	link				VARCHAR(MAX)	NOT NULL,
+	foto				VARBINARY(MAX)	NULL,
+	statusPatrocinador	VARCHAR(50)		NOT NULL,
 
+	PRIMARY KEY(id)
+)
+GO
+INSERT Patrocinador(nome, link, statusPatrocinador) VALUES('Kikos Fitness', 'https://www.kikos.com.br/', 'ATIVO' )
+GO
+-- Tabela Equipamento
+CREATE TABLE Equipamento(
+	id					INT				IDENTITY,
+	nome				VARCHAR(255)	NOT NULL,
+	link				VARCHAR(500)	NOT NULL,
+	patrocinador_id		INT				NULL,
+	statusEquipamento	VARCHAR(100)	NOT NULL,
+	
+	PRIMARY KEY(id),
+	FOREIGN KEY(patrocinador_id) REFERENCES Patrocinador(id)
+)
+GO
+INSERT Equipamento (nome, link, statusEquipamento) VALUES('Nenhuma das opções', 'null', 'ATIVO')
+GO
+INSERT Equipamento(nome, link, patrocinador_id, statusEquipamento) VALUES(
+'Bicicleta Ergométrica Kikos KR9.1 Eletromagnética',
+'https://www.kikos.com.br/bicicleta-ergometrica-kikos-kr9-1-eletromagnetica.html',
+1,
+'ATIVO'
+)
+GO
+INSERT Equipamento(nome, link, patrocinador_id, statusEquipamento) VALUES(
+'Esteira Ergométrica Kikos E800Ix 2.3 HP 12 Km/H',
+'https://www.kikos.com.br/esteira-ergometrica-kikos-e800ix-2-3-hp-12km-h.html',
+1,
+'ATIVO'
+)
+GO
+INSERT Equipamento(nome, link, patrocinador_id, statusEquipamento) VALUES(
+'Plataforma Vibratória Kikos P201Ix',
+'https://www.kikos.com.br/plataforma-vibratoria-kikos-p201ix.html',
+1,
+'ATIVO'
+)
+GO
+INSERT Equipamento(nome, link, patrocinador_id, statusEquipamento) VALUES(
+'Estação De Musculação Kikos Gx2I Torre 65kg',
+'https://www.kikos.com.br/estac-o-de-musculac-o-kikos-gx2i-torre-65kg.html',
+1,
+'ATIVO'
+)
+INSERT Equipamento(nome, link, patrocinador_id, statusEquipamento) VALUES(
+'Colchonete Dobrável Kikos',
+'https://www.kikos.com.br/colchonete-dobravel-md9013a-kikos.html',
+1,
+'ATIVO'
+)
+GO
+INSERT Equipamento(nome, link, patrocinador_id, statusEquipamento) VALUES(
+'Roda De Exercícios Abdominais Kikos',
+'https://www.kikos.com.br/roda-de-exercicios-abdominais-kikos.html',
+1,
+'ATIVO'
+)
+GO
 -- Tabela Videoaula
 CREATE TABLE Videoaula(
 	id				INT				IDENTITY,
-	descricao		VARCHAR(255)	NULL,
+	descricao		VARCHAR(MAX)	NULL,
 	titulo			VARCHAR(100)	NOT NULL,
 	likes			INT				NULL,
 	deslikes		INT				NULL,
@@ -205,17 +266,19 @@ CREATE TABLE Videoaula(
 	dataPubli		SMALLDATETIME	NOT NULL,
 	categoria		VARCHAR(100)	NOT NULL,
 	tags			VARCHAR(MAX)	NOT NULL,
-	equipamento		VARCHAR(100)	NOT NULL,	
-
+	equipamento_id	INT				NOT NULL,
+	statusVideo		VARCHAR(50)		NOT NULL, --ATIVO ou BANIDO
+	privacidadeVideo	VARCHAR(50)		NOT NULL, --PÚBLICO ou PRIVADO
 
 	FOREIGN KEY (canal_id) REFERENCES Canal(id),
+	FOREIGN KEY(equipamento_id) REFERENCES Equipamento(id),
 	PRIMARY KEY(id)
 )
 GO
-INSERT Videoaula(descricao, titulo, likes, deslikes, canal_id, visualizacoes, dataPubli, categoria, tags, equipamento)
+INSERT Videoaula(descricao, titulo, likes, deslikes, canal_id, visualizacoes, dataPubli, categoria, tags, equipamento_id, statusVideo, privacidadeVideo)
 VALUES(
-	'Um v�deo sobre como fazer belas flex�es',
-	'Como Fazer Flex�es',
+	'Um vídeo sobre como fazer belas flexões',
+	'Como Fazer Flexões',
 	1332,
 	0,
 	1, 
@@ -223,10 +286,10 @@ VALUES(
 	GETDATE(),
 	'Musculação',
 	'Flexões',
-	'Esteira'
+	1,
+	'ATIVO',
+	'PÚBLICO'
 )
-GO
-
 GO
 -- Tabela Evolucao
 CREATE TABLE Evolucao(
@@ -257,17 +320,27 @@ CREATE TABLE Comentario(
 	texto			VARCHAR(255)	NOT NULL,
 	aluno_id		INT				NOT NULL,
 	videoaula_id	INT				NOT NULL,
+	dataPubli		SMALLDATETIME	NOT NULL,
 
 	PRIMARY KEY (id),
 	FOREIGN KEY(aluno_id) REFERENCES Aluno(id),
 	FOREIGN KEY(videoaula_id) REFERENCES Videoaula(id)
 )
 GO
-INSERT Comentario(texto, aluno_id, videoaula_id)
+INSERT Comentario(texto, aluno_id, videoaula_id, dataPubli)
 VALUES(
 	'Uau, que aula daora! Segui as suas instru��es por 6 meses e agora eu t� sheipado!',
 	1,
-	1
+	1,
+	GETDATE()
+)
+GO
+INSERT Comentario(texto, aluno_id, videoaula_id, dataPubli)
+VALUES(
+	'Teste',
+	1,
+	2,
+	GETDATE()
 )
 GO
 -- Tabela Aluno_segue_canal
@@ -348,8 +421,6 @@ CREATE TABLE Deslikes(
 )
 GO
 
-
-
 SELECT * FROM Usuario
 SELECT * FROM Canal
 SELECT * FROM Videoaula
@@ -357,21 +428,21 @@ SELECT * FROM Aluno
 SELECT * FROM Banco
 SELECT * FROM Administrador
 SELECT * FROM Treinador
-SELECT * FROM Evolucao
+SELECT * FROM Equipamento
 SELECT * FROM Comentario
 SELECT * FROM Aluno_segue_canal
 SELECT * FROM Aluno_videoaula
 SELECT * FROM Admin_usuario
 SELECT * FROM Deslikes
 SELECT * FROM Likes
-SELECT * FROM ChaveSeguranca
 SELECT * FROM Denuncia
+SELECT * FROM Patrocinador
 
 /*
 UPDATE Usuario SET nome = 'Maria Joana' WHERE id = 1
-
+UPDATE Canal SET nome = 'Muscle Gym Canal' WHERE id = 1
 DELETE FROM Admin_usuario WHERE id = 1
-DELETE FROM Evolucao WHERE id = 1
+DELETE FROM Equipamento WHERE id = 1
 DELETE FROM Aluno_segue_canal WHERE id = 1
 DELETE FROM Aluno_videoaula WHERE id = 1
 DELETE FROM Aluno WHERE id = 1

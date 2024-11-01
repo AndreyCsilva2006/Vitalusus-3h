@@ -16,11 +16,11 @@ public class Seguidor {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name="seguidor_id")
+    @JoinColumn(name="seguidor_id", nullable = false)
     private Aluno aluno;
 
     @OneToOne
-    @JoinColumn(name="canal_id")
+    @JoinColumn(name="canal_id", nullable = false)
     private Canal canal;
 
     public Long getId() {

@@ -16,11 +16,11 @@ public class Banco {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "campo não preenchido")
-    @Column(name="numeroCartao")
+    @Column(name="numeroCartao", nullable = false)
     private String numeroCartao;
 
     @OneToOne
-    @JoinColumn(name="treinador_id")
+    @JoinColumn(name="treinador_id", nullable = false)
     private Treinador treinaodor;
 
 	public Long getId() {

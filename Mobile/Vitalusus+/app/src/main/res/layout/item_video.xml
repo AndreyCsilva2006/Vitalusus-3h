@@ -3,31 +3,63 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="8dp"
+    >
 
     <!-- Miniatura do Vídeo -->
     <ImageView
-        android:id="@+id/video_thumbnail"
+        android:id="@+id/videoThumbnail"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
+        android:src="@drawable/ic_defaultuser"
         android:layout_marginBottom="8dp" />
 
-    <!-- Nome do Vídeo -->
-    <TextView
-        android:id="@+id/video_title"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="4dp" />
+        android:orientation="vertical"
+        android:layout_marginTop="0dp">
 
-    <TextView
-        android:id="@+id/video_date"
-        android:layout_width="131dp"
+        <!-- Nome do Vídeo -->
+        <TextView
+            android:id="@+id/tituloVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_gravity="left"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="4dp" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/DataPubliVideo"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@android:color/white" />-->
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:textColor="@android:color/white" />
+        android:orientation="horizontal"
+        android:layout_marginTop="0dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="Visualizações:"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/visualizacoesVideo"
+            android:layout_width="131dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+
 
     <!-- Nome do Canal e Data -->
     <LinearLayout
@@ -38,12 +70,12 @@
 
         <!-- Foto do Canal -->
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/channel_thumbnail"
+            android:id="@+id/fotoCanal"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="8dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/abababa" />
+            android:src="@drawable/ic_defaultuser" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -52,11 +84,19 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/channel_name"
-                android:layout_width="132dp"
+                android:id="@+id/nomeCanal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white" />
 
+            <!--    lado a lado -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>

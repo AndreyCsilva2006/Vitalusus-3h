@@ -36,7 +36,14 @@ public class VideoaulaService {
     }
     @Transactional
     public List<Videoaula> findAllbyCanal(Canal canal){
-        return videoaulaRepository.findAllByCanal(canal);
+        if (canal.getTreinador().getUsuario().getStatusUsuario().equals("ATIVO")) {
+            return videoaulaRepository.findAllByCanal(canal);
+        }
+        else throw new RuntimeException("O canal que postou as videoaulas que vodê está procurando não está ativo ou sua conta foi banida ou deletada");
+    }
+    @Transactional
+    public List<Videoaula> findAllbyEquipamento(Equipamento equipamento){
+        return videoaulaRepository.findAllByEquipamento(equipamento);
     }
     @Transactional
     public Videoaula findById(long id) {
@@ -62,9 +69,8 @@ public class VideoaulaService {
 		videoaula.getDataPubli().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         videoaula.setLikes(videoaula.getAlunosLikes().size());
         videoaula.setDeslikes(videoaula.getAlunosDeslikes().size());
-        if (videoaula.getEquipamento() == null) {
-        	videoaula.setEquipamento("Nenhum");
-        }
+        videoaula.setPrivacidadeVideo("PÚBLICO");
+        videoaula.setStatusVideo("ATIVO");
         return videoaulaRepository.save(videoaula);
     }
     public Videoaula postId(long id) {
@@ -75,7 +81,42 @@ public class VideoaulaService {
     	}
     	return null;
     }
-    
+    public Videoaula banir(long id){
+        Optional<Videoaula> _videoaula = videoaulaRepository.findById(id);
+        if (_videoaula.isPresent()) {
+            Videoaula videoaula = _videoaula.get();
+            videoaula.setStatusVideo("BANIDO");
+            return videoaulaRepository.save(videoaula);
+        }
+        else throw new RuntimeException("Essa videoaula não existe no banco de dados ou ocorreu um erro no servidor");
+    }
+    public Videoaula desbanir(long id){
+        Optional<Videoaula> _videoaula = videoaulaRepository.findById(id);
+        if (_videoaula.isPresent()) {
+            Videoaula videoaula = _videoaula.get();
+            videoaula.setStatusVideo("ATIVO");
+            return videoaulaRepository.save(videoaula);
+        }
+        else throw new RuntimeException("Essa videoaula não existe no banco de dados ou ocorreu um erro no servidor");
+    }
+    public Videoaula tornarPublico(long id){
+        Optional<Videoaula> _videoaula = videoaulaRepository.findById(id);
+        if (_videoaula.isPresent()) {
+            Videoaula videoaula = _videoaula.get();
+            videoaula.setPrivacidadeVideo("PÚBLICO");
+            return videoaulaRepository.save(videoaula);
+        }
+        else throw new RuntimeException("Essa videoaula não existe no banco de dados ou ocorreu um erro no servidor");
+    }
+    public Videoaula tornarPrivado(long id){
+        Optional<Videoaula> _videoaula = videoaulaRepository.findById(id);
+        if (_videoaula.isPresent()) {
+            Videoaula videoaula = _videoaula.get();
+            videoaula.setPrivacidadeVideo("PRIVADO");
+            return videoaulaRepository.save(videoaula);
+        }
+        else throw new RuntimeException("Essa videoaula não existe no banco de dados ou ocorreu um erro no servidor");
+    }
     public void delete(long id) {
         Optional<Videoaula> videoaula = videoaulaRepository.findById(id);
         if (videoaula.isPresent()) {

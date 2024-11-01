@@ -1,0 +1,122 @@
+/* só adicionando um height mínimo isso é altura mínima para o main */
+
+.main-height {
+  margin-top: 50px;
+  min-height: 100vh !important;
+}
+
+/* Parte do FORM */
+
+.FORM {
+  min-width: 90vw;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 40px;
+}
+
+.div-inputs-2 {
+  gap: 10px;
+  min-width: 100px;
+  width: 70%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+.div-inputs {
+  border-radius: 10px;
+  gap: 20px;
+  min-width: 60%;
+  width: auto;
+  max-width: 80%;
+  height: 100%;
+  min-height: 30vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+}
+
+@media (max-width: 800px) {
+  .div-inputs {
+    min-width: 79vw;
+    width: 80%;
+    min-height: 320px;
+  }
+}
+
+.inputs-padronizaçao {
+  color: var(--absolut-dark);
+  padding: 5px;
+  padding-inline: 10px;
+  min-width: 100px;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.button-formass {
+  padding: 5px;
+  min-width: 100px;
+  width: 70%;
+  border-radius: 15px;
+  background-color: var(--light-color);
+  color: var(--padrao);
+  border: 1px solid var(--padrao);
+}
+
+.button-formass:hover {
+  background: none;
+  color: var(--link-color2);
+  border: 1px solid var(--link-color2);
+  text-transform: uppercase;
+  transition: 0.5s ease;
+  letter-spacing: 0.6px;
+}
+
+.div-img {
+  display: flex;
+  justify-content: center;
+  min-width: auto;
+  width: 100%;
+  height: auto;
+  min-height: 300px;
+}
+
+.img-form {
+  object-fit: cover;
+  min-width: auto;
+  width: 70%;
+  height: 50vh;
+}
+
+@media (max-width: 800px) {
+  .img-form {
+    min-width: 300px;
+    width: 40%;
+  }
+}
+
+@media (max-width: 400px) {
+  .img-form {
+    width: 90%;
+    height: 230px;
+  }
+}
+
+@media (max-width: 150px) {
+  .img-form {
+    display: none;
+  }
+}
+

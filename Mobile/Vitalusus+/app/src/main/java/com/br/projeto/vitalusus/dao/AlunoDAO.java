@@ -1,160 +1,48 @@
-//package com.br.projeto.vitalusus.dao;
-//
-//import android.util.Log;
-//
-//import com.br.projeto.vitalusus.EsqueciSenhaActivity;
-//import com.br.projeto.vitalusus.conexao.Conexao;
-//import com.br.projeto.vitalusus.model.Aluno;
-//import com.br.projeto.vitalusus.model.Usuario;
-//import com.br.projeto.vitalusus.util.MensagemUtil;
-//
-//import java.sql.Connection;
-//import java.sql.ResultSet;
-//import java.sql.SQLException;
-//import java.sql.Statement;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//// DAO - Data Access Object (Objeto de Acesso de Dados)
-//public class AlunoDAO {
-//    // preparando conexão
-//    private Connection conn = null;
-//
-//    // Método para executar comandos SQL, com abertura e fechamento do banco.
-//    private void executeSql(String sql) throws SQLException, ClassNotFoundException {
-//        conn = Conexao.conectar();
-//        if (conn != null) {
-//            Statement st = conn.createStatement();
-//            st.executeQuery(sql);
-//            conn.close();
-//        }
-//    }
-//
-//    public void cadastrarAluno(Aluno a, Usuario u) {
-//        try {
-//            executeSql("insert into Usuario (nome, email, senha, nivelAcesso, foto, dataCadastro, statusUsuario, tipoUsuario, pSeguranca, rSeguranca) values ('" + u.getNome() + "', '" + u.getEmail() + "', '" + u.getSenha() + "', '" + "USER" + "', '" + "null" + "', '" + u.getpSeguranca() + "', '" + "2024-08-20 10:00:00" + "', '" + "ATIVO" + "', '" + "ALUNO" + "',  '" + u.getrSeguranca() + "')");
-////            executeSql("insert into Aluno (dataNasc, altura, peso, usuario_id) " + "values ('" + "1990-02-12" + "', '" + a.getAltura() + "', '" + a.getPeso() + "', '" + "3" + "')");
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    // alterar aluno, no UsuarioDAO, alterar o Usuario
-////    public void alterar(Aluno a) {
-////        try {
-////            executeSql("update Aluno set Nome = '" + a.getNome() + "', Email = '" + a.getEmail() + "', Senha = '" + a.getSenha() + "' where id = " + a.getId());
-////        } catch (SQLException throwables) {
-////            throwables.printStackTrace();
-////        } catch (ClassNotFoundException e) {
-////            e.printStackTrace();
-////        }
-////    }
-//
-//    // excluir aluno
-////    public void excluir(Aluno a) {
-////        try {
-////            executeSql("delete from Aluno where id = " + a.getId());
-////        } catch (SQLException throwables) {
-////            throwables.printStackTrace();
-////        } catch (ClassNotFoundException e) {
-////            e.printStackTrace();
-////        }
-////    }
-//
-////    public Aluno findById(Integer id) {
-////        List<Aluno> lista = new ArrayList<Aluno>();
-////        try {
-////            conn = Conexao.conectar();
-////            if (conn != null) {
-////                String sql = "select * from Aluno where id = " + id;
-////
-////                Statement st = conn.createStatement();
-////                ResultSet rs = st.executeQuery(sql);
-////                while (rs.next()) {
-////                    Aluno alu = new Aluno();
-////                    alu.setId(rs.getInt(1));
-////                    alu.setNome(rs.getString(2));
-////                    alu.setEmail(rs.getString(3));
-////                    alu.setSenha(rs.getString(4));
-//////                    alu.setpSeguranca(rs.getString(5));
-//////                    alu.setrSeguranca(rs.getString(6));
-////
-////                    conn.close();
-////                    return alu;
-////                }
-////
-////            }
-////        } catch (ClassNotFoundException e) {
-////            e.printStackTrace();
-////            Log.e("Erro no AlunoDAO.java no método findById(Integer id)", e.getMessage());
-////        } catch (SQLException throwables) {
-////            throwables.printStackTrace();
-////            Log.e("Erro no AlunoDAO.java no método findById(Integer id)", throwables.getMessage());
-////        }
-////
-////        return null;
-////    }
-////    private List<Aluno> getAluno(String sql) throws SQLException {
-////        List<Aluno> lista = new ArrayList<Aluno>();
-////
-////        Statement st = null;
-////        st = conn.createStatement();
-////        ResultSet rs = st.executeQuery(sql);
-////        while (rs.next()) {
-////            Aluno alu = new Aluno();
-////            alu.setId(rs.getInt(1));
-////            alu.setNome(rs.getString(2));
-////            alu.setEmail(rs.getString(3));
-////            alu.setSenha(rs.getString(4));
-//////                    alu.setpSeguranca(rs.getString(5));
-//////                    alu.setrSeguranca(rs.getString(6));
-////
-////            lista.add(alu);
-////        }
-////        return lista;
-////    }
-////
-////    // getAll
-////    public List<Aluno> getAll() {
-////        List<Aluno> lista = new ArrayList<Aluno>();
-////        try {
-////            conn = Conexao.conectar();
-////            if (conn != null) {
-////                String sql = "select * from Aluno";
-////                lista = getAluno(sql);
-////
-////                conn.close();
-////            }
-////        } catch (ClassNotFoundException e) {
-////            e.printStackTrace();
-////            Log.e("Erro no AlunoDAO.java no método getAll", e.getMessage());
-////        } catch (SQLException throwables) {
-////            throwables.printStackTrace();
-////            Log.e("Erro no AlunoDAO.java no método getAll", throwables.getMessage());
-////        }
-////        return lista;
-////    }
-////
-////    // getAll com pesquisa
-////    public List<Aluno> getAll(String busca) {
-////        List<Aluno> lista = new ArrayList<Aluno>();
-////        try {
-////            conn = Conexao.conectar();
-////            if (conn != null) {
-////                String sql = "select * from Aluno where nome like '%" + busca + "%'";
-////                lista = getAluno(sql);
-////
-////                conn.close();
-////            }
-////        } catch (ClassNotFoundException e) {
-////            e.printStackTrace();
-////            Log.e("Erro no AlunoDAO.java no método getAll(String busca)", e.getMessage());
-////        } catch (SQLException throwables) {
-////            throwables.printStackTrace();
-////            Log.e("Erro no AlunoDAO.java no método getAll(String busca)", throwables.getMessage());
-////        }
-////        return lista;
-////    }
-//}
+package com.br.projeto.vitalusus.dao;
+
+import android.util.Log;
+import com.br.projeto.vitalusus.conexao.Conexao;
+import com.br.projeto.vitalusus.model.Aluno;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class AlunoDAO {
+    private Connection conn = null;
+
+    // Método para cadastrar um aluno com base no ID do usuário
+    public void cadastrarAluno(int usuarioId, Aluno aluno) {
+        try {
+            conn = Conexao.conectar();
+            if (conn != null) {
+                // Insere o aluno usando o ID do usuário já cadastrado
+                String sqlAluno = "INSERT INTO Aluno (altura, peso, usuario_id, sexo) VALUES (?, ?, ?, ?)";
+                PreparedStatement stmtAluno = conn.prepareStatement(sqlAluno);
+
+                // Insere NULL para altura e peso, e o ID do usuário e sexo fornecido
+                stmtAluno.setNull(1, java.sql.Types.DECIMAL); // Altura como NULL
+                stmtAluno.setNull(2, java.sql.Types.DECIMAL); // Peso como NULL
+                stmtAluno.setInt(3, usuarioId);               // ID do usuário
+                stmtAluno.setString(4, aluno.getSexo());      // Sexo do aluno
+
+                // Executa a inserção
+                stmtAluno.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Log.e("Erro no AlunoDAO", e.getMessage());
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            // Garantir que a conexão seja fechada
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}

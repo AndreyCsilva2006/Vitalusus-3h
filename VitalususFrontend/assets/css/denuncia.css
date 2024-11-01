@@ -1,0 +1,98 @@
+/* Reset de estilo básico */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Main container com borda vermelha */
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--dark-color2);
+  box-shadow: 10px 2px 0px 2px var(--danger-color);
+  max-width: 600px;
+  margin-top: 140px;
+  width: 100%;
+}
+
+/* Layout das denúncias */
+
+.denuncias-container {
+  width: 100%;
+  text-align: center;
+}
+
+#titulo-denuncias {
+  padding-bottom: 10px;
+  font-size: 1.8em;
+  color: var(--light-color);
+}
+
+.denuncia {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: var(--dark-color2);
+  box-shadow: 0px 0px 0px 2px var(--danger-color);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.denuncia:hover {
+  background-color: var(--cor-cinza-transparent-1);
+}
+
+/* Estilização da foto de perfil */
+
+.profile-pic {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+/* Informações da denúncia */
+
+.denuncia-info {
+  text-align: left;
+}
+
+.denuncia-info p {
+  margin: 0 0 5px;
+  color: var(--light-color);
+}
+
+.denuncia-info p strong {
+  color: var(--danger-color);
+}
+
+.accept-btn {
+  padding: 10px 15px;
+  border: none;
+  color: var(--light-color);
+  background-color: var(--danger-color);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.accept-btn:hover {
+  background-color: var(--padrao);
+}
+
+/* Animação ao ocultar denúncia */
+
+.hidden {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+

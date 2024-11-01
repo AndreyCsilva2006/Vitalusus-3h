@@ -8,6 +8,9 @@ import br.itb.projeto.vitalususPlus.model.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.List;
@@ -17,14 +20,11 @@ import java.util.Optional;
 public class AlunoService {
 	private AlunoRepository alunoRepository;
 	private UsuarioService usuarioService;
-	private EvolucaoService evolucaoService;
 
-	public AlunoService(AlunoRepository alunoRepository, UsuarioService usuarioService,
-			EvolucaoService evolucaoService) {
+	public AlunoService(AlunoRepository alunoRepository, UsuarioService usuarioService) {
 		super();
 		this.alunoRepository = alunoRepository;
 		this.usuarioService = usuarioService;
-		this.evolucaoService = evolucaoService;
 	}
 
 	public List<Aluno> findAll() {

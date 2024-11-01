@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -21,15 +22,13 @@ public class UsuarioController {
 	private AdminService adminService;
 	private TreinadorService treinadorService;
 	private AlunoService alunoService;
-	private ChaveSegurancaService chaveSegurancaService;
 	private CanalService canalService;
 
-	public UsuarioController(UsuarioService usuarioService, AdminService adminService, TreinadorService treinadorService, AlunoService alunoService, ChaveSegurancaService chaveSegurancaService, CanalService canalService) {
+	public UsuarioController(UsuarioService usuarioService, AdminService adminService, TreinadorService treinadorService, AlunoService alunoService, CanalService canalService) {
 		this.usuarioService = usuarioService;
 		this.adminService = adminService;
 		this.treinadorService = treinadorService;
 		this.alunoService = alunoService;
-		this.chaveSegurancaService = chaveSegurancaService;
 		this.canalService = canalService;
 	}
 
@@ -45,7 +44,7 @@ public class UsuarioController {
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
 	@PostMapping("findByChaveSeguranca/")
-	public ResponseEntity<Usuario> findByChaveSeguranca(@RequestParam long chaveSeguranca) {
+	public ResponseEntity<Usuario> findByChaveSeguranca(@RequestParam UUID chaveSeguranca) {
 		Usuario usuario = this.usuarioService.findByChaveSeguranca(chaveSeguranca);
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
@@ -96,6 +95,16 @@ public class UsuarioController {
 		Usuario usuarioBanido = this.usuarioService.banir(id);
 		return new ResponseEntity<Usuario>(usuarioBanido, HttpStatus.OK);
 	}
+	@PutMapping("desbanir/{id}")
+	public ResponseEntity<Usuario> desbanirUsuario(@PathVariable long id) {
+		Usuario usuarioBanido = this.usuarioService.desbanir(id);
+		return new ResponseEntity<Usuario>(usuarioBanido, HttpStatus.OK);
+	}
+	@PutMapping("deletar/{id}")
+	public ResponseEntity<Usuario> deletarUsuario(@PathVariable long id) {
+		Usuario usuarioDeletado = this.usuarioService.deletar(id);
+		return new ResponseEntity<Usuario>(usuarioDeletado, HttpStatus.OK);
+	}
 	@PostMapping("login/")
 	public ResponseEntity<?> sigin(@RequestParam String email, @RequestParam String senha) {
 		Usuario usuario = usuarioService.sigin(email, senha);
@@ -124,7 +133,14 @@ public class UsuarioController {
 		Usuario usuarioUpdatado = usuarioService.tornarPublico(id);
 		return new ResponseEntity<Usuario>(usuarioUpdatado, HttpStatus.OK);
 	}
-	
+	@PostMapping("enviarMail/")
+	public void enviarMail(@RequestParam String email){
+		usuarioService.enviarMail(email);
+	}
+	@PostMapping("contatarMail/")
+	public void contatarEmail(@RequestParam String email, @RequestParam String text){
+		usuarioService.contatarEmail(email, text);
+	}
 	@PutMapping("tornarPrivado/{id}")
 	public ResponseEntity<Usuario> tornarPrivado(@PathVariable long id){
 		Usuario usuarioUpdatado = usuarioService.tornarPrivado(id);

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en" data-bss-forced-theme="light">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Gerenciamento de Patrocinadores</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alatsi&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo+Black&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter+Tight&amp;display=swap">
+    <link rel="stylesheet" href="assets/css/typicons.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
+    <link rel="stylesheet" href="assets/fonts/typicons.min.css">
+    <link rel="stylesheet" href="assets/css/bs-theme-overrides.css">
+    <link rel="stylesheet" href="assets/css/Navbar-Right-Links-icons.css">
+    <link rel="stylesheet" href="assets/css/Swiper-Slider-Card-For-Blog-Or-Product-swiper.min.css">
+    <link rel="stylesheet" href="assets/css/Swiper-Slider-Card-For-Blog-Or-Product-untitled.css">
+    <link rel="stylesheet" href="assets/css/gerenciamento-patrocinadores.css">
+    <link rel="stylesheet" href="assets/css/GLOBALADMIN.css">
+    <link rel="stylesheet" href="assets/css/patrocinadores.css">
+    <link rel="stylesheet" href="assets/css/Login-Form-Basic-icons.css">
+    <link rel="stylesheet" href="assets/css/Swiper-Slider-Card-For-Blog-Or-Product-untitled-1.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md sticky-top bg-dark d-flex flex-row justify-content-between navbar-dark navOn arrum-nav" id="mainNav">
+        <div class="container arrum-container"><img class="div-img-header-home" src="assets/img/Logo.png" width="40" height="41"><a class="navbar-brand d-flex align-items-center" href="/" style="width:auto;"><span class="tmnh-p">Vitalusus+</span></a><button data-bs-toggle="collapse" data-bs-target="#navcol-1" class="navbar-toggler" style="gap:35px;"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse text-break flex-wrap header-nav-bar" id="navcol-1" style="gap:20px;min-width:auto;width:90vw;max-width:90%;flex-wrap:wrap;">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="indexsuportes.html"></a></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"></li>
+                </ul><a class="d-xl-flex align-items-xl-center link-header2 link-a tmnh-p elementos-header" href="criar-admin.html" style="gap:5px;"><i class="typcn typcn-user-add icon-ne"></i>Adicionar Administrador</a><a class="d-xl-flex align-items-xl-center link-header2 link-a tmnh-p elementos-header" href="Gerenciar-videos.html" style="gap:5px;"><i class="typcn typcn-video icon-ne"></i>Gerenciar Videos</a><a class="d-md-flex d-xl-flex align-items-md-center align-items-xl-center link-header link-a tmnh-p elementos-header" href="gerenciar-treinadores.html" style="gap:5px;"><svg class="icon icon-tabler icon-tabler-user-search" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none" stroke="none"></path><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path><path d="M6 21v-2a4 4 0 0 1 4 -4h1.5"></path><path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path><path d="M20.2 20.2l1.8 1.8"></path></svg>Gerenciar usuários</a><a class="d-xl-flex align-items-xl-center link-header2 link-a tmnh-p elementos-header" href="denuncia.html" style="gap:5px;"><i class="typcn typcn-warning icon-ne"></i>Gerenciamento de denúncias</a>
+            </div>
+        </div>
+    </nav>
+    <div id="modal" class="modal1">
+        <div id="tabela" class="tabela-equipamentos"><span class="close tmnh-p" onclick="closeModal()" style="padding-inline: 20px;padding: 10px;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-arrow-bar-left icon-tmnh">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M4 12l10 0"></path>
+                    <path d="M4 12l4 4"></path>
+                    <path d="M4 12l4 -4"></path>
+                    <path d="M20 4l0 16"></path>
+                </svg></span>
+            <div class="d-xl-flex flex-row justify-content-between" style="width: 83%;display: flex;"><i class="icon ion-plus icon-tmnh" id="criarEquipbtn" style="padding-right: 0px;margin-right: 0px;"></i>
+                <h1>Equipamentos&nbsp;<i class="material-icons icon-tmnh" style="padding-left: 0px;margin-left: 0px;">fitness_center</i></h1>
+                <div></div>
+            </div>
+            <div class="tabela2">
+                <div class="elementos tmnh-h3-5" style="flex-grow: 2;max-width: 40%;"><span>Nome</span></div>
+                <div class="elementos tmnh-h3-5" style="flex-grow: 1;max-width: 30%;"><span>Link</span></div>
+                <div class="elementos tmnh-h3-5" style="flex-grow: 1;max-width: 30%;"><span>Ações</span></div>
+            </div>
+            <div class="container" style="display: flex;justify-content: center;padding: 0;margin: 0;max-height: none;max-width: none;">
+                <section id="equipamentos-container" style="width: 100%;max-height: none;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                    <div class="caixinha-PT">
+                        <div class="flex-column elementos2" id="equipamentos-nome-container" style="flex-grow: 2;max-width: 40%;"><span id="nomePatrocinador-1" class="nomePAA" maxlength="800" style="max-width: 100%;overflow-x: hidden;white-space: nowrap;">Nome AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa</span></div>
+                        <div class="flex-column elementos2" id="equipamentos-link-container" style="flex-grow: 1;max-width: 30%;"><a id="linkPatrocinador-1" class="link-max" href="#" style="color: var(--padrao);" maxlength="800">LINK AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</a></div>
+                        <div class="elementos2" style="flex-grow: 1;max-width: 30%;"><button id="create" class="button-submit btn-cor5" type="button" onclick="formCriar()">Criar</button><button class="button-submit btn-cor5" type="button" onclick="formEditar()">Editar</button><button class="button-submit btn-cor5" type="button">Excluir</button></div>
+                    </div>
+                    <form id="editar" class="criar" style="display: flex"><label class="form-label" style="max-width: 100%;overflow: hidden;">Nome:&nbsp;<input type="text" class="input-generico"></label><label class="form-label" style="max-width: 100%;overflow: hidden;">Link:&nbsp;<input type="text" class="input-generico" style="color: var(--padrao);"></label>
+                        <div class="d-lg-flex"><button class="button-submit btn-cor5" type="submit" style="border: none;outline: none;display: flex;justify-content: center;align-items: center;">Editar<i class="material-icons">add_circle_outline</i></button><button class="button-submit" type="button" style="background: none;border: none;outline: none;display: flex;justify-content: center;align-items: center;" onclick="formEditarFechar()">Cancelar<i class="material-icons">clear</i></button></div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+    <main id="main-modal" class="main-max">
+        <div class="cabesalho">
+            <h1>Gerenciamento de Patrocinadores</h1>
+            <p>Adicione, edite ou exclua patrocinadores do seu portal facilmente.</p>
+        </div>
+        <div class="container container1">
+            <main id="main-admin">
+                <section class="form-section">
+                    <form id="sponsor-form">
+                        <div class="form-group"><label for="name">Nome do Patrocinador</label><input type="text" id="name" placeholder="Digite o nome do patrocinador" required=""></div>
+                        <div class="form-group"><label for="website">Website do Patrocinador</label><input type="url" id="website" placeholder="Digite o URL do patrocinador" required=""></div>
+                        <div class="d-md-flex flex-row justify-content-md-start align-items-md-center" style="margin-bottom: 15px;"><input class="form-control" type="file" id="input-foto" style="display: none;" required="" accept="image/*"><img id="imageContainer" style="height: 80px;width: 100px;display: none;margin-right: 30px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor" id="addImg" class="icon-tmnh2">
+                                <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
+                                <path d="M64 80c-8.8 0-16 7.2-16 16V416c0 8.8 7.2 16 16 16H384c8.8 0 16-7.2 16-16V96c0-8.8-7.2-16-16-16H64zM0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM200 344V280H136c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H248v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"></path>
+                            </svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor" id="removeImg" style="font-size: 64px;display: none;margin-left: 0px;">
+                                <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
+                                <path d="M64 80c-8.8 0-16 7.2-16 16V416c0 8.8 7.2 16 16 16H384c8.8 0 16-7.2 16-16V96c0-8.8-7.2-16-16-16H64zM0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM152 232H296c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24s10.7-24 24-24z"></path>
+                            </svg><span id="imgTxt" style="margin-left: 10px;">Adicionar foto da logo do patrocinador</span></div><button class="btn button-medio" id="botao" type="submit" style="display: flex;flex-direction: column;justify-content: center;align-items: center;"><i class="fas fa-plus"></i> Adicionar Patrocinador</button>
+                    </form>
+                </section>
+                <section class="table-section">
+                    <div>
+                        <table id="sponsor-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Website</th>
+                                    <th>Foto</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="patrocinadorTableBody"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </main>
+    <div id="criar" class="modalCriar">
+        <div id="formCriarEquip" class="formCriarEquip"><span class="close icon-tmnh2" onclick="formFechar()">×</span>
+            <h2>Adicionar equipamento</h2>
+            <form id="criar-equipamento-form">
+                <div class="form-group"><label for="editTitle">Nome do equipamento:</label><input type="text" id="formCriar-nome-equip" required="" placeholder="Nome:"></div>
+                <div class="form-group"><label for="editTitle-1">Url onde o equipamento pode ser encontrado:</label><input type="url" id="formCriar-link-equip" required="" placeholder="https://www.exemplo.com"></div><button id="submitEditar" class="btn-cor1 button-submit" type="submit">Adicionar</button>
+            </form>
+        </div>
+    </div>
+    <div id="modalEdit" class="modalCriar">
+        <div id="formEditPatro" class="formCriarEquip"><span class="close icon-tmnh2" onclick="formFechar()">×</span>
+            <h2>Editar Patroinador</h2>
+            <form class="d-flex d-sm-flex d-lg-flex flex-column" id="editarPatroForm">
+                <div class="form-group"><label for="editTitle">Nome do equipamento:</label><input type="text" id="formEditarPatro-nome" required="" placeholder="Nome:"></div>
+                <div class="form-group"><label for="editTitle-1">Url onde o patrocinador pode ser encontrado:</label><input type="url" id="formEditarPatro-link" required="" placeholder="https://www.exemplo.com"></div><input class="form-control" type="file" id="formEditarPatro-foto" style="display: none;" accept="image/*">
+                <div><img id="formEditarPatro-fotoShow" style="width: 100px;height: 80px;"><span><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-edit" id="fotoPatroEditar" style="font-size: 60px;margin-left: 26px;">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
+                            <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
+                            <path d="M16 5l3 3"></path>
+                        </svg>Trocar foto da logo</span></div><button id="submitEditarPatro" class="btn-cor1 button-submit" type="submit">Editar</button>
+            </form>
+        </div>
+    </div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/bold-and-dark.js"></script>
+    <script src="assets/js/GLOBAL.js"></script>
+    <script src="assets/js/Swiper-Slider-Card-For-Blog-Or-Product-swiper.min.js"></script>
+    <script src="assets/js/gerenciar-patrocinadores.js"></script>
+    <script src="assets/js/LINKS.js"></script>
+</body>
+
+</html>

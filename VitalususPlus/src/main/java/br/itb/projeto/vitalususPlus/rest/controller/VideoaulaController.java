@@ -1,10 +1,6 @@
 package br.itb.projeto.vitalususPlus.rest.controller;
 
-import br.itb.projeto.vitalususPlus.model.entity.Admin;
-import br.itb.projeto.vitalususPlus.model.entity.Aluno;
-import br.itb.projeto.vitalususPlus.model.entity.Canal;
-import br.itb.projeto.vitalususPlus.model.entity.Comentario;
-import br.itb.projeto.vitalususPlus.model.entity.Videoaula;
+import br.itb.projeto.vitalususPlus.model.entity.*;
 import br.itb.projeto.vitalususPlus.service.CanalService;
 import br.itb.projeto.vitalususPlus.service.VideoaulaService;
 import jakarta.servlet.http.Cookie;
@@ -123,14 +119,34 @@ public class VideoaulaController {
         return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
     }
     @PutMapping("addComentario/{id}/{alunoId}")
-    public ResponseEntity<Videoaula> addComentario(@PathVariable long id, @PathVariable long alunoId, @RequestBody Comentario comentario){
+    public ResponseEntity<Videoaula> add(@PathVariable long id, @PathVariable long alunoId, @RequestBody Comentario comentario){
         Videoaula videoaulaUpdatado = this.videoaulaService.addComentario(id, alunoId, comentario);
         return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
     }
     @PutMapping("removeComentario/{id}/{comentarioId}")
-    public ResponseEntity<Videoaula> removeComentario(@PathVariable long id, @PathVariable long comentarioId, @RequestBody Comentario comentario){
+    public ResponseEntity<Videoaula> remove(@PathVariable long id, @PathVariable long comentarioId, @RequestBody Comentario comentario){
         Videoaula videoaulaUpdatado = this.videoaulaService.removeComentario(id, comentarioId);
         return new ResponseEntity<Videoaula>(videoaulaUpdatado, HttpStatus.OK);
+    }
+    @PutMapping("banir/{id}")
+    public ResponseEntity<Videoaula> banir(@PathVariable long id) {
+        Videoaula videoaulaBanido = this.videoaulaService.banir(id);
+        return new ResponseEntity<Videoaula>(videoaulaBanido, HttpStatus.OK);
+    }
+    @PutMapping("desbanir/{id}")
+    public ResponseEntity<Videoaula> desbanir(@PathVariable long id) {
+        Videoaula videoaulaDesbanido = this.videoaulaService.desbanir(id);
+        return new ResponseEntity<Videoaula>(videoaulaDesbanido, HttpStatus.OK);
+    }
+    @PutMapping("tornarPrivado/{id}")
+    public ResponseEntity<Videoaula> tornarPrivado(@PathVariable long id) {
+        Videoaula videoaulaPrivado = this.videoaulaService.banir(id);
+        return new ResponseEntity<Videoaula>(videoaulaPrivado, HttpStatus.OK);
+    }
+    @PutMapping("tornarPublico/{id}")
+    public ResponseEntity<Videoaula> tornarPublico(@PathVariable long id) {
+        Videoaula videoaulaPublico = this.videoaulaService.banir(id);
+        return new ResponseEntity<Videoaula>(videoaulaPublico, HttpStatus.OK);
     }
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

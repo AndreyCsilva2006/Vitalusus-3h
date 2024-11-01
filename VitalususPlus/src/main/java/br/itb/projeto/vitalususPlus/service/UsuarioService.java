@@ -1,33 +1,32 @@
 package br.itb.projeto.vitalususPlus.service;
 
-import java.io.File;
-import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
-
-import br.itb.projeto.vitalususPlus.model.repository.AlunoRepository;
-import br.itb.projeto.vitalususPlus.model.repository.TreinadorRepository;
-import org.apache.commons.io.FileUtils;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import br.itb.projeto.vitalususPlus.model.entity.ChaveSeguranca;
 import br.itb.projeto.vitalususPlus.model.entity.Usuario;
 import br.itb.projeto.vitalususPlus.model.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 
 @Service
 public class UsuarioService {
+	@Autowired
+	private JavaMailSender mailSender;
 	private final UsuarioRepository usuarioRepository;
-	private final ChaveSegurancaService chavesegurancaService;
-
-	public UsuarioService(UsuarioRepository usuarioRepository, ChaveSegurancaService chaveSegurancaService) {
+	public UsuarioService(UsuarioRepository usuarioRepository) {
 		super();
-		this.usuarioRepository = usuarioRepository;
-		this.chavesegurancaService = chaveSegurancaService;
+		this.usuarioRepository = usuarioRepository;;
 	}
 	@Transactional
 	public List<Usuario> findAll() {
@@ -55,11 +54,29 @@ public class UsuarioService {
 		usuario.setSenha(senha);
 		usuario.setDataCadastro(LocalDateTime.now());
 		usuario.getDataCadastro().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-		ChaveSeguranca chaveSeguranca = new ChaveSeguranca();
-		usuario.setChaveSeguranca(chaveSeguranca);
 		usuario.setNivelPrivacidade("PUBLICO");
-		chavesegurancaService.save(usuario.getChaveSeguranca());
-		return usuarioRepository.save(usuario);
+		LocalDate dataAtual = LocalDate.now();
+		LocalDate dataNascimento = usuario.getDataNasc().toInstant()
+				.atZone(ZoneId.systemDefault())
+				.toLocalDate();
+		usuario.setIdade(Period.between(dataNascimento, dataAtual).getYears());
+		if(usuario.getNivelAcesso().equals("USER") && usuario.getIdade() >=13) {
+			try {
+			return usuarioRepository.save(usuario);
+			}
+			catch(DataIntegrityViolationException e) {
+	            throw new RuntimeException("O e-mail fornecido já está em uso. Por favor, escolha um e-mail diferente.");
+			}
+		}
+		else if(usuario.getNivelAcesso().equals("ADMIN")&&usuario.getIdade()>=18) {
+			try {
+				return usuarioRepository.save(usuario);
+				}
+				catch(DataIntegrityViolationException e) {
+		            throw new RuntimeException("O e-mail fornecido já está em uso. Por favor, escolha um e-mail diferente.");
+				}
+		}
+		else throw new RuntimeException("O usuário possui menos de 13 anos ou o admin possui menos de 18 anos");
 	}
 	@Transactional
 	public Usuario corrigirBugSenha(long id) {
@@ -72,6 +89,32 @@ public class UsuarioService {
 		}
 		return null;
 	}
+
+	public void enviarMail(String email) {
+		Usuario usuario = usuarioRepository.findByEmail(email);
+		String link = "link da página de recuperar senha";
+		if(usuario !=null && !usuario.getNivelAcesso().equals("ADMIN")) {
+			SimpleMailMessage message = new SimpleMailMessage();
+			message.setFrom("vitalususplusoficial@gmail.com");
+			message.setTo(email);
+			message.setSubject("Recuperação de Senha");
+			message.setText("Clique no link para redefinir sua senha http://localhost:5173/TrocarSenha.html?id="+usuario.getId());
+
+			mailSender.send(message);
+		}
+		else if(usuario == null) throw new RuntimeException("Este usuário não existe");
+		else throw new RuntimeException("Administradores devem contatar outro administrador para recuperar seu código de verificação");
+	}
+    public void contatarEmail(String email, String text) {
+        String link = "link da página de recuperar senha";
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(email);
+            message.setTo("vitalususplusoficial@gmail.com");
+            message.setSubject("Proposta de Patrocínio");
+            message.setText(text);
+
+            mailSender.send(message);
+    }
 	@Transactional
 	public Usuario tornarPrivado (long id) {
 		Optional<Usuario> _usuario = usuarioRepository.findById(id);
@@ -104,6 +147,7 @@ public class UsuarioService {
 		}
 		return null;
 	}
+
 	@Transactional
 	public void delete(Usuario usuario) {
 		this.usuarioRepository.delete(usuario);
@@ -150,6 +194,7 @@ public class UsuarioService {
                 }
                 case "ATIVO" -> throw new RuntimeException("Este usuário já está ativo") ;
                 case "BANIDO" -> throw new RuntimeException("Este usuário foi banido");
+				case "DELETADO" -> throw new RuntimeException("Este usuário foi deletado");
             }
         }
         return null;
@@ -164,7 +209,26 @@ public class UsuarioService {
 		}
 		else throw new RuntimeException("Esse usuário não existe no banco de dados ou ocorreu um erro no servidor");
 	}
-
+	public Usuario desbanir(long id){
+		Optional<Usuario> _usuario = usuarioRepository.findById(id);
+		if (_usuario.isPresent()) {
+			Usuario usuario = _usuario.get();
+			if(usuario.getStatusUsuario().equals("BANIDO")) {
+			usuario.setStatusUsuario("ATIVO");
+			}
+			return usuarioRepository.save(usuario);
+		}
+		else throw new RuntimeException("Esse usuário não existe no banco de dados ou ocorreu um erro no servidor");
+	}
+	public Usuario deletar(long id){
+		Optional<Usuario> _usuario = usuarioRepository.findById(id);
+		if (_usuario.isPresent()) {
+			Usuario usuario = _usuario.get();
+			usuario.setStatusUsuario("DELETADO");
+			return usuarioRepository.save(usuario);
+		}
+		else throw new RuntimeException("Esse usuário não existe no banco de dados ou ocorreu um erro no servidor");
+	}
 	public Usuario alterarSenha(long id, Usuario usuario) {
 		Optional<Usuario> _usuario = usuarioRepository.findById(id);
 		if (_usuario.isPresent()) {
@@ -180,21 +244,20 @@ public class UsuarioService {
 	public Usuario sigin(String email, String senha) {
 		Usuario usuario = usuarioRepository.findByEmail(email);
 		if (usuario != null) {
-			if (!usuario.getStatusUsuario().equals("BANIDO")) {
+			if (!usuario.getStatusUsuario().equals("BANIDO") && !usuario.getStatusUsuario().equals("DELETADO")){
 				byte[] decodedPass = Base64.getDecoder().decode(usuario.getSenha());
 				if (new String(decodedPass).equals(senha)) {
 					return usuario;
 				}
 				else throw new RuntimeException("A senha está incorreta");
 			}
-			else throw new RuntimeException("Este usuário está inativo, não pode fazer login");
+			else throw new RuntimeException("Este usuário está banido ou deletado, não pode fazer login");
 		}
-		return null;
+		else throw new RuntimeException("Dados incorretos");
 	} 
 	
 	@Transactional
-	public Usuario findByChaveSeguranca(Long chaveSeguranca) {
-		ChaveSeguranca _chaveSeguranca = chavesegurancaService.findById(chaveSeguranca);
-        return usuarioRepository.findByChaveSeguranca(_chaveSeguranca);
+	public Usuario findByChaveSeguranca(UUID chaveSeguranca) {
+		return usuarioRepository.findByChaveSeguranca(chaveSeguranca);
 	}
 }

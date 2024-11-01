@@ -13,9 +13,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-//import com.br.projeto.vitalusus.dao.UsuarioDAO;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
+import com.br.projeto.vitalusus.dao.UsuarioDAO;
 import com.br.projeto.vitalusus.model.Usuario;
+import com.br.projeto.vitalusus.response.AlunoResponse;
+import com.br.projeto.vitalusus.network.ApiService;
 import com.br.projeto.vitalusus.util.MensagemUtil;
+import com.br.projeto.vitalusus.network.RetrofitClient;
 
 public class FormLogin extends AppCompatActivity {
 
@@ -36,25 +44,24 @@ public class FormLogin extends AppCompatActivity {
         btnFormLoginOlharSenha = findViewById(R.id.btnFormLoginOlharSenha);
         text_tela_cadastro = findViewById(R.id.text_tela_cadastro);
 
-        // botão do olho de olhar a senha
+        // Botão para mostrar/ocultar a senha
         btnFormLoginOlharSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 int tipoAtual = editSenha.getInputType();
-
-                // Verifique se é um campo de senha (& ou | significa AND)
                 boolean ehSenha = (tipoAtual & InputType.TYPE_TEXT_VARIATION_PASSWORD) == InputType.TYPE_TEXT_VARIATION_PASSWORD;
 
-                // Alterne para o próximo tipo de entrada
                 if (ehSenha) {
                     editSenha.setInputType(InputType.TYPE_CLASS_TEXT);
                 } else {
                     editSenha.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 }
+                // Movendo o cursor para o final do texto
+                editSenha.setSelection(editSenha.getText().length());
             }
         });
 
+        // Clique para ir para a tela de cadastro
         text_tela_cadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +70,7 @@ public class FormLogin extends AppCompatActivity {
             }
         });
 
+        // Clique para ir para a tela de recuperação de senha
         btnEsqueciSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,33 +84,29 @@ public class FormLogin extends AppCompatActivity {
         String email = editEmail.getText().toString();
         String senha = editSenha.getText().toString();
 
-        // DAO - Data Access Object (Objeto de Acesso de Dados)
-//        Usuario usu = new UsuarioDAO().selecionarUsuario(email, senha);
-//        if (usu != null) {
-//            MensagemUtil.exibir(this, "Login com Sucesso!");
-//            Intent intent = new Intent(FormLogin.this, TelaPrincipal.class);
-//            intent.putExtra("nome", usu.getNome().toString());
-//            intent.putExtra("email", usu.getEmail().toString());
-//            startActivity(intent);
-//        } else {
-//            MensagemUtil.exibir(this, "Usuario não identificado, tente novamente.");
-//            limpar();
-//        }
+        Usuario usu = new UsuarioDAO().selecionarUsuario(email, senha);
+        if (usu != null){
+            Intent intent = new Intent(FormLogin.this, HomeActivity.class);
+            intent.putExtra("usuarioNome", usu.getNome());
+            intent.putExtra("usuarioEmail", usu.getEmail());
+            startActivity(intent);
+
+            finish();
+        } else {
+            limpar();
+        }
     }
 
     private void limpar() {
-        // Fazendo com que o campo fique com a borda vermelha caso o campo esteja inválido.
         GradientDrawable redBorder = new GradientDrawable();
-        redBorder.setColor(Color.WHITE); // Cor do fundo.
-        redBorder.setCornerRadius(50); // Raio do arredondamento das bordas (em pixels fica 60px que é equivalente a 20dp).
-        redBorder.setStroke(5, Color.RED); // Cor e espessura da borda (em pixels fica 6px que é equivalente a 2dp).
+        redBorder.setColor(Color.WHITE);
+        redBorder.setCornerRadius(50);
+        redBorder.setStroke(5, Color.RED);
 
         editEmail.setBackground(redBorder);
         editSenha.setBackground(redBorder);
-        // limpa campos
         editEmail.setText("");
         editSenha.setText("");
-
         editEmail.requestFocus();
     }
 }

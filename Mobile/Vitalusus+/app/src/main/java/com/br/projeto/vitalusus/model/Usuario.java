@@ -1,15 +1,15 @@
 package com.br.projeto.vitalusus.model;
 
-import android.graphics.Bitmap;
-
 import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
+import java.util.Date;
 
-import net.sourceforge.jtds.jdbc.DateTime;
+public class Usuario implements Serializable {
 
-public class Usuario {
+    private static final long serialVersionUID = 1L;
 
     @SerializedName("id")
-    private Integer id;
+    private int id;
 
     @SerializedName("nome")
     private String nome;
@@ -20,29 +20,31 @@ public class Usuario {
     @SerializedName("senha")
     private String senha;
 
-    @SerializedName("nivelAcesso")
+    @SerializedName("nivel_acesso")
     private String nivelAcesso;
 
     @SerializedName("foto")
-    private Bitmap foto;
+    private String foto;
 
-    @SerializedName("dataCadastro")
+    @SerializedName("data_cadastro")
     private String dataCadastro;
 
-    @SerializedName("statusUsuario")
+    @SerializedName("status_usuario")
     private String statusUsuario;
 
-    @SerializedName("tipoUsuario")
+    @SerializedName("tipo_usuario")
     private String tipoUsuario;
 
-    @SerializedName("chaveSegurancaId")
-    private String chaveSegurancaId;
-
-    @SerializedName("nivelPrivacidade")
+    @SerializedName("nivel_privacidade")
     private String nivelPrivacidade;
 
-    public Usuario(Integer id, String nome, String email, String senha, String nivelAcesso, Bitmap foto, String dataCadastro, String statusUsuario, String tipoUsuario, String chaveSegurancaId, String nivelPrivacidade) {
-        this.id = id;
+    @SerializedName("data_nasc")
+    private Date dataNasc; // Mudei para String
+
+    @SerializedName("idade")
+    private int idade;
+
+    public Usuario(String nome, String email, String senha, String nivelAcesso, String foto, String dataCadastro, String statusUsuario, String tipoUsuario, String nivelPrivacidade) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -51,17 +53,20 @@ public class Usuario {
         this.dataCadastro = dataCadastro;
         this.statusUsuario = statusUsuario;
         this.tipoUsuario = tipoUsuario;
-        this.chaveSegurancaId = chaveSegurancaId;
         this.nivelPrivacidade = nivelPrivacidade;
     }
 
-    //    Getter e Setter
+    public Usuario() {
+    }
 
-    public Integer getId() {
+    // Getters e Setters
+    // ... [mesmo código dos getters e setters] ...
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -93,8 +98,24 @@ public class Usuario {
         return nivelAcesso;
     }
 
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
     public void setNivelAcesso(String nivelAcesso) {
         this.nivelAcesso = nivelAcesso;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     public String getDataCadastro() {
@@ -113,14 +134,6 @@ public class Usuario {
         this.statusUsuario = statusUsuario;
     }
 
-    public Bitmap getFoto() {
-        return foto;
-    }
-
-    public void setFoto(Bitmap foto) {
-        this.foto = foto;
-    }
-
     public String getTipoUsuario() {
         return tipoUsuario;
     }
@@ -129,19 +142,37 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
-    public String getChaveSegurancaId() {
-        return chaveSegurancaId;
-    }
-
-    public void setChaveSegurancaId(String chaveSegurancaId) {
-        this.chaveSegurancaId = chaveSegurancaId;
-    }
-
     public String getNivelPrivacidade() {
         return nivelPrivacidade;
     }
 
     public void setNivelPrivacidade(String nivelPrivacidade) {
         this.nivelPrivacidade = nivelPrivacidade;
+    }
+
+    public Date getDataNasc() {
+        return dataNasc;
+    }
+
+    public void setDataNasc(Date dataNasc) {
+        this.dataNasc = dataNasc;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                ", nivelAcesso='" + nivelAcesso + '\'' +
+                ", foto='" + foto + '\'' +
+                ", dataCadastro='" + dataCadastro + '\'' +
+                ", statusUsuario='" + statusUsuario + '\'' +
+                ", tipoUsuario='" + tipoUsuario + '\'' +
+                ", nivelPrivacidade='" + nivelPrivacidade + '\'' +
+                ", dataNasc='" + dataNasc + '\'' +
+                ", idade=" + idade +
+                '}';
     }
 }

@@ -19,17 +19,17 @@ public class Admin {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@OneToOne
-	@JoinColumn(name = "usuario_id")
+	@JoinColumn(name = "usuario_id", nullable = false)
 	private Usuario usuario;
 
 	@ManyToMany
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@JoinTable(name = "admin_usuario",
-			joinColumns = {@JoinColumn(name = "admin_id")},
-			inverseJoinColumns = {@JoinColumn(name = "usuario_id")})
+			joinColumns = {@JoinColumn(name = "admin_id", nullable = false)},
+			inverseJoinColumns = {@JoinColumn(name = "usuario_id", nullable = false)})
 	private List<Usuario> listaUsuarios;
+	@Column(nullable = false)
 	private Integer numeroUsuarios;
-	private Date dataNasc;
 	public Long getId() {
 		return id;
 	}
@@ -53,12 +53,6 @@ public class Admin {
 	}
 	public void setNumeroUsuarios(Integer numeroUsuarios) {
 		this.numeroUsuarios = numeroUsuarios;
-	}
-	public Date getDataNasc() {
-		return dataNasc;
-	}
-	public void setDataNasc(Date dataNasc) {
-		this.dataNasc = dataNasc;
 	}
 	
 	

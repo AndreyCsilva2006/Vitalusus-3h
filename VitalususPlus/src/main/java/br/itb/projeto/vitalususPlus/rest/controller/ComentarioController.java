@@ -2,6 +2,7 @@ package br.itb.projeto.vitalususPlus.rest.controller;
 
 import br.itb.projeto.vitalususPlus.model.entity.Admin;
 import br.itb.projeto.vitalususPlus.model.entity.Comentario;
+import br.itb.projeto.vitalususPlus.model.entity.Videoaula;
 import br.itb.projeto.vitalususPlus.service.AdminService;
 import br.itb.projeto.vitalususPlus.service.ComentarioService;
 import jakarta.validation.Valid;
@@ -28,6 +29,11 @@ public class ComentarioController {
     @GetMapping("findAll")
     public ResponseEntity<List<Comentario>> findAll(){
         List<Comentario> comentarios = this.comentarioService.findAll();
+        return new ResponseEntity<List<Comentario>>(comentarios, HttpStatus.OK);
+    }
+    @PostMapping("findAllByVideoaula")
+    public ResponseEntity<List<Comentario>> findAllByVideoaula(@RequestBody Videoaula videoaula){
+        List<Comentario> comentarios = this.comentarioService.findAllByVideoaula(videoaula);
         return new ResponseEntity<List<Comentario>>(comentarios, HttpStatus.OK);
     }
     @PostMapping("findById/")

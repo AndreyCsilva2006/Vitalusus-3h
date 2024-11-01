@@ -19,33 +19,25 @@ public class Aluno{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "dataNasc")
-	private Date dataNasc;
-
-	@Column(name="altura")
+	@Column(name="altura", nullable = false)
 	private float altura;
 
-	@Column(name = "peso")
+	@Column(name = "peso", nullable = false)
 	private float peso;
 
 	@OneToOne
-	@JoinColumn(name = "usuario_id")
+	@JoinColumn(name = "usuario_id", nullable = false)
 	private Usuario usuario;
 
+	@Column(nullable = false)
+	private String sexo;
+	
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Date getDataNasc() {
-		return dataNasc;
-	}
-
-	public void setDataNasc(Date dataNasc) {
-		this.dataNasc = dataNasc;
 	}
 
 	public float getAltura() {
@@ -70,6 +62,14 @@ public class Aluno{
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 
 }

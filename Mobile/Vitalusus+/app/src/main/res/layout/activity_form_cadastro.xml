@@ -17,21 +17,11 @@
             android:layout_height="744dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/bg_cadastro" />
-
-        <ImageView
-            android:id="@+id/FormCadastroSeta"
-            android:layout_width="35dp"
-            android:layout_height="39dp"
-            android:layout_marginTop="64dp"
-            android:src="@drawable/ic_seta1"
-            app:tint="#FFFFFF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.042"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/title_cadastre_se_tag"
@@ -49,7 +39,7 @@
         <View
             android:id="@+id/containerComponents"
             style="@style/ContainerComponents"
-            android:layout_height="415dp"
+            android:layout_height="250dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title_cadastre_se_tag" />
@@ -63,83 +53,31 @@
             app:layout_constraintStart_toStartOf="@id/containerComponents"
             app:layout_constraintTop_toTopOf="@id/containerComponents" />
 
+
         <EditText
             android:id="@+id/editFormCadastroLoginEmail"
             style="@style/Edit_text"
             android:hint="E-Mail"
             android:inputType="textEmailAddress"
+            android:maxLength="29"
             app:layout_constraintEnd_toEndOf="@id/containerComponents"
             app:layout_constraintStart_toStartOf="@id/containerComponents"
             app:layout_constraintTop_toBottomOf="@id/editFormCadastroLoginNome" />
 
+
         <EditText
             android:id="@+id/editFormCadastroLoginSenha"
             style="@style/Edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="63dp"
             android:layout_marginTop="16dp"
             android:drawableRight="@drawable/ic_eye"
             android:hint="Senha"
             android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="@id/containerComponents"
+            app:layout_constraintHorizontal_bias="0.163"
             app:layout_constraintStart_toStartOf="@id/containerComponents"
             app:layout_constraintTop_toBottomOf="@id/editFormCadastroLoginEmail" />
-
-        <EditText
-            android:id="@+id/editFormCadastroPergSeguranca"
-            style="@style/Edit_text"
-            android:layout_marginTop="16dp"
-            android:hint="Pergunta de Segurança"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="@id/containerComponents"
-            app:layout_constraintStart_toStartOf="@id/containerComponents"
-            app:layout_constraintTop_toBottomOf="@id/editFormCadastroLoginSenha" />
-
-        <EditText
-            android:id="@+id/editFormCadastroRespSeguranca"
-            style="@style/Edit_text"
-            android:layout_marginTop="16dp"
-            android:hint="Resposta da Pergunta de Segurança"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="@id/containerComponents"
-            app:layout_constraintStart_toStartOf="@id/containerComponents"
-            app:layout_constraintTop_toBottomOf="@id/editFormCadastroPergSeguranca" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnCadastroAvancarPasso"
-            style="@style/Button"
-            android:text="Avançar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/containerComponents" />
-
-        <!--Passo 2-->
-
-        <EditText
-            android:id="@+id/editFormCadastroDataNascimento"
-            style="@style/Edit_text"
-            android:hint="Data de Nascimento"
-            android:inputType="date"
-            app:layout_constraintEnd_toEndOf="@id/containerComponents"
-            app:layout_constraintStart_toStartOf="@id/containerComponents"
-            app:layout_constraintTop_toTopOf="@id/containerComponents" />
-
-        <EditText
-            android:id="@+id/editFormCadastroAltura"
-            style="@style/Edit_text"
-            android:hint="Altura"
-            android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="@id/containerComponents"
-            app:layout_constraintStart_toStartOf="@id/containerComponents"
-            app:layout_constraintTop_toBottomOf="@+id/editFormCadastroDataNascimento" />
-
-        <EditText
-            android:id="@+id/editFormCadastroPeso"
-            style="@style/Edit_text"
-            android:layout_marginTop="16dp"
-            android:hint="Peso"
-            android:inputType="number|numberDecimal"
-            app:layout_constraintEnd_toEndOf="@id/containerComponents"
-            app:layout_constraintStart_toStartOf="@id/containerComponents"
-            app:layout_constraintTop_toBottomOf="@id/editFormCadastroAltura" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnCadastroSalvar"
@@ -161,7 +99,20 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnCadastroAvancarPasso" />
+            app:layout_constraintTop_toBottomOf="@id/btnCadastroSalvar" />
+
+        <TextView
+            android:id="@+id/text_tela_politica"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Ver nossa política de privacidade"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_tela_principal" />
 
         <Button
             android:id="@+id/btnFormCadastroOlharSenha"
@@ -170,7 +121,7 @@
             android:layout_marginTop="320dp"
             android:backgroundTint="#00FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.853"
+            app:layout_constraintHorizontal_bias="0.861"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

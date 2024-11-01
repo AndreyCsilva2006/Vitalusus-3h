@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name="Comentario")
 @AllArgsConstructor
@@ -17,17 +19,20 @@ public class Comentario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="texto")
+    @Column(name="texto", nullable = false)
     @NotBlank(message = "campo não preenchido")
     private String texto;
 
     @ManyToOne
-    @JoinColumn(name="aluno_id")
+    @JoinColumn(name="aluno_id", nullable = false)
     private Aluno aluno;
 
     @ManyToOne
-    @JoinColumn(name="videoaula_id")
+    @JoinColumn(name="videoaula_id", nullable = false)
     private Videoaula videoaula;
+
+	@Column(nullable = false)
+	private LocalDateTime dataPubli;
 
 	public Long getId() {
 		return id;
@@ -60,6 +65,12 @@ public class Comentario {
 	public void setVideoaula(Videoaula videoaula) {
 		this.videoaula = videoaula;
 	}
-    
 
+	public LocalDateTime getDataPubli() {
+		return dataPubli;
+	}
+
+	public void setDataPubli(LocalDateTime dataPubli) {
+		this.dataPubli = dataPubli;
+	}
 }

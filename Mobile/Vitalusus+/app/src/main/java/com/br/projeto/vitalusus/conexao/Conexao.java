@@ -20,8 +20,7 @@ public class Conexao {
         String ip = "192.168.1.110:1433";
         String db = "bd_vitalusus2h";
         String user = "sa";
-        String senha = "admin123";
-
+        String senha = "@ITB123456";
         String connString = "jdbc:jtds:sqlserver://" + ip + ";databaseName=" + db + ";user=" + user + ";password=" + senha + ";";
         conn = DriverManager.getConnection(connString);
 

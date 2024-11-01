@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -47,11 +50,9 @@ public class AdminService {
             admin.setListaUsuarios(new ArrayList<>());
         }
         Usuario usuario = admin.getUsuario();
-        if(admin != null) {
         usuario.setTipoUsuario("ADMINISTRADOR");
         usuario.setNivelAcesso("ADMIN");
         usuarioService.save(usuario);
-        }
         admin.setNumeroUsuarios(admin.getListaUsuarios().size());
         return adminRepository.save(admin);
     }

@@ -22,18 +22,18 @@ public class Treinador{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name="cref")
+	@Column(name="cref", nullable = false)
 	@NotBlank(message = "campo não preenchido")
 	@CREF(message ="campo inválido")
 	private String cref;
- 
-	@Column(name="dataNasc")
-	private Date dataNasc;
-	
+
+
 	@OneToOne
 	@JoinColumn(name = "usuario_id",nullable=false)
 	private Usuario usuario;
 
+	@Column(nullable = false)
+	private String genero;
 
 	public Long getId() {
 		return id;
@@ -51,14 +51,6 @@ public class Treinador{
 		this.cref = cref;
 	}
 
-	public Date getDataNasc() {
-		return dataNasc;
-	}
-
-	public void setDataNasc(Date dataNasc) {
-		this.dataNasc = dataNasc;
-	}
-
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -66,5 +58,15 @@ public class Treinador{
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+	
+	
 	
 }

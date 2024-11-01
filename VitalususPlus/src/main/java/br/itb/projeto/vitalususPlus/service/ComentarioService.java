@@ -6,6 +6,7 @@ import br.itb.projeto.vitalususPlus.model.repository.ComentarioRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,9 @@ public class ComentarioService {
         List<Comentario> listaComentarios = comentarioRepository.findAll();
         return listaComentarios;
     }
+    public List<Comentario> findAllByVideoaula(Videoaula videoaula){
+        return comentarioRepository.findAllByVideoaula(videoaula);
+    }
     public Comentario findById(long id) {
         Optional<Comentario> comentario = this.comentarioRepository.findById(id);
         return comentario.orElseThrow(() -> new RuntimeException(
@@ -30,6 +34,7 @@ public class ComentarioService {
     @Transactional
     public Comentario save(Comentario comentario){
         comentario.setId(null);
+        comentario.setDataPubli(LocalDateTime.now());
         return comentarioRepository.save(comentario);
     }
     public void delete(Comentario comentario) {

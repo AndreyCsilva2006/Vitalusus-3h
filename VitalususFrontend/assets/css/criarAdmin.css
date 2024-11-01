@@ -1,0 +1,163 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: black;
+  color: var(--light-color);
+}
+
+.logo {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.container1 {
+  width: 100%;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: var(--dark-color2);
+  box-shadow: 0 0 15px var(--danger-color);
+  border-radius: 8px;
+}
+
+#botao {
+  color: var(--light-color);
+  background-color: var(--danger-color);
+}
+
+.cabesalho {
+  margin-top: 205px;
+  text-align: center;
+}
+
+.cabesalho h1 {
+  font-size: 2.5rem;
+  color: var(--danger-color);
+}
+
+.cabesalho p {
+  font-size: 1.1rem;
+  color: var(--light-color);
+}
+
+.form-section {
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  color: var(--light-color);
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.btn i {
+  margin-right: 5px;
+}
+
+.table-section {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th, table td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid var(--danger-color);
+}
+
+table th {
+  background-color: var(--danger-color);
+  color: var(--light-color);
+}
+
+table td a {
+  color: var(--danger-color);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+table td a:hover {
+  color: var(--light-color);
+}
+
+button {
+  padding: 8px 12px;
+  margin: 5px;
+  background-color: var(--danger-color);
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: var(--bs-red);
+}
+
+button.delete-btn {
+  background-color: #dc3545;
+}
+
+button.delete-btn:hover {
+  background-color: #c82333;
+}
+
+footer {
+  background-color: #007bff;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 40px;
+}
+
+footer p {
+  font-size: 0.9rem;
+}
+

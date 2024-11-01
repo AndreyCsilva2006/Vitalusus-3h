@@ -1,5 +1,8 @@
 package br.itb.projeto.vitalususPlus.service;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -23,17 +26,16 @@ public class CanalService {
 	private final VideoaulaService videoaulaService;
 	private final TreinadorService treinadorService;
 	private final UsuarioService usuarioService;
+	private final EquipamentoService equipamentoService;
 
-	public CanalService(CanalRepository canalRepository, SeguidorRepository seguidorRepository,
-			AlunoService alunoService, VideoaulaService videoaulaService, TreinadorService treinadorService,
-			UsuarioService usuarioService) {
-		super();
+	public CanalService(CanalRepository canalRepository, SeguidorRepository seguidorRepository, AlunoService alunoService, VideoaulaService videoaulaService, TreinadorService treinadorService, UsuarioService usuarioService, EquipamentoService equipamentoService) {
 		this.canalRepository = canalRepository;
 		this.seguidorRepository = seguidorRepository;
 		this.alunoService = alunoService;
 		this.videoaulaService = videoaulaService;
 		this.treinadorService = treinadorService;
 		this.usuarioService = usuarioService;
+		this.equipamentoService = equipamentoService;
 	}
 
 	@Transactional
@@ -160,11 +162,13 @@ public class CanalService {
 		return null;
 	}
 	@Transactional
-	public Canal addVideoaula(long id, Videoaula videoaula){
+	public Canal addVideoaula(long id, Videoaula videoaula, long equipamentoId){
 		Optional<Canal> canalOptional = canalRepository.findById(id);
 		if (canalOptional.isPresent()){
 			Canal _canal = canalOptional.get();
 			videoaula.setCanal(_canal);
+			Equipamento equipamento =  equipamentoService.findById(equipamentoId);
+			videoaula.setEquipamento(equipamento);
 			Videoaula _videoaula = videoaulaService.save(videoaula);
 			_canal.getVideoaulas().add(_videoaula);
 			_canal = updateFix(_canal.getId());
@@ -228,7 +232,7 @@ public class CanalService {
 		}
 		return null;
 	}
-	
+
 	@Transactional
 	public Canal updateBio(Long id, Canal canal) {
 		Optional<Canal> _canal = canalRepository.findById(id);
