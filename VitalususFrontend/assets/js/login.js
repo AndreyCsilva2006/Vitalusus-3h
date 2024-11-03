@@ -45,8 +45,8 @@ loginSenha = data.treinador.usuario.senha
             if (!response.ok) {
                 const errorData = await response.json();
                 const errorCode = errorData.code || 'Código desconhecido';
-                const errorMessage = errorData.message;
-                window.alert(errorMessage)
+                const errorMessage = await errorData.message;
+                alert(await errorMessage)
                 throw new Error(`Erro ${errorCode}: ${errorMessage}`);
             }
     
