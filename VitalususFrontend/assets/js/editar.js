@@ -89,8 +89,8 @@ function loadingFormEditar(videoaula){
         }
     };
 
-function updateVideo() {
-    
+function updateVideo(event) {
+    event.preventDefault()
 
     const data = {
         titulo: titulo.value,
@@ -105,25 +105,28 @@ function updateVideo() {
 
     // Enviar dados atualizados para o backend
     //mexa aqui OTTO
+    const fetchData = async()=>{
+        try{
+    const response = await
     fetch(`https://vitalusus-deploy.onrender.com/vitalusus/videoaula/updateGeral/${idVideoEditar.value}`, {
         method: 'PUT', // Usando PUT para atualizar
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
+    });
+        if (!response.ok) {
+            const errorData = await response.json()
+            console.log(errorData.message)
         }
-        throw new Error('Erro na atualização');
-    })
-    .then(data => {
-        console.log('Atualização bem-sucedida:', data);
+        const data2 = await response.json()
+        console.log('Atualização bem-sucedida:', data2);
         // Redirecionar para a página do Canal
         window.location.href = 'canal.html';
-    })
-    .catch((error) => {
+    }
+    catch(error){
         console.error('Erro:', error);
-    });
+    };
+}
+fetchData()
 }
