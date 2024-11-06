@@ -14,8 +14,9 @@ if(canalDataExibir){
       document.getElementById('pagina-perfil-bio').value = canalDataExibir.bio
       document.getElementById('editar-bio-canal').value = canalDataExibir.bio
    
-document.getElementById('editar-nome-canal').value = canalDataExibir.nome
  }
+ document.getElementById('editar-nome-canal').value = canalDataExibir.nome
+
 }
 
 let imgPerfilJava; // Variável para armazenar a imagem escolhida
