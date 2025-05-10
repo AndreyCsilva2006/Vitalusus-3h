@@ -1,6 +1,6 @@
-*==ADMIN==*
+<h1>ADMIN</h1>
 
-ATRIBUTOS
+<h2>ATRIBUTOS</h2>
 id (é um long que representa o número de identificação do administrador)
 usuario (é o objeto Usuario que está ligado ao objeto Admin)
 listaUsuarios (é a lista de usuários que o administrador administra)
