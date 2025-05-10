@@ -11,25 +11,25 @@
 
 <h2>ENDPOINTS</h2>
 <h3>FIND ALL (GET)</h3>
-<a>http://localhost:8080/vitalusus/admin/findAll</a>
+http://localhost:8080/vitalusus/admin/findAll
 
 <h3>FIND BY ID (GET)</h3>
-<a>http://localhost:8080/vitalusus/admin/findById/{id}</a>
+http://localhost:8080/vitalusus/admin/findById/{id}
 
 <h3>FIND BY ID (POST)</h3>
-<a>http://localhost:8080/vitalusus/admin/findById/</a>
+<a>http://localhost:8080/vitalusus/admin/findById/
 
 <h3>CRIAR UM NOVO ADMINISTRADOR E SUA RESPECTIVA CONTA DE USUÁRIO (POST)</h3>
-<a>http://localhost:8080/vitalusus/admin/post</a>
+http://localhost:8080/vitalusus/admin/post
 
 <h3>ARRUMAR AUTOMATICAMENTE O NÚMERO DE USUÁRIOS ADMINISTRADOS (PUT)</h3>
-<a>http://localhost:8080/vitalusus/admin/updateFix/{id}</a>
+http://localhost:8080/vitalusus/admin/updateFix/{id}
 
 <h3>ADICIONAR USUÁRIO A SER ADMINISTRADO (PUT)</h3>
-<a>http://localhost:8080/vitalusus/admin/addUsuariosAdministrados/{id}/{usuarioId}</a>
+http://localhost:8080/vitalusus/admin/addUsuariosAdministrados/{id}/{usuarioId}
 
 <h3>REMOVER USUÁRIO ADMINISTRADO (PUT)</h3>
-<a>http://localhost:8080/vitalusus/admin/removeUsuariosAdministrados/{id}/{usaurioId}</a>
+http://localhost:8080/vitalusus/admin/removeUsuariosAdministrados/{id}/{usaurioId}
 
 ###
 
