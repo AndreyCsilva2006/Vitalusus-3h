@@ -1,11 +1,11 @@
 <h1>ADMIN</h1>
 
 <h2>ATRIBUTOS</h2>
-id (é um long que representa o número de identificação do administrador)
-usuario (é o objeto Usuario que está ligado ao objeto Admin)
-listaUsuarios (é a lista de usuários que o administrador administra)
-numeroUsuarios (é um int que conta a quantidade de usuários que administrador administra)
-dataNasc (é um Date que representa a data de nascimento do administrador)
+<p><strong>id</strong> (é um long que representa o número de identificação do administrador)</p>
+<p><strong>usuario</strong> (é o objeto Usuario que está ligado ao objeto Admin)</p>
+<p><strong>listaUsuarios</strong> (é a lista de usuários que o administrador administra)</p>
+<p><strong>numeroUsuarios</strong> (é um int que conta a quantidade de usuários que administrador administra)</p>
+<p><strong>dataNasc</strong> (é um Date que representa a data de nascimento do administrador)</p>
 
 ENDPOINTS
 FIND ALL (GET)
