@@ -7,6 +7,8 @@
 <p><strong>numeroUsuarios</strong> (é um int que conta a quantidade de usuários que administrador administra)</p>
 <p><strong>dataNasc</strong> (é um Date que representa a data de nascimento do administrador)</p>
 
+###
+
 <h2>ENDPOINTS</h2>
 <h3>FIND ALL (GET)</h3>
 http://localhost:8080/vitalusus/admin/findAll
@@ -29,6 +31,7 @@ http://localhost:8080/vitalusus/admin/addUsuariosAdministrados/{id}/{usuarioId}
 <h3>REMOVER USUÁRIO ADMINISTRADO (PUT)</h3>
 http://localhost:8080/vitalusus/admin/removeUsuariosAdministrados/{id}/{usaurioId}
 
+###
 
 *==ALUNO==*
 
