@@ -7,26 +7,26 @@
 <p><strong>numeroUsuarios</strong> (é um int que conta a quantidade de usuários que administrador administra)</p>
 <p><strong>dataNasc</strong> (é um Date que representa a data de nascimento do administrador)</p>
 
-ENDPOINTS
-FIND ALL (GET)
+<h2>ENDPOINTS</h2>
+<h3>FIND ALL (GET)</h3>
 http://localhost:8080/vitalusus/admin/findAll
 
-FIND BY ID (GET)
+<h3>FIND BY ID (GET)</h3>
 http://localhost:8080/vitalusus/admin/findById/{id}
 
-FIND BY ID (POST)
+<h3>FIND BY ID (POST)</h3>
 http://localhost:8080/vitalusus/admin/findById/
 
-CRIAR UM NOVO ADMINISTRADOR E SUA RESPECTIVA CONTA DE USUÁRIO (POST)
+<h3>CRIAR UM NOVO ADMINISTRADOR E SUA RESPECTIVA CONTA DE USUÁRIO (POST)</h3>
 http://localhost:8080/vitalusus/admin/post
 
-ARRUMAR AUTOMATICAMENTE O NÚMERO DE USUÁRIOS ADMINISTRADOS (PUT)
+<h3>ARRUMAR AUTOMATICAMENTE O NÚMERO DE USUÁRIOS ADMINISTRADOS (PUT)</h3>
 http://localhost:8080/vitalusus/admin/updateFix/{id}
 
-ADICIONAR USUÁRIO A SER ADMINISTRADO (PUT)
+<h3>ADICIONAR USUÁRIO A SER ADMINISTRADO (PUT)</h3>
 http://localhost:8080/vitalusus/admin/addUsuariosAdministrados/{id}/{usuarioId}
 
-REMOVER USUÁRIO ADMINISTRADO (PUT)
+<h3>REMOVER USUÁRIO ADMINISTRADO (PUT)</h3>
 http://localhost:8080/vitalusus/admin/removeUsuariosAdministrados/{id}/{usaurioId}
 
 
